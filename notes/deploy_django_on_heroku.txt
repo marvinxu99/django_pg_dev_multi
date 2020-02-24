@@ -39,4 +39,18 @@ TIPS:
         gunicorn
         django-heroku
 
-(3) 
+(3) Deploying Python Applications with Gunicorn 
+    https://devcenter.heroku.com/articles/python-gunicorn
+
+    Gunicorn is a pure-Python HTTP server for WSGI applications. It allows 
+    you to run any Python application concurrently by running multiple 
+    Python processes within a single dyno. It provides a perfect balance 
+    of performance, flexibility, and configuration simplicity.
+
+    Gunicorn forks multiple system processes within each dyno to allow a 
+    Python app to support multiple concurrent requests without requiring them 
+    to be thread-safe.
+    
+      - pip install gunicorn
+      - Add to Procfile: web: gunicorn gettingstarted.wsgi
+      - heroku config:set WEB_CONCURRENCY=3
