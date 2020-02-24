@@ -1,0 +1,1 @@
+C:\Users\Marvin\AppData\Local\Programs\Python\Python38-32\Lib\site-packages\django\contrib\admin\templates\admin

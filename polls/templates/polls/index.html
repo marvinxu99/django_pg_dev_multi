@@ -1,0 +1,18 @@
+{% extends "polls/layout_general.html" %}
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<h2>Select an app to run:</h2>
+<ul>
+    <li><a href="polls/">Polls app site (Python + Django + Sqlite3)</a></li>
+    <li><a href="admin/">Polls admin site</a></li>
+</ul>
+<h2>Select a sister website to browse:</h2>
+<ul>
+    <li><a href="winter_winnpy/">Winter WinnPy (React + Node + Firebase + OAuth)</a></li>
+    <li><a href="winter_univer/">Winter's Website (Python + Flask)</a></li>
+    <li><a href="face_recognition/">Smart Face Recognition (React + Node + PostgreSQL)</a></li>
+</ul>
+{% endblock %}

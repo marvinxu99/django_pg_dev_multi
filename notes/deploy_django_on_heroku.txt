@@ -1,0 +1,5 @@
+https://devcenter.heroku.com/articles/getting-started-with-python#set-up
+
+DEPLOYING PYTHON AND DJANGO APPS ON HEROKU
+https://devcenter.heroku.com/articles/deploying-python
+

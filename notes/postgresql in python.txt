@@ -1,0 +1,29 @@
+https://devcenter.heroku.com/articles/heroku-postgresql#connecting-with-django
+
+CONNECTING IN PYTHON:
+(1) To use PostgreSQL as your database in Python applications you will need to use the psycopg2 package.
+
+    $ pip install psycopg2-binary
+
+(2) And use this package to connect to DATABASE_URL in your code.
+
+    import os
+    import psycopg2
+
+    DATABASE_URL = os.environ['DATABASE_URL']
+
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
+
+CONEECTING WITH django:
+(1) In addition to pscopg2, also install the dj-database-url package using pip. 
+    $ pip install dj-database-url
+
+    **Be sure to add psycopg2-binary and dj-database-url to your requirements.txt file as well**
+
+(2) Then add the following to the bottom of settings.py:
+    
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+    This will parse the values of the DATABASE_URL environment variable and convert them to something Django can understand.
