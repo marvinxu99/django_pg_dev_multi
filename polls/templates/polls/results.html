@@ -1,4 +1,4 @@
-{% extends "polls/layout_general.html" %}
+{% extends "polls/layout_generic.html" %}
 {% block title %}
 Results
 {% endblock %}
@@ -10,6 +10,6 @@ Results
     <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
     {% endfor %}
 </ul>
-<a href="{% url 'polls:detail' question.id %}">Vote again?</a><br>
+<a href="{% url 'polls:detail' question.question_id %}">Vote again?</a><br>
 <a href="{% url 'polls:question' %}">Back to questions</a>
 {% endblock %}

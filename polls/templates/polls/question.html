@@ -1,4 +1,4 @@
-{% extends "polls/layout_general.html" %}
+{% extends "polls/layout_generic.html" %}
 {% block title %}
 Questions
 {% endblock %}
@@ -8,7 +8,7 @@ Questions
 <h1>Click on a question to vote:</h1>
 <ul>
     {% for question in latest_question_list %}
-    <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    <li><a href="{% url 'polls:detail' question.question_id %}">{{ question.question_text }}</a></li>
     {% endfor %}
 </ul>
 {% else %}
