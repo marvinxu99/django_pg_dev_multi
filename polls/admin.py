@@ -1,7 +1,7 @@
 # Custom Admin Page:
 # https://docs.djangoproject.com/en/3.0/intro/tutorial07/
 from django.contrib import admin
-from .models import Question, Choice, Person
+from .models import Question, Choice, Person, Person_Alias, CodeValue
 
 
 class ChoiceInline(admin.TabularInline):
@@ -32,6 +32,15 @@ class QuestionAdmin(admin.ModelAdmin):
     search_fields = ['question_text']
 
 
+class PersonAliasInline(admin.TabularInline):
+    """
+    Using TabularInline (instead of StackedInline), the related objects 
+    are displayed in a more compact, table-based format:
+    """
+    model = Person_Alias
+    extra = 2
+
+
 class PersonAdmin(admin.ModelAdmin):
     """
     Replacing admin.site.register(Question) with admin.site.register(Question, QuestionAdmin).
@@ -46,12 +55,15 @@ class PersonAdmin(admin.ModelAdmin):
                     'person_type_cd',
                     'is_active',
                     'active_status_cd',
-                    'active_status_dttm',
-                    'created_dttm',
+                    'active_status_dt_tm',
+                    'created_dt_tm',
                     )
     list_filter = ['name_last', 'name_first']
     search_fields = ['name_full_formatted']
+    inlines = [PersonAliasInline]
 
 
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Person, PersonAdmin)
+admin.site.register(CodeValue)
+

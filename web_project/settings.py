@@ -14,6 +14,12 @@ import os
 import environ
 import django_heroku
 
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+env.read_env()   # reading .env file
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -79,12 +85,20 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 # Email backend
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = os.environ.get('MY_GMAIL')
-EMAIL_HOST_PASSWORD = os.environ.get('MY_GMAIL_PASSWORD')
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-# EMAIL_USE_SSL = True
-# EMAIL_PORT = 465
+if os.environ.get("ENVIRONMENT") == "PROD":
+    EMAIL_HOST_USER = os.environ.get('MY_GMAIL')
+    EMAIL_HOST_PASSWORD = os.environ.get('MY_GMAIL_PASSWORD')
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = 587
+    # EMAIL_USE_SSL = True
+    # EMAIL_PORT = 465
+else:
+    EMAIL_HOST_USER = env.str('MY_GMAIL')
+    EMAIL_HOST_PASSWORD = env.str('MY_GMAIL_PASSWORD')
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = 587
+    # EMAIL_USE_SSL = True
+    # EMAIL_PORT = 465
 
 
 # Database
@@ -92,16 +106,45 @@ EMAIL_PORT = 587
 # mysql wheels: https://www.lfd.uci.edu/~gohlke/pythonlibs/
 # postgreSQL: https://docs.djangoproject.com/en/3.0/ref/databases/
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'winndb_poll_prod',
-        'USER': 'winter',
-        'PASSWORD': 'winter',
-        'HOST': 'localhost',
-        'PORT': '5432',
+if os.environ.get("ENVIRONMENT") == "PROD":  
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'winndb_poll_prod',
+            'USER': 'winter',
+            'PASSWORD': 'winter',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
     }
-}
+else: 
+    DATABASES = {
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.sqlite3',
+        #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # }
+
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.mysql',
+        #     'NAME': 'winndb_poll',
+        #     'USER': 'winter',
+        #     'PASSWORD': 'winter',
+        #     'HOST': 'localhost',
+        #     'PORT': '',
+        #     # 'OPTIONS': {
+        #     #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        #     #     }
+        # }
+
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'winndb_poll_dev',
+            'USER': 'winter',
+            'PASSWORD': 'winter',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 
 # Password validation
