@@ -23,4 +23,5 @@ virtualenv==20.0.9
 virtualenvwrapper-win==1.2.6
 whitenoise==5.0.1
 wrapt==1.11.2
-gunicorn
+mysqlclient
+gunicorn 
