@@ -8,9 +8,11 @@
 # (2) Install ghostscript    - 32bit
 
 
-# Another solution is to (1) edit the 
+# Another solution is to 
+# (1) edit the 
 # C:\Users\Windows.UserName\AppData\Local\Programs\Python\Python37\Lib\site-packages\treepoem__init__.py
 # the script is looking for gs.exe, change to gswin32.exe as shown below.
+
 # (2) Then add the GhostScriptInstallDir\bin in the PATH in windows.
 
 # def _get_ghostscript_binary():
