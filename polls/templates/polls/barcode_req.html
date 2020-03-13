@@ -7,20 +7,20 @@ Barcode Generator
 <h2>Barcode Generator</h2>
 
 <div style='padding:20px'>
-    <form action="{% url 'polls:barcode_disp'%}" method="post">
+    <form action="{% url 'polls:barcode_disp' %}" method="post">
         {% csrf_token %}
         
-        <h3>(1) Select a barcode type: </h3>
+        <h3>1. Select a barcode type: </h3>
         {% for barcode_type in barcode_types %}
-        <input type="radio" name="barcode_type" id="barcode_type{{ forloop.counter }}" value="{{ barcode_type }}">
-        <label for="barcode_type{{ forloop.counter }}">{{ barcode_type }}</label><br>
+        <input type="radio" name="barcode_type" id="barcode_type{{ forloop.counter }}" value="{{ barcode_type.0 }}">
+        <label for="barcode_type{{ forloop.counter }}">{{ barcode_type.1 }}</label><br>
         {% endfor %}
     
 
-        <h3>(2) Type in the data to be included in the barcode:  </h3>
+        <h3>2. Type in the data to be included in the barcode:  </h3>
         <input type='text' name='barcode_data' id='barcode_data' value="" placeholder="your data">
 
-        <h3>(3) click on the button to generate a barcode</h3>
+        <h3>3. Click on the button to generate a barcode</h3>
         <input type="submit" value="Generate Barcode">
     </form>
 </div>

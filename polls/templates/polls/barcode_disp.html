@@ -5,9 +5,23 @@ Barcode Generator
 
 {% block content %}
 
-<h2>Here is your barcode.</h2>
+<h2>Here is your barcode:</h2>
 
+<!--
+<img src="{{ barcode_url }}" alt="barcode image" />
+<img src="barcode.png" alt="barcode image" />
+-->
+</p>
+<div>
+    {% load static %}
+    <img src="{% static 'barcode.png' %}" alt="barcode image">
+    <p>
+        data: {{ barcode_data }} <br>
+        type: {{ code_type }}
+    </p>
 
-
+</div>
+</p>
+</p>
 
 {% endblock %}

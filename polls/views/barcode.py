@@ -28,31 +28,46 @@
 #
 
 from django.shortcuts import render
-#from django.utils import timezone
+from django.conf import settings
 import datetime
+import os
 
 import treepoem
 
 
-def generate_barcode(text=None):
-    data = text
+def generate_barcode(text=None, file_name=None, code_type="datamatrix"):
     if text is not None:
         data = text
     else:
         data = 'Winter WinnPy'
     
     image = treepoem.generate_barcode(
-        barcode_type='qrcode',
-        data=data
-        )
+        barcode_type = code_type,
+        data = data
+    )
 
-    # file_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
-    # image.convert('1').save(file_name)
-    image.convert('1').save('barcode.png')
+    if file_name is None:
+        # /generated_barcode/
+        f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
+        # f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
+        f_name = 'barcode.png'
+        img_file = f_path + "\\" + f_name
+    else:
+        img_file = file_name
+
+    print(img_file)
+    image.convert('1').save(img_file)
+    # image.convert('1').save('barcode.png')
 
 
 def barcode_req(request):
-    barcode_types = ['QR Code', 'other code']    
+    # barcode_types = ['QR Code', 'other code']    
+    
+    barcode_types = [
+        ("datamatrix", "Data Matrix"),
+        ("qrcode", "QR Code"),
+    ]    
+      
     context = {
             'barcode_types': barcode_types,
         }
@@ -60,8 +75,27 @@ def barcode_req(request):
 
 
 def barcode_disp(request):
+    print(request.POST['barcode_type'])
+    print(request.POST['barcode_data'])
+    print(settings.BASE_DIR)
+
+    text = request.POST['barcode_data']
+    code_type = request.POST['barcode_type']
+
+    generate_barcode(text=text, code_type=code_type)
+
+    f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
+    f_name = 'barcode.png'
+    file_name = f_path + "\\" + f_name
+
+    context = {
+            'barcode_url': file_name,
+            'barcode_data': text,
+            'code_type': code_type,
+        }
+
         
-    return render(request, 'polls/barcode_disp.html')
+    return render(request, 'polls/barcode_disp.html', context)
 
 
 if __name__ == "__main__":
