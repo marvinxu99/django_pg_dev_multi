@@ -191,10 +191,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected')
 #     os.path.join(BASE_DIR, "static"),
 #     os.path.join(BASE_DIR, "generated_codes"),
 # ]
-STATICFILES_DIRS = [
-    "/static/",
-    "/generated_codes/",
-]
+# STATICFILES_DIRS = [
+#     "/static/",
+#     "/generated_codes/",
+# ]
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = '/media/'
