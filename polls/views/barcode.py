@@ -44,7 +44,8 @@ def generate_barcode(text=None, file_name=None, code_type="datamatrix"):
     
     image = treepoem.generate_barcode(
         barcode_type = code_type,
-        data = data
+        data = data,
+        options={"eclevel": "Q"}
     )
 
     if file_name is None:
@@ -59,7 +60,7 @@ def generate_barcode(text=None, file_name=None, code_type="datamatrix"):
 
     print(img_file) 
     # image.convert('1').save(img_file)
-    image.convert('1').save('barcode.png')
+    image.convert("1").save("barcode.png", )
 
 
 def barcode_req(request):
