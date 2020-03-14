@@ -96,11 +96,12 @@ def barcode_disp(request):
     # generate_barcode(text=text, code_type=code_type)
 
     # /generated_barcode/
-    f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
-    #f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
-    f_name = 'barcode'
-    img_file = os.path.join(f_path, f_name + '.png')
+    # f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
+    # #f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
+    # f_name = 'barcode'
+    # img_file = os.path.join(f_path, f_name + '.png')
 
+    img_file = "barcode.png"
     print(img_file) 
 
     context = {
