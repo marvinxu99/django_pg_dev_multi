@@ -33,7 +33,6 @@ from django.shortcuts import render
 from django.conf import settings
 import datetime
 import os
-
 import treepoem
 
 
