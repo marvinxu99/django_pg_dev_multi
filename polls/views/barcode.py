@@ -57,7 +57,7 @@ def generate_barcode(text=None, file_name=None, code_type="datamatrix"):
     else:
         img_file = file_name
 
-    print(img_file)
+    print(img_file) 
     # image.convert('1').save(img_file)
     image.convert('1').save('barcode.png')
 
