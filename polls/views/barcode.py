@@ -33,7 +33,7 @@ from django.shortcuts import render
 from django.conf import settings
 import datetime
 import os
-import treepoem
+#import treepoem
 
 
 # def generate_barcode(text=None, file_name=None, code_type="datamatrix"):
@@ -113,7 +113,7 @@ def barcode_disp(request):
     return render(request, 'polls/barcode_disp.html', context)
 
 
-if __name__ == "__main__":
-    generate_barcode()
+# if __name__ == "__main__":
+#     generate_barcode()
 
 
