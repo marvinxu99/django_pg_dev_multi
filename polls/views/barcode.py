@@ -36,36 +36,36 @@ import os
 import treepoem
 
 
-def generate_barcode(text=None, file_name=None, code_type="datamatrix"):
-    if text is not None:
-        data = text
-    else:
-        data = 'Winter WinnPy'
+# def generate_barcode(text=None, file_name=None, code_type="datamatrix"):
+#     if text is not None:
+#         data = text
+#     else:
+#         data = 'Winter WinnPy'
 
-    print("before generate_barcode...")
+#     print("before generate_barcode...")
 
 
-    image = treepoem.generate_barcode(
-        barcode_type = code_type,
-        data = data,
-        options={"eclevel": "Q"}
-    )
+#     image = treepoem.generate_barcode(
+#         barcode_type = code_type,
+#         data = data,
+#         options={"eclevel": "Q"}
+#     )
 
-    print("after generate_barcode...")
+#     print("after generate_barcode...")
 
-    if file_name is None:
-        # /generated_barcode/
-        f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
-        #f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
-        f_name = 'barcode'
-        img_file = os.path.join(f_path, f_name + '.png')
-    else:
-        img_file = file_name
+#     if file_name is None:
+#         # /generated_barcode/
+#         f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
+#         #f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
+#         f_name = 'barcode'
+#         img_file = os.path.join(f_path, f_name + '.png')
+#     else:
+#         img_file = file_name
 
-    print(img_file) 
+#     print(img_file) 
     
-    image.convert('1').save(img_file, )
-    #image.convert("1").save("barcode.png", )
+#     image.convert('1').save(img_file, )
+#     #image.convert("1").save("barcode.png", )
 
 
 def barcode_req(request):
