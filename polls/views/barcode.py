@@ -44,6 +44,7 @@ def generate_barcode(text=None, file_name=None, code_type="datamatrix"):
 
     print("before generate_barcode...")
 
+
     image = treepoem.generate_barcode(
         barcode_type = code_type,
         data = data,
@@ -82,14 +83,17 @@ def barcode_req(request):
 
 
 def barcode_disp(request):
+
+    # DEBUG ----------
     print(request.POST['barcode_type'])
     print(request.POST['barcode_data'])
     print(settings.BASE_DIR)
+    # DEBUG ----------
 
     text = request.POST['barcode_data']
     code_type = request.POST['barcode_type']
 
-    generate_barcode(text=text, code_type=code_type)
+    # generate_barcode(text=text, code_type=code_type)
 
     # /generated_barcode/
     f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
