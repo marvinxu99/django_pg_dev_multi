@@ -10,10 +10,10 @@
 
 # Another solution is to 
 # (1) edit the 
-# C:\Users\Windows.UserName\AppData\Local\Programs\Python\Python37\Lib\site-packages\treepoem__init__.py
+# C:\Users\marvi\AppData\Local\Programs\Python\Python38-32\Lib\site-packages\treepoem\treepoem__init__.py
 # the script is looking for gs.exe, change to gswin32.exe as shown below.
 
-# (2) Then add the GhostScriptInstallDir\bin in the PATH in windows.
+# (2) OR change change gswin32c.exe to gs.exe, then add the C:\Program Files (x86)\gs\gs9.50\bin in the PATH in windows.
 
 # def _get_ghostscript_binary():
 #     binary = "gswin32c" # changed from 'gs' to 'gswin32c'
