@@ -189,10 +189,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected')
 
 # addin the following will cause HEROU rejected to deploy????
 # but works locally???heroku
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-#     os.path.join(BASE_DIR, "generated_codes"),
-# ]
+if os.environ.get("ENVIRONMENT") != "PROD":
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "static"),
+        os.path.join(BASE_DIR, "generated_codes"),
+    ]
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = '/media/'
