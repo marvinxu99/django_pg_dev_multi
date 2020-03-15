@@ -53,10 +53,11 @@ def generate_barcode(text=None, file_name=None, code_type="datamatrix"):
 
     if file_name is None:
         # /generated_barcode/
-        f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
-        #f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
-        f_name = 'barcode'
-        img_file = os.path.join(f_path, f_name + '.png')
+        # f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
+        f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
+        # f_name = 'barcode'
+        # img_file = os.path.join(f_path, f_name + '.png')
+        img_file = f_name
     else:
         img_file = file_name
 
@@ -91,16 +92,15 @@ def barcode_disp(request):
     text = request.POST['barcode_data']
     code_type = request.POST['barcode_type']
 
-    generate_barcode(text=text, code_type=code_type)
-
     # /generated_barcode/
     f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
-    #f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
-    f_name = 'barcode'
+    f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
+    #f_name = 'barcode'
     img_file = os.path.join(f_path, f_name + '.png')
 
-    # img_file = "barcode.png"
     print("file=" + img_file) 
+
+    generate_barcode(text=text, file_name=img_file, code_type=code_type)
 
     context = {
             'barcode_url': img_file,
