@@ -42,7 +42,7 @@ def generate_barcode(text=None, code_type="datamatrix", file_name=None):
     else:
         data = 'Winter WinnPy'
 
-    print("3. before generate_barcode...")
+    print("3. before treepoem generate_barcode...")
 
     image = treepoem.generate_barcode(
         barcode_type = code_type,
@@ -50,13 +50,13 @@ def generate_barcode(text=None, code_type="datamatrix", file_name=None):
         options={"eclevel": "Q"}
     )
 
-    print("4. after generate_barcode...")
+    print("4. after treepoem generate_barcode...")
 
     if file_name is None:
         # /generated_barcode/
         f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
         # f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-        f_name = 'barcode1'
+        f_name = 'barcode'
         img_file = os.path.join(f_path, f_name + '.png')
     else:
         img_file = file_name
