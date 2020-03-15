@@ -33,7 +33,7 @@ SECRET_KEY = "CHANGE_ME!!!! (P.S. the SECRET_KEY environment variable will be us
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.environ.get("ENVIRONMENT") == "PROD":
-    DEBUG = False
+    DEBUG = True
     DOMAIN = 'PROD'
 else:
     DEBUG = True

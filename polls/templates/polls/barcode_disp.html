@@ -13,8 +13,13 @@ Barcode Generator
 -->
 </p>
 <div>
+    <!--
     {% load static %}
     <img src="{% static 'barcode.png' %}" alt="barcode image">
+    -->
+    {% load static %}
+    <img src={{ barcode_url }} alt="barcode image" />
+
     <p>
         data: {{ barcode_data }} <br>
         type: {{ code_type }}

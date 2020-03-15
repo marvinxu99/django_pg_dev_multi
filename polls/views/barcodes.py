@@ -101,8 +101,8 @@ def barcode_disp(request):
     f_name = 'barcode'
     img_file = os.path.join(f_path, f_name + '.png')
 
-    img_file = "barcode.png"
-    print(img_file) 
+    # img_file = "barcode.png"
+    print("file=" + img_file) 
 
 
     context = {
