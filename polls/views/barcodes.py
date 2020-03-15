@@ -29,6 +29,7 @@
 
 from django.shortcuts import render
 from django.conf import settings
+import threading
 import datetime
 import os
 import treepoem
@@ -93,15 +94,21 @@ def barcode_disp(request):
     code_type = request.POST['barcode_type']
 
     # /generated_barcode/
-    f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
-    f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
-    #f_name = 'barcode'
-    img_file = os.path.join(f_path, f_name + '.png')
+    # f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
+    # # f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
+    # f_name = 'barcode'
+    # img_file = os.path.join(f_path, f_name + '.png')
 
-    print("file=" + img_file) 
+    # print("file=" + img_file) 
+
+    thread = threading.Thread(target=generate_barcode)
+    thread.start()
+
+    # wait here for the result to be available before continuing
+    thread.join()
 
     # generate_barcode(text=text, file_name=img_file, code_type=code_type)
-    generate_barcode(text=text, code_type=code_type)
+    #generate_barcode(text=text, code_type=code_type)
 
     context = {
             'barcode_url': img_file,
