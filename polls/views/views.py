@@ -25,8 +25,6 @@ def face_recognition(request):
 def about(request):
     return render(request, 'polls/about.html')
 
-def contact(request):
-    return render(request, 'polls/contact.html')
 
 # def question(request):
 #     latest_question_list = Question.objects.order_by('-pub_date')[:5]

@@ -6,7 +6,7 @@ Contact us
 
 {% block content %}
 
-<p>Send a message to Winter the webmaster:</p>
+<p>Send a message to Winter (the awsome webmaster:</p>
 <form action="{% url 'polls:contact' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}

@@ -33,43 +33,42 @@ from django.shortcuts import render
 from django.conf import settings
 import datetime
 import os
-#import treepoem
+import treepoem
 
 
-# def generate_barcode(text=None, file_name=None, code_type="datamatrix"):
-#     if text is not None:
-#         data = text
-#     else:
-#         data = 'Winter WinnPy'
+def generate_barcode(text=None, file_name=None, code_type="datamatrix"):
+    if text is not None:
+        data = text
+    else:
+        data = 'Winter WinnPy'
 
-#     print("before generate_barcode...")
+    print("before generate_barcode...")
 
 
-#     image = treepoem.generate_barcode(
-#         barcode_type = code_type,
-#         data = data,
-#         options={"eclevel": "Q"}
-#     )
+    image = treepoem.generate_barcode(
+        barcode_type = code_type,
+        data = data,
+        options={"eclevel": "Q"}
+    )
 
-#     print("after generate_barcode...")
+    print("after generate_barcode...")
 
-#     if file_name is None:
-#         # /generated_barcode/
-#         f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
-#         #f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
-#         f_name = 'barcode'
-#         img_file = os.path.join(f_path, f_name + '.png')
-#     else:
-#         img_file = file_name
+    if file_name is None:
+        # /generated_barcode/
+        f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
+        #f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
+        f_name = 'barcode'
+        img_file = os.path.join(f_path, f_name + '.png')
+    else:
+        img_file = file_name
 
-#     print(img_file) 
+    print(img_file) 
     
-#     image.convert('1').save(img_file, )
-#     #image.convert("1").save("barcode.png", )
+    image.convert('1').save(img_file, )
+    #image.convert("1").save("barcode.png", )
 
 
 def barcode_req(request):
-    # barcode_types = ['QR Code', 'other code']    
     
     barcode_types = [
         ("datamatrix", "Data Matrix"),
@@ -78,6 +77,7 @@ def barcode_req(request):
       
     context = {
             'barcode_types': barcode_types,
+            'domain': settings.DOMAIN,
         }
     return render(request, 'polls/barcode_req.html', context)
 
@@ -93,28 +93,30 @@ def barcode_disp(request):
     text = request.POST['barcode_data']
     code_type = request.POST['barcode_type']
 
-    # generate_barcode(text=text, code_type=code_type)
+    generate_barcode(text=text, code_type=code_type)
 
     # /generated_barcode/
-    # f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
-    # #f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
-    # f_name = 'barcode'
-    # img_file = os.path.join(f_path, f_name + '.png')
+    f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
+    #f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
+    f_name = 'barcode'
+    img_file = os.path.join(f_path, f_name + '.png')
 
     img_file = "barcode.png"
     print(img_file) 
+
 
     context = {
             'barcode_url': img_file,
             'barcode_data': text,
             'code_type': code_type,
+            'domain': settings.DOMAIN
         }
 
         
     return render(request, 'polls/barcode_disp.html', context)
 
 
-# if __name__ == "__main__":
-#     generate_barcode()
+if __name__ == "__main__":
+    generate_barcode()
 
 
