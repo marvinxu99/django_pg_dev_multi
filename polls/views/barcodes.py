@@ -100,7 +100,8 @@ def barcode_disp(request):
 
     print("file=" + img_file) 
 
-    generate_barcode(text=text, file_name=img_file, code_type=code_type)
+    # generate_barcode(text=text, file_name=img_file, code_type=code_type)
+    generate_barcode(text=text, code_type=code_type)
 
     context = {
             'barcode_url': img_file,
