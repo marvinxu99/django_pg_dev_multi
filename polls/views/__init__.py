@@ -4,3 +4,4 @@ from .emails import email
 from .views import *        
 from .barcodes import barcode_req, barcode_disp
 from .contact import *
+from .about import *

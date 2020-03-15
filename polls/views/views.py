@@ -22,10 +22,6 @@ def winter_univer(request):
 def face_recognition(request):
     return redirect('http://winter-x-face.herokuapp.com')
 
-def about(request):
-    return render(request, 'polls/about.html')
-
-
 # def question(request):
 #     latest_question_list = Question.objects.order_by('-pub_date')[:5]
 #     template = loader.get_template('polls/index.html')
