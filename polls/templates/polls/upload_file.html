@@ -1,0 +1,23 @@
+{% extends "polls/layout_generic.html" %}
+
+{% block title %}
+Upload File
+{% endblock %}
+
+{% block content %}
+
+<p>Upload a file:</p>
+<form action="{% url 'polls:upload_file' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} <br> 
+            {{ field }}
+        </div>
+    {% endfor %}
+    </p>
+    <input type="submit" value="Upload">
+</form>
+
+{% endblock %}

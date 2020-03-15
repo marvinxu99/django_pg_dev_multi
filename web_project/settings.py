@@ -200,5 +200,7 @@ if os.environ.get("ENVIRONMENT") != "PROD":
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = '/media/'
 
+FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, 'uploaded_files_temp')
+
 # Configure Django App for Heroku. 
 django_heroku.settings(locals())

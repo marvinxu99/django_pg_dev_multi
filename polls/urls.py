@@ -19,11 +19,15 @@ urlpatterns = [
 
     path('about/', views.about, name='about'),
 
-    path('contact/', views.email_contact, name='contact'),
+    path('contact/', views.contact_email, name='contact'),
+    path('contact_email_sent/', views.contact_email_sent, name='contact_email_sent'),
 
     path('email/', views.email, name='email'),
 
     path('barcode_req/', views.barcode_req, name='barcode_req'),
     path('barcode_disp/', views.barcode_disp, name='barcode_disp'),
+
+    path('upload_file/', views.upload_file, name='upload_file'),
+    path('upload_success/', views.upload_success, name='upload_success'),
 
 ]

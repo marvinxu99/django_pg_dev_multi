@@ -24,9 +24,7 @@
 #             raise TreepoemError(
 #                 "Cannot determine path to ghostscript, is it installed?"
 #             )
-
 #     return binary
-
 #
 
 from django.shortcuts import render
@@ -104,15 +102,13 @@ def barcode_disp(request):
     # img_file = "barcode.png"
     print("file=" + img_file) 
 
-
     context = {
             'barcode_url': img_file,
             'barcode_data': text,
             'code_type': code_type,
             'domain': settings.DOMAIN
         }
-
-        
+       
     return render(request, 'polls/barcode_disp.html', context)
 
 

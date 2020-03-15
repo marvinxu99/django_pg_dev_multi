@@ -12,5 +12,10 @@ def email(request):
     email_from = settings.EMAIL_HOST_USER
     recipient_list = ['marvinxu99@hotmail.com', 'winnpysoft@gmail.com']
     send_mail( subject, message, email_from, recipient_list )
+
+    context = {
+            'domain': settings.DOMAIN,
+            'msg_text': "The email was sent successfully!",
+        }
     
-    return render(request, 'polls/email_sent.html')
+    return render(request, 'polls/successful.html', context)

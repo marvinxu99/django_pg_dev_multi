@@ -1,4 +1,6 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -6,10 +8,10 @@ from polls.forms import ContactForm
 
 
 def contact(request):
-    
     return render(request, 'polls/contact.html')
 
-def email_contact(request):
+
+def contact_email(request):
     
     # If this is a POST request, we need to process the form data
     if request.method == 'POST':
@@ -29,8 +31,7 @@ def email_contact(request):
 
             send_mail(subject, message, email_from, recipients)
             
-            ##return HttpResponseRedirect('polls:about' %}")
-            return render(request, 'polls/email_sent.html')
+            return HttpResponseRedirect(reverse('polls:contact_email_sent'))
     else:
         form = ContactForm()
    
@@ -40,3 +41,10 @@ def email_contact(request):
         }
 
     return render(request, 'polls/contact.html', context)
+
+def contact_email_sent(request):
+    context = {
+            'domain': settings.DOMAIN,
+            'msg_text': "Thank you for your email! We will get back to you as soon as we can.",
+        }
+    return render(request, 'polls/successful.html', context)
