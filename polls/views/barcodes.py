@@ -55,8 +55,8 @@ def generate_barcode(text=None, code_type="datamatrix", file_name=None):
     if file_name is None:
         # /generated_barcode/
         f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
-        # f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-        f_name = 'barcode'
+        f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+        #f_name = 'barcode'
         img_file = os.path.join(f_path, f_name + '.png')
     else:
         img_file = file_name
