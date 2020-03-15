@@ -42,7 +42,7 @@ def generate_barcode(text=None, code_type="datamatrix", file_name=None):
     else:
         data = 'Winter WinnPy'
 
-    print("before generate_barcode...")
+    print("3. before generate_barcode...")
 
     image = treepoem.generate_barcode(
         barcode_type = code_type,
@@ -50,7 +50,7 @@ def generate_barcode(text=None, code_type="datamatrix", file_name=None):
         options={"eclevel": "Q"}
     )
 
-    print("after generate_barcode...")
+    print("4. after generate_barcode...")
 
     if file_name is None:
         # /generated_barcode/
@@ -61,16 +61,16 @@ def generate_barcode(text=None, code_type="datamatrix", file_name=None):
     else:
         img_file = file_name
 
-    print(img_file) 
+    print("4b. file=" + img_file) 
     
     image.convert('1').save(img_file, 'png')
     #image.convert("1").save("barcode.png", )
-    print("**after convert")
+    print("5. **after convert")
 
     global code_generated
     code_generated = True
 
-    print('code generated')
+    print('6. code generated')
 
 
 def barcode_req(request):
@@ -106,9 +106,9 @@ def barcode_disp(request):
     # # f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
     f_name = 'barcode'
     img_file = os.path.join(f_path, f_name + '.png')
-    print("file=" + img_file) 
+    print("1. file=" + img_file) 
 
-    print("code generated = " + str(code_generated))
+    print("2. code generated = " + str(code_generated))
 
     # generate_barcode(text=text, file_name=img_file, code_type=code_type)
     thread = threading.Thread(target=generate_barcode, args=(text, code_type, ))
@@ -117,10 +117,9 @@ def barcode_disp(request):
     # wait here for the result to be available before continuing 
     thread.join()
 
-    print("code generated = " + str(code_generated))
+    print("7. code generated = " + str(code_generated))
 
-
-    print("***CODE GENERATED**")
+    print("8. ***CODE GENERATED**")
 
     context = {
             'barcode_url': img_file,
