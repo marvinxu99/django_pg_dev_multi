@@ -35,6 +35,6 @@ urlpatterns = [
     path('upload_file/', views.upload_file, name='upload_file'),
     path('upload_success/', views.upload_success, name='upload_success'),
 
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}), 
-    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}), 
+    re_path(r'^media/(?P<path>.*)$', serve, { 'document_root': settings.MEDIA_ROOT }), 
+    re_path(r'^static/(?P<path>.*)$', serve, { 'document_root': settings.STATIC_ROOT }), 
 ]

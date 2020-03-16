@@ -198,7 +198,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'   # http
 if os.environ.get("ENVIRONMENT") != "PROD":
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, "static"),
-        os.path.join(BASE_DIR, "generated_codes"),
+#        os.path.join(BASE_DIR, "generated_codes"),
     ]
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
