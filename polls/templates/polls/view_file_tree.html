@@ -1,0 +1,16 @@
+{% extends "polls/layout_generic.html" %}
+
+{% block title %}
+View Files
+{% endblock %}
+
+{% block content %}
+
+<p>Files under {{ f_path }}:</p>
+<ul>
+    {% for f in f_list %}
+    <li>{{ f }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,4 +1,9 @@
 import os
+import pathlib
+from django.shortcuts import render 
+from django.conf import settings
+
+
 
 # start point
 startpath = '.'
@@ -89,11 +94,34 @@ def tree_walk(dir):
         folders.append(folder_tree(folder, dir))
 
 
-def print_dir_tree(path=):
+def print_dir_tree(path):
     for root, d_names, f_names in os.walk(path):
         print(root, d_names, f_names)
 
-def 
+###
+# https://stackoverflow.com/questions/6297068/whats-the-django-way-to-render-a-tree-of-folders-and-files
+#
+def view_file_tree(request):
+    
+    f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
+    
+    # for root, d_names, f_names in os.walk(f_path):
+    #     print(root, d_names, f_names)
+
+    # f_list = []
+    # for (_, _, filenames) = next(os.walk(f_path)):
+    #     f_list.extend(filenames)
+    #     break
+
+    f_list = [p for p in pathlib.Path(f_path).iterdir() if p.is_file()]
+
+    context = {
+        'f_path': f_path,
+        'f_list': f_list,
+        'domain': settings.DOMAIN,
+    }
+
+    return render(request, 'polls/view_file_tree.html', context)
 
 
 
@@ -103,4 +131,4 @@ if __name__ == "__main__":
     # files_tree(startpath, tuples, folders)
 
     # print_dir_tree('D:\dev\py_django\py_django_pg_heroku')
-    print_dir_tree('.')
+    print_dir_tree('d:/pics')

@@ -6,3 +6,4 @@ from .barcodes import barcode_req, barcode_disp
 from .contact import *
 from .about import *
 from .upload_file import *
+from .view_file_tree import *
