@@ -13,4 +13,11 @@ View Files
     {% endfor %}
 </ul>
 
+<p>Files under {{ f_uploaded_path }}:</p>
+<ul>
+    {% for f in f_uploaded_list %}
+    <li>{{ f }}</li>
+    {% endfor %}
+</ul>
+
 {% endblock %}
