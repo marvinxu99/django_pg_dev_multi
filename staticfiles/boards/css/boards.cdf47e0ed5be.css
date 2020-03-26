@@ -1,0 +1,32 @@
+body {
+  background-image: url("../img/whitey.db698606ff00.png");
+}
+
+.logo {
+  font-family: 'Peralta', cursive;
+}
+
+.logo a {
+  color: rgba(0,0,0,.9);
+}
+
+.logo a:hover,
+.logo a:active {
+  text-decoration: none;
+}
+
+/* for simplemde textarea size */
+.CodeMirror, 
+.CodeMirror-scroll {
+  min-height: 100px;
+}
+
+/*
+.CodeMirror-fullscreen.CodeMirror {
+  max-height: none;
+}
+
+.CodeMirror-fullscreen .CodeMirror-scroll {
+  max-height: none;
+}
+*/

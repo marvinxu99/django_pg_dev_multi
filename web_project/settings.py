@@ -27,13 +27,16 @@ SECRET_KEY = "CHANGE_ME!!!! (P.S. the SECRET_KEY environment variable will be us
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
-DOMAIN = config('DOMAIN', default='PROD')
+# DEBUG = config('DEBUG', default=False, cast=bool)
+# DOMAIN = config('DOMAIN', default='PROD')
+DEBUG = False
+DOMAIN = 'PROD'
 
 
-if DOMAIN != 'PROD':
-    #ALLOWED_HOSTS = []
-    ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+# if DOMAIN != 'PROD':
+#     #ALLOWED_HOSTS = []
+#     ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = ['winn.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -168,18 +171,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'   # http://whitenoise.evans.io/e#n/stable/django.html
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # http://whitenoise.evans.io/en/stable/django.html#storage-troubleshoot
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # addin the following will cause HEROU rejected to deploy????
 # but works locally???heroku
 STATICFILES_DIRS = [
-     os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static"),
 ]
 
 MEDIA_URL = '/media/'
