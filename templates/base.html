@@ -30,10 +30,15 @@
 
           <div class="collapse navbar-collapse" id="WinnMenu">
             <ul class="navbar-nav ml-auto">
-              <li class="navbar-item"><a class="navbar-item" href="{% url 'polls:about' %}" >About</a></li>
-              <li class="navbar-item"><a class="navbar-item" href="{% url 'polls:contact' %}" >Contact</a></li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="aboutMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  About Us
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="aboutMenu">
+                  <a class="dropdown-item" href="{% url 'polls:about' %}" >About Us</a>
+                  <a class="dropdown-item" href="{% url 'polls:contact' %}" >Contact</a>                  
+                </div>
+              </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="utilMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Utility Tools
