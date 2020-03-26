@@ -1,20 +1,19 @@
 {% extends "polls/layout_generic.html" %}
-{% block title %}
-Barcode Generator
-{% endblock %}
+
+{% block title %}Barcode Generator{% endblock %}
+
+{% load static %}
 
 {% block content %}
 
 <h2>Here is your barcode:</h2>
 
-<!--this does not work
+img_url - {{ barcode_url }}
 <img src="{{ barcode_url }}" alt="barcode image" />
-<img src="barcode.png" alt="barcode image" />
--->
+
 </p>
 <div>
-    {% load static %}
-    <img src="{% static 'barcode.png' %}" alt="barcode image">
+    <img src="{% static 'generated_codes/barcode.png' %}" alt="barcode image">
     <p>
         data: {{ barcode_data }}<br>
         type: {{ code_type }}
@@ -22,5 +21,4 @@ Barcode Generator
 </div>
 </p>
 </p>
-
 {% endblock %}

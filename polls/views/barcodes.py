@@ -42,7 +42,7 @@ def generate_barcode(text=None, code_type="datamatrix", file_name=None):
     else:
         data = 'Winter WinnPy'
 
-    print("3. before treepoem generate_barcode...")
+    # print("3. before treepoem generate_barcode...")
 
     image = treepoem.generate_barcode(
         barcode_type = code_type,
@@ -50,31 +50,29 @@ def generate_barcode(text=None, code_type="datamatrix", file_name=None):
         options={"eclevel": "Q"}
     )
 
-    print("4. after treepoem generate_barcode...")
+    # print("4. after treepoem generate_barcode...")
 
     if file_name is None:
         # /generated_barcode/
-        f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
-        f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-        #f_name = 'barcode'
+        f_path = os.path.join(settings.STATIC_ROOT, 'generated_codes')
+        #f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+        f_name = 'barcode'
         img_file = os.path.join(f_path, f_name + '.png')
     else:
         img_file = file_name
 
-    print("4b. file=" + img_file) 
+    # print("4b. file=" + img_file) 
     
     image.convert('1').save(img_file, 'png')
-    #image.convert("1").save("barcode.png", )
     print("5. **after convert")
 
     global code_generated
     code_generated = True
 
-    print('6. code generated')
+    # print('6. code generated')
 
 
-def barcode_req(request):
-    
+def barcode_req(request):   
     barcode_types = [
         ("datamatrix", "Data Matrix"),
         ("qrcode", "QR Code"),
@@ -83,17 +81,17 @@ def barcode_req(request):
     context = {
             'barcode_types': barcode_types,
             'domain': settings.DOMAIN,
+            'img_url': 'sss'
         }
     return render(request, 'polls/barcode_req.html', context)
 
 
 def barcode_disp(request):
-
-    # DEBUG ----------
-    print(request.POST['barcode_type'])
-    print(request.POST['barcode_data'])
-    print(settings.BASE_DIR)
-    # DEBUG ----------
+    # # DEBUG ----------
+    # print(request.POST['barcode_type'])
+    # print(request.POST['barcode_data'])
+    # print(settings.BASE_DIR)
+    # # DEBUG ----------
 
     text = request.POST['barcode_data']
     code_type = request.POST['barcode_type']
@@ -102,13 +100,13 @@ def barcode_disp(request):
     code_generated = False
 
     # /generated_barcode/
-    f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
+    f_path = os.path.join(settings.STATIC_ROOT, 'generated_codes')
     # # f_name = 'barcode_' + datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '.png'
     f_name = 'barcode'
     img_file = os.path.join(f_path, f_name + '.png')
-    print("1. file=" + img_file) 
 
-    print("2. code generated = " + str(code_generated))
+    # print("1. file=" + img_file) 
+    # print("2. code generated = " + str(code_generated))
 
     # generate_barcode(text=text, file_name=img_file, code_type=code_type)
     thread = threading.Thread(target=generate_barcode, args=(text, code_type, ))
@@ -117,9 +115,8 @@ def barcode_disp(request):
     # wait here for the result to be available before continuing 
     thread.join()
 
-    print("7. code generated = " + str(code_generated))
-
-    print("8. ***CODE GENERATED**")
+    # print("7. code generated = " + str(code_generated))
+    # print("8. ***CODE GENERATED**")
 
     context = {
             'barcode_url': img_file,

@@ -33,7 +33,7 @@
       <tr>
         <td>
           <p class="mb-0">
-            <a href="{{ topic_url }}">{{ topic.subject }}</a>
+            <a href="{{ topic_url }}">{{ topic.subject|truncatechars:60 }}</a>
           </p>
           <small class="text-muted">
             Pages:

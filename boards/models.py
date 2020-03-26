@@ -28,7 +28,8 @@ class Topic(models.Model):
     views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return self.subject
+        truncated_subject = Truncator(self.subject)
+        return truncated_subject.chars(30)
 
     def get_page_count(self):
         count = self.posts.count()

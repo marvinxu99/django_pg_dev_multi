@@ -21,7 +21,13 @@ Barcode Generator
         <input type='text' name='barcode_data' id='barcode_data' value="" placeholder="your data">
 
         <h3>3. Click on the button to generate a barcode</h3>
-        <input type="submit" value="Generate Barcode">
+        <input type="submit" value="Generate Barcode"> <br>
+    
+        {% if img_url %}
+        </p>
+        {% load static %}
+        <img src="{% static 'polls/barcode.png' %}" alt="barcode image">
+        {% endif %}
     </form>
 </div>
 {% endblock %}

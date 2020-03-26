@@ -1,9 +1,5 @@
 from django.urls import path, include, re_path
 
-# L1 https://stackoverflow.com/questions/5836674/why-does-debug-false-setting-make-my-django-static-files-access-fail?rq=1
-from django.views.static import serve 
-from django.conf import settings
-
 from . import views
 
 
@@ -37,7 +33,4 @@ urlpatterns = [
 
     path('view_file_tree/', views.view_file_tree, name='view_file_tree'),
 
-
-    re_path(r'^media/(?P<path>.*)$', serve, { 'document_root': settings.MEDIA_ROOT }), 
-    re_path(r'^static/(?P<path>.*)$', serve, { 'document_root': settings.STATIC_ROOT }), 
 ]

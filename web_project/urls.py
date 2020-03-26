@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.views.static import serve 
+from django.conf import settings
 
 
 from polls import views as polls_views
@@ -31,6 +33,8 @@ urlpatterns = [
     path('winter_univer/', polls_views.winter_univer, name='winter_univer'),
     path('face_recognition/', polls_views.face_recognition, name='face_recognition'),
 
+    re_path(r'^media/(?P<path>.*)$', serve, { 'document_root': settings.MEDIA_ROOT }), 
+    re_path(r'^static/(?P<path>.*)$', serve, { 'document_root': settings.STATIC_ROOT }), 
 
 ]
 
