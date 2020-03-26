@@ -169,8 +169,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected')
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'   # http://whitenoise.evans.io/e#n/stable/django.html
 # http://whitenoise.evans.io/en/stable/django.html#storage-troubleshoot
@@ -178,10 +178,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # addin the following will cause HEROU rejected to deploy????
 # but works locally???heroku
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-#     os.path.join(BASE_DIR, "generated_codes"),
-# ]
+STATICFILES_DIRS = [
+     os.path.join(BASE_DIR, "static"),
+     os.path.join(BASE_DIR, "staticfiles"),
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
