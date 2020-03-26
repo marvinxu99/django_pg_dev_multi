@@ -171,7 +171,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected')
 #STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'   # http://whitenoise.evans.io/en/stable/django.html
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'   # http://whitenoise.evans.io/e#n/stable/django.html
 # http://whitenoise.evans.io/en/stable/django.html#storage-troubleshoot
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
