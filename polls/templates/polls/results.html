@@ -1,6 +1,9 @@
-{% extends "polls/layout_generic.html" %}
-{% block title %}
-Results
+{% extends "polls/base_polls.html" %}
+
+{% block title %}Polls - Results{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'polls:question' %}">Poll Questions</a></li>
 {% endblock %}
 
 {% block content %}

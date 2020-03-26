@@ -1,17 +1,20 @@
-{% extends "polls/layout_generic.html" %}
-{% block title %}
-Questions
+{% extends "polls/base_polls.html" %}
+
+{% block title %}Polls - Questions{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'polls:question' %}">Poll Questions</a></li>
 {% endblock %}
 
 {% block content %}
 {% if latest_question_list %}
-<h1>Click on a question to vote:</h1>
-<ul>
+  <h4>Click on a question to vote:</h4>
+  <ul>
     {% for question in latest_question_list %}
     <li><a href="{% url 'polls:detail' question.question_id %}">{{ question.question_text }}</a></li>
     {% endfor %}
-</ul>
+  </ul>
 {% else %}
-<p>No polls are available.</p>
+  <p>No polls are available.</p>
 {% endif %}
 {% endblock %}
