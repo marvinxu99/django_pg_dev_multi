@@ -45,6 +45,7 @@ def board_topics(request, board_pk):
     return render(request, 'boards/board_topics_fbv.html', { 'board': board, 'topics': topics })
 
 
+# for board_topics
 class TopicListView(ListView):
     '''
     Generic Class-Based View (GCBV) pagination
@@ -90,8 +91,8 @@ def new_topic(request, board_pk):
                 topic=topic,
                 created_by=request.user
             )
-        #return redirect('boards:topic_posts', board_pk=board.pk, topic_pk=topic.pk) 
-        return redirect('boards:boards_home') 
+        return redirect('boards:topic_posts', board_pk=board.pk, topic_pk=topic.pk) 
+
     else:
         form = NewTopicForm()
 
