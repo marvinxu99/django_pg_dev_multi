@@ -1,0 +1,33 @@
+{% extends "boards/base_boards.html" %}
+
+{% load static %}
+
+{% block title %}Winter Winn - Edit post{% endblock %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'boards/css/simplemde.min.css' %}">
+  <link rel="stylesheet" href="{% static 'boards/css/boards.css' %}">
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'boards:boards_home' %}">Winter'sBoards</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'boards:board_topics' post.topic.board.pk %}">{{ post.topic.board.name }}</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'boards:topic_posts' post.topic.board.pk post.topic.pk %}">{{ post.topic.subject }}</a></li>
+  <li class="breadcrumb-item active">Edit post</li>
+{% endblock %}
+
+{% block content %}
+  <form method="post" class="mb-4" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">Save changes</button>
+    <a href="{% url 'boards:topic_posts' post.topic.board.pk post.topic.pk %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+  </form>
+{% endblock %}
+
+{% block javascript %}
+  <script src="{% static 'boards/js/simplemde.min.js' %}"></script>
+  <script>
+    var simplemde = new SimpleMDE();
+  </script>
+{% endblock %}

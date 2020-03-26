@@ -1,0 +1,50 @@
+{% extends "boards/base_boards.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}
+  {{ board.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'boards:boards_home' %}">Winter's Boards</a></li>
+<li class="breadcrumb-item"><a href="{% url 'boards:board_topics' board.pk %}">{{ board.name }}</a></li>
+<li class="breadcrumb-item active">New topic</li>
+{% endblock %}
+
+
+{% block content %}
+<form method="post" novalidate>
+  {% csrf_token %}
+<!-- Method 1. manually handle the form
+  <div class="form-group">
+    <label for="id_subject">Subject</label>
+    <input type="text" class="form-control" id="id_subject" name="subject">
+  </div>
+  <div class="form-group">
+    <label for="id_message">Message</label>
+    <textarea class="form-control" id="id_message" name="message" rows="5"></textarea>
+  </div>
+-->
+<!-- Method 2. use django
+  {{ form.as_p }}
+-->
+<!-- Method 3. using widget_tweaks, moved to  ..\includes\form.html 
+  {% for field in form %}
+    <div class="form-group">
+      {{ field.label_tag }}
+
+      {% render_field field class="form-control" %}
+
+      {% if field.help_text %}
+        <small class="form-text text-muted">
+          {{ field.help_text }}
+        </small>
+      {% endif %}
+    </div>
+  {% endfor %}
+ -->
+  {% include 'includes/form.html' %}
+  <button type="submit" class="btn btn-success">Post</button>
+</form>
+{% endblock %}

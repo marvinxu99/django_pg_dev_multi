@@ -24,9 +24,9 @@ Detail Page
 {% endif %}
 
 {% if next_id %}
-<p><a href="{% url 'polls:detail' next_id %}">Next question</a></p>
+<p><a href="{% url 'polls:detail' next_id %}" role='button'>Next question</a></p>
 {% endif %}
 
 </p>
-<p><a href="{% url 'polls:question' %}">Back to questions (latest five)</a></p>
+<p><a href="{% url 'polls:question' %}" role="button">Back to questions (latest five)</a></p>
 {% endblock %}

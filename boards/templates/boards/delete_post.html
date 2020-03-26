@@ -1,0 +1,19 @@
+{% extends "boards/base_boards.html" %}
+
+{% block title %}Winter Winn - Delete post{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'boards:boards_home' %}">Winter'sBoards</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'boards:board_topics' post.topic.board.pk %}">{{ post.topic.board.name }}</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'boards:topic_posts' post.topic.board.pk post.topic.pk %}">{{ post.topic.subject }}</a></li>
+  <li class="breadcrumb-item active">Delete post</li>
+{% endblock %}
+
+{% block content %}
+  <form method="post" class="mb-4" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">Delete</button>
+    <a href="{% url 'boards:topic_posts' post.topic.board.pk post.topic.pk %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+  </form>
+{% endblock %}

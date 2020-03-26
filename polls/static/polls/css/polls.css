@@ -24,29 +24,36 @@
 .body-content {
     padding: 5px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
+    color: black;
 }
 
 body {
-    background: url("images/background2.jpg");
+    background: url("img/leaves.png");
     background-repeat:  no-repeat;
     background-size: cover;
-    color: white;
+    color: black;
     height: 100%;
 }
 
 li a {
     font-size: medium;
-    color: white;
+    color: black;
 }
 
 ul li a {
     text-decoration: none;
+    margin: 10px, 10px;
+}
+
+.sibling-site {
+    text-decoration: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 div a {
     font-size: large;
-    color: white
+    color: black;
 }
 
 .warning {

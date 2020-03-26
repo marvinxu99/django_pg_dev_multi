@@ -14,18 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-from polls import views
+
+from polls import views as polls_views
 
 urlpatterns = [
+    path('', polls_views.index, name='home'),
     path('admin/', admin.site.urls),
     path('polls/', include('polls.urls')),
-    path('', views.index, name='index'),
-    path('winter_winnpy/', views.winter_winnpy, name='winter_winnpy'),
-    path('winter_univer/', views.winter_univer, name='winter_univer'),
-    path('face_recognition/', views.face_recognition, name='face_recognition'),
+    path('boards/', include('boards.urls')),
+    path('accounts/', include('accounts.urls')),
+
+    path('winter_winnpy/', polls_views.winter_winnpy, name='winter_winnpy'),
+    path('winter_univer/', polls_views.winter_univer, name='winter_univer'),
+    path('face_recognition/', polls_views.face_recognition, name='face_recognition'),
+
+
 ]
 
 urlpatterns += staticfiles_urlpatterns()
