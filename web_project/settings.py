@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',    # http://whitenoise.evans.io/en/stable/django.html
+#    'whitenoise.runserver_nostatic',    # http://whitenoise.evans.io/en/stable/django.html
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     
@@ -168,8 +168,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected')
 #STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'   # http://whitenoise.evans.io/e#n/stable/django.html
 # http://whitenoise.evans.io/en/stable/django.html#storage-troubleshoot

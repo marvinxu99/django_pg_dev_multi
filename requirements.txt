@@ -23,6 +23,6 @@ sqlparse==0.3.0
 treepoem==3.3.1
 virtualenv==20.0.9
 virtualenvwrapper-win==1.2.6
-whitenoise==5.0.1
+whitenoise=5.0.1
 wrapt==1.11.2
 gunicorn
