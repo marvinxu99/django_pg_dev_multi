@@ -33,6 +33,10 @@ class QuestionView(generic.ListView):
     template_name = 'polls/question.html'
     context_object_name = 'latest_question_list'
 
+    def get_context_data(self, **kwargs):
+        kwargs['domain'] = settings.DOMAIN
+        return super().get_context_data(**kwargs)
+
     def get_queryset(self):
         """
         Return the last five published questions (not include those set to be
@@ -74,7 +78,8 @@ def detail(request, question_id):
             'question': question,
             'choices': choices,
             'prev_id': prev_id,
-            'next_id': next_id
+            'next_id': next_id,
+            'domain': settings.DOMAIN,
         }
     
     return render(request, 'polls/detail.html', context)
@@ -83,6 +88,10 @@ def detail(request, question_id):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['domain'] = settings.DOMAIN
+        return super().get_context_data(**kwargs)
 
     def get_queryset(self):
         """
