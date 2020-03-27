@@ -11,7 +11,7 @@
 {% block breadcrumb %}<strong>Winter' Barcode Generator</strong>{% endblock %}  
 
 {% block content %}
-  <div class="card border-success m-3 w-50">
+  <div class="card border-success w-50">
     <div class="card-header">
       <ul class="nav nav-tabs card-header-tabs">
         {% if bc_type == '2d' %}
@@ -57,8 +57,14 @@
         <li class="list-group-item border-0" hidden><strong>3. Misc</strong>:</li>
         <li class="list-group-item border-0" hidden>
           <div class="config">
+              Background : <input type="text" id="bgColor" value="#FFFFFF" size="7"><br />
+              "1" Bars : <input type="text" id="color" value="#000000" size="7"><br />
+            <div class="barcode1D">
+              bar width: <input type="text" id="barWidth" value="1" size="3"><br />
+              bar height: <input type="text" id="barHeight" value="50" size="3"><br />
+            </div>
             <div class="barcode2D">
-            Size: <input type="text" id="moduleSize" value="10" size="3"><br />
+            Size: <input type="text" id="moduleSize" value="10" size="5"><br />
             <div>
             Quiet Zone Modules: <input type="text" id="quietZoneSize" value="1" size="3"><br />
             <div>
@@ -71,9 +77,9 @@
           </div>
         </li>
         
-        <li class="list-group-item border-0" hidden>
         <!-- Hide the Fomaat from user from now -->		
-            <div class="title">Format</div>
+        <li class="list-group-item border-0" hidden><strong>4. Format</strong>:</li>
+        <li class="list-group-item border-0" hidden>
             <div>
               <input type="radio" id="css" name="renderer" value="css" ><label for="css">CSS</label><br />
               <input type="radio" id="bmp" name="renderer" value="bmp"><label for="bmp">BMP (not usable in IE)</label><br />
