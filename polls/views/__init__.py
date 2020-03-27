@@ -3,6 +3,7 @@ from .emails import email
 #             contact, email, index, winter_winnpy, winter_univer, face_recognition
 from .views import *        
 from .barcodes import barcode_req, barcode_disp
+from .barcodes_js import barcode_gen_js
 from .contact import *
 from .about import *
 from .upload_file import *

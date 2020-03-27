@@ -1,0 +1,179 @@
+{% extends "polls/base_polls.html" %}
+
+{% load static %}
+
+{% block title %}Generate Barcode{% endblock %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'polls/css/barcode.css' %}">
+{% endblock %}
+
+{% block breadcrumb %}<strong>Winter' Barcode Generator</strong>{% endblock %}  
+
+{% block content %}
+  <div class="card border-success m-3 w-50">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        {% if bc_type == '2d' %}
+          <li class="nav-item"><a class="nav-link active" href="?code=2d">2D Barcode</a></li>
+          <li class="nav-item"><a class="nav-link" href="?code=1d">1D Barcode</a></li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="?code=2d">2D Barcode</a></li>
+          <li class="nav-item"><a class="nav-link  active" href="?code=1d">1D Barcode</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    <div class="card-body">
+      <!--
+      <h5 class="card-title">Winter's Barcode Generator</h5>
+      <p class="card-text">Type in some numbers and characters in the first field, and try it out.</p>
+      -->
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item border-0">
+            <strong>1. Please fill in the code</strong>:
+        </li>
+        <li class="list-group-item border-0">
+          <div>
+            <input class="barcode_input" type="text" id="barcodeValue" placeholder="numbers or characters" value="" > 
+          </div>
+        </li>
+        <li class="list-group-item border-0"><strong>2. Select a barcode type</strong>:</li>
+
+        <li class="list-group-item border-0">
+          <div id="config">
+          <div class="config">
+            {% if bc_type == '2d' %}
+              <input class="ml-3" type="radio" name="btype" id="datamatrix" value="datamatrix" checked="checked"><label for="datamatrix">Data Matrix</label> <br>
+              <input class="ml-3" type="radio" name="btype" id="qrcode" value="qrcode" disabled><label for="qrcode">QR Code</label>
+            {% else %}
+              <input class="ml-3" type="radio" name="btype" id="code11" value="code11" checked="checked"><label for="code11">code 11</label><br />
+              <input class="ml-3" type="radio" name="btype" id="code39" value="code39"><label for="code39">code 39</label><br />
+              <input class="ml-3" type="radio" name="btype" id="code128" value="code128"><label for="code128">code 128</label><br />
+            {% endif %}
+          </div>
+          </div>
+        </li>
+
+        <li class="list-group-item border-0" hidden><strong>3. Misc</strong>:</li>
+        <li class="list-group-item border-0" hidden>
+          <div class="config">
+            <div class="barcode2D">
+            Size: <input type="text" id="moduleSize" value="10" size="3"><br />
+            <div>
+            Quiet Zone Modules: <input type="text" id="quietZoneSize" value="1" size="3"><br />
+            <div>
+            Form: <input type="checkbox" name="rectangular" id="rectangular"><label for="rectangular">Rectangular</label><br />
+            </div>
+            <div id="miscCanvas">
+            x : <input type="text" id="posX" value="10" size="3"><br />
+            y : <input type="text" id="posY" value="20" size="3"><br />
+            </div>
+          </div>
+        </li>
+        
+        <li class="list-group-item border-0" hidden>
+        <!-- Hide the Fomaat from user from now -->		
+            <div class="title">Format</div>
+            <div>
+              <input type="radio" id="css" name="renderer" value="css" ><label for="css">CSS</label><br />
+              <input type="radio" id="bmp" name="renderer" value="bmp"><label for="bmp">BMP (not usable in IE)</label><br />
+              <input type="radio" id="svg" name="renderer" value="svg" checked="checked"><label for="svg">SVG</label><br />
+              <input type="radio" id="canvas" name="renderer" value="canvas"><label for="canvas">Canvas (not usable in IE)</label><br />
+            </div>		
+        </li>
+        <li class="list-group-item border-0">
+          <strong>3. Click the button</strong>:
+        </li>
+        <li class="list-group-item border-0">
+          <input type="button" class="btn btn-primary" onclick="generateBarcode();" value="Generate the barcode" />
+        </li>
+        <li class="list-group-item border-3">
+          <p>Generated barcode:</p>
+          <div>
+            <div id="barcodeTarget" class="barcodeTarget"></div>
+            <canvas id="canvasTarget" width="150" height="150"></canvas> 
+            <div>
+        </li>      
+      </ul>
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'polls/js/jquery-barcode.min.js' %}"></script>
+<script type="text/javascript">
+    
+  function generateBarcode(){
+    var value = $("#barcodeValue").val();
+    var btype = $("input[name=btype]:checked").val();
+    var renderer = $("input[name=renderer]:checked").val();
+
+    var settings = {
+      output:renderer,
+      bgColor: $("#bgColor").val(),
+      color: $("#color").val(),
+      barWidth: $("#barWidth").val(),
+      barHeight: $("#barHeight").val(),
+      moduleSize: $("#moduleSize").val(),
+      posX: $("#posX").val(),
+      posY: $("#posY").val(),
+      addQuietZone: $("#quietZoneSize").val()
+    };
+    if ($("#rectangular").is(':checked') || $("#rectangular").attr('checked')){
+      value = {code:value, rect: true};
+    }
+    if (renderer == 'canvas'){
+      clearCanvas();
+      $("#barcodeTarget").hide();
+      $("#canvasTarget").show().barcode(value, btype, settings);
+    } else {
+      $("#canvasTarget").hide();
+      $("#barcodeTarget").html("").show().barcode(value, btype, settings);
+    }
+  }
+      
+  function showConfig1D(){
+    $('.config .barcode1D').show();
+    $('.config .barcode2D').hide();
+  }
+  
+  function showConfig2D(){
+    $('.config .barcode1D').hide();
+    $('.config .barcode2D').show();
+  }
+
+  function onClick2D(){
+    $('#code1d').hide();
+    $('#code2d').show();
+  }
+  function onClick1D(){
+    $('#code2d').hide();
+    $('#code1d').show();
+  }
+  
+  function clearCanvas(){
+    var canvas = $('#canvasTarget').get(0);
+    var ctx = canvas.getContext('2d');
+    ctx.lineWidth = 1;
+    ctx.lineCap = 'butt';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.strokeStyle  = '#000000';
+    ctx.clearRect (0, 0, canvas.width, canvas.height);
+    ctx.strokeRect (0, 0, canvas.width, canvas.height);
+  }
+  
+  $(function(){
+    $('input[name=btype]').click(function(){
+      if ($(this).attr('id') == 'datamatrix') showConfig2D(); else showConfig1D();
+    });
+    $('input[name=renderer]').click(function(){
+      if ($(this).attr('id') == 'canvas') $('#miscCanvas').show(); else $('#miscCanvas').hide();
+    });
+    generateBarcode();
+  });
+
+</script>
+
+{% endblock %}

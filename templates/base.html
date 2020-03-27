@@ -46,9 +46,10 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="utilMenu">
                   <a class="dropdown-item" href="{% url 'polls:email' %}">Email</a>
                   <a class="dropdown-item" href="{% url 'polls:upload_file' %}">Upload file</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{% url 'polls:barcode_req' %}">Generate barcode</a>
                   <a class="dropdown-item" href="{% url 'polls:view_file_tree' %}">View files</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'polls:barcode_gen_js' %}">Generate barcode(js)</a>
+                  <a class="dropdown-item" href="{% url 'polls:barcode_req' %}">Generate barcode</a>
                 </div>
               </li>
             </ul>

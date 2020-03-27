@@ -27,6 +27,8 @@ urlpatterns = [
 
     path('barcode_req/', views.barcode_req, name='barcode_req'),
     path('barcode_disp/', views.barcode_disp, name='barcode_disp'),
+    path('barcode_req/', views.barcode_req, name='barcode_req'),
+    path('barcode_gen_js/', views.barcode_gen_js, name='barcode_gen_js'),
 
     path('upload_file/', views.upload_file, name='upload_file'),
     path('upload_success/', views.upload_success, name='upload_success'),
