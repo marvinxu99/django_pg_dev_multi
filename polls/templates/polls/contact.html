@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<p>Send a message to Winter (the awsome webmaster):</p>
+<p>Send a message to Winter (the awesome webmaster):</p>
 <form action="{% url 'polls:contact' %}" method="post">
     {% csrf_token %}
     {% for field in form %}
