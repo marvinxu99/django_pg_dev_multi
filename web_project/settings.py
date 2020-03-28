@@ -108,7 +108,7 @@ DATABASES = {
 
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'winndb_poll',
+    #     'NAME': 'winn_dev2',
     #     'USER': 'winter',
     #     'PASSWORD': 'winter',
     #     'HOST': 'localhost',
