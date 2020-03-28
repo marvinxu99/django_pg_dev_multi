@@ -14,8 +14,13 @@
   <div class="card border-success w-50">
     <div class="card-header">
       <ul class="nav nav-tabs card-header-tabs">
-          <li class="nav-item"><a id="nav_2d" class="nav-link active" href="#" onclick="onClickNav2D();">2D Barcode</a></li>
-          <li class="nav-item"><a id="nav_1d" class="nav-link" href="#" onclick="onClickNav1D();">1D Barcode</a></li>
+        {% if bc_type == '2d' %}
+          <li class="nav-item"><a class="nav-link active" href="?code=2d">2D Barcode</a></li>
+          <li class="nav-item"><a class="nav-link" href="?code=1d">1D Barcode</a></li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="?code=2d">2D Barcode</a></li>
+          <li class="nav-item"><a class="nav-link  active" href="?code=1d">1D Barcode</a></li>
+        {% endif %}
       </ul>
     </div>
     <div class="card-body">
@@ -37,15 +42,14 @@
         <li class="list-group-item border-0">
           <div id="config">
           <div class="config">
-            <div class="barcode2D">
-              <input class="ml-3" type="radio" name="btype" id="datamatrix" value="datamatrix"><label for="datamatrix">Data Matrix</label> <br>
+            {% if bc_type == '2d' %}
+              <input class="ml-3" type="radio" name="btype" id="datamatrix" value="datamatrix" checked="checked"><label for="datamatrix">Data Matrix</label> <br>
               <input class="ml-3" type="radio" name="btype" id="qrcode" value="qrcode" disabled><label for="qrcode">QR Code</label>
-            </div>
-            <div class="barcode1D">
-              <input class="ml-3" type="radio" name="btype" id="code11" value="code11"><label for="code11">code 11</label><br />
+            {% else %}
+              <input class="ml-3" type="radio" name="btype" id="code11" value="code11" checked="checked"><label for="code11">code 11</label><br />
               <input class="ml-3" type="radio" name="btype" id="code39" value="code39"><label for="code39">code 39</label><br />
               <input class="ml-3" type="radio" name="btype" id="code128" value="code128"><label for="code128">code 128</label><br />
-            </div>
+            {% endif %}
           </div>
           </div>
         </li>
@@ -146,23 +150,15 @@
     $('.config .barcode2D').show();
   }
 
-  function onClickNav2D(){
-    $('#nav_1d').removeClass('active');
-    $('#nav_2d').addClass('active');
-    showConfig2D();
-    $("#barcodeTarget").hide();
-    $("#canvasTarget").hide();
+  function onClick2D(){
+    $('#code1d').hide();
+    $('#code2d').show();
   }
-
-  function onClickNav1D(){
-    $('#nav_2d').removeClass('active');
-    $('#nav_1d').addClass('active');
-    showConfig1D();
-    $("#barcodeTarget").hide();
-    $("#canvasTarget").hide();
+  function onClick1D(){
+    $('#code2d').hide();
+    $('#code1d').show();
   }
-
-
+  
   function clearCanvas(){
     var canvas = $('#canvasTarget').get(0);
     var ctx = canvas.getContext('2d');
@@ -175,14 +171,13 @@
   }
   
   $(function(){
-    // $('input[name=btype]').click(function(){
-    //   if ($(this).attr('id') == 'datamatrix') showConfig2D(); else showConfig1D();
-    // });
-    // $('input[name=renderer]').click(function(){
-    //    if ($(this).attr('id') == 'canvas') $('#miscCanvas').show(); else $('#miscCanvas').hide();
-    // });
-    // generateBarcode();
-    onClickNav2D();
+    $('input[name=btype]').click(function(){
+      if ($(this).attr('id') == 'datamatrix') showConfig2D(); else showConfig1D();
+    });
+    $('input[name=renderer]').click(function(){
+      if ($(this).attr('id') == 'canvas') $('#miscCanvas').show(); else $('#miscCanvas').hide();
+    });
+    generateBarcode();
   });
 
 </script>
