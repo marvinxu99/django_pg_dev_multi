@@ -1,0 +1,19 @@
+html,
+body {
+  height: 100%;
+}
+.winn-heading {
+  background:transparent !important;
+}
+
+.navbar-brand {
+  font-family: 'Peralta', cursive;
+}
+
+.navbar {
+    background-color: lightslategray;
+    font-size: 1em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    padding: 8px 5px 8px 5px;
+}

@@ -1,0 +1,34 @@
+> pip install Faker
+
+(1) python manage.py shell
+
+(2) Imports:
+    from faker import Faker
+    from catalog.models import Book, Author, Genre, Language, BookInstance
+    faker= Faker()
+
+(3) Generate fake authors
+    for i in range(100):
+        first_name = faker.first_name()
+        last_name = faker.last_name()
+        b_date = faker.date()
+        Author.objects.create(first_name=first_name, last_name=last_name, date_of_birth=b_date)
+
+(4) Generate fake books  
+from random import randint
+for _ in range(100):
+    author = Author.objects.get(pk=randint(1,100))
+    genre = Genre.objects.get(pk=randint(1, 3))
+    language = Language.objects.get(pk=randint(1, 3))
+    title = faker.text(50)
+    summary = faker.text(150)
+    isbn = '12345678'
+    Book.objects.create(title=title, summary=summary, isbn=isbn, author=author, language=language)
+    
+    
+(5) Generate fake book instances:
+for _ in range(1000):
+    imprint = faker.text(20)
+    book = Book.objects.get(pk=randint(1, 100))
+    BookInstance.objects.create(imprint=imprint, book=book)
+    

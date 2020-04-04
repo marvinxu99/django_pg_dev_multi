@@ -1,56 +1,10 @@
-Getting started with Python - Set up
 https://devcenter.heroku.com/articles/getting-started-with-python#set-up
 
 DEPLOYING PYTHON AND DJANGO APPS ON HEROKU
 https://devcenter.heroku.com/articles/deploying-python
 
-HOW HEROKU WORKS
-https://devcenter.heroku.com/articles/how-heroku-works
 
+(1) locally run pyrhon manage.py makemigrations
+(2) git push heroku master
+(3) add "release: python manage.py migrate" to procfile
 
-Python deployment flow
-(1) When you deploy to Heroku, the dependencies you specify in your requirements.txt 
-file are automatically installed before app startup.
-
-(2) If you’re using Django, the collectstatic command also runs automatically during 
-the deployment process. This command can be tricky to configure properly. To make 
-it easier, add the Django-Heroku Python package, which sets up everything for you.
-
-(3) To automatically perform other tasks (such as any required database migrations) 
-before your app is deployed, you can add a release phase command to your app.
-
-Python versions and upgrades
-(1) By default, your app continues to use whatever version of Python was used when 
-it was first deployed. You can specify a different Python runtime to use in your 
-app’s runtime.txt file.
-
-(2) You will be notified in your app’s build output if the app’s Python version is 
-no longer up to date.
-
-
-TIPS:
-(1) Add Django-Heroku package. then in settings.py add the following:
-    import django_heroku
-    # Configure Django App for Heroku.
-    django_heroku.settings(locals())
-
-(2) requirements.txt:
-        django
-        gunicorn
-        django-heroku
-
-(3) Deploying Python Applications with Gunicorn 
-    https://devcenter.heroku.com/articles/python-gunicorn
-
-    Gunicorn is a pure-Python HTTP server for WSGI applications. It allows 
-    you to run any Python application concurrently by running multiple 
-    Python processes within a single dyno. It provides a perfect balance 
-    of performance, flexibility, and configuration simplicity.
-
-    Gunicorn forks multiple system processes within each dyno to allow a 
-    Python app to support multiple concurrent requests without requiring them 
-    to be thread-safe.
-    
-      - pip install gunicorn
-      - Add to Procfile: web: gunicorn gettingstarted.wsgi
-      - heroku config:set WEB_CONCURRENCY=3

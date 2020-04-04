@@ -15,6 +15,8 @@ from decouple import config, Csv
 import django_heroku
 
 
+AUTH_USER_MODEL = 'accounts.User'
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -50,6 +52,8 @@ INSTALLED_APPS = [
     'polls.apps.PollsConfig',
     'accounts.apps.AccountsConfig',
     'boards.apps.BoardsConfig',
+    'catalog.apps.CatalogConfig',
+    'core',
 
     'widget_tweaks',
 ]

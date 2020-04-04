@@ -1,0 +1,18 @@
+{% extends "catalog/base_catalog.html" %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'catalog:index' %}">Local Library</a></li>
+<li class="breadcrumb-item active">Update Author</li>
+{% endblock %}
+{% block libcontent %}
+<h3>Update Author</h3>
+  <form class="mt-5" action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <div class="mt-3">
+      <input class="button btn-sm btn-outline-secondary" type="submit" value="Submit">
+      <a href="{{ view.get_success_url }}" class="button btn-sm btn-outline-secondary" role="button">Cancel</a>
+    </div>
+  </form>
+{% endblock %}

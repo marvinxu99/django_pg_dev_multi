@@ -1,33 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}Winter Winn{% endblock %}</title>
     {% load static %}
     <link href="https://fonts.googleapis.com/css?family=Peralta" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/app.css' %}">
-    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
-    {% block stylesheet %}{% endblock %} 
+    <link rel="stylesheet" href="{% static 'css/app_gen.css' %}">
+    {% block stylesheet %}{% endblock %}
   </head>
   <body>
     {% block body %} 
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
           <a class="navbar-brand" href="{% url 'home' %}">
-            <img src="{% static 'img/winter-logo-sm.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+            <img src="{% static 'img/winter-logo-sm.png' %}" width="32" height="32" class="d-inline-block align-top" alt="">
             Winter Winn
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" 
                       aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-
-          <form class="form-inline my-2 my-lg-0">
+          <form class="form-inline my-2 my-lg-0" method='GET'>
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-outline-success my-2 my-sm-0 text-white" type="submit">Search</button>
           </form>
-
           <div class="collapse navbar-collapse" id="WinnMenu">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown">
@@ -54,26 +52,28 @@
               </li>
             </ul>
           </div>
-
           <div class="collapse navbar-collapse" id="mainMenu">
             {% if user.is_authenticated %}
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ user.username }}
+                    <span class='h5 text-white'>{{ user.username }}</span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
                     <a class="dropdown-item" href="{% url 'accounts:my_account' %}">My account</a>
                     <a class="dropdown-item" href="{% url 'accounts:password_change' %}">Change password</a>
                     <div class="dropdown-divider"></div>
+                    {% if user.is_staff %}
+                    <a class="dropdown-item" href="/admin/">Manage site</a>
+                    <div class="dropdown-divider"></div>
+                    {% endif %}
                     <a class="dropdown-item" href="{% url 'accounts:logout' %}">Log out</a>
                   </div>
                 </li>
-
               </ul>
             {% else %}
               <form class="form-inline ml-auto">
-                <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary">Log in</a>
+                <a href="{% url 'accounts:login' %}" class="btn btn-primary ml-2">Log in</a>
                 <a href="{% url 'accounts:signup' %}" class="btn btn-primary ml-2">Sign up</a>
               </form>
             {% endif %}    
@@ -82,16 +82,44 @@
       </nav>
       <div class="container">
         <ol class="breadcrumb my-4">
-          {% block breadcrumb %}
-          {% endblock %}
-        </ol>
+            {% block breadcrumb %}
+            {% endblock %}
+        </ol>  
         {% block content %}
         {% endblock %}
+        <footer class="pt-4 my-md-5 pt-md-5 border-top">
+          <div class="row">
+            <div class="col-12 col-md">
+              <img class="mb-2" src="{% static 'img/winter-logo-sm.png' %}" width="64" height="64">
+              <small class="d-block mb-3 text-muted">© Winter Winn 2019-2020</small>
+            </div>
+            <div class="col-6 col-md">
+              <h5>What's new</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Winter jumps</a></li>
+                <li><a class="text-muted" href="#">Winter barks</a></li>
+                <li><a class="text-muted" href="#">Winter whines</a></li>
+              </ul>
+            </div>
+            <div class="col-6 col-md">
+              <h5>Education</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Resource</a></li>
+                <li><a class="text-muted" href="#">Articles</a></li>
+                <li><a class="text-muted" href="#">Blogs</a></li>
+              </ul>
+            </div>
+            <div class="col-6 col-md">
+              <h5>Company</h5>
+              <ul class="list-unstyled text-small text-muted">
+                <li><a class="text-muted" href="#">Careers</a></li>
+                <li><a class="text-muted" href="#">About us</a></li>
+                <li><a class="text-muted" href="#">Privacy at Winter Winn</a></li>
+              </ul>
+            </div>
+          </div>
+        </footer>
       </div>
-      <div class='container'>
-        {% block footer %}
-        {% endblock %}
-      </div>    
     {% endblock body %}
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>

@@ -1,0 +1,47 @@
+{% extends "catalog/base_catalog.html" %}
+{% load static %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'catalog:index' %}">Local Library</a></li>
+<li class="breadcrumb-item active">TEST - checkout</li>
+{% endblock %}
+{% block libcontent %}
+  <h1>{{ book_instance.book.title }}</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    {% include 'include/form.html' %}
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'catalog/js/jquery-ui.min.js' %}"></script>
+<script>
+$(document).ready(function() {
+  $("#input_datepicker").datepicker({
+      changeYear: true,
+      changeMonth: true,
+      dateFormat: 'yy-mm-dd',
+      onClose: function(dateTime){
+              if (dateTime != "") {
+                $(this).removeClass("req-field");
+              } else {
+                $(this).addClass("req-field");
+              }
+          }
+    });
+
+    // Time format checking
+    $("#input_datepicker").on( "focusout", function() {
+     	var time_str = $(this).val();
+       	// Time format: 24-hour format
+//      if( (/^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/.test(time_str)) ||
+//       		(/^(2[0-3]|[01]?[0-9])([0-5]?[0-9])$/.test(time_str)) ) {
+		if (/^[0-1][0-9]:[0-5][0-9]$|^[2][0-3]:[0-5][0-9]$|^[2][3]:[0][0]$/.test(time_str)
+		    || /^[0-1][0-9][0-5][0-9]$|^[2][0-3][0-5][0-9]$|^[2][3][0][0]$/.test(time_str)) {
+            $(this).removeClass("req-field");
+      	 } else {
+            $(this).addClass("req-field");
+       	}
+    });
+});
+</script>
+{% endblock %}

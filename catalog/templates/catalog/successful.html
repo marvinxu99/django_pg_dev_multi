@@ -1,0 +1,7 @@
+{% extends "catalog/base_catalog.html" %}
+{% block title %}Email Sent{% endblock %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'catalog:index' %}">Local Library</a></li>
+<li class="breadcrumb-item active">Contact Us</li>
+{% endblock %}
+{% block libcontent %}{{ msg_te }}{% endblock %}xt

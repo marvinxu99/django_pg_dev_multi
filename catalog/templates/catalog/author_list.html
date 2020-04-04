@@ -1,0 +1,49 @@
+{% extends "catalog/base_catalog.html" %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'catalog:index' %}">Local Library</a></li>
+<li class="breadcrumb-item active">Authors</li>
+{% endblock %}
+{% block libcontent %}
+<div class="d-flex justify-content-between">
+  <h5>Author List</h5>
+  {% if user.is_staff %}
+  <a href="{% url 'catalog:author-create' %}" class="btn btn-primary mb-3" role="button">Create Author</a>
+  {% endif %}
+</div>
+  {% if author_list %}
+  <table class="gen-list-view table table-striped table-sm table-hover mb-4">
+    <thead class="thead-light">
+      <tr>
+        <th>Name</th>
+        <th>Date of Birth</th>
+        <th>Date of Death</th>
+        {% if user.is_staff %}
+        <th></th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for author in author_list %}
+      <tr>
+        <td><a href="{{ author.get_absolute_url }}">{{ author.first_name }} {{ author.last_name }}</a></td>
+        <td>{{ author.date_of_birth }}</td>             
+        <td>{% if author.date_of_death %}{{ author.date_of_death }} {% else %} - {% endif %}</td> 
+        {% if user.is_staff %}
+        <td class="text-right">
+          {% if perms.catalog.change_author %}
+          <a href="{% url 'catalog:author-update' author.pk %}" class="btn-sm btn-secondary mb-1" role="button">Modify</a>
+          {% endif %}
+          {% if perms.catalog.delete_author %}
+          <a href="{% url 'catalog:author-delete' author.pk %}" class="btn-sm btn-secondary mb-1" role="button">Delete</a>
+          {% endif %}
+        </td>       
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p>There are no auhtors in the library.</p>
+  {% endif %}       
+  {% include 'include/pagination.html' %}
+{% endblock %}

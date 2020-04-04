@@ -4,10 +4,11 @@ from django.utils.text import Truncator
 from markdown import markdown
 from django.utils.html import mark_safe
 import math
+from django.conf import settings
 
 
 class Board(models.Model):
-    name = models.CharField(max_length=60, unique=True)
+    name = models.CharField(max_length=30, unique=True)
     description = models.CharField(max_length=100)
 
     def __str__(self):
@@ -24,12 +25,11 @@ class Topic(models.Model):
     subject = models.CharField(max_length=255)
     last_updated = models.DateTimeField(auto_now_add=True)
     board = models.ForeignKey(Board, related_name='topics', on_delete=models.CASCADE)
-    starter = models.ForeignKey(User, related_name='topics', on_delete=models.PROTECT)
+    starter = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='topics', on_delete=models.PROTECT)
     views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        truncated_subject = Truncator(self.subject)
-        return truncated_subject.chars(30)
+        return self.subject
 
     def get_page_count(self):
         count = self.posts.count()
@@ -56,8 +56,8 @@ class Post(models.Model):
     topic = models.ForeignKey(Topic, related_name='posts', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)
-    created_by = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE)  
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='posts', on_delete=models.CASCADE)
+    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, related_name='+', on_delete=models.CASCADE)  
     # related_name='+' instructs Django that we don’t need this reverse relationship
 
     def __str__(self):

@@ -16,25 +16,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.views.static import serve 
-from django.conf import settings
 
 
-from polls import views as polls_views
+from core import views as core_views
 
 urlpatterns = [
-    path('', polls_views.index, name='home'),
     path('admin/', admin.site.urls),
     path('polls/', include('polls.urls')),
     path('boards/', include('boards.urls')),
     path('accounts/', include('accounts.urls')),
+    path('catalog/', include('catalog.urls')),
+    #path('', RedirectView.as_view(url='catalog/', permanent=True)),
 
-    path('winter_winnpy/', polls_views.winter_winnpy, name='winter_winnpy'),
-    path('winter_univer/', polls_views.winter_univer, name='winter_univer'),
-    path('face_recognition/', polls_views.face_recognition, name='face_recognition'),
+    path('', core_views.index, name='home'),
+    
+    path('winter_winnpy/', core_views.winter_winnpy, name='winter_winnpy'),
+    path('winter_univer/', core_views.winter_univer, name='winter_univer'),
+    path('face_recognition/', core_views.face_recognition, name='face_recognition'),
 
-    re_path(r'^media/(?P<path>.*)$', serve, { 'document_root': settings.MEDIA_ROOT }), 
-    re_path(r'^static/(?P<path>.*)$', serve, { 'document_root': settings.STATIC_ROOT }), 
 
 ]
 

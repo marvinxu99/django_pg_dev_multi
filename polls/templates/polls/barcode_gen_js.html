@@ -1,15 +1,10 @@
 {% extends "polls/base_polls.html" %}
-
 {% load static %}
-
 {% block title %}Generate Barcode{% endblock %}
-
 {% block stylesheet %}
   <link rel="stylesheet" href="{% static 'polls/css/barcode.css' %}">
 {% endblock %}
-
 {% block breadcrumb %}<strong>Winter' Barcode Generator</strong>{% endblock %}  
-
 {% block content %}
   <div class="card border-success w-50">
     <div class="card-header">
@@ -99,7 +94,6 @@
   </div>
 
 {% endblock %}
-
 {% block javascript %}
 <script src="{% static 'polls/js/jquery-barcode.min.js' %}"></script>
 <script type="text/javascript">

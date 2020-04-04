@@ -1,0 +1,15 @@
+{% extends "catalog/base_catalog.html" %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'catalog:index' %}">Local Library</a></li>
+<li class="breadcrumb-item active">Change book status</li>
+{% endblock %}
+{% block libcontent %}
+  <h3>{{ book_instance.book.title }}</h3>
+  <div class='w-50'>
+    <form action="" method="post">
+      {% csrf_token %}
+      {% include 'includes/form.html' %}
+      <input class="mt-3" type="submit" value="Submit">
+    </form>
+  </div>
+{% endblock %}

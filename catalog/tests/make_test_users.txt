@@ -1,0 +1,12 @@
+(1) python manage.py shell
+
+(2) from django.contrib.auth.models import User
+    from accounts.models import User
+
+(3) # Create user and save to the database
+user = User.objects.create_user('myusername', 'myemail@crazymail.com', 'mypassword')
+
+(4) # Update fields and then save again
+user.first_name = 'John'
+user.last_name = 'Citizen'
+user.save()

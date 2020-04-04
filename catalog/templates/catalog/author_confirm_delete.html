@@ -1,0 +1,15 @@
+{% extends "catalog/base_catalog.html" %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'catalog:index' %}">Local Library</a></li>
+<li class="breadcrumb-item active">Delete Author</li>
+{% endblock %}
+
+{% block libcontent %}
+<h3>Delete Author</h3>
+<p>Are you sure you want to delete the author: <strong>{{ author }}</strong>?</p>
+<form action="" method="POST">
+  {% csrf_token %}
+  <input class="button btn btn-outline-secondary" type="submit" value="Yes, delete.">
+  <a href="{{ view.get_success_url }}" class="button btn btn-outline-secondary" role="button">Cancel</a>
+</form>
+{% endblock %}

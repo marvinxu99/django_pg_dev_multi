@@ -1,0 +1,30 @@
+from django.contrib.auth.decorators import permission_required
+
+@permission_required('catalog.can_mark_returned')
+@permission_required('catalog.can_edit')
+def my_view(request):
+
+
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
+class MyView(PermissionRequiredMixin, View):
+    permission_required = 'catalog.can_mark_returned'
+    # Or multiple permissions
+    permission_required = ('catalog.can_mark_returned', 'catalog.can_edit')
+    # Note that 'catalog.can_edit' is just an example
+    # the catalog application doesn't have such permission!
+
+
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def my_view(request):
+    ...
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class MyView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
+    

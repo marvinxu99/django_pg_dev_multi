@@ -1,0 +1,12 @@
+Activate the virtual environment, then
+(1) try pip install mysqlclient
+(2) if getting an error, 
+     downloa the wheel from https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysqlclient
+(3)Place the file in the root directory of the project.
+(4) then run 
+    pip install mysqlclient-1.4.6-cp38-cp38-win32.whl
+
+(5) ensure "winndb_poll_dev" database is created
+(6) python mange.py migrate
+(7) python manage.py createsuperuser
+

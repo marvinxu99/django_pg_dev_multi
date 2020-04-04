@@ -10,18 +10,6 @@ from django.conf import settings
 from polls.models import Question, Choice
 
 
-def index(request):
-    return render(request, 'polls/index.html')
-
-def winter_winnpy(request):
-    return redirect('http://winterai.herokuapp.com')
-
-def winter_univer(request):
-    return redirect('http://winnpysoft.pythonanywhere.com')
-
-def face_recognition(request):
-    return redirect('http://winter-x-face.herokuapp.com')
-
 # def question(request):
 #     latest_question_list = Question.objects.order_by('-pub_date')[:5]
 #     template = loader.get_template('polls/index.html')

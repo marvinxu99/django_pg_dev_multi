@@ -1,22 +1,20 @@
-{% extends "polls/base_polls.html" %}
-
-{% block title %}Contact Us{% endblock %}
-
-{% block breadcrumb %}Contact Us{% endblock %}
-
+{% extends "polls/layout_generic.html" %}
+{% block title %}Contact us{% endblock %}
 {% block content %}
-
-<p>Send a message to Winter (the awesome webmaster):</p>
-<form action="{% url 'polls:contact' %}" method="post">
-    {% csrf_token %}
-    {% for field in form %}
-        <div class="fieldWrapper">
-            {{ field.errors }}
-            {{ field.label_tag }}: <br> 
-            {{ field }}
-        </div>
-    {% endfor %}
-    <input type="submit" value="Send Message">
-</form>
-
+<div class='card w-75 borderless ml-5'>
+    <div class='card-body'>
+      <h3 class="card-title mb-5">Send a message to Winter (the webmaster):</h3>
+      <form action="{% url 'polls:contact' %}" method="post">
+          {% csrf_token %}
+          {% for field in form %}
+              <div class="fieldWrapper mt-3">
+                  {{ field.errors }}
+                  <strong>{{ field.label_tag }}</strong><br> 
+                  {{ field }}
+              </div>
+          {% endfor %}
+          <input class='button btn-lg mt-3' type="submit" value="Send Message">
+      </form>
+    </div>
+  </div>
 {% endblock %}

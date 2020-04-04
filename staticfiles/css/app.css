@@ -1,52 +1,22 @@
-
-.navbar {
-  background-color: lightslategray;
-  font-size: 1em;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-/*  color: white; */
-  padding: 8px 5px 8px 5px;
-}
-
-.navbar a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.navbar-brand {
-  font-family: 'Peralta', cursive;
-  font-size: 1.2em;
-  font-weight: 600;
-}
-
-.navbar-item {
-  font-variant: small-caps;
-  margin-left: 30px;
-}
-
 html,
 body {
   height: 100%;
 }
 
-li a {
-  font-size: medium;
-  color: black;
+.navbar-brand {
+  font-family: 'Peralta', cursive;
 }
 
-ul li a {
-  text-decoration: none;
-  margin: 10px, 10px;
+.navbar {
+    background-color: lightslategray;
+    font-size: 1em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    padding: 8px 5px 8px 5px;
 }
-
-.body-content {
-  padding: 5px;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: black;
-}
-
 
 blockquote {
-  border-left: 5px solid #00000020;
+  border-left: 5px solid rgba(0,0,0,.125);
   padding-left: 1.25rem;
 }
 
@@ -60,11 +30,4 @@ blockquote {
 
 .push {
   height: 60px;
-}
-
-footer {
-  height: 60px;
-  padding: 15px 0;
-  background-color: #e9ecef;
-  position: relative;
 }

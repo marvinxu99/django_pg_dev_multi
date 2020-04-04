@@ -1,0 +1,122 @@
+{% extends "catalog/base_catalog.html" %}
+{% block title %}Contact us{% endblock %}
+{% load static %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'catalog:index' %}">Local Library</a></li>
+<li class="breadcrumb-item active">Contact Us</li>
+{% endblock %}
+{% block libcontent %}
+<div class='card w-75 borderless'>
+  <div class='card-body'>
+    <h3 class="card-title mb-5">Send a message to Winter (the webmaster):</h3>
+    <form action="{% url 'catalog:contact' %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="fieldWrapper mt-3">
+                {{ field.errors }}
+                <strong>{{ field.label_tag }}</strong><br> 
+                {{ field }}
+            </div>
+        {% endfor %}
+        <input class='button btn-lg mt-3' type="submit" value="Send Message">
+    </form>
+  </div>
+</div>
+<div class='card w-75 border-1 mt-3'>
+  <div class='card-body'>
+    <h5 class="card-title mb-3">Demo on datepicker and field filters:</h5>
+    <p>
+      Event start Date:
+      <input class="req-field passdate" type="input" id="demo_datepicker" size='10' />
+    </p>
+    <p>
+      Event start Time:
+      <input class="req-field passtime" type="text" id="PassStartTm" size='4' maxlength='5' onfocus="this.value=''" value="HH:MM" />
+    </p>
+    <p>
+      Number of participants:
+      <input class="input-pos-num" type="text" id="participant-num" size='4' maxlength='5' value="" />
+    </p>
+    <p>
+      Message:
+      <input class="input-freetext" type="text" id="msg_public" size='20' maxlength='40' value="" />
+    </p>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'catalog/js/jquery-ui.min.js' %}"></script>
+<script>
+$(document).ready(function() {
+  $("#demo_datepicker").datepicker({
+      changeYear: true,
+      changeMonth: true,
+      dateFormat: 'dd-M-yy',
+      onClose: function(dateTime){ 
+          if (dateTime != "") {
+            $(this).removeClass("req-field");
+          } else {
+            $(this).addClass("req-field");
+          }
+      }
+    });
+
+    // Time format checking
+  	var $passTime = $('.passtime');
+    $passTime.on( "focusout", function() {
+     	var time_str = $(this).val();
+    	//alert("time_str = " + time_str);
+ 
+       	// Time format: 24-hour format
+//      if( (/^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/.test(time_str)) ||
+//       		(/^(2[0-3]|[01]?[0-9])([0-5]?[0-9])$/.test(time_str)) ) {
+		if (/^[0-1][0-9]:[0-5][0-9]$|^[2][0-3]:[0-5][0-9]$|^[2][3]:[0][0]$/.test(time_str)
+		    || /^[0-1][0-9][0-5][0-9]$|^[2][0-3][0-5][0-9]$|^[2][3][0][0]$/.test(time_str)) {
+            $(this).removeClass("req-field");
+      	 } else {
+            $(this).addClass("req-field");
+       	}
+    });
+
+    	// Dispense dose checking
+	  var $selectDose = $('.dispensedose');
+    $selectDose.on( "focusout", function() {
+        if( $(this).val() > 0){
+             $(this).removeClass("req-field");
+        } else {
+             $(this).addClass("req-field");
+        }
+    });
+
+    $('.input-pos-num').each( function() {
+        //alert("Id= " + $(this).attr("id"));
+        setInputFilter(document.getElementById($(this).attr("id")), function(value) {
+           	return /^\d*$/.test(value);   //postive number only
+        });
+    }); 
+
+    $('.input-freetext').each( function() {
+        setInputFilter(document.getElementById($(this).attr("id")), function(value) {
+           	return /^[a-zA-Z0-9 -]*$/.test(value);
+        });
+    });    
+});
+
+/* Restricts input for the given textbox to the given inputFilter. */
+function setInputFilter(textbox, inputFilter) {
+    ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+            textbox.addEventListener(event, function() {
+                if (inputFilter(this.value)) {
+                    this.oldValue = this.value;
+                    this.oldSelectionStart = this.selectionStart;
+                    this.oldSelectionEnd = this.selectionEnd;
+                } else if (this.hasOwnProperty("oldValue")) {
+                    this.value = this.oldValue;
+                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                }
+            });
+        });
+};
+</script>
+{% endblock %}
