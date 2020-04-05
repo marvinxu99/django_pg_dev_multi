@@ -126,7 +126,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         # 'NAME': 'winndb_poll_dev',
-        'NAME': 'winn_users5',
+        'NAME': 'winn_users6',
         'USER': 'winter',
         'PASSWORD': 'winter',
         'HOST': 'localhost',

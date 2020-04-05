@@ -3,12 +3,15 @@
 {% block content %}
 <div class="winn-heading jumbotron text-center">
   <h1 class="display-4">Welcome</h1>
-  <p class="lead text-muted">The following web apps are developed using the famous Django framework. 
-    You are welcome to try them out. Winter would love to hear your feedback.  </p>
-    <p class="lead text-muted">If you would like to get in touch with Winter, please feel free to 
-      <a class="btn btn-outline-secondary btn-sm" href="{% url 'polls:contact' %}" role="button">compose a message</a> now.
-    </p> 
-    <hr class="mt-4">
+  <p class="lead text-muted">
+    The following web apps are developed using the famous Django framework. 
+    You are welcome to try them out. Winter, our webmaster, would love to hear your feedback.  
+  </p>
+  <p class="lead text-muted">If you would like to get in touch with 
+    <a href="{% url 'winter_univer' %}" target="_blank">Winter</a>, please feel free to 
+    <a class="btn btn-outline-secondary btn-sm" href="{% url 'polls:contact' %}" role="button">compose a message</a> now.
+  </p> 
+  <hr class="mt-4">
 </div>
 <div class="container">
   <div class="card-deck mb-3 text-center">
@@ -47,9 +50,9 @@
 <div class="container">
   <h4 class='mt-5'>Other websites by Winter:</h4>
   <div class="list-group w-50 list-group-flush">
-    <a class="list-group-item" href="winter_winnpy/"><strong>Winter WinnPy</strong> (React + Node + Firebase + OAuth)</a>
-    <a class="list-group-item" href="winter_univer/"><strong>Winter's Website</strong> (Python + Flask)</a>
-    <a class="list-group-item" href="face_recognition/"><strong>Smart Face Recognition</strong> (React + Node + PostgreSQL)</a>
+    <a class="list-group-item" href="{% url 'winter_winnpy' %}" target="_blank"><strong>Winter WinnPy</strong> (React + Node + Firebase + OAuth)</a>
+    <a class="list-group-item" href="{% url 'winter_univer' %}" target="_blank"><strong>Winter's Website</strong> (Python + Flask)</a>
+    <a class="list-group-item" href="{% url 'face_recognition' %}" target="_blank"><strong>Smart Face Recognition</strong> (React + Node + PostgreSQL)</a>
     <a class="list-group-item"></a>
   </div>
 </div>
