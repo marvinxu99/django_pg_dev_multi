@@ -16,7 +16,7 @@
 
 (4) Generate fake books  
 from random import randint
-for _ in range(100):
+for _ in range(50):
     author = Author.objects.get(pk=randint(1,100))
     genre = Genre.objects.get(pk=randint(1, 3))
     language = Language.objects.get(pk=randint(1, 3))
@@ -29,6 +29,11 @@ for _ in range(100):
 (5) Generate fake book instances:
 for _ in range(1000):
     imprint = faker.text(20)
-    book = Book.objects.get(pk=randint(1, 100))
+    book = Book.objects.get(pk=randint(1, 50))
     BookInstance.objects.create(imprint=imprint, book=book)
     
+(6) make all the books available:
+bookinstances = BookInstance.objects.all()
+for bi in bookinstances:
+    bi.status = 'a'
+    bi.save()
