@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'boards.apps.BoardsConfig',
     'catalog.apps.CatalogConfig',
     'core',
+    'kbase',
 
     'widget_tweaks',
 ]
