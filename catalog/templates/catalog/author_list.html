@@ -4,10 +4,14 @@
 <li class="breadcrumb-item active">Authors</li>
 {% endblock %}
 {% block libcontent %}
-<div class="d-flex justify-content-between">
-  <h5>Author List</h5>
+  <p class="h5">Author List</p>
+  <div class="d-flex justify-content-between">
+    <form method='GET'>
+    <input type='text' name='q' value='{{ request.GET.q }}' placeholder="last or first name">
+    <input class="button" type='submit' value="Search Author">
+  </form>
   {% if user.is_staff %}
-  <a href="{% url 'catalog:author-create' %}" class="btn btn-primary mb-3" role="button">Create Author</a>
+  <a href="{% url 'catalog:author-create' %}" class="btn btn-sm btn-primary mb-3" role="button">Create Author</a>
   {% endif %}
 </div>
   {% if author_list %}

@@ -3,6 +3,7 @@ from django.views import generic
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 from catalog.models import Book, Author, BookInstance, Genre
 
@@ -53,8 +54,13 @@ class BookListView(generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            book_list = self.model.objects.filter(title__icontains=query)
+        else:
+            book_list = self.model.objects.all()
         #return Book.objects.filter(title__icontains='war')[:5] # Get 5 books containing the title war
-        return Book.objects.all() # Get all books
+        return book_list
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get the context
@@ -77,7 +83,16 @@ class AuthorListView(generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Author.objects.all()
+        query = self.request.GET.get('q')
+        if query:
+            author_list = self.model.objects.filter(
+                Q(first_name__icontains=query) | Q(last_name__icontains=query)
+            )
+        else:
+            author_list = self.model.objects.all()
+        #return Author.objects.filter(name__icontains='war')[:5] # Get 5 books containing the title war
+        return author_list
+
 
 @login_required
 def author_detail_view(request, pk):

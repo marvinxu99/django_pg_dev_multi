@@ -7,28 +7,29 @@
 {% endblock %}
 
 {% block content %}
-<h3>{{ question.question_text }}</h3>
-
-{% if error_message %}
-<p class='warning'><strong>{{ error_message }}</strong></p>
-{% endif %}
-
-<form action="{% url 'polls:vote' question.question_id %}" method="post">
-  {% csrf_token %}
-  {% for choice in question.choice_set.all %}
-    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.choice_id }}">
-    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-  {% endfor %}
-  <input type="submit" value="Vote">
-</form>
-
-<div class='mt-3'>
-{% if prev_id %}
-  <p><a href="{% url 'polls:detail' prev_id %}">previous</a>
-{% endif %}
-...
-{% if next_id %}
-  <a href="{% url 'polls:detail' next_id %}" role='button'>next</a>
-{% endif %}
+<div class='card w-100'>
+  <div class='card-body'>
+    <h3 class="card-title">{{ question.question_text }}</h3>
+    {% if error_message %}
+    <p class='warning'><strong>{{ error_message }}</strong></p>
+    {% endif %}
+    <form action="{% url 'polls:vote' question.question_id %}" method="post">
+      {% csrf_token %}
+      {% for choice in question.choice_set.all %}
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.choice_id }}">
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+      {% endfor %}
+      <input type="submit" value="Vote">
+    </form>
+    <div class='mt-3'>
+      {% if prev_id %}
+        <p><a href="{% url 'polls:detail' prev_id %}">previous</a>
+      {% endif %}
+      ...
+      {% if next_id %}
+        <a href="{% url 'polls:detail' next_id %}" role='button'>next</a>
+      {% endif %}
+    </div>
+  </div>
 </div>
 {% endblock %}

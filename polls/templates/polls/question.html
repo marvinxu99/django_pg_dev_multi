@@ -7,14 +7,18 @@
 {% endblock %}
 
 {% block content %}
-{% if latest_question_list %}
-  <h4>Click on a question to vote:</h4>
-  <ul>
-    {% for question in latest_question_list %}
-    <li><a href="{% url 'polls:detail' question.question_id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>No polls are available.</p>
-{% endif %}
+<div class='card w-100'>
+  <div class='card-body'>
+    {% if latest_question_list %}
+      <h3 class="card-title">Click on a question to vote:</h3>
+      <ul>
+        {% for question in latest_question_list %}
+        <li><a href="{% url 'polls:detail' question.question_id %}">{{ question.question_text }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No polls are available.</p>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}

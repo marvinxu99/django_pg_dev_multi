@@ -23,4 +23,12 @@ class BorrowedBooksByStaffListView(PermissionRequiredMixin, generic.ListView):
     paginate_by = 10
     
     def get_queryset(self):
-        return BookInstance.objects.filter(status__exact='o').order_by('due_back')
+        query = self.request.GET.get('q')
+        if query:
+            bi_list = self.model.objects.filter(
+                status__exact='o',
+                book__title__icontains=query,
+            ).order_by('due_back')
+        else:
+            bi_list = self.model.objects.filter(status__exact='o').order_by('due_back')
+        return bi_list

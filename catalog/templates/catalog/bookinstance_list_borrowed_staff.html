@@ -8,6 +8,10 @@
   {% if bookinstance_list %}
   <div class='card-body'>
     <h3 class="card-title">Borrowed Books</h3>
+    <form class="mb-3" method='GET'>
+      <input type="text" name="q" value="{{ request.GET.q }}" placeholder="book name">
+      <input class="button" type='submit' value="Search Book">
+    </form>  
     <table class="table table-striped mb-4">
       <tr>
         <th>Title</th>

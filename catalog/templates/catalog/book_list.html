@@ -5,6 +5,10 @@
 {% endblock %}
 {% block libcontent %}
   <h5>Book List</h5>
+  <form class="mb-3" method='GET'>
+    <input type="text" name="q" value="{{ request.GET.q }}" placeholder="book name">
+    <input class="button" type='submit' value="Search Book">
+  </form>
   {% if book_list %}
   <table class="gen-list-view table table-striped table-sm table-hover mb-4">
     <thead>
@@ -25,7 +29,7 @@
     </tbody>
   </table>
   {% else %}
-    <p>There are no books in the library.</p>
+    <p>No books found in the library.</p>
   {% endif %}       
   {% include 'include/pagination.html' %}
 {% endblock %}
