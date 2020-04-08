@@ -10,6 +10,7 @@ from catalog.models import BookInstance
 
 @permission_required('catalog.can_mark_returned')
 def renew_book_staff(request, pk):
+    """View function for renewing a specific BookInstance by librarian."""
     book_instance = get_object_or_404(BookInstance, pk=pk)
 
     # If this is a POST request then process the Form data
