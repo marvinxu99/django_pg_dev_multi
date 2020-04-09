@@ -187,19 +187,10 @@ class PostUpdateView(UpdateView):
 #     '''
 #     Example of Using DeleteView and LoginRequiredMixin 
 #     '''
+#     permission_required = 'boards.delete_post'
 #     model = Post
-#     fields = ('message', )
-#     template_name = 'boards/delete_post.html'
-#     success_url = '/'
-#     pk_url_kwarg = 'post_pk'
-#     context_object_name = 'post'
-
-#     def form_valid(self, form):
-#         post = form.save(commit=False)
-#         post.updated_by = self.request.user
-#         post.updated_at = timezone.now()
-#         post.save()
-#         return redirect('boards:topic_posts', board_pk=post.topic.board.pk, topic_pk=post.topic.pk)
+#     success_url = reverse_lazy('boards:topic_posts')
+#
 @login_required
 def delete_post(request, board_pk, topic_pk, post_pk):    
     post = get_object_or_404(
