@@ -1,4 +1,17 @@
 {% extends 'base_no_crumb.html' %}
 {% block title %}Insta Posts{% endblock %}
+{% load static %}
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'posts/css/posts.css' %}">
+{% endblock %}
 {% block content %}
+    <div class="mt-5 mb-5">
+        <a href="{% url 'posts:all_posts' %}" class="btn btn btn-outline-primary" role="button">All Posts</a>
+        <a href="{% url 'posts:all_posts_carousel' %}" class="btn btn btn-outline-primary" role="button">All Posts(Carousel View)</a> 
+        <a href="{% url 'posts:all_posts_user' %}" class="btn btn btn-outline-primary" role="button">Posts by Me</a> 
+        <a href="{% url 'posts:create_post' %}" class="btn btn btn-outline-primary" role="button">Create New Post</a>
+        <a href="{% url 'posts:responsive_cards' %}" class="btn btn btn-outline-primary" role="button">Responsive Cards</a>
+    </div>
+    {% block subcontent %}
+    {% endblock %}
 {% endblock %}

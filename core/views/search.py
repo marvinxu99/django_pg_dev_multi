@@ -5,7 +5,7 @@ from django.contrib.postgres.search import SearchQuery
 
 def search(request):
     try: 
-        search = request.GET['search']
+        search = str.split(request.GET['search'])
     except:
         search = ''
     return render(request, 'core/search.html', { 'search': search})

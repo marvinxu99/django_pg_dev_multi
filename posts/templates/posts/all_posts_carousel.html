@@ -1,0 +1,33 @@
+{% extends 'posts/base_posts.html' %}
+{% block title %}Home - Insta Posts{% endblock %}
+{% block subcontent %}
+<div class="container">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      {% for post in object_list %}
+      <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+      {% endfor %}  
+    </ol>
+    <div class="carousel-inner">
+      {% for post in object_list %}
+      <div class="carousel-item {% if forloop.first %} active {% endif %}">
+        <img class="d-block w-100" src="{{ post.cover.url}}" alt="{{ post.title }}">
+        <div class="carousel-caption">
+          <p class='text-dark h3'>{{ post.title }}</h5>
+          <p class='text-dark h5'>details</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+{% endblock %}
+
