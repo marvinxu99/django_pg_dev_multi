@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-<div class='card w-100'>
+<div class='card w-50'>
   <div class='card-body'>
     <h3 class="card-title">{{ question.question_text }}</h3>
     <ul>
@@ -15,8 +15,32 @@
         <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
         {% endfor %}
     </ul>
-    <a href="{% url 'polls:detail' question.question_id %}">Vote again?</a><br>
-    <a href="{% url 'polls:question' %}">Back to questions</a>
+    <a href="{% url 'polls:detail' question.question_id %}" class="btn-sm btn-primary" role="button">Vote again?</a>
+    <a href="{% url 'polls:question' %}" class="btn-sm btn-secondary" role="button">Back to questions</a>
   </div>
 </div>
+
+</p>
+
+<div class='card w-50'>
+  <div class='card-body'>
+    <h3 class="card-title">{{ question.question_text }}</h3>
+    {% for choice in question.choice_set.all %}
+    <div class="row">
+        <div class="col-sm-5">{{ choice.choice_text }}</div>
+        <div class="col-sm-5">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="{{choice.votes}}" aria-valuemin="0" aria-valuemax="{{question.total_votes}}" style="width: {{choice.votes_percentage}}%;">
+                    {{ choice.votes }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}    
+    <br />
+    <a href="{% url 'polls:detail' question.question_id %}" class="btn-sm btn-primary" role="button">Vote again?</a>
+    <a href="{% url 'polls:question' %}" class="btn-sm btn-secondary" role="button">Back to questions</a>
+  </div>
+</div>
+
 {% endblock %}

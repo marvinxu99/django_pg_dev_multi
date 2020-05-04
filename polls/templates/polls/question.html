@@ -18,6 +18,15 @@
       </ul>
     {% else %}
       <p>No polls are available.</p>
+      <br />
+      <p>You can add a set of sample polls.</p>
+      <form action="/polls/seed/" method="post">
+          {% csrf_token %}
+          <button class="btn btn-primary" type="submit">Create Sample Polls</button>
+      </form>
+      <br />
+      <p>You can design new polls using the Django administration interface.</p>
+      <p><a href="/admin/" class="btn btn-primary btn-large">Django Administration &raquo;</a></p>
     {% endif %}
   </div>
 </div>

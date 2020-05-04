@@ -24,6 +24,7 @@ urlpatterns = [
     path('contact_email_sent/', views.contact_email_sent, name='contact_email_sent'),
 
     path('email/', views.email, name='email'),
+    path('seed/', views.seed, name='seed'),
 
     path('barcode_req/', views.barcode_req, name='barcode_req'),
     path('barcode_disp/', views.barcode_disp, name='barcode_disp'),

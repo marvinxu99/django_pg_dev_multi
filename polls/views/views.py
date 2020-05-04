@@ -3,6 +3,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+import json
+from os import path
+
 
 from django.core.mail import send_mail
 from django.conf import settings
@@ -107,3 +111,25 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.question_id,)))
+
+@login_required
+def seed(request):
+    """Seeds the database with sample polls."""
+    samples_path = path.join(path.dirname(__file__), 'samples.json')
+    with open(samples_path, 'r') as samples_file:
+        samples_polls = json.load(samples_file)
+
+    for sample_poll in samples_polls:
+        poll = Question()
+        poll.question_text = sample_poll['text']
+        poll.pub_date = timezone.now()
+        poll.save()
+
+        for sample_choice in sample_poll['choices']:
+            choice = Choice()
+            choice.question = poll
+            choice.choice_text = sample_choice
+            choice.votes = 0
+            choice.save()
+
+    return HttpResponseRedirect(reverse('polls:question'))
