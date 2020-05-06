@@ -29,6 +29,14 @@
           <div class="collapse navbar-collapse" id="WinnMenu">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="eventsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Events
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="eventsMenu">
+                  <a class="dropdown-item" href="{% url 'utils:calendar' %}" >Calendar</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="aboutMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   About Us
                 </a>

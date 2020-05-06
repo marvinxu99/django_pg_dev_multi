@@ -29,7 +29,6 @@ class Calendar(HTMLCalendar):
         for event in events_per_day:
             d += f'<li> {event.get_html_url} </li>'
 
-
         if day != 0:
             csscls = ''
             if date.today() == date(self.year, self.month, day):
@@ -104,6 +103,8 @@ def event(request, event_id=None):
         instance = get_object_or_404(Event, pk=event_id)
     else:
         instance = Event()
+        instance.start_time = datetime.now()
+        instance.end_time = datetime.now()
     
     form = EventForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
