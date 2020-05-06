@@ -38,6 +38,7 @@ urlpatterns = [
     path('winter_univer/', core_views.winter_univer, name='winter_univer'),
     path('face_recognition/', core_views.face_recognition, name='face_recognition'),
 
+    path('utils/', include('utils.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

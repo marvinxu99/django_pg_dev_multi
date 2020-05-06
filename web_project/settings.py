@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'kbase.apps.KbaseConfig',
     'posts.apps.PostsConfig',
+    'utils.apps.UtilsConfig',
 
     'widget_tweaks',
 ]
