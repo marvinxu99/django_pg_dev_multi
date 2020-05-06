@@ -6,6 +6,6 @@ from .views import CalendarView, event_calendar
 app_name = 'utils'
 urlpatterns = [
     
-    path('event-calendar/', CalendarView.as_view(), name='event-calendar'),
+    path('calendar/', CalendarView.as_view(), name='calendar'),
 
 ]

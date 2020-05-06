@@ -1,16 +1,15 @@
-{% load staticfiles %}
 <!doctype html>
 <html lang="en">
-
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Team Calendar</title>
   <!-- Bootstrap CSS -->
+  {% load static %}
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-  <link rel="stylesheet" type="text/css" href="{'% static 'cal/css/styles.css' %}">
-  <title>Django Calendar App</title>
+  <link rel="stylesheet" href="{% static 'utils/css/event_cal.css' %}">
 </head>
 <body>
 
