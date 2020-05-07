@@ -7,6 +7,7 @@ from django.urls import reverse_lazy, reverse
 from django.utils.safestring import mark_safe
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from utils.models import Event
 from utils.forms import EventForm
@@ -95,7 +96,7 @@ class CalendarView(ListView):
         month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
         return month
 
-
+@login_required
 def event(request, event_id=None):
     if event_id:
         instance = get_object_or_404(Event, pk=event_id)
