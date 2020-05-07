@@ -3,12 +3,10 @@ from django.shortcuts import render
 from datetime import datetime, timedelta, date
 from calendar import HTMLCalendar
 from django.views.generic import ListView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils.safestring import mark_safe
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
-
 
 from utils.models import Event
 from utils.forms import EventForm
@@ -101,14 +99,16 @@ class CalendarView(ListView):
 def event(request, event_id=None):
     if event_id:
         instance = get_object_or_404(Event, pk=event_id)
+        template_tile = 'Edit Event'
     else:
         instance = Event()
         instance.start_time = datetime.now()
         instance.end_time = datetime.now()
+        template_tile = 'New Event'
     
     form = EventForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('utils:calendar'))
 
-    return render(request, 'utils/cal_event.html', {'form': form})
+    return render(request, 'utils/cal_event.html', {'form': form, 'template_tile': template_tile})

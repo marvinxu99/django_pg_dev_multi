@@ -1,19 +1,15 @@
 {% extends 'utils/base.html' %}
-
-{% block title %}
-Event
-{% endblock %}
-
 {% block content %}
 <div class='card w-50 borderless'>
   <div class='card-body'>
+    <h5 class="card-title text-center">{{ template_tile }}</h5>
     <form method="post">
       {% csrf_token %}
       <table class="form form-table">
         {{ form }}
       </table>
       <div class="col text-center mt-3">
-        <button type="submit" class="btn btn-info"> Submit </button>
+        <button type="submit" class="btn btn-info">Submit </button>
         <a class="btn btn-info" href="{% url 'utils:calendar' %}">Cancel</a>
       </div>
     </form>
