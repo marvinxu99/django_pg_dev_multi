@@ -7,10 +7,10 @@
 {% block content %}
 <div>
 <div class="mt-3 mb-3 clearfix">
-	<a class="btn btn-info left mr-3" href="{% url 'utils:calendar' %}">Today</a>
-	<a class="btn btn-info left mr-3" href="{% url 'utils:calendar' %}?{{ prev_month }}">Previous Month</a>
-	<a class="btn btn-info left" href="{% url 'utils:calendar' %}?{{ next_month }}">Next Month</a>
-	<a class="btn btn-info right" href="{% url 'utils:event_new' %}">Add Event</a>
+	<a class="btn btn-outline-primary left mr-3" href="{% url 'utils:calendar' %}">Today</a>
+	<a class="btn btn-outline-primary left mr-3" href="{% url 'utils:calendar' %}?{{ prev_month }}">Previous Month</a>
+	<a class="btn btn-outline-primary left" href="{% url 'utils:calendar' %}?{{ next_month }}">Next Month</a>
+	<a class="btn btn-outline-primary right" href="{% url 'utils:event_new' %}">Add Event</a>
 </div class="mt-3 clearfix">
 	{{ calendar }}
 </div>

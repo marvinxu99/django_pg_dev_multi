@@ -28,8 +28,10 @@ urlpatterns = [
     path('polls/', include('polls.urls')),
     path('boards/', include('boards.urls')),
     path('accounts/', include('accounts.urls')),
+    
     path('catalog/', include('catalog.urls')),
     #path('', RedirectView.as_view(url='catalog/', permanent=True)),
+
     path('core/', include('core.urls')),
     path('kbase/', include('kbase.urls')),
     path('posts/', include('posts.urls')),
