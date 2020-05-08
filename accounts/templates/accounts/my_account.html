@@ -6,23 +6,28 @@
   <li class="breadcrumb-item active">My account</li>
 {% endblock %}
 {% block content %}
-  <div class="row">
-    <div class="col-lg-6 col-md-8 col-sm-10">
-      <form method="post" novalidate>
+<div class='container'>
+<div class="row justify-content-center">
+  <div class="col-lg-6 col-md-8 col-sm-10">
+    <div class="card">
+      <div class="card-body">
+        <form method="post" novalidate>
         {% csrf_token %}
         {% include 'includes/form.html' %}
-        <button type="submit" class="btn btn-success">Save changes</button>
-        <a href="{% url 'home' %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+        <button type="submit" class="btn btn-sm btn-primary">Save changes</button>
+        <a href="{% url 'home' %}" class="btn btn-sm btn-outline-secondary" role="button">Cancel</a>
       </form>
+      <div class="text-left">
+        <small>
+          Check out the web apps: <br>
+          <ul>
+          <li><a href="{% url 'boards:boards_home' %}" class="text-muted">Winn Boards</a></li>
+          <li><a href="{% url 'polls:question' %}" class="text-muted">Winn Polls</a></li>
+        </ul>
+        </small>
+      </div>
     </div>
   </div>
-  <div class="text-left">
-    <small>
-      Check out the web apps: <br>
-      <ul>
-      <li><a href="{% url 'boards:boards_home' %}" class="text-muted">Winn Boards</a></li>
-      <li><a href="{% url 'polls:question' %}" class="text-muted">Winn Polls</a></li>
-    </ul>
-    </small>
-  </div>
+</div>
+</div>
 {% endblock %}
