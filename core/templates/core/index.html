@@ -66,12 +66,20 @@
   </div>
 </div>
 <div class="container">
-  <h4 class='mt-5'>Other websites by Winter:</h4>
-  <div class="list-group w-50 list-group-flush">
-    <a class="list-group-item" href="{% url 'winter_winnpy' %}" target="_blank"><strong>Winter WinnPy</strong> (React + Node + Firebase + OAuth)</a>
-    <a class="list-group-item" href="{% url 'winter_univer' %}" target="_blank"><strong>Winter's Website</strong> (Python + Flask)</a>
-    <a class="list-group-item" href="{% url 'face_recognition' %}" target="_blank"><strong>Smart Face Recognition</strong> (React + Node + PostgreSQL)</a>
-    <a class="list-group-item"></a>
+  <div class="row ml-1 justify-content-center">
+    <div>
+      {% load static %}
+      <img src="{% static 'img/ww_little2.jpg' %}" alt="winter2">
+    </div>   
+    <div class="col-lg-6 col-md-8 col-sm-10">
+      <h4 class='mt-5'>Other websites by Winter:</h4>
+      <div class="list-group w-100 list-group-flush">
+        <a class="list-group-item" href="{% url 'winter_winnpy' %}" target="_blank"><strong>Winter WinnPy</strong> (React + Node + Firebase + OAuth)</a>
+        <a class="list-group-item" href="{% url 'winter_univer' %}" target="_blank"><strong>Winter's Website</strong> (Python + Flask)</a>
+        <a class="list-group-item" href="{% url 'face_recognition' %}" target="_blank"><strong>Smart Face Recognition</strong> (React + Node + PostgreSQL)</a>
+        <a class="list-group-item"></a>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}
