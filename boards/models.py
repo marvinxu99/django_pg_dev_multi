@@ -8,8 +8,8 @@ from django.conf import settings
 
 
 class Board(models.Model):
-    name = models.CharField(max_length=30, unique=True)
-    description = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
+    description = models.CharField(max_length=140)
 
     class Meta:
         ordering = ['name']
@@ -33,6 +33,9 @@ class Topic(models.Model):
 
     def __str__(self):
         return self.subject
+
+    def has_no_posts(self):
+        return self.posts.count() <= 0
 
     def get_page_count(self):
         count = self.posts.count()

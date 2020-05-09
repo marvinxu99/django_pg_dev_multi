@@ -81,6 +81,7 @@ def new_topic(request, board_pk):
     
     if request.method == 'POST':
         form = NewTopicForm(request.POST)
+
         if form.is_valid():            
             topic = form.save(commit=False)
             topic.board = board
@@ -91,7 +92,7 @@ def new_topic(request, board_pk):
                 topic=topic,
                 created_by=request.user
             )
-        return redirect('boards:topic_posts', board_pk=board.pk, topic_pk=topic.pk) 
+            return redirect('boards:topic_posts', board_pk=board.pk, topic_pk=topic.pk) 
 
     else:
         form = NewTopicForm()
@@ -160,6 +161,15 @@ def reply_topic(request, board_pk, topic_pk):
     return render(request, 'boards/reply_topic.html', {'topic': topic, 'posts': posts,'form': form})
 
 
+@login_required
+def delete_topic(request, board_pk, topic_pk):
+    topic = get_object_or_404(Topic, board__pk=board_pk, pk=topic_pk)
+    if topic.starter == request.user and topic.posts.count() <= 0:
+        topic.delete()
+
+    return redirect('boards:board_topics', board_pk=board_pk)
+
+
 @method_decorator(login_required, name='dispatch')
 class PostUpdateView(UpdateView):
     model = Post
@@ -187,16 +197,25 @@ class PostUpdateView(UpdateView):
 #     '''
 #     Example of Using DeleteView and LoginRequiredMixin 
 #     '''
-#     permission_required = 'boards.delete_post'
 #     model = Post
-#     success_url = reverse_lazy('boards:topic_posts')
-#
-@login_required
-def delete_post(request, board_pk, topic_pk, post_pk):    
+#     fields = ('message', )
+#     template_name = 'boards/delete_post.html'
+#     success_url = '/'
+#     pk_url_kwarg = 'post_pk'
+#     context_object_name = 'post'
+
+#     def form_valid(self, form):
+#         post = form.save(commit=False)
+#         post.updated_by = self.request.user
+#         post.updated_at = timezone.now()
+#         post.save()
+#         return redirect('boards:topic_posts', board_pk=post.topic.board.pk, topic_pk=post.topic.pk)
+@login_required()
+def delete_post(request, board_pk, topic_pk, post_pk):
     post = get_object_or_404(
         Post, 
-        topic__pk=topic_pk,
-        pk=post_pk
+        topic__pk = topic_pk,
+        pk = post_pk
     )
     if post.created_by == request.user:
         post.delete()

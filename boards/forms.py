@@ -15,6 +15,14 @@ class NewTopicForm(forms.ModelForm):
         model = Topic
         fields = ['subject', 'message']
 
+    # NOT NEEDED. left here as an example showing how to clean data
+    # def clean_message(self):
+    #     message = self.cleaned_data.get('message')
+    #     if not message:
+    #         # do some validation, if it fails
+    #         raise forms.ValidationError(u'Form error')
+    #     return message
+
 
 # Used in reply_topic() 
 class PostForm(forms.ModelForm):

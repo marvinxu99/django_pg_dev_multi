@@ -26,6 +26,7 @@
           <th>Replies</th>
           <th>Views</th>
           <th>Last Update</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -34,7 +35,7 @@
           <tr>
             <td>
               <p class="mb-0">
-                <a href="{{ topic_url }}">{{ topic.subject|truncatechars:60 }}</a>
+                <a href="{{ topic_url }}">{{ topic.subject|truncatechars:100 }}</a>
               </p>
               <small class="text-muted">
                 Pages:
@@ -50,6 +51,11 @@
             <td class="align-middle">{{ topic.replies }}</td>
             <td class="align-middle">{{ topic.views}}</td>
             <td class="align-middle">{{ topic.last_updated|naturaltime }}</td>
+            <td class="align-middle">
+              {% if topic.starter ==  user and topic.has_no_posts %}
+                <a href="{% url 'boards:delete_topic' board.pk topic.pk %}" class="btn btn-sm btn-outline-primary">delete</a>
+              {% endif %}
+            </td>
           </tr>
         {% endfor %}
       </tbody>
