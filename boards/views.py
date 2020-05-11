@@ -124,19 +124,23 @@ class PostListView(ListView):
 
     def get_queryset(self):
         self.topic = get_object_or_404(Topic, board__pk=self.kwargs.get('board_pk'), pk=self.kwargs.get('topic_pk'))
-        queryset = self.topic.posts.order_by('-created_at')
+        #queryset = self.topic.posts.order_by('-created_at')
+        queryset = self.topic.posts.order_by('-updated_at')
         return queryset
 
 
 @login_required
 def reply_topic(request, board_pk, topic_pk):
+    
     topic = get_object_or_404(Topic, board__pk=board_pk, pk=topic_pk)
+
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
             post.topic = topic
             post.created_by = request.user
+            post.updated_at = timezone.now()
             post.save()
 
             topic.last_updated = timezone.now()
@@ -190,6 +194,11 @@ class PostUpdateView(UpdateView):
         post.updated_by = self.request.user
         post.updated_at = timezone.now()
         post.save()
+        
+        topic = get_object_or_404(Topic, pk=post.topic.pk)
+        topic.last_updated = timezone.now()
+        topic.save()
+
         return redirect('boards:topic_posts', board_pk=post.topic.board.pk, topic_pk=post.topic.pk)
 
 
@@ -218,6 +227,9 @@ def delete_post(request, board_pk, topic_pk, post_pk):
         pk = post_pk
     )
     if post.created_by == request.user:
+        topic = get_object_or_404(Topic, pk=post.topic.pk)
+        topic.last_updated = timezone.now()
+        topic.save()
         post.delete()
 
     return redirect('boards:topic_posts', board_pk=post.topic.board.pk, topic_pk=post.topic.pk)
