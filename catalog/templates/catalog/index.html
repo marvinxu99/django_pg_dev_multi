@@ -1,17 +1,13 @@
 {% extends "catalog/base_catalog.html" %}
-
 {% block breadcrumb %}
 <li class="breadcrumb-item  active">Local Library Home</li>
 {% endblock %}
-
 {% block libcontent %}
-<div class="card border-0 w-70">
-  <div class="card-body">
     <h3 class="card-title">Local Library</h3>
     <p>Welcome to LocalLibrary, a website developed by <em>Winter Winn</em>!</p>
     <h5>About your library</h5>
     <p>The library has the following record counts:</p>
-    <div class='w-50'>
+    <div class='w-75'>
       <table class="table table-striped mb-4">
         <tr>
           <td><strong>Books:</strong></td><td>{{ num_books }}</td>
@@ -35,7 +31,6 @@
     </div>
     <p>You ({{ user }}) have visited this page 
       <span class="text-success">{{ num_visits }}</span>
-      {% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
-  </div>
-</div>
+      {% if num_visits == 1 %} time{% else %} times{% endif %}.
+    </p>
 {% endblock %}

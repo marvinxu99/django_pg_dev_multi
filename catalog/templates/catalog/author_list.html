@@ -7,13 +7,13 @@
   <p class="h5">Author List</p>
   <div class="d-flex justify-content-between">
     <form method='GET'>
-    <input type='text' name='q' value='{{ request.GET.q }}' placeholder="last or first name">
-    <input class="button" type='submit' value="Search Author">
-  </form>
-  {% if user.is_staff %}
-  <a href="{% url 'catalog:author-create' %}" class="btn btn-sm btn-primary mb-3" role="button">Create Author</a>
-  {% endif %}
-</div>
+      <input type='text' name='q' value='{{ request.GET.q }}' placeholder="last or first name">
+      <input class="button" type='submit' value="Search Author">
+    </form>
+    {% if user.is_staff %}
+    <a href="{% url 'catalog:author-create' %}" class="btn btn-sm btn-primary mb-3" role="button">Create Author</a>
+    {% endif %}
+  </div>
   {% if author_list %}
   <table class="gen-list-view table table-striped table-sm table-hover mb-4">
     <thead class="thead-light">
