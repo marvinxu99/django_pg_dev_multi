@@ -51,7 +51,7 @@ class BookListView(generic.ListView):
     #The view passes the context (list of books) by default as object_list and book_list aliases; either will work
     context_object_name = 'book_list'
     template_name = 'catalog/book_list.html'
-    paginate_by = 10
+    paginate_by = 15
 
     def get_queryset(self):
         query = self.request.GET.get('q')
@@ -80,7 +80,7 @@ class AuthorListView(generic.ListView):
     model = Author
     context_object_name = 'author_list'
     template_name = 'catalog/author_list.html'
-    paginate_by = 10
+    paginate_by = 15
 
     def get_queryset(self):
         query = self.request.GET.get('q')
