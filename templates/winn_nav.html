@@ -21,7 +21,7 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="appsMenu">
             <a class="dropdown-item" href="{% url 'boards:boards_home' %}">Boards</a>
-            <a class="dropdown-item" href="#">Issue Tracker</a>
+            <a class="dropdown-item" href="{% url 'itracker:get_issues' %}">Issue Tracker</a>
             <a class="dropdown-item" href="{% url 'posts:all_posts' %}">Insta Posts</a>
             <a class="dropdown-item" href="{% url 'catalog:index' %}">Mini Library</a>
             <a class="dropdown-item" href="{% url 'polls:question' %}">Polls</a>

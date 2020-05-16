@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from core import views as core_views
-
+import notifications.urls
 
 urlpatterns = [
     path('', core_views.index, name='home'),
@@ -41,6 +41,9 @@ urlpatterns = [
     path('face_recognition/', core_views.face_recognition, name='face_recognition'),
 
     path('utils/', include('utils.urls')),
+    path('itracker/', include('itracker.urls')),
+
+    path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

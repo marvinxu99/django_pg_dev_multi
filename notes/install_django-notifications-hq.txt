@@ -1,0 +1,21 @@
+(1) pip install dist/django-notifications-hq
+(2) add the Django Notifications to your project add the app notifications to your INSTALLED_APPS. 
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    ...
+    'notifications',
+    ...
+)
+
+(3) Add the app notifications to your urlconf
+import notifications.urls
+
+urlpatterns = [
+    ...
+    path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    ...
+]
+The method of installing these urls, importing rather than using 'notifications.urls', 
+is required to ensure that the urls are installed in the notifications namespace.
+
+(4) To run schema migration, execute python manage.py migrate notifications

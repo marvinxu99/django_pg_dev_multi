@@ -1,0 +1,143 @@
+{% extends "itracker/base_itracker.html" %} 
+{% block content %}
+        <div class="row">
+            <h1>Issues</h1>
+        </div>
+
+        <div class="row">
+            <div id="completed_daily_container" class="col s12 m4"></div>
+            <div id="completed_weekly_container" class="col s12 m4"></div>
+            <div id="completed_monthly_container" class="col s12 m4"></div>
+        </div>
+        <div class="row">
+            <div id="bug_upvotes_container" class="col s12 m6" data-url="{% url 'itracker:get_bug_upvotes_json' %}"></div>
+            <div id="feature_upvotes_container" class="col s12 m6" data-url="{% url 'itracker:get_feature_upvotes_json' %}"></div>
+        </div>
+
+        <div id="issue_type_container" data-url="{% url 'itracker:get_issue_type_json' %}"></div>
+        <div id="status_container" data-url="{% url 'itracker:get_status_json' %}"></div>
+
+      <script>
+        $.ajax({
+          url: $("#issue_type_container").attr("data-url"),
+          dataType: 'json',
+          success: function (data) {
+            Highcharts.chart("issue_type_container", data);
+          }
+        });
+       $.ajax({
+          url: $("#status_container").attr("data-url"),
+          dataType: 'json',
+          success: function (data) {
+            Highcharts.chart("status_container", data);
+          }
+        });
+        $.ajax({
+          url: $("#bug_upvotes_container").attr("data-url"),
+          dataType: 'json',
+          success: function (data) {
+            Highcharts.chart("bug_upvotes_container", data);
+          }
+        });
+        $.ajax({
+          url: $("#feature_upvotes_container").attr("data-url"),
+          dataType: 'json',
+          success: function (data) {
+            Highcharts.chart("feature_upvotes_container", data);
+          }
+        });
+        $(document).ready(function() {
+
+            var chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'completed_daily_container',
+                        type: 'pie',
+                        backgroundColor:'transparent',
+
+                    },
+                    plotOptions: {
+                        pie: {
+                            innerSize: '70%'
+                        }
+                    },
+                    title: {
+                        text: 'Issues Resolved Today:',
+                        style: { 'color': 'black' }
+
+                    },
+                    subtitle: {
+                        text: '{{completed_daily}}',
+                        align: 'center',
+                        verticalAlign: 'middle',
+                        style: { "fontSize": "10em", 'color': 'black' },
+                        y: 15
+                    },
+                    credits: { enabled: false },
+
+                });
+          });
+
+          $(document).ready(function() {
+
+            var chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'completed_weekly_container',
+                        type: 'pie',
+                        backgroundColor:'transparent',
+
+                    },
+                    plotOptions: {
+                        pie: {
+                            innerSize: '70%'
+                        }
+                    },
+                    title: {
+                        text: 'Issues Resolved in the past 7 days:',
+                        style: { 'color': 'black' }
+
+                    },
+                    subtitle: {
+                        text: '{{completed_weekly}}',
+                        align: 'center',
+                        verticalAlign: 'middle',
+                        style: { "fontSize": "10em", 'color': 'black' },
+                        y: 15
+                    },
+                    credits: { enabled: false },
+
+                });
+          });
+
+          $(document).ready(function() {
+
+            var chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'completed_monthly_container',
+                        type: 'pie',
+                        backgroundColor:'transparent',
+
+                    },
+                    plotOptions: {
+                        pie: {
+                            innerSize: '70%'
+                        }
+                    },
+                    title: {
+                        text: 'Issues Resolved in the past 28 days:',
+                        style: { 'color': 'black' }
+
+                    },
+                    subtitle: {
+                        text: '{{completed_monthly}}',
+                        align: 'center',
+                        verticalAlign: 'middle',
+                        style: { "fontSize": "10em", 'color': 'black' },
+                        y: 15
+                    },
+                    credits: { enabled: false },
+
+                });
+          });
+      </script>
+
+{% endblock %}

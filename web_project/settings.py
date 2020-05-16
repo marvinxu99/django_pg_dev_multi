@@ -56,8 +56,11 @@ INSTALLED_APPS = [
     'kbase.apps.KbaseConfig',
     'posts.apps.PostsConfig',
     'utils.apps.UtilsConfig',
+    'itracker.apps.iTrackerConfig',
 
     'widget_tweaks',
+    'notifications',    #  pip install dist/django-notifications-hq
+    'material',         #  pip install django-material
 ]
 
 MIDDLEWARE = [
@@ -126,8 +129,7 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'winndb_poll_dev',
-        'NAME': 'winn_users6',
+        'NAME': 'winn_dev',
         'USER': 'winter',
         'PASSWORD': 'winter',
         'HOST': 'localhost',
