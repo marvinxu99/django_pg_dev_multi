@@ -32,7 +32,7 @@ def report(request):
     completed_monthly = Issue.objects.filter(resolved_date__gte=this_month_start).filter(resolved_date__lt=today_end).count()
     print(completed_daily)
 
-    return render(request, "itracker/report.html", {'completed_daily': str(completed_daily), 'completed_weekly': str(completed_weekly), 'completed_monthly': str(completed_monthly)})
+    return render(request, "itrac/report.html", {'completed_daily': str(completed_daily), 'completed_weekly': str(completed_weekly), 'completed_monthly': str(completed_monthly)})
 
 
 def get_issues(request):
@@ -58,7 +58,7 @@ def get_issues(request):
         
         issues = paginator.page(paginator.num_pages)
 
-    return render(request, "itracker/issues.html", {'issues': issues})
+    return render(request, "itrac/issues.html", {'issues': issues})
 
 
 def do_search(request):
@@ -67,7 +67,7 @@ def do_search(request):
     of matching Issues and render them to the 'issues.html' template
     """
     issues = Issue.objects.filter(title__icontains=request.GET['q'])
-    return render(request, "itracker/issues.html", {"issues": issues})
+    return render(request, "itrac/issues.html", {"issues": issues})
 
 
 def do_search_my(request):
@@ -77,7 +77,7 @@ def do_search_my(request):
     """
     user = request.user
     issues = Issue.objects.filter(author=user).filter(title__icontains=request.GET['q'])
-    return render(request, "itracker/myissues.html", {"issues": issues})
+    return render(request, "itrac/myissues.html", {"issues": issues})
 
 
 @login_required()
@@ -88,7 +88,7 @@ def my_issues(request):
     """
     user = request.user
     issues = Issue.objects.filter(author=user).order_by('-created_date')
-    return render(request, "itracker/myissues.html", {'issues': issues})
+    return render(request, "itrac/myissues.html", {'issues': issues})
 
 
 @login_required()
@@ -99,7 +99,7 @@ def saved_issues(request):
     """
     user = request.user
     savedissues = SavedIssue.objects.filter(user=user).order_by('-created_date')
-    return render(request, "itracker/savedissues.html", {'savedissues': savedissues})
+    return render(request, "itrac/savedissues.html", {'savedissues': savedissues})
 
 
 def my_notifications(request):
@@ -110,7 +110,7 @@ def my_notifications(request):
 
     user = request.user
     notifications = Notification.objects.unread().filter(recipient=user).order_by('-timestamp')
-    return render(request, "itracker/notifications.html", {'notifications': notifications})
+    return render(request, "itrac/notifications.html", {'notifications': notifications})
 
 
 def get_issue_type_json(request):
@@ -192,7 +192,7 @@ def get_feature_upvotes_json(request):
 def search(request):
     issue_list = Issue.objects.all()
     issue_filter = IssueFilter(request.GET, queryset=issue_list)
-    return render(request, 'itracker/search_issues.html', {'filter': issue_filter})
+    return render(request, 'itrac/search_issues.html', {'filter': issue_filter})
 
 
 @login_required()
@@ -212,7 +212,7 @@ def issue_detail(request, pk):
         replies = Reply.objects.filter(comment=comment)
         comment_replies.append(replies)
 
-    return render(request, "itracker/issuedetail.html", {'issue': issue, 'comments': comments, 'comment_replies': comment_replies})
+    return render(request, "itrac/issuedetail.html", {'issue': issue, 'comments': comments, 'comment_replies': comment_replies})
 
 
 @login_required()
@@ -222,7 +222,7 @@ def upvote(request, pk):
     issue.save()
     notify.send(request.user, recipient=issue.author, verb="upvoted your Issue: " + issue.title)
     messages.success(request, 'Issue upvoted!')
-    return redirect('itracker:issue_detail', pk)
+    return redirect('itrac:issue_detail', pk)
 
 @login_required()
 def save_issue(request, pk):
@@ -238,7 +238,7 @@ def save_issue(request, pk):
         messages.success(request, 'Issue added to your Saved Issues!')
     else:
         messages.error(request, 'Issue already added in your Saved Issues!')
-    return redirect('itracker:issue_detail', pk)
+    return redirect('itrac:issue_detail', pk)
 
 @login_required()
 def delete_saved_issue(request, pk):
@@ -265,10 +265,10 @@ def create_issue(request):
                 form.instance.price = 0
             issue = form.save()
             
-            return redirect('itracker:issue_detail', issue.pk)
+            return redirect('itrac:issue_detail', issue.pk)
     else:
         form = IssueForm()
-    return render(request, 'itracker/issueform.html', {'form': form})
+    return render(request, 'itrac/issueform.html', {'form': form})
 
 
 @login_required()
@@ -286,7 +286,7 @@ def edit_issue(request, pk=None):
                 request,
                 'You Do Not Have Permission To Edit this Issue'
             )
-            return redirect('itracker:issue_detail', issue.pk)
+            return redirect('itrac:issue_detail', issue.pk)
 
     if request.method == "POST":
         form = IssueForm(request.POST, request.FILES, instance=issue)
@@ -301,10 +301,10 @@ def edit_issue(request, pk=None):
             notify.send(request.user, recipient=issue.author, verb="updated your Issue: " + issue.title)
             messages.success(request, 'Issue Edited with success!')
 
-            return redirect('itracker:issue_detail', issue.pk)
+            return redirect('itrac:issue_detail', issue.pk)
     else:
         form = IssueForm(instance=issue)
-    return render(request, 'itracker/issueform.html', {'form': form})
+    return render(request, 'itrac/issueform.html', {'form': form})
 
 
 @login_required()
@@ -324,10 +324,10 @@ def create_or_edit_comment(request, issue_pk, pk=None):
             form.save()
             notify.send(request.user, recipient=issue.author, verb="added a comment to your Issue: " + issue.title)
             messages.success(request, 'Comment Saved!')
-            return redirect('itracker:issue_detail', issue_pk)
+            return redirect('itrac:issue_detail', issue_pk)
     else:
         form = CommentForm(instance=comment)
-    return render(request, 'itracker/commentform.html', {'form': form})
+    return render(request, 'itrac/commentform.html', {'form': form})
 
 
 @login_required()
@@ -347,10 +347,10 @@ def create_or_edit_reply(request, issue_pk, comment_pk, pk=None):
             form.save()
             notify.send(request.user, recipient=comment.author, verb="added a reply to your Comment: " + comment.comment)
             messages.success(request, 'Reply Saved!')
-            return redirect('itracker:issue_detail', issue_pk)
+            return redirect('itrac:issue_detail', issue_pk)
     else:
         form = ReplyForm(instance=reply)
-    return render(request, 'itracker/replyform.html', {'form': form})
+    return render(request, 'itrac/replyform.html', {'form': form})
 
 
 

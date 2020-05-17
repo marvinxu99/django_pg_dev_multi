@@ -1,4 +1,4 @@
-{% extends 'itracker/base_itracker.html'%}
+{% extends 'itrac/base_itrac.html' %}
 {% load material_form %}
 {% block content %}
 {% if messages %}
@@ -30,14 +30,14 @@
         <div class="col s12 m6">
             <p><b>Upvotes: </b>{{ issue.upvotes }}
                 {% if issue.issue_type == "BUG" %}
-                <a class="btn-floating btn-small waves-effect waves-light teal" href="{% url 'itracker:upvote' issue.id %}"><i class="material-icons">thumb_up</i></a>
+                <a class="btn-floating btn-small waves-effect waves-light teal" href="{% url 'itrac:upvote' issue.id %}"><i class="material-icons">thumb_up</i></a>
                 {% endif %}</p>
             <p><b>Assigned to: </b>{{ issue.assignee }}</p>
             <p><b>Resolved Date: </b>{{ issue.resolved_date }}</p>
             <p><b>Resolved: </b>{{ issue.is_resolved }}</p>
-            <a class="btn-floating btn-large waves-effect waves-light yellow" href="{% url 'itracker:save_issue' issue.id %}"><i class="material-icons">star</i></a>
+            <a class="btn-floating btn-large waves-effect waves-light yellow" href="{% url 'itrac:save_issue' issue.id %}"><i class="material-icons">star</i></a>
             {% if user == issue.author or user.is_staff %}
-            <a class="btn-floating btn-large waves-effect waves-light blue" href="{% url 'itracker:edit_issue' issue.id %}"><i class="material-icons">edit</i></a>
+            <a class="btn-floating btn-large waves-effect waves-light blue" href="{% url 'itrac:edit_issue' issue.id %}"><i class="material-icons">edit</i></a>
             {% endif %}
         </div>
     </div>
@@ -59,7 +59,7 @@
 
         <!--<div class="col s12 m6">-->
             <h3>Comments <i class="material-icons">comment</i></h3>
-            <a class="btn-floating btn waves-effect waves-light green" href="{% url 'itracker:new_comment' issue.id %}"><i class="material-icons left">add</i>Add New Comment</a>
+            <a class="btn-floating btn waves-effect waves-light green" href="{% url 'itrac:new_comment' issue.id %}"><i class="material-icons left">add</i>Add New Comment</a>
             {% for comment in comments %}
             <div class="card-panel blue-grey lighten-4">
                 <div class="row">

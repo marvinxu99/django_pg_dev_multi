@@ -1,4 +1,4 @@
-{% extends "itracker/base_itracker.html" %} 
+{% extends "itrac/base_itrac.html" %} 
 {% block content %}
         <div class="row">
             <h1>Issues</h1>
@@ -10,12 +10,12 @@
             <div id="completed_monthly_container" class="col s12 m4"></div>
         </div>
         <div class="row">
-            <div id="bug_upvotes_container" class="col s12 m6" data-url="{% url 'itracker:get_bug_upvotes_json' %}"></div>
-            <div id="feature_upvotes_container" class="col s12 m6" data-url="{% url 'itracker:get_feature_upvotes_json' %}"></div>
+            <div id="bug_upvotes_container" class="col s12 m6" data-url="{% url 'itrac:get_bug_upvotes_json' %}"></div>
+            <div id="feature_upvotes_container" class="col s12 m6" data-url="{% url 'itrac:get_feature_upvotes_json' %}"></div>
         </div>
 
-        <div id="issue_type_container" data-url="{% url 'itracker:get_issue_type_json' %}"></div>
-        <div id="status_container" data-url="{% url 'itracker:get_status_json' %}"></div>
+        <div id="issue_type_container" data-url="{% url 'itrac:get_issue_type_json' %}"></div>
+        <div id="status_container" data-url="{% url 'itrac:get_status_json' %}"></div>
 
       <script>
         $.ajax({

@@ -1,4 +1,4 @@
-{% extends 'itracker/base_itracker.html'%}
+{% extends 'itrac/base_itrac.html'%}
 {% load notifications_tags %}
 {% block content %}
 {% if messages %}
@@ -11,11 +11,11 @@
 <div class="row">
     {% notifications_unread as unread_count %}
     {% if unread_count %}
-        <!-- You have <strong>{{ unread_count }}</strong> unread notifications. <a href="{% url 'itracker:my_notifications' %}"><i class="material-icons">notifications</i>My Updates</a> -->
-        <p><a href="{% url 'itracker:my_notifications' %}"><span class="new badge red left">{{ unread_count }}</span></a> You have unread notifications.</p>
+        <!-- You have <strong>{{ unread_count }}</strong> unread notifications. <a href="{% url 'itrac:my_notifications' %}"><i class="material-icons">notifications</i>My Updates</a> -->
+        <p><a href="{% url 'itrac:my_notifications' %}"><span class="new badge red left">{{ unread_count }}</span></a> You have unread notifications.</p>
     {% endif %}
     <p>{{ issue_count }}</p>
-    <form action="{% url 'itracker:do_search' %}" method="get">
+    <form action="{% url 'itrac:do_search' %}" method="get">
         <input type="text" name="q">
         <button class="btn waves-effect waves-light"  type="submit"><i class="material-icons right">search</i>Search</button>
     </form>
@@ -26,7 +26,7 @@
         <div class="collapsible-header"><i class="material-icons">expand_more</i>{{ issue.title }}
         </div>
         <div class="collapsible-body">
-            <a class="btn-floating btn-large" href="{% url 'itracker:issue_detail' issue.id %}"><i class="material-icons">navigate_next</i></a>
+            <a class="btn-floating btn-large" href="{% url 'itrac:issue_detail' issue.id %}"><i class="material-icons">navigate_next</i></a>
             <p><span><b>Created: </b>{{ issue.created_date }}</span></p>
             <p><span><b>Tag: </b>{{ issue.tag }}</span></p>
             <p><span><b>Upvotes: </b>{{ issue.upvotes }}</span></p>

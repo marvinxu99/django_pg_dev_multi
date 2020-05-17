@@ -26,24 +26,24 @@
     <header>
         <nav>
             <div class="nav-wrapper">
-              <a href="{% url 'itracker:get_issues' %}" class="brand-logo"><i class="material-icons right">build</i>Winn Issue Tracker</a>
+              <a href="{% url 'itrac:get_issues' %}" class="brand-logo"><i class="material-icons right">build</i>Winn Issue Tracker</a>
               <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
               <ul class="right hide-on-med-and-down">
-                <li><a href="{% url 'itracker:my_issues' %}"><i class="material-icons left">list</i>My Issues</a></li>
-                <li><a href="{% url 'itracker:saved_issues' %}"><i class="material-icons left">star</i>Saved Issues</a></li>
-                <li><a href="{% url 'itracker:new_issue' %}"><i class="material-icons left">add</i>Add New Issue</a></li>
-                <li><a href="{% url 'itracker:search' %}"><i class="material-icons left">filter_list</i>Filter Issues</a></li>
-                <li><a href="{% url 'itracker:report' %}"><i class="material-icons left">dashboard</i>Issues Dashboard</a></li>
+                <li><a href="{% url 'itrac:my_issues' %}"><i class="material-icons left">list</i>My Issues</a></li>
+                <li><a href="{% url 'itrac:saved_issues' %}"><i class="material-icons left">star</i>Saved Issues</a></li>
+                <li><a href="{% url 'itrac:new_issue' %}"><i class="material-icons left">add</i>Add New Issue</a></li>
+                <li><a href="{% url 'itrac:search' %}"><i class="material-icons left">filter_list</i>Filter Issues</a></li>
+                <li><a href="{% url 'itrac:report' %}"><i class="material-icons left">dashboard</i>Issues Dashboard</a></li>
               </ul>
             </div>
           </nav>
         
           <ul class="sidenav" id="mobile-demo">
-            <li><a href="{% url 'itracker:my_issues' %}"><i class="material-icons left">list</i>My Issues</a></li>
-            <li><a href="{% url 'itracker:saved_issues' %}"><i class="material-icons left">star</i>Saved Issues</a></li>
-            <li><a href="{% url 'itracker:new_issue' %}"><i class="material-icons left">add</i>Add New Issue</a></li>
-            <li><a href="{% url 'itracker:search' %}"><i class="material-icons left">filter_list</i>Filter Issues</a></li>
-            <li><a href="{% url 'itracker:report' %}"><i class="material-icons left">dashboard</i>Issues Dashboard</a></li>
+            <li><a href="{% url 'itrac:my_issues' %}"><i class="material-icons left">list</i>My Issues</a></li>
+            <li><a href="{% url 'itrac:saved_issues' %}"><i class="material-icons left">star</i>Saved Issues</a></li>
+            <li><a href="{% url 'itrac:new_issue' %}"><i class="material-icons left">add</i>Add New Issue</a></li>
+            <li><a href="{% url 'itrac:search' %}"><i class="material-icons left">filter_list</i>Filter Issues</a></li>
+            <li><a href="{% url 'itrac:report' %}"><i class="material-icons left">dashboard</i>Issues Dashboard</a></li>
           </ul>
     </header>
     <div class="container">
@@ -51,7 +51,7 @@
                     <ul class="tabs">
                         {% if user.is_authenticated %}
                             <li class="tab col s3"><a href="{% url 'accounts:my_account' %}"><i class="material-icons">person</i>Profile</a></li>
-                            <li class="tab col s3"><a href="{% url 'itracker:my_notifications' %}"><i class="material-icons">notifications</i>My Updates</a></li>
+                            <li class="tab col s3"><a href="{% url 'itrac:my_notifications' %}"><i class="material-icons">notifications</i>My Updates</a></li>
                             <li class="tab col s3"><a href="{% url 'accounts:logout' %}">Log Out</a></li>
                         {%  else %}
                             <li class="tab col s3"><a href="{% url 'accounts:signup' %}">Sign Up</a></li>

@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'kbase.apps.KbaseConfig',
     'posts.apps.PostsConfig',
     'utils.apps.UtilsConfig',
-    'itracker.apps.iTrackerConfig',
+    'itrac.apps.iTracConfig',
 
     'widget_tweaks',
     'notifications',    #  pip install dist/django-notifications-hq

@@ -41,7 +41,7 @@ urlpatterns = [
     path('face_recognition/', core_views.face_recognition, name='face_recognition'),
 
     path('utils/', include('utils.urls')),
-    path('itracker/', include('itracker.urls')),
+    path('itrac/', include('itrac.urls')),
 
     path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ]

@@ -5,7 +5,7 @@ from .views import get_issues, issue_detail, create_issue, \
     upvote, my_issues, my_notifications, create_or_edit_reply, save_issue, \
     saved_issues, delete_saved_issue, do_search, do_search_my
 
-app_name = 'itracker'
+app_name = 'itrac'
 
 urlpatterns = [
     path('my_issues/', my_issues, name='my_issues'),
