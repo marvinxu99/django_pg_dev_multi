@@ -1,6 +1,6 @@
 {% extends 'itrac/base_itrac.html'%}
 {% load notifications_tags %}
-{% block content %}
+{% block subcontent %}
 <div class="row">
     {% notifications_unread as unread_count %}
     {% if unread_count %}

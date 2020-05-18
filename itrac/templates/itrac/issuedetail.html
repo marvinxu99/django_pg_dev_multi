@@ -1,6 +1,6 @@
 {% extends 'itrac/base_itrac.html' %}
 {% load material_form %}
-{% block content %}
+{% block subcontent %}
 {% if messages %}
   <ul class="messages">
     {% for message in messages %}
@@ -67,7 +67,7 @@
                         <p><b>User: </b>{{ comment.author }} <b>Created: </b>{{ comment.created_date }} <b>Updated: </b>{{ comment.updated_date }}</p>
                         <p><h6><b>Comment: </b>{{ comment.comment }}</p></h6>
                         <h4>Replies</h4>
-                        <a class="btn-floating btn-small waves-effect waves-light green" href="{% url 'new_reply' issue.id comment.id %}"><i class="material-icons left">add</i>Add New Reply</a>
+                        <a class="btn-floating btn-small waves-effect waves-light green" href="{% url 'itrac:new_reply' issue.id comment.id %}"><i class="material-icons left">add</i>Add New Reply</a>
                         {% for replies in comment_replies %}
                         {% for reply in replies %}
                         {% if reply.comment == comment %}
@@ -90,7 +90,7 @@
                     </div>
                     <div class="col s12 m4">
                         {% if user == comment.author or user.is_staff %}
-                        <a class="btn-floating btn waves-effect waves-light blue" href="{% url 'edit_comment' issue.id comment.id %}"><i class="material-icons left">edit</i>Edit Comment</a>
+                        <a class="btn-floating btn waves-effect waves-light blue" href="{% url 'itrac:edit_comment' issue.id comment.id %}"><i class="material-icons left">edit</i>Edit Comment</a>
                         {% endif %}
                     </div>
                 </div>

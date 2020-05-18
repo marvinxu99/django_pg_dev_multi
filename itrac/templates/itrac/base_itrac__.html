@@ -1,0 +1,78 @@
+{% load static %}
+{% load notifications_tags %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="{% static 'img/favicon.png' %}">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
+    {% include 'material/includes/material_css.html' %}
+    <link type="text/css" rel="stylesheet" href="{% static 'css/custom.css' %}"/>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
+    {% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    {% block head_js %}
+    {% endblock head_js %}
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+              <a href="{% url 'itrac:get_issues' %}" class="brand-logo">Winn Issue Tracker</a>
+              <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+              <ul class="right hide-on-med-and-down">
+                <li><a href="{% url 'itrac:my_issues' %}">My Issues</a></li>
+                <li><a href="{% url 'itrac:saved_issues' %}">Saved Issues</a></li>
+                <li><a href="{% url 'itrac:new_issue' %}">Add New Issue</a></li>
+                <li><a href="{% url 'itrac:search' %}">Filter Issues</a></li>
+                <li><a href="{% url 'itrac:report' %}">Issues Dashboard</a></li>
+              </ul>
+            </div>
+          </nav>
+        
+          <ul class="sidenav" id="mobile-demo">
+            <li><a href="{% url 'itrac:my_issues' %}"><i class="material-icons left">list</i>My Issues</a></li>
+            <li><a href="{% url 'itrac:saved_issues' %}"><i class="material-icons left">star</i>Saved Issues</a></li>
+            <li><a href="{% url 'itrac:new_issue' %}"><i class="material-icons left">add</i>Add New Issue</a></li>
+            <li><a href="{% url 'itrac:search' %}"><i class="material-icons left">filter_list</i>Filter Issues</a></li>
+            <li><a href="{% url 'itrac:report' %}"><i class="material-icons left">dashboard</i>Issues Dashboard</a></li>
+          </ul>
+    </header>
+    <div class="container">
+            <div>
+                    <ul class="tabs">
+                        {% if user.is_authenticated %}
+                            <li class="tab col s3"><a href="{% url 'accounts:my_account' %}"><i class="material-icons">person</i>Profile</a></li>
+                            <li class="tab col s3"><a href="{% url 'itrac:my_notifications' %}"><i class="material-icons">notifications</i>My Updates</a></li>
+                            <li class="tab col s3"><a href="{% url 'accounts:logout' %}">Log Out</a></li>
+                        {%  else %}
+                            <li class="tab col s3"><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
+                            <li class="tab col s3"><a href="{% url 'accounts:login' %}">Log In</a></li>
+                        {% endif %}
+                        <li class="tab col s3">
+                            <a href="#">
+                                <i class="material-icons">shopping_cart</i><span>Cart</span>
+                                {% if issue_upvote_count > 0 %}
+                                <label>{{ issue_upvote_count }}</label>
+                                {% endif %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+        {% block content %} {% endblock %}
+    </div>
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+    {% include 'material/includes/material_js.html' %}
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

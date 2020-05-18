@@ -1,22 +1,28 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container">
-    <a class="navbar-brand" href="{% url 'home' %}">
-      <img src="{% static 'img/winter-logo-sm-blue.png' %}" width="32" height="32" class="d-inline-block align-top" alt="">
-      Winter Winn
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" 
-                aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <form class="form-inline my-2 my-lg-0" action="{% url 'core:search' %}" method='GET'>
-      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0 text-white" type="submit">Search</button>
-    </form>
+  <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'itrac:get_issues' %}">
+        <img src="{% static 'img/winter-logo-sm-blue.png' %}" width="32" height="32" class="d-inline-block align-middle" alt="">
+        Winter Winn - Issue Tracker
+      </a>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="appsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Applications
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="appsMenu">
+            <a class="dropdown-item" href="{% url 'boards:boards_home' %}">Boards</a>
+            <a class="dropdown-item" href="{% url 'itrac:get_issues' %}">Issue Tracker</a>
+            <a class="dropdown-item" href="{% url 'posts:all_posts' %}">Insta Posts</a>
+            <a class="dropdown-item" href="{% url 'catalog:index' %}">Mini Library</a>
+            <a class="dropdown-item" href="{% url 'polls:question' %}">Polls</a>
+          </div>
+        </li>
+      </ul>
     <div class="collapse navbar-collapse" id="WinnMenu">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="utilMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="utilMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Tools
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="utilMenu">
@@ -31,7 +37,7 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="aboutMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="aboutMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             About Us
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="aboutMenu">
@@ -41,26 +47,16 @@
         </li>
       </ul>
     </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" 
+      aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="mainMenu">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="appsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-bars"></i> Apps
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="appsMenu">
-            <a class="dropdown-item" href="{% url 'boards:boards_home' %}">Boards</a>
-            <a class="dropdown-item" href="{% url 'itrac:get_issues' %}">Issue Tracker</a>
-            <a class="dropdown-item" href="{% url 'posts:all_posts' %}">Insta Posts</a>
-            <a class="dropdown-item" href="{% url 'catalog:index' %}">Mini Library</a>
-            <a class="dropdown-item" href="{% url 'polls:question' %}">Polls</a>
-          </div>
-        </li>
-      </ul>
       {% if user.is_authenticated %}
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class='h5'><i class="fa fa-user" aria-hidden="true"></i> {{ user.username }}</span>
+              <span class='h5 text-white'>{{ user.username }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
               <a class="dropdown-item" href="{% url 'accounts:my_account' %}">My account</a>
