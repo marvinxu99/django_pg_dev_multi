@@ -1,11 +1,6 @@
 {% extends "itrac/base_itrac.html" %}
-{% load notifications_tags %}
 {% block subcontent %}
 <div class="row">
-    {% notifications_unread as unread_count %}
-    {% if unread_count %}
-        You have <strong>{{ unread_count }}</strong> unread notifications. <a href="{% url 'itrac:my_notifications' %}"><i class="material-icons">notifications</i>My Updates</a>
-    {% endif %}
     <h3>Saved Issues</h3>
     <p>{{ issue_count }}</p>
     <ul class="collapsible popout">

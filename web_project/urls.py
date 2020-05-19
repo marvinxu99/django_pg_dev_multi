@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from core import views as core_views
-import notifications.urls
+# import notifications.urls
 
 urlpatterns = [
     path('', core_views.index, name='home'),
@@ -43,7 +43,7 @@ urlpatterns = [
     path('utils/', include('utils.urls')),
     path('itrac/', include('itrac.urls')),
 
-    path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    # path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

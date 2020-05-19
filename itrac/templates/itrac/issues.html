@@ -1,5 +1,4 @@
 {% extends 'itrac/base_itrac.html'%}
-{% load notifications_tags %}
 {% block subcontent %}
 {% if messages %}
   <ul class="messages">
@@ -10,11 +9,6 @@
 {% endif %}
 <div>
   <div>
-    {% notifications_unread as unread_count %}
-    {% if unread_count %}
-        <!-- You have <strong>{{ unread_count }}</strong> unread notifications. <a href="{% url 'itrac:my_notifications' %}"><i class="material-icons">notifications</i>My Updates</a> -->
-        <p><a href="{% url 'itrac:my_notifications' %}"><span class="new badge red left">{{ unread_count }}</span></a> You have unread notifications.</p>
-    {% endif %}
     <p>{{ issue_count }}</p>
     <form action="{% url 'itrac:do_search' %}" method="get">
         <input type="text" name="q">

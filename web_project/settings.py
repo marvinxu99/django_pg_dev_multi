@@ -59,8 +59,8 @@ INSTALLED_APPS = [
     'itrac.apps.iTracConfig',
 
     'widget_tweaks',
-    'notifications',    #  pip install dist/django-notifications-hq
-    'material',         #  pip install django-material
+    # 'notifications',    #  pip install dist/django-notifications-hq
+    # 'material',         #  pip install django-material
 ]
 
 MIDDLEWARE = [
@@ -130,6 +130,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'winn_dev',
+        # 'NAME': 'winn_users6',
         'USER': 'winter',
         'PASSWORD': 'winter',
         'HOST': 'localhost',
