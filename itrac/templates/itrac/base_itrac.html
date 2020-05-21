@@ -36,20 +36,17 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'itrac:get_issues' %}"><i class="fa fa-list" aria-hidden="true"></i> All Issues</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'itrac:my_issues' %}"><i class="fa fa-list-alt" aria-hidden="true"></i> My Issues</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'itrac:saved_issues' %}"><i class="fa fa-star" aria-hidden="true"></i> Saved Issues</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'itrac:new_issue' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add New Issue</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'itrac:search' %}"><i class="fa fa-filter" aria-hidden="true"></i> Filter Issues</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="issuesMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-list-alt"></i> Issues
+        </a>
+        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="issuesMenu">
+          <a class="dropdown-item" href="{% url 'itrac:get_issues' %}"><i class="fa fa-list" aria-hidden="true"></i> All Issues</a>
+          <a class="dropdown-item" href="{% url 'itrac:my_issues' %}"><i class="fa fa-list-alt" aria-hidden="true"></i> My Issues</a>
+          <a class="dropdown-item" href="{% url 'itrac:saved_issues' %}"><i class="fa fa-star" aria-hidden="true"></i> Saved Issues</a>
+          <a class="dropdown-item" href="{% url 'itrac:new_issue' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add New Issue</a>
+          <a class="dropdown-item" href="{% url 'itrac:search' %}"><i class="fa fa-filter" aria-hidden="true"></i> Filter Issues</a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'itrac:report' %}"><i class="fa fa-chart-bar" aria-hidden="true"></i> Dashboard</a>
@@ -57,7 +54,7 @@
     </ul>
     <form class="form-inline my-2 my-lg-0" action="{% url 'core:search' %}" method='GET'>
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
     </form>
     <div class="collapse navbar-collapse" id="mainMenu">
       {% if user.is_authenticated %}

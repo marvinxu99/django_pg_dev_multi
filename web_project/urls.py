@@ -42,8 +42,6 @@ urlpatterns = [
 
     path('utils/', include('utils.urls')),
     path('itrac/', include('itrac.urls')),
-
-    # path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

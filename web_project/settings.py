@@ -59,8 +59,6 @@ INSTALLED_APPS = [
     'itrac.apps.iTracConfig',
 
     'widget_tweaks',
-    # 'notifications',    #  pip install dist/django-notifications-hq
-    # 'material',         #  pip install django-material
 ]
 
 MIDDLEWARE = [

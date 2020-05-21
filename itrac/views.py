@@ -10,8 +10,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.db.models import Count, Q
 from django.core import serializers
-from notifications.signals import notify
-from notifications.models import Notification
 
 from .models import Issue, Comment, Reply, SavedIssue
 from .forms import IssueForm, CommentForm, ReplyForm
