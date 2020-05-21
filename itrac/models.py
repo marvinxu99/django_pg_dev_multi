@@ -22,16 +22,21 @@ class Issue(models.Model):
 
     # Encapsulation, we meet again.
     class Issue_Types(ChoiceEnum):
-        BUG = 'bug'
-        FEATURE = 'feature'
+        BREAK_FIX = 'Break/fix'
+        FEATURE = 'New feature'
+        OPTIMIZATION ='Optimization'
 
     class Statuses(ChoiceEnum):
-        TODO = 'todo'
-        DOING = 'doing'
-        DONE = 'done'
+        OPEN = 'Open'
+        INVESTIGATE = 'Investigate'
+        TRRIAGE ="Await Approval"
+        BUILD_IN_PROGRESS = 'Build in progress'
+        VALIDATE = 'Validate'
+        COMPLETE = 'Complete'
+        CLOSED = 'Closed'
 
-    issue_type = models.CharField(max_length=9, choices=Issue_Types.choices(), default='BUG')
-    status = models.CharField(max_length=7, choices=Statuses.choices(), default='TODO')
+    issue_type = models.CharField(max_length=20, choices=Issue_Types.choices(), default='BREAK_FIX')
+    status = models.CharField(max_length=20, choices=Statuses.choices(), default='TODO')
 
 
     def __unicode__(self):
