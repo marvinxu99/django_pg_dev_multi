@@ -42,6 +42,7 @@ urlpatterns = [
 
     path('utils/', include('utils.urls')),
     path('itrac/', include('itrac.urls')),
+    path('webgl/', include('webgl.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

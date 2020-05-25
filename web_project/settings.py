@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'utils.apps.UtilsConfig',
     'itrac.apps.iTracConfig',
+    'webgl.apps.WebglConfig',
 
     'widget_tweaks',
 ]

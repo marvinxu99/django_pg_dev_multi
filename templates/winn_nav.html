@@ -30,6 +30,16 @@
     <div class="collapse navbar-collapse" id="WinnMenu">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="webglMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            WebGL
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="webglMenu">
+            <a class="dropdown-item" href="{% url 'webgl:animation' %}">Animation</a>
+            <a class="dropdown-item" href="{% url 'webgl:triangle-colour' %}">Triangle</a>
+            <a class="dropdown-item" href="{% url 'webgl:texture' %}">Texture</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="utilMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Tools
           </a>
