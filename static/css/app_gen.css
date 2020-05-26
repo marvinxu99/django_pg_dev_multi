@@ -17,3 +17,21 @@ body {
     color: white;
     padding: 8px 5px 8px 5px;
 }
+
+.winter-logo {
+  width: 64px; 
+	height: 64px; 
+}
+.winter-logo:hover {
+  width: 128px; 
+	height: 128px; 
+  transition: 1s ease-in-out;
+  transform: rotate(20deg);
+}
+.winter-sm-logo {
+  width: 32px; 
+	height: 32px; 
+}
+.winter-sm-logo:hover {
+  transform: rotate(-20deg);
+}
