@@ -30,7 +30,8 @@ body {
 }
 .winter-sm-logo {
   width: 32px; 
-	height: 32px; 
+  height: 32px; 
+  transition: all 0.3s linear;
 }
 .winter-sm-logo:hover {
   transform: rotate(-20deg);
