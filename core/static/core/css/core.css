@@ -14,20 +14,19 @@
   }
   
   .zone-ww:hover {
-    -webkit-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
-    -moz-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
-    -o-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
-    box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
-    transform: rotate(-5deg);
+    /* transform: rotate(-5deg); */
     /* transform: scale(1.1, 1.1);*/
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);  
   }
 
   .zone-we {
-    transition: all 0.5s;
+    transition: all 0.6s linear;
   }
   
   .zone-we:hover {
     transform: scale(1.2, 1.2);
     color: red;
+    font-weight: bold;
     /* text-transform: uppercase; */
   }
