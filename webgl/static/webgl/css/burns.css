@@ -1,0 +1,42 @@
+.burns-chart {
+    background-image: url("../img/burn-rule-of-nines.png");
+    background-repeat:  no-repeat;
+    background-position: center;
+    background-size: contain;
+ 
+    height: 500px; 
+
+    margin-bottom: 20px;
+}
+
+.tools-container {
+    /*grid-template-columns: 40px 50px auto 50px 40px; 
+    grid-template-columns: 80px, auto
+/*    grid-template-rows: 25% 100px auto; */
+    display: flex;
+    /* justify-content: flex-start, space-around; */
+    justify-content: space-around;
+    background-color: lightblue;
+    height: 32px;
+    padding-top: 3px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  /*
+  .tools-item {
+    background: tomato;
+    padding: 5px;
+    width: 200px;
+    height: 30px;
+    margin-top: 10px;
+    line-height: 30px; 
+
+    color: white;
+    font-weight: bold;
+    font-size: 0.8em;
+    text-align: center;
+} */
+.tools-item {
+    text-align: center;
+}

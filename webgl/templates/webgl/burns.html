@@ -1,0 +1,26 @@
+{% extends "webgl/base_webgl.html" %}
+{% load static %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'webgl/css/burns.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div >
+    <div id="burns-tools" class="tools-container"> 
+      <p class="tools-item">this is the tool to: </p>
+      <p class="tools-item">mark the burn chart. </p>
+      <p class="tools-item">mark the burn chart. </p>
+      <p class="tools-item">mark the burn chart. </p>
+      <p class="tools-item">mark the burn chart. </p>
+    </div>
+
+    <div id="burns-cahrt" class="burns-chart">
+      Burn chart
+    </div>
+
+  </div>
+  <hr>
+  <p>Burn chart diagram is downloaded from <a href="" target="_blank">Learning about Electronics</a>
+{% endblock %}
+{% block javascript %}
+{% endblock %}
