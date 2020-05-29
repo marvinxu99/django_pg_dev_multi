@@ -1,0 +1,73 @@
+{% extends 'utils/base_utils.html' %}
+{% block title %}Robot{% endblock %}
+{% load static %}
+{% block stylesheet %}
+	<link rel="stylesheet" type="text/css" href="{% static 'utils/css/robot.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<h1 class="mt-5 text-center">Robot Friends</h1>
+<div class="robot-container">
+	<div class="robots mt-5">
+		<div class="android"> 
+			<div class="head"> 
+				<div class="eyes"> 
+					<div class="left_eye"></div> 
+					<div class="right_eye"></div>
+				</div> 
+			</div> 
+			<div class="upper_body"> 
+				<div class="left_arm"></div> 
+				<div class="torso" id="torso1" name='torso1'></div> 
+				<div class="right_arm"></div> 
+			</div> 
+			<div class="lower_body"> 
+				<div class="left_leg"></div> 
+				<div class="right_leg"></div> 
+			</div> 
+		</div>
+  </div>
+	<div class="robots mt-5">
+		<div class="android"> 
+			<div class="head"> 
+				<div class="eyes2"> 
+					<div class="left_eye2"></div> 
+					<div class="right_eye2"></div>
+				</div> 
+			</div> 
+			<div class="upper_body"> 
+				<div class="left_arm"></div> 
+				<div class="torso" id="torso2" name='torso2'></div> 
+				<div class="right_arm"></div> 
+			</div> 
+			<div class="lower_body"> 
+				<div class="left_leg"></div> 
+				<div class="right_leg"></div> 
+			</div> 
+		</div>
+  </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script>
+  $(function() {
+    $(".torso").mouseover(function(){
+      if ($(this).attr("name") === "torso1") {
+        $(this).css("background-color", "yellow");
+      }
+      else if (($(this).attr("name") === "torso2")) {
+        $(this).css("background-color", "orange");
+      }
+    });
+    $(".torso").mouseleave(function(){
+      if ($(this).attr("name") === "torso1") {
+        $(this).css("background-color", "green");
+      }
+      else if (($(this).attr("name") === "torso2")) {
+        $(this).css("background-color", "purple");
+      }
+    });
+  });
+</script>
+{% endblock %}
+
