@@ -8,4 +8,4 @@ def triangle_colour(request):
     return render(request, 'webgl/triangle_colour.html')
 
 def animation(request):
-    return render(request, 'webgl/webgl_ex2.html')
+    return render(request, 'webgl/webgl_animation.html')
