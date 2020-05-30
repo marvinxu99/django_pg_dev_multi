@@ -2,19 +2,24 @@
 {% block title %}Robot{% endblock %}
 {% load static %}
 {% block stylesheet %}
-	<link rel="stylesheet" type="text/css" href="{% static 'utils/css/robot.css' %}">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'utils/css/robot.css' %}">
 {% endblock %}
 {% block content %}
 <h1 class="mt-5 text-center">Robot Friends</h1>
 <div class="robot-container">
 	<div class="robots mt-5">
 		<div class="android"> 
-			<div class="head"> 
+			<div class="head" id='head1'> 
 				<div class="eyes"> 
 					<div class="left_eye"></div> 
 					<div class="right_eye"></div>
 				</div> 
+				<div class="dropdown-menu dropdown-menu-sm" id="context-menu1">
+          <a class="dropdown-item" name="red" href="#">Red</a>
+          <a class="dropdown-item" name="green" href="#">green</a>
+          <a class="dropdown-item" name="orange" href="#">Orange</a>
+				</div>
 			</div> 
 			<div class="upper_body"> 
 				<div class="left_arm"></div> 
@@ -47,6 +52,20 @@
 		</div>
   </div>
 </div>
+<div class="row">
+  <div class="glowing-dots">
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+</div>
+
 {% endblock %}
 {% block javascript %}
 <script>
@@ -68,6 +87,26 @@
       }
     });
   });
+
+  $('#head1').on('contextmenu', function(e) {
+    var top = e.pageY - 10;
+    var left = e.pageX - 90;
+    $("#context-menu1").css({
+      display: "block",
+      top: top,
+      left: left
+    }).addClass("show");
+    return false; //blocks default Webbrowser right click menu
+  }).on("click mouseleave", function() {
+    $("#context-menu1").removeClass("show").hide();
+  });
+
+  $("#context-menu1 a").on("click", function() {
+    $(this).parent().removeClass("show").hide();
+    const color_pciked = $(this).attr("name")
+    $("#head1").css("background-color", color_pciked)
+  });
+
 </script>
 {% endblock %}
 
