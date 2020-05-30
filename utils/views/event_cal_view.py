@@ -14,10 +14,10 @@ from utils.forms import EventForm
 
 
 class Calendar(HTMLCalendar):
-    def __init__(self, year=None, month=None):
+    def __init__(self, year=None, month=None, firstday=calendar.SUNDAY):
         self.year = year
         self.month = month
-        super(Calendar, self).__init__()
+        super(Calendar, self).__init__(firstday)   # set the first day of the week
 
     # formats a day as a td
     # filter events by day
