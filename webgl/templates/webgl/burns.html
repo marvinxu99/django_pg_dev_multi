@@ -2,25 +2,129 @@
 {% load static %}
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'webgl/css/burns.css' %}">
+    <style type="text/css">
+      canvas { border: 1px solid black; }
+    </style>  
 {% endblock %}
 
 {% block content %}
-  <div >
-    <div id="burns-tools" class="tools-container"> 
-      <p class="tools-item">this is the tool to: </p>
-      <p class="tools-item">mark the burn chart. </p>
-      <p class="tools-item">mark the burn chart. </p>
-      <p class="tools-item">mark the burn chart. </p>
-      <p class="tools-item">mark the burn chart. </p>
+  <div>
+    <div class="mt-3">
+      <canvas id="canvas" width="500" height="600"></canvas>
+      <canvas id="zoom" width="200" height="200"></canvas>
     </div>
-
-    <div id="burns-cahrt" class="burns-chart">
-      Burn chart
+    <input type="checkbox" id='smoothbtn'> Enable image smooting</input>
+    <div>
+    Please pick a colour: 
+      <input type="radio" id="red" name="colour" value="red" checked>
+      <label for="red" class="mr-3">Red</label>
+      <input type="radio" id="yellow" name="colour" value="yellow">
+      <label for="yellow" class="mr-3">Yellow</label>
+      <input type="radio" id="green" name="colour" value="green">
+      <label for="green">Green</label>
     </div>
-
-  </div>
+    <button onclick="draw(img);">Reset Chart</button>  
+  </div>    
   <hr>
   <p>Burn chart diagram is downloaded from <a href="" target="_blank">Learning about Electronics</a>
+
 {% endblock %}
 {% block javascript %}
+
+<script>
+  var img = new Image();
+  img.src = "{% static 'webgl/img/burn-rule-of-nines.png' %}"
+  img.onload = function() {
+    draw(this);
+  };
+
+  function draw(img) {
+    
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    img.style.display = 'none';
+    var zoomctx = document.getElementById('zoom').getContext('2d');
+
+    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    var data = imageData.data;
+
+    var smoothbtn = document.getElementById('smoothbtn');
+    var toggleSmoothing = function(event) {
+      zoomctx.imageSmoothingEnabled = this.checked;
+      zoomctx.mozImageSmoothingEnabled = this.checked;
+      zoomctx.webkitImageSmoothingEnabled = this.checked;
+      zoomctx.msImageSmoothingEnabled = this.checked;        
+    };
+    smoothbtn.addEventListener('change', toggleSmoothing);
+
+    var zoom = function(event) {
+      var x = event.layerX;
+      var y = event.layerY;
+      zoomctx.drawImage(canvas,
+                        Math.min(Math.max(0, x - 25), img.width - 50),
+                        Math.min(Math.max(0, y - 25), img.height - 50),
+                        50, 50,
+                        0, 0,
+                        200, 200);
+      
+      // Mark where the mouse pointer is 
+      zoomctx.strokeStyle = "red";
+      zoomctx.rect(95, 95, 10, 10);
+      zoomctx.stroke();
+
+      // If mouse is moving with left buttone down
+      if(draw_ind) {
+        changecolour(event);
+      }
+    };
+    canvas.addEventListener('mousemove', zoom);
+
+    // If the mouse is moving away from the canvas, clear up the zoom canvas
+    canvas.addEventListener('mouseleave', (e) => { 
+      zoomctx.clearRect(0, 0, 200, 200);
+    });
+
+    // colour to draw
+    var curr_color = 'red';   // default
+    var draw_ind = false;   
+
+    canvas.addEventListener('mousedown', (e) => {
+      if (e.button == 0) {
+        draw_ind = true;
+      }
+    });
+    canvas.addEventListener('mouseup', (e) => {
+      if (e.button == 0) {   /* left button */
+        draw_ind = false;
+      }
+    });
+
+    const changecolour = (e) => {
+      var x = e.layerX;
+      var y = e.layerY;
+      console.log("(x,y)=(" + e.layerX + ", " + e.layerY + ")");
+
+      //ctx.fillStyle = "#FF0000";
+      //ctx.fillStyle = 'rgb(200, 0, 0)';
+      ctx.fillStyle = curr_color;
+      ctx.fillRect(x, y, 10, 10);
+
+    }
+    canvas.addEventListener('click', changecolour);
+
+
+    document.getElementById('red').onclick = (e) => {
+      curr_color = 'red';
+    }
+    document.getElementById('yellow').onclick = (e) => {
+      curr_color = 'yellow';
+    }
+    document.getElementById('green').onclick = (e) => {
+      curr_color = 'green';
+    }
+
+  }
+</script>
+
 {% endblock %}
