@@ -1,15 +1,11 @@
 {% extends "core/base_core.html" %}
 {% block title %}Winter Winn{% endblock %}
 {% block content %}
-<div class="winn-heading jumbotron text-center">
+<div class="winn-heading text-center">
   <h1 class="display-4 zone-we">Welcome</h1>
   <p class="lead text-muted">
-    The following web apps are developed using the famous Django framework. 
-    You are welcome to try them out. Winter, our webmaster, would love to hear your feedback.  
-  </p>
-  <p class="lead text-muted">If you would like to get in touch with 
-    <a href="{% url 'winter_univer' %}" target="_blank">Winter</a>, please feel free to 
-    <a class="btn btn-outline-secondary btn-sm" href="{% url 'polls:contact' %}" role="button">compose a message</a> now.
+    The following apps are developed by <a href="{% url 'winter_univer' %}" target="_blank">Winter Winn</a>. 
+    Please feel free to <a class="btn btn-outline-secondary btn-sm" href="{% url 'polls:contact' %}" role="button">compose a message</a> to let her know how you like her apps.
   </p> 
   <hr class="mt-4">
 </div>
