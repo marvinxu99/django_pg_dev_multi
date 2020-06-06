@@ -16,9 +16,9 @@
 					<div class="right_eye"></div>
 				</div> 
 				<div class="dropdown-menu dropdown-menu-sm" id="context-menu1">
-          <a class="dropdown-item" name="red" href="#">Red</a>
-          <a class="dropdown-item" name="green" href="#">green</a>
-          <a class="dropdown-item" name="orange" href="#">Orange</a>
+					<a class="dropdown-item" name="red" href="#">Red</a>
+					<a class="dropdown-item" name="green" href="#">green</a>
+					<a class="dropdown-item" name="orange" href="#">Orange</a>
 				</div>
 			</div> 
 			<div class="upper_body"> 
@@ -103,8 +103,8 @@
 
   $("#context-menu1 a").on("click", function() {
     $(this).parent().removeClass("show").hide();
-    const color_pciked = $(this).attr("name")
-    $("#head1").css("background-color", color_pciked)
+    const color_picked = $(this).attr("name")
+    $("#head1").css("background-color", color_picked)
   });
 
 </script>
