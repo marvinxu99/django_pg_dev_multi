@@ -24,6 +24,7 @@
       <label for="green">Green</label>
     </div>
     <button onclick="draw(img);">Reset Chart</button>  
+    <button id="clipboard">Copy to Clipboard</button>  
   </div>    
   <hr>
   <p>Burn chart diagram is downloaded from <a href="" target="_blank">Learning about Electronics</a>
@@ -105,7 +106,7 @@
       var y = e.layerY;
       console.log("(x,y)=(" + e.layerX + ", " + e.layerY + ")");
 
-      //ctx.fillStyle = "#FF0000";
+      //ctx.fillStyle = "#FF0000";    // colour Red
       //ctx.fillStyle = 'rgb(200, 0, 0)';
       ctx.fillStyle = curr_color;
       ctx.fillRect(x, y, 10, 10);
@@ -125,6 +126,45 @@
     }
 
   }
+
+  // Handling copy image on the canvas to clipboard
+  var $clipboard = $('#clipboard');
+  $clipboard.on('click',function(e){
+      var img = document.createElement('img');
+      //img.src = canvas.toDataURL('image/jpg', 1);
+      img.src = canvas.toDataURL('image/png', 1);
+
+      var div1 = document.createElement('div');
+      div1.contentEditable = true;
+      div1.appendChild(img);
+      document.body.appendChild(div1);
+
+      SelectText(div1);
+      try {
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Copying text command was ' + msg);
+      } catch (err) {
+      console.log('Oops, unable to copy');
+      }
+      document.body.removeChild(div1);
+  });
+
+  function SelectText(element) {
+      var doc = document;
+      if (doc.body.createTextRange) {
+          var range = document.body.createTextRange();
+          range.moveToElementText(element);
+          range.select();
+      } else if (window.getSelection) {
+          var selection = window.getSelection();
+          var range = document.createRange();
+          range.selectNodeContents(element);
+          selection.removeAllRanges();
+          selection.addRange(range);
+      }
+  }
+
 </script>
 
 {% endblock %}
