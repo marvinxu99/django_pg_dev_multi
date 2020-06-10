@@ -22,9 +22,7 @@
       <input type="radio" id="black" name="colour" value="black" checked><label for="black" class="ml-1">Black</label>
     </div>
     <button onclick="draw(img);">Reset Chart</button>  
-    <button id="clipboard">Copy to Clipboard</button> 
-    <a id="btn-save-image" class="btn btn-sm btn-outline-primary ml-3">Save Image(download)</a>
-   
+    <button id="clipboard">Copy to Clipboard</button>  
   </div>    
   <hr>
   <p>Burn chart diagram is downloaded from <a href="" target="_blank">Learning about Electronics</a>
@@ -74,6 +72,11 @@
       zoomctx.strokeStyle = "red";
       zoomctx.rect(95, 95, 10, 10);
       zoomctx.stroke();
+
+      // If mouse is moving with left buttone down
+      if(draw_ind) {
+        changecolour(event);
+      }
     };
     canvas.addEventListener('mousemove', zoom);
 
@@ -84,6 +87,36 @@
 
     // colour to draw
     var curr_color = 'black';   // default
+    var draw_ind = false;   
+    var start_x = 0;
+    var start_y = 0;
+
+    canvas.addEventListener('mousedown', (e) => {
+      if (e.button == 0) {
+        draw_ind = true;
+        start_x = e.layerX;
+        start_y = e.layerY; 
+      }
+    });
+    canvas.addEventListener('mouseup', (e) => {
+      if (e.button == 0) {   /* left button */
+        draw_ind = false;
+      }
+    });
+
+    const changecolour = (e) => {
+      var x = e.layerX;
+      var y = e.layerY;
+      console.log("(x,y)=(" + e.layerX + ", " + e.layerY + ")");
+
+      //ctx.fillStyle = "#FF0000";    // colour Red
+      //ctx.fillStyle = 'rgb(200, 0, 0)';
+      ctx.fillStyle = curr_color;
+      ctx.fillRect(x, y, 1, 1);
+
+    }
+    canvas.addEventListener('click', changecolour);
+
 
     document.getElementById('red').onclick = (e) => {
       curr_color = 'red';
@@ -100,116 +133,9 @@
 
   }
 
-  var can_w, ctx_w, flag = false,
-      prevX = 0,
-      currX = 0,
-      prevY = 0,
-      currY = 0,
-      dot_flag = false;
-
-  var x = "black",
-      y = 2;
-  
-  function init() {
-      can_w = document.getElementById('canvas');
-      ctx_w = can_w.getContext("2d");
-      w = can_w.width;
-      h = can_w.height;
-  
-      can_w.addEventListener("mousemove", function (e) {
-          findxy('move', e)
-      }, false);
-      can_w.addEventListener("mousedown", function (e) {
-          findxy('down', e)
-      }, false);
-      can_w.addEventListener("mouseup", function (e) {
-          findxy('up', e)
-      }, false);
-      can_w.addEventListener("mouseout", function (e) {
-          findxy('out', e)
-      }, false);
-  }
-  
-  function color(obj) {
-      switch (obj.id) {
-          case "green":
-              x = "green";
-              break;
-          case "blue":
-              x = "blue";
-              break;
-          case "red":
-              x = "red";
-              break;
-          case "yellow":
-              x = "yellow";
-              break;
-          case "orange":
-              x = "orange";
-              break;
-          case "black":
-              x = "black";
-              break;
-          case "white":
-              x = "white";
-              break;
-      }
-      if (x == "white") y = 14;
-      else y = 2;
-  
-  }
-  
-  function draw_line() {
-      ctx_w.beginPath();
-      ctx_w.moveTo(prevX, prevY);
-      ctx_w.lineTo(currX, currY);
-      ctx_w.strokeStyle = x;
-      ctx_w.lineWidth = y;
-      ctx_w.stroke();
-      ctx_w.closePath();
-  }
-  
-  function findxy(res, e) {
-      if (res == 'down') {
-          prevX = currX;
-          prevY = currY;
-          //currX = e.layerX - can_w.offsetLeft;
-          //currY = e.layerY - can_w.offsetTop;
-          currX = e.layerX;
-          currY = e.layerY;
-
-          flag = true;
-          dot_flag = true;
-          if (dot_flag) {
-              ctx_w.beginPath();
-              ctx_w.fillStyle = x;
-              ctx_w.fillRect(currX, currY, 2, 2);
-              ctx_w.closePath();
-              dot_flag = false;
-          }
-      }
-      if (res == 'up' || res == "out") {
-          flag = false;
-      }
-      if (res == 'move') {
-          if (flag) {
-              prevX = currX;
-              prevY = currY;
-              //currX = e.layerX - can_w.offsetLeft;
-              //currY = e.layerY - can_w.offsetTop;
-              currX = e.layerX;
-              currY = e.layerY;
-              draw_line();
-          }
-      }
-  }
-
-  init();
-
   // Handling copy image on the canvas to clipboard
   var $clipboard = $('#clipboard');
   $clipboard.on('click',function(e){
-      var canvas = document.getElementById('canvas');
       var img = document.createElement('img');
       //img.src = canvas.toDataURL('image/jpg', 1);
       img.src = canvas.toDataURL('image/png', 1);
@@ -221,11 +147,11 @@
 
       SelectText(div1);
       try {
-        var successful = document.execCommand('copy');
-        var msg = successful ? 'successful' : 'unsuccessful';
-        console.log('Copying text command was ' + msg);
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Copying text command was ' + msg);
       } catch (err) {
-        console.log('Oops, unable to copy');
+      console.log('Oops, unable to copy');
       }
       document.body.removeChild(div1);
   });
@@ -244,21 +170,6 @@
           selection.addRange(range);
       }
   }
-
-  // Save (Download) image
-  var btn_save_img = document.getElementById("btn-save-image");
-  function save_image(){
-    var canvas = document.getElementById('canvas');
-    var imgageData = canvas.toDataURL();
-
-    // Now browser starts downloading it instead of just showing it
-    // var newData = imgageData.replace("image/png", "image/octet-stream");
-    //btn_save_img.setAttribute("href", newData);
-    btn_save_img.setAttribute("href", imgageData);
-    btn_save_img.setAttribute("download", "winn_download.png");
-  };
-  btn_save_img.addEventListener('click', save_image());
-
 
 </script>
 
