@@ -14,17 +14,27 @@
       <canvas id="zoom" width="200" height="200"></canvas>
     </div>
     <input type="checkbox" id='smoothbtn'> Enable image smooting</input>
-    <div>
-    Please pick a colour: 
+    <div hidden>
+      Please pick a colour: 
       <input type="radio" id="red" name="colour" value="red"><label for="red" class="ml-1">Red</label>
       <input type="radio" id="yellow" name="colour" value="yellow"><label for="yellow" class="ml-1">Yellow</label>
       <input type="radio" id="green" name="colour" value="green"><label for="green" class="ml-1">Green</label>
       <input type="radio" id="black" name="colour" value="black" checked><label for="black" class="ml-1">Black</label>
     </div>
-    <button onclick="draw(img);">Reset Chart</button>  
-    <button id="clipboard">Copy to Clipboard</button> 
-    <a id="btn-save-image" class="btn btn-sm btn-outline-primary ml-3">Save Image(download)</a>
-   
+    <div style="position:absolute;top:12%;left:53%;">Choose Color</div>
+    <div style="position:absolute;top:15%;left:55%;width:10px;height:10px;background:green;" id="green" onclick="colour(this)"></div>
+    <div style="position:absolute;top:15%;left:56%;width:10px;height:10px;background:blue;" id="blue" onclick="colour(this)"></div>
+    <div style="position:absolute;top:15%;left:57%;width:10px;height:10px;background:red;" id="red" onclick="colour(this)"></div>
+    <div style="position:absolute;top:17%;left:55%;width:10px;height:10px;background:yellow;" id="yellow" onclick="colour(this)"></div>
+    <div style="position:absolute;top:17%;left:56%;width:10px;height:10px;background:orange;" id="orange" onclick="colour(this)"></div>
+    <div style="position:absolute;top:17%;left:57%;width:10px;height:10px;background:black;" id="black" onclick="colour(this)"></div>
+    <div style="position:absolute;top:20%;left:53%;">Eraser</div>
+    <div style="position:absolute;top:23%;left:55%;width:15px;height:15px;background:white;border:2px solid;" id="white" onclick="colour(this)"></div>
+    <div>
+      <button onclick="draw(img);">Reset Chart</button>  
+      <button id="clipboard">Copy to Clipboard</button> 
+      <a id="btn-save-image" class="btn btn-sm btn-outline-primary ml-3">Save Image(download)</a>
+    </div>
   </div>    
   <hr>
   <p>Burn chart diagram is downloaded from <a href="" target="_blank">Learning about Electronics</a>
@@ -130,7 +140,7 @@
       }, false);
   }
   
-  function color(obj) {
+  function colour(obj) {
       switch (obj.id) {
           case "green":
               x = "green";
