@@ -13,9 +13,7 @@
       <canvas id="canvas" width="500" height="600"></canvas>
       <canvas id="zoom" width="200" height="200"></canvas>
     </div>
-    <div hidden>
-      <input type="checkbox" id='smoothbtn'> Enable image smooting</input>
-    </div>
+    <input type="checkbox" id='smoothbtn'> Enable image smooting</input>
     <div hidden>
       Please pick a colour: 
       <input type="radio" id="red" name="colour" value="red"><label for="red" class="ml-1">Red</label>
@@ -23,32 +21,26 @@
       <input type="radio" id="green" name="colour" value="green"><label for="green" class="ml-1">Green</label>
       <input type="radio" id="black" name="colour" value="black" checked><label for="black" class="ml-1">Black</label>
     </div>
-    <div style="display:inline-grid; grid-template-columns:auto auto; grid-gap:100px">
-      <div>
-        <div class="mt-3">
-          <button onclick="draw(img);" class="btn btn-sm btn-outline-primary">Reset Chart</button>  
-          <button id="clipboard" class="btn btn-sm btn-outline-primary ml-3">Copy to Clipboard</button> 
-          <a id="btn-save-image" class="btn btn-sm btn-outline-primary ml-3">Save Image</a>
-        </div>
-        <div class="mt-3">
-          <label for="annotation-text">Annotation text:</label> <br>
-          <input type="text" id="annotation-text" name="annotation-text">
-          <button id="btn-annotate1" class="btn btn-sm btn-outline-primary">Insert Text</button>
-        </div>
-      </div>
-      <div>
-        <div class="mt-3">Choose a pen colour:</div>
-        <div style="display:inline-grid; grid-template-columns:auto auto auto; grid-gap:10px" class="ml-5 mt-1">
-          <div style="width:15px;height:15px;background:green;" id="green" onclick="colour(this)"></div>
-          <div style="width:15px;height:15px;background:blue;" id="blue" onclick="colour(this)"></div>
-          <div style="width:15px;height:15px;background:red;" id="red" onclick="colour(this)"></div>
-          <div style="width:15px;height:15px;background:yellow;" id="yellow" onclick="colour(this)"></div>
-          <div style="width:15px;height:15px;background:orange;" id="orange" onclick="colour(this)"></div>
-          <div style="width:15px;height:15px;background:black;" id="black" onclick="colour(this)"></div>
-        </div>
-        <div>Eraser:</div>
-        <div class="ml-5 mt-1" style="width:20px;height:20px;background:white;border:2px solid;" id="white" onclick="colour(this)"></div>
-      </div>
+    <div class="mt-3">
+      <button onclick="draw(img);" class="btn btn-sm btn-outline-primary">Reset Chart</button>  
+      <button id="clipboard" class="btn btn-sm btn-outline-primary ml-3">Copy to Clipboard</button> 
+      <a id="btn-save-image" class="btn btn-sm btn-outline-primary ml-3">Save Image</a>
+    </div>
+    <div class="mt-3">
+      <label for="annotation-text">Annotation text:</label> <br>
+      <input type="text" id="annotation-text" name="annotation-text">
+      <button id="btn-annotate1" class="btn btn-sm btn-outline-primary">Insert Text</button>
+    </div>
+    <div>
+      <div style="position:absolute;bottom:2%;left:53%;">Choose Color</div>
+      <div style="position:absolute;top:35%;left:55%;width:10px;height:10px;background:green;" id="green" onclick="colour(this)"></div>
+      <div style="position:absolute;top:35%;left:56%;width:10px;height:10px;background:blue;" id="blue" onclick="colour(this)"></div>
+      <div style="position:absolute;top:35%;left:57%;width:10px;height:10px;background:red;" id="red" onclick="colour(this)"></div>
+      <div style="position:absolute;top:37%;left:55%;width:10px;height:10px;background:yellow;" id="yellow" onclick="colour(this)"></div>
+      <div style="position:absolute;top:37%;left:56%;width:10px;height:10px;background:orange;" id="orange" onclick="colour(this)"></div>
+      <div style="position:absolute;top:37%;left:57%;width:10px;height:10px;background:black;" id="black" onclick="colour(this)"></div>
+      <div style="position:absolute;top:40%;left:53%;">Eraser</div>
+      <div style="position:absolute;top:43%;left:55%;width:15px;height:15px;background:white;border:2px solid;" id="white" onclick="colour(this)"></div>
     </div>
   </div>    
   <hr>
