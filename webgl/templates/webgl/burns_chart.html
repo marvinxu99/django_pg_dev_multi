@@ -32,8 +32,8 @@
         </div>
         <div class="mt-3">
           <label for="annotation-text"><strong>Annotation text</strong>:</label> <br>
-          <input type="text" id="annotation-text" name="annotation-text">
-          <button id="btn-annotate1" class="btn btn-sm btn-outline-primary">Insert Text</button>
+          <input type="text" id="annotation-text" name="annotation-text" maxlength="40" size="35">
+          <button id="btn-annotate1" class="btn btn-sm btn-outline-primary">Insert</button>
         </div>
       </div>
       <div>
@@ -290,17 +290,28 @@
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
-    ctx.clearRect((canvas.width - 400), (canvas.height - 30), 400, 30);
+    // validatet the annotation text
+    const ann_text = document.getElementById("annotation-text").value;
+    const text = ann_text.length === 0 ? "" : "Comment: " + ann_text;
+
+    ctx.clearRect((canvas.width - 450), (canvas.height - 30), 450, 30);
 
     //ctx.font = 'italic 18px Arial';
-    ctx.font = '18px Arial';
+    ctx.font = '16px Arial';
     ctx.textAlign = 'left';
     ctx. textBaseline = 'middle';
     ctx.fillStyle = 'black';  // a color name or by using rgb/rgba/hex values = 
-    let text = "comment: " + document.getElementById("annotation-text").value;
-    ctx.fillText(text, (canvas.width - 400), (canvas.height - 20)); 
+    ctx.fillText(text, (canvas.width - 450), (canvas.height - 20)); 
   };
 
+  // Trigger annotationn update if "Enter" key is pressed in the input field
+  var annote_input = document.getElementById("annotation-text");
+  annote_input.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      document.getElementById("btn-annotate1").click();
+    }
+  });
 
 </script>
 
