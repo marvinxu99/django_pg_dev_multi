@@ -30,10 +30,12 @@
           <button id="clipboard" class="btn btn-sm btn-outline-primary ml-3">Copy to Clipboard</button> 
           <a id="btn-save-image" class="btn btn-sm btn-outline-primary ml-3">Save Image</a>
         </div>
-        <div class="mt-3">
-          <label for="annotation-text"><strong>Annotation text</strong>:</label> <br>
-          <input type="text" id="annotation-text" name="annotation-text" maxlength="40" size="35">
-          <button id="btn-annotate1" class="btn btn-sm btn-outline-primary">Insert</button>
+        <div class="mt-3 input-group">
+          <div><strong>Annotation text</strong>:</div>
+          <div class="input-group">
+            <input type="text" class="form-control" id="annotation-text" name="annotation-text" maxlength="40" size="20">
+            <button id="btn-annotate1" class="input-group-addon btn">Insert</button>
+          </div>
         </div>
       </div>
       <div>
