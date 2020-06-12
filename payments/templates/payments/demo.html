@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Django + Stripe Checkout</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <script src="https://js.stripe.com/v3/"></script>
+    {% load static %}
+    <script src="{% static 'payments/js/payments.js' %}"></script> 
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+      <button class="button is-primary" id="submitBtn">Purchase!</button>
+    </div>
+    <p>We can test the form by using one of several test card numbers Stripe provides. <br>
+      Let's use 4242 4242 4242 4242. Make sure the expiration date is in the future. <br>
+      Add any 3 numbers for the CVC and any 5 numbers for the postal code. <br>
+      Enter any email address and name.</p>
+  </section>
+  </body>
+</html>

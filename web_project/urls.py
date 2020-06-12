@@ -43,6 +43,8 @@ urlpatterns = [
     path('utils/', include('utils.urls')),
     path('itrac/', include('itrac.urls')),
     path('webgl/', include('webgl.urls')),
+    
+    path('payments/', include('payments.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
