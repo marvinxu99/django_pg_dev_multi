@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.urls import reverse
 import stripe
 
 
@@ -14,8 +15,12 @@ def stripe_config(request):
 @csrf_exempt
 def create_checkout_session(request):
     if request.method == 'GET':
-        domain_url = 'http://localhost:8000/payments/'
+        # domain_url = 'http://localhost:8000/payments/'
+        successful_url = request.build_absolute_uri(reverse('payments:success'))
+        cancelled_url = request.build_absolute_uri(reverse('payments:cancelled'))
+
         stripe.api_key = settings.STRIPE_SECRET_KEY
+        
         try:
             # Create new Checkout Session for the order
             # Other optional params include:
@@ -27,8 +32,10 @@ def create_checkout_session(request):
 
             # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
             checkout_session = stripe.checkout.Session.create(
-                success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url=domain_url + 'cancelled/',
+                # success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
+                # cancel_url=domain_url + 'cancelled/',
+                success_url=successful_url + '?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=cancelled_url,
                 payment_method_types=['card'],
                 mode='payment',
                 line_items=[
