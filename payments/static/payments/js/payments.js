@@ -1,5 +1,4 @@
-console.log("Sanity check!");
-
+//console.log("Sanity check!");
 
 // Get Stripe publishable key
 fetch("/payments/config")
