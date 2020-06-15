@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'itrac.apps.iTracConfig',
     'webgl.apps.WebglConfig',
     'payments.apps.PaymentsConfig',
+    'budget.apps.BudgetConfig',
 
     'widget_tweaks',
 ]

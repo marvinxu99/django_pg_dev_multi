@@ -45,6 +45,7 @@ urlpatterns = [
     path('webgl/', include('webgl.urls')),
     
     path('payments/', include('payments.urls')),
+    path('budget/', include('budget.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
