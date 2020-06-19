@@ -48,11 +48,11 @@ class ItemDefinition(models.Model):
                                 choices=UOM_SHELF_LIFE.choices, 
                                 default=UOM_SHELF_LIFE.HOURS)
 
-    updt_cnt = models.IntegerField(null=True, blank=True)
+    updt_cnt = models.IntegerField(default=0)
     updt_dt_tm = models.DateTimeField(auto_now_add=True)  
-    updt_id = models.BigIntegerField(null=True, blank=True)
-    updt_task = models.BigIntegerField(null=True, blank=True)
-    updt_appctx = models.BigIntegerField(null=True, blank=True)
+    updt_id = models.BigIntegerField(default=0)
+    updt_task = models.BigIntegerField(default=0)
+    updt_appctx = models.BigIntegerField(default=0)
     
     class Meta:
         indexes = [
