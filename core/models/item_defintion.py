@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-
+from ..constants import ACTIVE_STATUS, UOM_TEMP, UOM_SHELF_LIFE
 
 class ItemDefinition(models.Model):
     """ Parent table for all items
@@ -8,17 +8,17 @@ class ItemDefinition(models.Model):
     item_id = models.BigAutoField(primary_key=True, editable=False)
 
     active_ind = models.BooleanField("Active", default=True)
-    active_status_cd = models.BigIntegerField(null=True, blank=True)
+    active_status_cd = models.CharField(max_length=2, choices=ACTIVE_STATUS, default=ACTIVE_STATUS.ACTIVE)
     active_status_dt_tm = models.DateTimeField(null=True, blank=True)
-    active_status_prsnl_id = models.BigIntegerField(null=True, blank=True)
+    active_status_id = models.BigIntegerField(null=True, blank=True)
 
-    approved_ind = models.BooleanField(default=false)
+    approved_ind = models.BooleanField(default=False)
 
     item_type_cd = models.BigIntegerField(null=True, blank=True)
     reusable_ind = models.BooleanField("Reusable", default=False)
    
     batch_qty = models.BigIntegerField(null=True, blank=True)
-    chargeable_ind = odels.BooleanField(default=True)
+    chargeable_ind = models.BooleanField(default=True)
     component_ind = models.BooleanField(default=True)
     component_usage_ind = models.BooleanField(default=False)
 
@@ -34,11 +34,10 @@ class ItemDefinition(models.Model):
 
     temp_store_max = models.IntegerField(null=True, blank=True)
     temp_store_min = models.IntegerField(null=True, blank=True)
-    temp_uom_cd = 
-
+    temp_uom_cd = models.CharField(max_length=1, choices=UOM_TEMP, default=UOM_TEMP.DEGC)
 
     shelf_life = models.IntegerField(null=True, blank=True)
-    shelf_life_uom_cd = models.IntegerField('Shelf Life UOM', null=True, blank=True)
+    shelf_life_uom_cd = models.CharField(max_length=1, choices=UOM_SHELF_LIFE, default=UOM_SHELF_LIFE.HOURS)
 
     updt_cnt = models.IntegerField(null=True, blank=True)
     updt_dt_tm = models.DateTimeField(null=True, blank=True)  
@@ -46,12 +45,11 @@ class ItemDefinition(models.Model):
     updt_task = models.BigIntegerField(null=True, blank=True)
     updt_appctx = models.BigIntegerField(null=True, blank=True)
     
-    
-    
-
-
     class Meta:
-        ordering = ['last_name', 'first_name']
+        indexes = [
+            models.Index(fields=['item_type_cd',]),
+            models.Index(fields=['updt_dt_tm',]),
+        ]
 
     def __str__(self):
         """String for representing the Model object."""

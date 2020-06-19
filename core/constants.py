@@ -1,8 +1,9 @@
 from django.db import models
 import calendar
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _ 
 
-
+#from django.apps import apps
+#MyModel1 = apps.get_model('app1', 'MyModel1')
 
 class ACTIVE_STATUS(models.TextChoices):
     ACTIVE = '01', _("Active")
@@ -16,15 +17,6 @@ class ACTIVE_STATUS(models.TextChoices):
     SUSPENDED = '09', _('Suspended')
     UNKNOWN = '10', _('Unknown')
 
-# Unit of Measure(UOM) - all
-class UOM(models.TextChoices):
-    DEGC = 'C', _("degree Celsius")
-    DEGC = 'F', _("degree Fahrenheit")
-
-# Unit of Measure(UOM) - temperature
-class UOM_TEMP(models.TextChoices):
-    DEGC = 'C', _("degree Celsius")
-    DEGC = 'F', _("degree Fahrenheit")
 
 # Loan Status
 class LOAN_STATUS(models.TextChoices):
@@ -49,7 +41,7 @@ class MONTH_CHOICES(models.TextChoices):
     NOV = '11', _('November')
     DEC = '12', _('December')
 
-
+# Media Choices - not used
 MEDIA_CHOICES = [
     ('Audio', (
             ('vinyl', 'Vinyl'),
@@ -64,4 +56,20 @@ MEDIA_CHOICES = [
     ('unknown', 'Unknown'),
 ]
 
+
+# Unit of Measure(UOM) - all
+class UOM(models.TextChoices):
+    DEGC = 'C', _("degree Celsius")
+    DEGC = 'F', _("degree Fahrenheit")
+
+# Unit of Measure(UOM) - shelf life
+class UOM_SHELF_LIFE(models.TextChoices):
+    HOURS = 'H', _("hours")
+    DAYS = 'D', _("days")
+    YEARS = 'Y', _("years")
+
+# Unit of Measure(UOM) - temperature
+class UOM_TEMP(models.TextChoices):
+    DEGC = 'C', _("degree Celsius")
+    DEGC = 'F', _("degree Fahrenheit")
 
