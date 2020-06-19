@@ -24,7 +24,7 @@ Django tutorials: https://docs.djangoproject.com/en/3.0/intro/tutorial01/
 activates the virtual environment by running its activation scrip.  
 (5b) If you open a separate command prompt or terminal, activate the environment by running source env\scripts\activate
 (6) install Django in the venv:  python -m pip install django      Use python -m django --version to check version
-(7) Create a Django project django-admin startproject web_project . (by use of . at the end) that the current folder is your project folder
+(7) Create a Django project django-admin startproject main_project . (by use of . at the end) that the current folder is your project folder
 (8) Run pyhon manage.py runserver   OR pyhon manage.py runserver 5000
 Create an app:
 (9) python manage.py startapp <polls>  in the same folder as manage.py
