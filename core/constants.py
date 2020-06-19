@@ -17,6 +17,20 @@ class ACTIVE_STATUS(models.TextChoices):
     SUSPENDED = '09', _('Suspended')
     UNKNOWN = '10', _('Unknown')
 
+# Item Types
+class ITEM_TYPE(models.TextChoices):
+    INSTANCE = '01', _('Instance')
+    INSTANCE_EQP = '02', _('Equipment Instance')
+    ITEM_EQP = '03', _('Equipment Master')
+    ITEM_GROUP = '04', _('Equipment Group')
+    ITEM_MANF = '05', _('Manufacturer Item')
+    ITEM_MASTER = '06', _('Item Master')
+    ITEM_VENDOR = '07', _('Vendor Item')
+    LOT_INFO = '08', _('Lot Info')
+    MED_DEF = '09', _('Medication Definition')
+    PO = '10', _('Purchase Order')
+    REQUSITION = '11', ('Requisition')
+
 
 # Loan Status
 class LOAN_STATUS(models.TextChoices):
@@ -60,7 +74,7 @@ MEDIA_CHOICES = [
 # Unit of Measure(UOM) - all
 class UOM(models.TextChoices):
     DEGC = 'C', _("degree Celsius")
-    DEGC = 'F', _("degree Fahrenheit")
+    DEGF = 'F', _("degree Fahrenheit")
 
 # Unit of Measure(UOM) - shelf life
 class UOM_SHELF_LIFE(models.TextChoices):
@@ -71,5 +85,5 @@ class UOM_SHELF_LIFE(models.TextChoices):
 # Unit of Measure(UOM) - temperature
 class UOM_TEMP(models.TextChoices):
     DEGC = 'C', _("degree Celsius")
-    DEGC = 'F', _("degree Fahrenheit")
+    DEGF = 'F', _("degree Fahrenheit")
 
