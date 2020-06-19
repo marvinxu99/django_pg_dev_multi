@@ -1,0 +1,10 @@
+STATE_1 = 0
+STATE_2 = 1
+STATE_3 = 2
+
+STATE_CHOICES = (
+    (STATE_1, 'STATE 1'),
+    (STATE_2, 'STATE 2'),
+    (STATE_3, 'STATE 3')
+)
+
