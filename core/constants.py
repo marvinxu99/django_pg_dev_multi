@@ -70,11 +70,33 @@ MEDIA_CHOICES = [
     ('unknown', 'Unknown'),
 ]
 
+# Product Identifier Type
+class PRODUCT_IDENTIFIER_TYPE(models.TextChoices):
+    BARCODE = '01', _('Barcode')		
+    BRAND_NAME = '02', _('Brand Name')
+    CHARGE_NBR = '03', _('Charge Number')
+    DESCCRIPTION = '04', _('Description')
+    DESC_CLINIC = '05',	_('Clinical Description')
+    DESC_SHORT = '06', _('Short Description')
+    FOREIGNALIAS ='07', _('Foreign System Item Alias')
+    GENERIC_NAME = '08', _('Generic Name')
+    ITEM_NBR_SYS = '09', _('System Assigned Item Number')
+    LOT_NBR	= '10', _('Lot Number')
+    MANF_ITM_NBR ='11', _('Manufacturer Item Number')
+    SERIAL_NBR = '12', _('Serial Number')
+    SERVIC_REQ_NBR = '13', _('Service Request Number')
+    TRADE_NAME = '14', _('Trade Name')
+    UB92 = '15', _('UB92 Interface Identifier')
+    UPC	= '16', _('Universal Product Code')
+    UPN = '17', _('Universal Product Number')
+    VENDOR_ITEM_NBR = '18', _('Vendor Item Number')
+
 
 # Unit of Measure(UOM) - all
 class UOM(models.TextChoices):
     DEGC = 'C', _("degree Celsius")
     DEGF = 'F', _("degree Fahrenheit")
+
 
 # Unit of Measure(UOM) - shelf life
 class UOM_SHELF_LIFE(models.TextChoices):

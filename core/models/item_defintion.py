@@ -22,7 +22,7 @@ class ItemDefinition(models.Model):
 
     reusable_ind = models.BooleanField("Reusable", default=False)
    
-    batch_qty = models.BigIntegerField(null=True, blank=True)
+    batch_quantity = models.BigIntegerField(default=0)
     chargeable_ind = models.BooleanField(default=True)
     component_ind = models.BooleanField(default=True)
     component_usage_ind = models.BooleanField(default=False)
@@ -32,7 +32,7 @@ class ItemDefinition(models.Model):
     create_id = models.BigIntegerField(default=0)
     create_task = models.BigIntegerField(default=0)
 
-    inst_id = models.BigIntegerField(null=True, blank=True)
+    inst_id = models.BigIntegerField(default=0)
 
     item_level_flag = models.IntegerField(null=True, blank=True)
     latex_ind = models.BooleanField(default=False)

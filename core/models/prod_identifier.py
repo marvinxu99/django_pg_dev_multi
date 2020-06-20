@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
-from item_definition import ItemDefinition
+from .item_definition import ItemDefinition
+from ..constants import PRODUCT_IDENTIFIER_TYPE
 
 # Product Identifier
 class ProdIdentifier(models.Model):
@@ -10,11 +11,12 @@ class ProdIdentifier(models.Model):
     active_ind = models.BooleanField("Active", default=True)
 
     item = models.ForeignKey(ItemDefinition, related_name='items', on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, related_name='products', on_delete=models.CASCADE)
-    parent_entity_id = models.IntegerField(default=0)
-    parent_entity_name = models.CharField(max_length=100)
     
-    prod_identifier_type_cd = models.IntegerField(default=0)
+    parent_entity_id = models.IntegerField(default=0)
+    parent_entity_name = models.CharField(max_length=100, blank=true)
+    
+    prod_identifier_type_cd = models.CharField(max_length=2, 
+                        choices=PRODUCT_IDENTIFIER_TYPE.choices)
 
     prod_type_flag = models.IntegerField(default=0)
 
@@ -29,3 +31,12 @@ class ProdIdentifier(models.Model):
     
     value = models.CharField(max_length=200)
     value_key = models.CharField(max_length=200)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['item_id',]),
+        ]
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return f'Product ID({self.prod_identifier_type_cd}): {self.value}'
