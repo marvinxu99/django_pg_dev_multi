@@ -14,6 +14,9 @@
         b_date = faker.date()
         Author.objects.create(first_name=first_name, last_name=last_name, date_of_birth=b_date)
 
+
+(3b) Update into Genre and Language table to include 3 rows. 
+
 (4) Generate fake books  
 from random import randint
 for _ in range(50):

@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'webgl.apps.WebglConfig',
     'payments.apps.PaymentsConfig',
     'budget.apps.BudgetConfig',
+    'scan_n_pay.apps.ScannPayConfig',
 
     'widget_tweaks',
 ]
@@ -130,8 +131,7 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'winn_dev',
-        # 'NAME': 'winn_users6',
+        'NAME': 'winn_dev_2',
         'USER': 'winter',
         'PASSWORD': 'winter',
         'HOST': 'localhost',

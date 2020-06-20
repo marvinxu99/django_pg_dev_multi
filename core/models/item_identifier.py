@@ -4,7 +4,7 @@ from .item_definition import ItemDefinition
 from ..constants import PRODUCT_IDENTIFIER_TYPE
 
 # Product Identifier
-class ProdIdentifier(models.Model):
+class ItemIdentifier(models.Model):
     """ Item Itentifiers, such barcode
     ."""
     prod_identifier_id = models.BigAutoField(primary_key=True, editable=False)
@@ -13,10 +13,10 @@ class ProdIdentifier(models.Model):
     item = models.ForeignKey(ItemDefinition, related_name='items', on_delete=models.CASCADE)
     
     parent_entity_id = models.IntegerField(default=0)
-    parent_entity_name = models.CharField(max_length=100, blank=true)
+    parent_entity_name = models.CharField(max_length=100, blank=True)
     
     prod_identifier_type_cd = models.CharField(max_length=2, 
-                        choices=PRODUCT_IDENTIFIER_TYPE.choices)
+                        choices=PRODUCT_IDENTIFIER_TYPE.choices, default=PRODUCT_IDENTIFIER_TYPE.)
 
     prod_type_flag = models.IntegerField(default=0)
 
