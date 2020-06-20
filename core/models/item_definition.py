@@ -10,15 +10,17 @@ class ItemDefinition(models.Model):
     active_ind = models.BooleanField("Active", default=True)
     active_status_cd = models.CharField(max_length=2, 
                                         choices=ACTIVE_STATUS.choices, 
-                                        default=ACTIVE_STATUS.ACTIVE)
+                                        default=ACTIVE_STATUS.ACTIVE
+                                        )
     active_status_dt_tm = models.DateTimeField(null=True, blank=True)
-    active_status_id = models.BigIntegerField(null=True, blank=True)
+    active_status_prsnl_id = models.BigIntegerField(null=True, blank=True)
 
     approved_ind = models.BooleanField(default=False)
 
     item_type_cd = models.CharField(max_length=2,
                                     choices=ITEM_TYPE.choices,
-                                    default=ITEM_TYPE.MED_DEF)
+                                    default=ITEM_TYPE.MED_DEF
+                                    )
 
     reusable_ind = models.BooleanField("Reusable", default=False)
    
@@ -41,12 +43,14 @@ class ItemDefinition(models.Model):
     temp_store_min = models.IntegerField(null=True, blank=True)
     temp_uom_cd = models.CharField(max_length=1, 
                                     choices=UOM_TEMP.choices, 
-                                    default=UOM_TEMP.DEGC)
+                                    default=UOM_TEMP.DEGC
+                                )
 
     shelf_life = models.IntegerField(null=True, blank=True)
     shelf_life_uom_cd = models.CharField(max_length=1, 
                                 choices=UOM_SHELF_LIFE.choices, 
-                                default=UOM_SHELF_LIFE.HOURS)
+                                default=UOM_SHELF_LIFE.HOURS
+                                )
 
     updt_cnt = models.IntegerField(default=0)
     updt_dt_tm = models.DateTimeField(auto_now_add=True)  

@@ -1,13 +1,13 @@
 from django.db import models
-from django.conf import settings
 from .item_definition import ItemDefinition
 from ..constants import PRODUCT_IDENTIFIER_TYPE
 
-# Product Identifier
+# Item Identifier
 class ItemIdentifier(models.Model):
     """ Item Itentifiers, such barcode
     ."""
-    prod_identifier_id = models.BigAutoField(primary_key=True, editable=False)
+    item_identifier_id = models.BigAutoField(primary_key=True, editable=False)
+    
     active_ind = models.BooleanField("Active", default=True)
 
     item = models.ForeignKey(ItemDefinition, related_name='items', on_delete=models.CASCADE)
@@ -15,10 +15,11 @@ class ItemIdentifier(models.Model):
     parent_entity_id = models.IntegerField(default=0)
     parent_entity_name = models.CharField(max_length=100, blank=True)
     
-    prod_identifier_type_cd = models.CharField(max_length=2, 
-                        choices=PRODUCT_IDENTIFIER_TYPE.choices, default=PRODUCT_IDENTIFIER_TYPE.)
+    item_identifier_type_cd = models.CharField(max_length=2, 
+                        choices=PRODUCT_IDENTIFIER_TYPE.choices
+                        )
 
-    prod_type_flag = models.IntegerField(default=0)
+    item_type_flag = models.IntegerField(default=0, blank=True)
 
     primary_ind = models.BooleanField(default=False)
     sequence = models.IntegerField(default=0)
@@ -34,9 +35,9 @@ class ItemIdentifier(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=['item_id',]),
+            models.Index(fields=['item',]),
         ]
 
     def __str__(self):
         """String for representing the Model object."""
-        return f'Product ID({self.prod_identifier_type_cd}): {self.value}'
+        return f'Item ID ({self.prod_identifier_type_cd}): {self.value}'

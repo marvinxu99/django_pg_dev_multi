@@ -70,6 +70,14 @@ MEDIA_CHOICES = [
     ('unknown', 'Unknown'),
 ]
 
+
+# Price Type
+class PRICE_TYPE(models.TextChoices):
+    CONTRACT = '01', _('Contract')		
+    LIST = '02', _('List')
+    QUOTE = '03', _('Quote')
+
+
 # Product Identifier Type
 class PRODUCT_IDENTIFIER_TYPE(models.TextChoices):
     BARCODE = '01', _('Barcode')		
