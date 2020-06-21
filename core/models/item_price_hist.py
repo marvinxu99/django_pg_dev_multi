@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from .item_definition import ItemDefinition
+from .item import Item
 from .item_price import ItemPrice
 from ..constants import ACTIVE_STATUS, PRICE_TYPE
 
@@ -36,7 +36,7 @@ class ItemPriceHist(models.Model):
 
     fixed_price_ind = models.BooleanField("Price Fixed", default=True)
 
-    item = models.ForeignKey(ItemDefinition, related_name='+', on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, related_name='+', on_delete=models.CASCADE)
     item_price = models.ForeignKey(ItemPrice, related_name='+', on_delete=models.CASCADE)
 
     min_order_quantity = models.BigIntegerField(default=0)
@@ -67,6 +67,7 @@ class ItemPriceHist(models.Model):
             models.Index(fields=['organization_id',]),
             models.Index(fields=['package_type_id',]),
         ]
+        db_table = "core_item_price_hist"
 
     def __str__(self):
         """String for representing the Model object."""

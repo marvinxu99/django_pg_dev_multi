@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import ItemDefinition, ItemIdentifier, ItemBarcode, ItemPrice, ItemPriceHist
+from .models import Item, ItemIdentifier, ItemBarcode, ItemPrice, ItemPriceHist
 
 
 class ItemIdentifierInline(admin.TabularInline):
@@ -26,8 +26,8 @@ class ItemPriceInline(admin.TabularInline):
     extra = 1
 
 
-@admin.register(ItemDefinition)
-class ItemDefinitionAdmin(admin.ModelAdmin):
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
     list_display = ('description', 'item_type_cd', 'create_dt_tm', 'active_status_cd', 'active_status_dt_tm')
     fields = [ 
         ('item_type_cd', 'description'), 

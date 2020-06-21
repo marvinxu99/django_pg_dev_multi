@@ -1,5 +1,5 @@
 from django.db import models
-from .item_definition import ItemDefinition
+from .item import Item
 from ..constants import ITEM_IDENTIFIER_TYPE
 
 # Item Identifier
@@ -10,7 +10,7 @@ class ItemIdentifier(models.Model):
     
     active_ind = models.BooleanField("Active", default=True)
 
-    item = models.ForeignKey(ItemDefinition, related_name='items', on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, related_name='items', on_delete=models.CASCADE)
     
     parent_entity_id = models.IntegerField(default=0)
     parent_entity_name = models.CharField(max_length=100, blank=True)
@@ -38,7 +38,8 @@ class ItemIdentifier(models.Model):
         indexes = [
             models.Index(fields=['item',]),
         ]
-
+        db_table = 'core_item_identifier'
+        
     def __str__(self):
         """String for representing the Model object."""
         return f'Item: {self.value}'

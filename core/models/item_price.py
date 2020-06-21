@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from .item_definition import ItemDefinition
+from .item import Item
 from ..constants import ACTIVE_STATUS, PRICE_TYPE
 
 
@@ -34,7 +34,7 @@ class ItemPrice(models.Model):
     expiration_dt_tm = models.DateTimeField(null=True, blank=True)
     fixed_price_ind = models.BooleanField("Price Fixed", default=True)
 
-    item = models.ForeignKey(ItemDefinition, related_name='+', on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, related_name='+', on_delete=models.CASCADE)
 
     min_order_quantity = models.BigIntegerField(default=0)
     order_qty_multiple = models.IntegerField(default=0)
@@ -60,6 +60,7 @@ class ItemPrice(models.Model):
             models.Index(fields=['item',]),
             models.Index(fields=['contract_line_id',]),
         ]
+        db_table = 'core_item_price'
 
     def __str__(self):
         """String for representing the Model object."""
