@@ -25,6 +25,13 @@ def scan_n_pay(request):
     return render(request, 'scan_n_pay/scan_n_pay.html')
 
 
+def get_item(request, barcode): 
+
+    if barcode:
+        print('item_code' + barcode)
+        
+    return render(request, 'scan_n_pay/scan_n_pay.html')
+
 
 
 def pay_successful(request):

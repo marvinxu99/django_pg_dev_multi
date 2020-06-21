@@ -5,10 +5,10 @@
 {% endblock %}
 {% block content %}
 <div>
-  <p class="h5">Scan product code:</p>
+  <p class="h5">Scan products:</p>
   <div class="d-flex justify-content-between">
-    <form>
-      <input type='text' id='barcode' value='' placeholder="product code">
+    <form method='GET'>
+      <input type='text' name='q' value='{{ request.GET.q }}' placeholder="scan barcode">
       <input class="button" type='submit' value="Enter">
     </form>
     <a href="#" class="btn btn-sm btn-primary mb-3" role="button">Purchase</a>
