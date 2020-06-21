@@ -1,28 +1,29 @@
 from django.db import models
 from .item_definition import ItemDefinition
-from ..constants import ITEM_IDENTIFIER_TYPE
+from ..constants import ITEM_BARCODE_TYPE
 
 # Item Identifier
-class ItemIdentifier(models.Model):
+class ItemBarcode(models.Model):
     """ Item Itentifiers, such barcode
     ."""
-    item_identifier_id = models.BigAutoField(primary_key=True, editable=False)
+    item_barcode_id = models.BigAutoField(primary_key=True, editable=False)
     
     active_ind = models.BooleanField("Active", default=True)
 
-    item = models.ForeignKey(ItemDefinition, related_name='items', on_delete=models.CASCADE)
+    item = models.ForeignKey(ItemDefinition, related_name='+', on_delete=models.CASCADE)
     
     parent_entity_id = models.IntegerField(default=0)
     parent_entity_name = models.CharField(max_length=100, blank=True)
     
-    item_identifier_type_cd = models.CharField("Item Identifier Type", max_length=2, 
-                        choices=ITEM_IDENTIFIER_TYPE.choices,
-                        default=ITEM_IDENTIFIER_TYPE.BRAND_NAME
+    item_barcode_type_cd = models.CharField("Item Barcode Type", 
+                        max_length=2, 
+                        choices=ITEM_BARCODE_TYPE.choices,
+                        default=ITEM_BARCODE_TYPE.BARCODE
                         )
 
-    item_type_flag = models.IntegerField(default=0, blank=True)
+    item_type_flag = models.IntegerField(default=0)
 
-    primary_ind = models.BooleanField(default=False)
+    primary_ind = models.BooleanField("Primary Code", default=True)
     sequence = models.IntegerField(default=0)
 
     updt_cnt = models.IntegerField(default=0)
@@ -32,13 +33,13 @@ class ItemIdentifier(models.Model):
     updt_applabel = models.CharField(max_length=20, default='0')
     
     value = models.CharField(max_length=200)
-    value_key = models.CharField(max_length=200)
 
     class Meta:
         indexes = [
             models.Index(fields=['item',]),
+            models.Index(fields=['value',]),
         ]
 
     def __str__(self):
         """String for representing the Model object."""
-        return f'Item: {self.value}'
+        return f'Item ID ({self.item_barcode_type_cd}): {self.value}'

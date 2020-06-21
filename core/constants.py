@@ -19,17 +19,20 @@ class ACTIVE_STATUS(models.TextChoices):
 
 # Item Types
 class ITEM_TYPE(models.TextChoices):
-    INSTANCE = '01', _('Instance')
-    INSTANCE_EQP = '02', _('Equipment Instance')
+    GENERAL = '12', _('General')
+    PRODUCE = '13', _('Produce')
+    DAIRY = '14', _('Dairy')
     ITEM_EQP = '03', _('Equipment Master')
     ITEM_GROUP = '04', _('Equipment Group')
     ITEM_MANF = '05', _('Manufacturer Item')
     ITEM_MASTER = '06', _('Item Master')
     ITEM_VENDOR = '07', _('Vendor Item')
     LOT_INFO = '08', _('Lot Info')
-    MED_DEF = '09', _('Medication Definition')
+    MED_DEF = '09', _('Medication')
     PO = '10', _('Purchase Order')
-    REQUSITION = '11', ('Requisition')
+    REQUSITION = '11', _('Requisition')
+    INSTANCE = '01', _('Instance')
+    INSTANCE_EQP = '02', _('Equipment Instance')
 
 
 # Loan Status
@@ -78,27 +81,29 @@ class PRICE_TYPE(models.TextChoices):
     QUOTE = '03', _('Quote')
 
 
-# Product Identifier Type
-class PRODUCT_IDENTIFIER_TYPE(models.TextChoices):
-    BARCODE = '01', _('Barcode')		
-    BRAND_NAME = '02', _('Brand Name')
-    CHARGE_NBR = '03', _('Charge Number')
-    DESCCRIPTION = '04', _('Description')
-    DESC_CLINIC = '05',	_('Clinical Description')
-    DESC_SHORT = '06', _('Short Description')
-    FOREIGNALIAS ='07', _('Foreign System Item Alias')
-    GENERIC_NAME = '08', _('Generic Name')
-    ITEM_NBR_SYS = '09', _('System Assigned Item Number')
-    LOT_NBR	= '10', _('Lot Number')
-    MANF_ITM_NBR ='11', _('Manufacturer Item Number')
-    SERIAL_NBR = '12', _('Serial Number')
-    SERVIC_REQ_NBR = '13', _('Service Request Number')
-    TRADE_NAME = '14', _('Trade Name')
-    UB92 = '15', _('UB92 Interface Identifier')
-    UPC	= '16', _('Universal Product Code')
-    UPN = '17', _('Universal Product Number')
-    VENDOR_ITEM_NBR = '18', _('Vendor Item Number')
+# Product Identifier Type (excluding barcodes)
+class ITEM_IDENTIFIER_TYPE(models.TextChoices):
+    BRAND_NAME = '01', _('Brand Name')
+    DESCCRIPTION = '02', _('Description')
+    DESC_CLINIC = '03',	_('Clinical Description')
+    DESC_SHORT = '04', _('Short Description')
+    FOREIGNALIAS ='05', _('Foreign System Item Alias')
+    GENERIC_NAME = '06', _('Generic Name')
+    TRADE_NAME = '07', _('Trade Name')
 
+# Item barcodes (one item can have multiple barcodes)
+class ITEM_BARCODE_TYPE(models.TextChoices):
+    BARCODE = '20', _('Barcode')		
+    CHARGE_NBR = '21', _('Charge Number')
+    ITEM_NBR_SYS = '22', _('System Assigned Item Number')
+    LOT_NBR	= '23', _('Lot Number')
+    MANF_ITM_NBR ='24', _('Manufacturer Item Number')
+    SERIAL_NBR = '25', _('Serial Number')
+    SERVIC_REQ_NBR = '26', _('Service Request Number')
+    UB92 = '27', _('UB92 Interface Identifier')
+    UPC	= '28', _('Universal Product Code')
+    UPN = '29', _('Universal Product Number')
+    VENDOR_ITEM_NBR = '30', _('Vendor Item Number')
 
 # Unit of Measure(UOM) - all
 class UOM(models.TextChoices):
