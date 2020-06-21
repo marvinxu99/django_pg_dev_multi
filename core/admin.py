@@ -36,5 +36,3 @@ class ItemAdmin(admin.ModelAdmin):
 
     inlines = [ItemIdentifierInline, ItemBarcodeInline, ItemPriceInline]
 
-
-
