@@ -100,7 +100,7 @@
         const result = await fetch(`get_item/${barcode}/`);
         const data = await result.json();
         console.log(data);
-        console.log(`${id}: ${data.name}`);
+        console.log(`${barcode}: ${data.name}`);
 
         return data;
     } catch(error) {
@@ -132,7 +132,7 @@
 
   //   console.log(content);
   // })();
-  async function postData() {
+    async function postData() {
     const rawResponse = await fetch('https://httpbin.org/post', {
       method: 'POST',
       headers: {

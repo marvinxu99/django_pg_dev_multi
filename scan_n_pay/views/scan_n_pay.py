@@ -1,6 +1,9 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.http import JsonResponse
 from django.apps import apps
+
+from core.models import ItemBarcode, item_identifier
 
 def scan_n_pay(request): 
     # # print("app: " + apps.get_app_config('scan_n_pay').name)
@@ -29,8 +32,14 @@ def get_item(request, barcode):
 
     if barcode:
         print('barcode: ' + barcode)
-        
-    return render(request, 'scan_n_pay/scan_n_pay.html')
+    
+    data = {
+        'name': 'Winter Winter',
+        'location': 'Vancouver',
+        'is_active': True,
+        'count': 28
+    }
+    return JsonResponse(data)
 
 
 
