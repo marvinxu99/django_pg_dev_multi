@@ -2,36 +2,93 @@
 {% load static %}
 {% block title %}Scan Products{% endblock %}
 {% block stylesheet %}
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+</style>
 {% endblock %}
 {% block content %}
 <div>
-  <p class="h5">Scan product code:</p>
-  <div class="d-flex justify-content-between">
-    <form>
-      <input type='text' id='barcode' value='' placeholder="product code">
-      <input class="button" type='submit' value="Enter">
+  <p class="h5 mt-3">Scan products:</p>
+  <div class="d-flex justify-content-between mt-3 mb-5">
+    <form class='ml-3'>
+      <input type='text' id='barcode' value='' placeholder="barcode">
+      <input class="button" type="button" id="btn_enter" value="Enter">
+      <input class="button ml-5" type="button" id="btn_lookup" value="Search Products">
     </form>
     <a href="#" class="btn btn-sm btn-primary mb-3" role="button">Purchase</a>
   </div>
-  <div>
-    <p>Produts to Purchase:</p>
+  <div class='mt-3 mb-5'>
+    <p class="h5">Produts to purchase:</p>
     <div>
-
+      <table>
+        <tr>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th class='text-center'>Price</th>
+        </tr>
+        <tr>
+          <td>Alfreds Futterkiste</td>
+          <td>1</td>
+          <td class='text-right'>12.34</td>
+        </tr>
+        <tr>
+          <td>Centro comercial Moctezuma</td>
+          <td>1</td>
+          <td class='text-right'>23.45</td>
+        </tr>
+        <tr>
+          <td>Ernst Handel</td>
+          <td>1</td>
+          <td class='text-right'>34.56</td>
+        </tr>
+        <tr>
+          <td>Island Trading</td>
+          <td>1</td>
+          <td class='text-right'>45.67</td>
+        </tr>
+        <tr>
+          <td>Laughing Bacchus</td>
+          <td>1</td>
+          <td class='text-right'>13.50</td>
+        </tr>
+        <tr>
+          <td>Magazzini Alimentari Riuniti</td>
+          <td>1</td>
+          <td class='text-right'>21.34</td>
+        </tr>
+      </table>      
     </div>
 
   </div>
 
-  <div class="mt-5 mb-5">
-    <button class="button btn-primary" id="submitBtn">Purchase!</button>
+  <div class='mt-5'>
+    <hr>
+    <div class="mt-1 mb-1">
+      <button class="button btn-primary" id="submitBtn">Purchase!</button>
+    </div>
+    </p>
+    <h5>How to test:</h5>
+    <ul>
+      <li>Test Card #: <span class="text-danger">4242 4242 4242 4242.</span></li>
+      <li>Make sure the expiration date is in the future. </li>
+      <li>Add any 3 numbers for the CVC and any 5 numbers for the postal code. </li>
+      <li>Enter any email address and name.</li>
+    </ul>
   </div>
-  </p>
-  <h5>How to test:</h5>
-  <ul>
-    <li>Test Card #: <span class="text-danger">4242 4242 4242 4242.</span></li>
-    <li>Make sure the expiration date is in the future. </li>
-    <li>Add any 3 numbers for the CVC and any 5 numbers for the postal code. </li>
-    <li>Enter any email address and name.</li>
-  </ul>
 </div>
 {% endblock %}
 {% block javascript %}
@@ -40,7 +97,7 @@
 <script>
   async function getItem(barcode) {
     try {
-        const result = await fetch(`scan_n_pay/scan/people/${barcode}/`);
+        const result = await fetch(`get_item/${barcode}/`);
         const data = await result.json();
         console.log(data);
         console.log(`${id}: ${data.name}`);
@@ -52,8 +109,14 @@
   }
 
   function getItemByCode() {
-    const barcode =  
+    const barcode =  document.getElementById('barcode').value;
+    if (barcode.length > 0) {
+      getItem(barcode);
+    }
   }
+
+  document.getElementById('btn_enter').addEventListener('click', getItemByCode);
+
   
   // Fetch post
   // (async () => {
