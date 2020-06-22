@@ -34,7 +34,7 @@
   <div class='mt-3 mb-5'>
     <p class="h5">Produts to purchase:</p>
     <div id='ItemsContainer'>
-      <table>
+      <table id="items_table">
         <thead>
             <tr class="bg-primary">
                 <th>Product Name</th>
@@ -47,8 +47,8 @@
         <tfoot>
             <tr>
                 <td><strong></strong></td>
-                <td><strong>Total:</strong></td>
-                <td class='text-right'><strong>0.00</strong></td>
+                <td class="text-right"><strong>Total Price:</strong></td>
+                <td class="text-right"><strong>0.00</strong></td>
             </tr>
         </tfoot>
       </table>      
@@ -135,6 +135,14 @@ class TransactionData {
             this.allItems.splice(index, 1);
         }
     }
+
+    // Reset transactionData to empty (ready for next transaction)
+    resetData() {
+        this.allItems.splice(0, this.allItems.length);
+        this.totals.price = 0;
+        this.totals.quantity = 0;
+        this.comment = '';
+    } 
 } 
 
 // Class to hold UI data and methods
@@ -142,6 +150,7 @@ class UIController {
 
     static #DOMstrings = {
         barcodeInput: 'barcode',
+        itemsTable: "items_table",
         itemsContainer: 'ItemsContainer',
         itemsList: 'items__list',
     };
@@ -168,66 +177,94 @@ class UIController {
         el.parentNode.removeChild(el);       
     }
         
-        
+    // Reset the barcode input box after a successful scan    
     static clearBarcodeField() {
         let el_barcode = document.getElementById(this.#DOMstrings.barcodeInput);
         el_barcode.value = '';
         el_barcode.focus();
     }
 
-}
-
-
-// Global variable to hold all transaction data
-const transData = new TransactionData(); 
-
-async function getItem(barcode) {
-    try {
-        const result = await fetch(`get_item/?barcode=${barcode}`);
-        const data = await result.json();
-        console.log(data);
-        if(data.validInd === 1) {
-            
-            // 1. Add the item data to TransData
-            const newItem = transData.addItem(data.itemId, data.description, data.price);
-            console.log(newItem);
-            console.log(transData);       
-
-            // 2. add the item to UI display
-            UIController.addListItem(newItem);
-
-            // 3. Reset the barcode input box
-            UIController.clearBarcodeField();
-
-        } else {
-            console.log("data not valid.")
+    // To add a column to display special actions for a staff member
+    static addStaffColumn() {
+        const STAFF_COLUMN = 3;
+        const tableRef = document.getElementById(this.#DOMstrings.itemsTable);
+        for (let r = 0, n = tableRef.rows.length; r < n; r++) {
+            tableRef.rows[r].insertCell(STAFF_COLUMN);
+            tableRef.rows[r].cells[STAFF_COLUMN].innerHTML = "&nbsp;&nbsp;";
         }
+    }
 
-    } catch(error) {
-        console.log(error);
+}
+
+class AppController {
+    constructor() {
+        this.transData = new TransactionData(); 
+    }
+
+    // Get the item info by its barcode
+    getItemByCode() {
+        const barcode =  document.getElementById('barcode').value;
+        if (barcode.length > 0) {
+        getItem(barcode);
+        }
+    }
+
+    // Fetch item info from the server
+    async fetchItemInfo(barcode) {
+        try {
+            const result = await fetch(`get_item/?barcode=${barcode}`);
+            const data = await result.json();
+            console.log(data);
+            if(data.validInd === 1) {
+                
+                // 1. Add the item data to TransData
+                const newItem = transData.addItem(data.itemId, data.description, data.price);
+                console.log(newItem);
+                console.log(transData);       
+
+                // 2. add the item to UI display
+                UIController.addListItem(newItem);
+                UIController.addStaffColumn();
+
+                // 3. Reset the barcode input box
+                UIController.clearBarcodeField();
+
+            } else {
+                console.log("data not valid.")
+            }
+
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    static seupEventListeners() {
+        document.getElementById('btn_enter').addEventListener('click', getItemByCode);
+
+        document.getElementById('barcode').addEventListener('keypress', function(event) {   
+            if((event.keyCode === 13) || (event.which === 13)) {
+            event.preventDefault();
+            getItemByCode();
+            // console.log(event.target);
+            // console.log(event.target, event.target.parentNode);
+            // console.log(event.keyCode);
+            }
+        })
+    }
+
+    // Initialize when a new transaction starts
+    init() {
+        this.transData.resetData();   // empty all previous data if any.
+
+        seupEventListeners();
+
     }
 }
 
-function getItemByCode() {
-    const barcode =  document.getElementById('barcode').value;
-    if (barcode.length > 0) {
-      getItem(barcode);
-    }
-}
+const app = new AppController();
+app.init();
 
-document.getElementById('btn_enter').addEventListener('click', getItemByCode);
 
-document.getElementById('barcode').addEventListener('keypress', function(event) {   
-    if((event.keyCode === 13) || (event.which === 13)) {
-      event.preventDefault();
-      getItemByCode();
-      // console.log(event.target);
-      // console.log(event.target, event.target.parentNode);
-      // console.log(event.keyCode);
-    }
-})
-
-  
   // Fetch post
   // (async () => {
   //   const rawResponse = await fetch('https://httpbin.org/post', {
