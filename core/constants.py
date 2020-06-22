@@ -75,7 +75,7 @@ MEDIA_CHOICES = [
 
 
 # Price Type
-class PRICE_TYPE(models.TextChoices):
+class ITEM_PRICE_TYPE(models.TextChoices):
     CONTRACT = '01', _('Contract')		
     LIST = '02', _('List')
     QUOTE = '03', _('Quote')
@@ -84,7 +84,7 @@ class PRICE_TYPE(models.TextChoices):
 # Product Identifier Type (excluding barcodes)
 class ITEM_IDENTIFIER_TYPE(models.TextChoices):
     BRAND_NAME = '01', _('Brand Name')
-    DESCCRIPTION = '02', _('Description')
+    DESCRIPTION = '02', _('Description')
     DESC_CLINIC = '03',	_('Clinical Description')
     DESC_SHORT = '04', _('Short Description')
     FOREIGNALIAS ='05', _('Foreign System Item Alias')

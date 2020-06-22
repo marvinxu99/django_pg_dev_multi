@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from .item import Item
-from ..constants import ACTIVE_STATUS, PRICE_TYPE
+from ..constants import ACTIVE_STATUS, ITEM_PRICE_TYPE
 
 
 # Product Identifier
@@ -44,8 +44,8 @@ class ItemPrice(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     price_quote_source = models.CharField(max_length=100, default='none')
     price_type_cd = models.CharField(max_length=2, 
-                                        choices=PRICE_TYPE.choices, 
-                                        default=PRICE_TYPE.QUOTE)
+                                        choices=ITEM_PRICE_TYPE.choices, 
+                                        default=ITEM_PRICE_TYPE.QUOTE)
 
     updt_cnt = models.IntegerField(default=0)
     updt_dt_tm = models.DateTimeField(auto_now=True)  

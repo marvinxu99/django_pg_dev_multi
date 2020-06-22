@@ -2,8 +2,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.apps import apps
+from django.core.exceptions import ObjectDoesNotExist
 
-from core.models import ItemBarcode, item_identifier
+from core.models import ItemBarcode, ItemIdentifier, ItemPrice
+from core.constants import ITEM_BARCODE_TYPE, ITEM_IDENTIFIER_TYPE, ITEM_PRICE_TYPE
+
 
 def scan_n_pay(request): 
     # # print("app: " + apps.get_app_config('scan_n_pay').name)
@@ -27,8 +30,58 @@ def scan_n_pay(request):
 
     return render(request, 'scan_n_pay/scan_n_pay.html')
 
+# Return the item information as per Barcode
+def get_item(request): 
 
-def get_item(request, barcode): 
+    barcode = request.GET.get('barcode') 
+    if barcode:
+        print('barcode: ' + barcode)
+    
+    # Default return data if not found.
+    name = 'NOT FOUND'
+    price = '-0.01'
+    data = {
+        'name': name,
+        'price': price
+    }
+
+    try:
+        # Query the item_id from ITEM_BARCODE table
+        item_id = ItemBarcode.objects.filter(
+                    active_ind = True, 
+                    item_barcode_type_cd = ITEM_BARCODE_TYPE.BARCODE,
+                    value = barcode
+                )[0].item.pk
+        
+        # Query the item name from the ITEM_IDENTIFIER table
+        name = ItemIdentifier.objects.filter(
+                    active_ind = True, 
+                    item_identifier_type_cd = ITEM_IDENTIFIER_TYPE.DESCRIPTION,
+                    item_id = item_id
+                    )[0].value
+        
+        # Query the item price from the ITEM_PRICE table
+        price = ItemPrice.objects.filter(
+                    active_ind = True, 
+                    price_type_cd = ITEM_PRICE_TYPE.QUOTE,  
+                    item_id = item_id
+                    )[0].price
+
+    except Exception:
+        if name == 'NOT FOUND':
+            print("query database error: product not found.")
+        if price == '-0.01':
+            print('query database error: price not found')
+
+    # Update the return data
+    data['name'] = name
+    data['price'] = price
+
+
+    return JsonResponse(data)
+
+# Return the item information as per Barcode
+def get_item_str(request, barcode): 
 
     if barcode:
         print('barcode: ' + barcode)
@@ -40,7 +93,6 @@ def get_item(request, barcode):
         'count': 28
     }
     return JsonResponse(data)
-
 
 
 def pay_successful(request):

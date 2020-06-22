@@ -1,1 +1,1 @@
-from .scan_n_pay import scan_n_pay, pay_successful, get_item
+from .scan_n_pay import scan_n_pay, pay_successful, get_item, get_item_str

@@ -97,11 +97,10 @@
 <script>
   async function getItem(barcode) {
     try {
-        const result = await fetch(`get_item/${barcode}/`);
+        const result = await fetch(`get_item/?barcode=${barcode}`);
         const data = await result.json();
         console.log(data);
-        console.log(`${barcode}: ${data.name}`);
-
+        //console.log(`${barcode}: ${data.name}`);
         return data;
     } catch(error) {
         console.log(error);
@@ -113,6 +112,7 @@
     if (barcode.length > 0) {
       getItem(barcode);
     }
+    document.getElementById('barcode').value = '';
   }
 
   document.getElementById('btn_enter').addEventListener('click', getItemByCode);

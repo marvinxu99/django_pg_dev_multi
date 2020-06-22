@@ -17,7 +17,7 @@ class ItemIdentifier(models.Model):
     
     item_identifier_type_cd = models.CharField("Item Identifier Type", max_length=2, 
                         choices=ITEM_IDENTIFIER_TYPE.choices,
-                        default=ITEM_IDENTIFIER_TYPE.BRAND_NAME
+                        default=ITEM_IDENTIFIER_TYPE.DESCRIPTION
                         )
 
     item_type_flag = models.IntegerField(default=0, blank=True)
