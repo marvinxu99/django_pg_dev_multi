@@ -33,7 +33,7 @@
   </div>
   <div class='mt-3 mb-5'>
     <p class="h5">Produts to purchase:</p>
-    <div>
+    <div id='ItemsContainer'>
       <table>
         <tr>
           <th>Product Name</th>
@@ -97,6 +97,7 @@
 
 <script>
 
+// Class to hold basic item data
 class Item {
     constructor(id, itemId, description, price, discount=0, discountType=1, quantity=1){
         this.id = id;
@@ -113,6 +114,7 @@ class Item {
     }
 }
  
+// Class to hold all transaction data
 class TransactionData {
     constructor() {
         this.allItems = [];
@@ -134,43 +136,96 @@ class TransactionData {
         }
 
         newItem = new Item(id, itemId, description, price, discount=0, discountType=1, quantity=1); 
-        this.allItems.push(newItem);
+        this.allItems.push(newItem);  
+        
+        return newItem;
     }
 
-    // deleteItem(id) {
-    //     const ids; 
-    //     const index;
-            
-    //     // id = 6
-    //     //data.allItems[id];
-    //     // ids = [1 2 4 6 8]
-    //     //index = 3
+    deleteItem(id) {
+        // id = 6
+        //data.allItems[id];
+        // ids = [1 2 4 6 8]
+        //index = 3
         
-    //     ids = this.allItems.map(item => item.id)
+        let ids = this.allItems.map(item => item.id)
+        let index = ids.indexOf(id);
 
-    //     index = ids.indexOf(id);
-
-    //     if (index !== -1) {
-    //         this.allItems.splice(index, 1);
-    //     }
-    // }
+        if (index !== -1) {
+            this.allItems.splice(index, 1);
+        }
+    }
 } 
 
+// Class to hold UI data and methods
+class UIController {
+
+    static #DOMstrings = {
+        barcodeInput: '#barcode',
+        itemsContainer: '#ItemsContainer',
+    };
+
+    static addListItem(obj, type) {
+        let html, newHtml, element;
+        // Create HTML string with placeholder text
+        
+        element = DOMstrings.itemsContainer;   
+
+        html = `<div class="item clearfix" id="inc-%id%"> 
+                    <div class="item__description">%description%</div>
+                    <div class="right clearfix">
+                        <div class="item__value">%value%</div>
+                        <div class="item__delete">
+                            <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button>
+                        </div>
+                    </div>
+                </div>`;
+        
+        // Replace the placeholder text with some actual data
+        newHtml = html.replace('%id%', obj.id);
+        newHtml = newHtml.replace('%description%', obj.description);
+        newHtml = newHtml.replace('%value%', formatNumber(obj.value, type));
+        
+        // Insert the HTML into the DOM
+        document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
+    }   
+        
+    static deleteListItem(selectorID) {
+            
+        var el = document.getElementById(selectorID);
+        el.parentNode.removeChild(el);       
+    }
+        
+        
+    static clearBarcodeField() {
+        field = document.getElementById('barcode');
+        field.value = '';
+        field.focus();
+    }
+
+}
+
+
+// Global variable to hold all transaction data
 const transData = new TransactionData(); 
-console.log(transData);
 
 async function getItem(barcode) {
     try {
         const result = await fetch(`get_item/?barcode=${barcode}`);
         const data = await result.json();
         console.log(data);
-        //console.log(`${barcode}: ${data.name}`);
-        
-        transData.addItem(data.itemId, data.description, data.price);
+        if(data.validInd === 1) {
+            
+            // 1. added the item data to TransData
+            const newItem = transData.addItem(data.itemId, data.description, data.price);
+            console.log(newItem);
 
-        console.log(transData);
+            // 2. add the item to UI display
 
-        return data;
+
+        } else {
+            console.log("data not valid.")
+        }
+        console.log(transData);       
 
     } catch(error) {
         console.log(error);
@@ -182,7 +237,7 @@ function getItemByCode() {
     if (barcode.length > 0) {
       getItem(barcode);
     }
-    document.getElementById('barcode').value = '';
+    UIController.clearBarcodeField();
 }
 
 document.getElementById('btn_enter').addEventListener('click', getItemByCode);
