@@ -62,6 +62,9 @@ class ItemPrice(models.Model):
         ]
         db_table = 'core_item_price'
 
+    def price_float(self):
+            return float(self.price)
+
     def __str__(self):
         """String for representing the Model object."""
         return f'Price: ${self.price}'

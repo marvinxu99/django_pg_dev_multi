@@ -94,31 +94,100 @@
 {% block javascript %}
 <script src="https://js.stripe.com/v3/"></script>
 <script src="{% static 'payments/js/payments.js' %}"></script> 
+
 <script>
-  
-  async function getItem(barcode) {
+
+class Item {
+    constructor(id, itemId, description, price, discount=0, discountType=1, quantity=1){
+        this.id = id;
+        this.itemId = itemId;
+        this.description = description;
+        this.quantity = quantity;
+        this.regularPrice = price;
+        this.discount = discount;
+        this.discountType = 1;       // 1: percentage off regular price; 2: ammount off, e.g., 50 cents
+        this.specialDiscount = 0;   // this can manager's account, item damaged discount. etc
+        this.discountCalc = 0;      // 
+        this.purchasePrice = 0 ;    // this is the price to pay for the item. It is equal to (regular_price - discounts)
+        this.comment ='';
+    }
+}
+ 
+class TransactionData {
+    constructor() {
+        this.allItems = [];
+        this.totals = {
+            price: 0,
+            quantity: 0 
+        }
+        this.comment = '';
+    }
+
+    addItem(itemId, description, price, discount=0, discountType=1, quantity=1) {
+        let id, newItem; 
+
+        // Create new ID
+        if (this.allItems.length > 0) {
+            id = this.allItems[this.allItems.length - 1].id + 1;
+        } else {
+            id = 0;
+        }
+
+        newItem = new Item(id, itemId, description, price, discount=0, discountType=1, quantity=1); 
+        this.allItems.push(newItem);
+    }
+
+    // deleteItem(id) {
+    //     const ids; 
+    //     const index;
+            
+    //     // id = 6
+    //     //data.allItems[id];
+    //     // ids = [1 2 4 6 8]
+    //     //index = 3
+        
+    //     ids = this.allItems.map(item => item.id)
+
+    //     index = ids.indexOf(id);
+
+    //     if (index !== -1) {
+    //         this.allItems.splice(index, 1);
+    //     }
+    // }
+} 
+
+const transData = new TransactionData(); 
+console.log(transData);
+
+async function getItem(barcode) {
     try {
         const result = await fetch(`get_item/?barcode=${barcode}`);
         const data = await result.json();
         console.log(data);
         //console.log(`${barcode}: ${data.name}`);
+        
+        transData.addItem(data.itemId, data.description, data.price);
+
+        console.log(transData);
+
         return data;
+
     } catch(error) {
         console.log(error);
     }
-  }
+}
 
-  function getItemByCode() {
+function getItemByCode() {
     const barcode =  document.getElementById('barcode').value;
     if (barcode.length > 0) {
       getItem(barcode);
     }
     document.getElementById('barcode').value = '';
-  }
+}
 
-  document.getElementById('btn_enter').addEventListener('click', getItemByCode);
+document.getElementById('btn_enter').addEventListener('click', getItemByCode);
 
-  document.getElementById('barcode').addEventListener('keypress', function(event) {   
+document.getElementById('barcode').addEventListener('keypress', function(event) {   
     if((event.keyCode === 13) || (event.which === 13)) {
       event.preventDefault();
       getItemByCode();
@@ -126,7 +195,7 @@
       // console.log(event.target, event.target.parentNode);
       // console.log(event.keyCode);
     }
-  })
+})
 
   
   // Fetch post
@@ -156,7 +225,6 @@
 
     console.log(content);
   };
-
 
 </script>
 {% endblock %}

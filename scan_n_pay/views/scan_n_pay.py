@@ -31,6 +31,7 @@ def scan_n_pay(request):
     return render(request, 'scan_n_pay/scan_n_pay.html')
 
 # Return the item information as per Barcode
+# for urls like "/scan/?barcode=12345"
 def get_item(request): 
 
     barcode = request.GET.get('barcode') 
@@ -38,11 +39,11 @@ def get_item(request):
         print('barcode: ' + barcode)
     
     # Default return data if not found.
-    name = 'NOT FOUND'
-    price = '-0.01'
     data = {
-        'name': name,
-        'price': price
+        'validInd': 1,
+        "itemId": -1,
+        'description': 'NOT FOUND',
+        'price': -0.01,
     }
 
     try:
@@ -52,35 +53,34 @@ def get_item(request):
                     item_barcode_type_cd = ITEM_BARCODE_TYPE.BARCODE,
                     value = barcode
                 )[0].item.pk
-        
+        data['itemId'] = item_id
+
         # Query the item name from the ITEM_IDENTIFIER table
-        name = ItemIdentifier.objects.filter(
+        data['description'] = ItemIdentifier.objects.filter(
                     active_ind = True, 
                     item_identifier_type_cd = ITEM_IDENTIFIER_TYPE.DESCRIPTION,
                     item_id = item_id
                     )[0].value
         
         # Query the item price from the ITEM_PRICE table
-        price = ItemPrice.objects.filter(
+        data['price'] = ItemPrice.objects.filter(
                     active_ind = True, 
                     price_type_cd = ITEM_PRICE_TYPE.QUOTE,  
                     item_id = item_id
-                    )[0].price
+                    )[0].price_float()
 
     except Exception:
-        if name == 'NOT FOUND':
+        if data['itemId'] == -1:
             print("query database error: product not found.")
-        if price == '-0.01':
+        if data['price'] == -0.01:
             print('query database error: price not found')
-
-    # Update the return data
-    data['name'] = name
-    data['price'] = price
+        data['validInd'] = 0
 
 
     return JsonResponse(data)
 
 # Return the item information as per Barcode
+# for url like "/scan/123456/"
 def get_item_str(request, barcode): 
 
     if barcode:
