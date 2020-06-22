@@ -60,6 +60,7 @@
     <hr>
     <div class="mt-1 mb-1">
       <button class="button btn-primary" id="submitBtn">Purchase!</button>
+      <button class="button btn-primary" id="send_trans_data">Send Data!</button>
     </div>
     </p>
     <h5>How to test:</h5>
@@ -215,46 +216,51 @@ function getItemByCode() {
     }
 }
 
-document.getElementById('btn_enter').addEventListener('click', getItemByCode);
+const setupEventListeners = () => {
+    // When the Enter button is pressed
+    document.getElementById('btn_enter').addEventListener('click', getItemByCode);
 
-document.getElementById('barcode').addEventListener('keypress', function(event) {   
-    if((event.keyCode === 13) || (event.which === 13)) {
-      event.preventDefault();
-      getItemByCode();
-      // console.log(event.target);
-      // console.log(event.target, event.target.parentNode);
-      // console.log(event.keyCode);
-    }
-})
+    // When a Enter key is pressed in Barcode input box
+    document.getElementById('barcode').addEventListener('keypress', function(event) {   
+        if((event.keyCode === 13) || (event.which === 13)) {
+        event.preventDefault();
+        getItemByCode();
+        // console.log(event.target);
+        // console.log(event.target, event.target.parentNode);
+        // console.log(event.keyCode);
+        }
+    })
 
-  
-  // Fetch post
-  // (async () => {
-  //   const rawResponse = await fetch('https://httpbin.org/post', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({a: 1, b: 'Textual content'})
-  //   });
-  //   const content = await rawResponse.json();
+    // When the Send Data! button is clicked
+    document.getElementById('send_trans_data').addEventListener('click', postTransData)
 
-  //   console.log(content);
-  // })();
-    async function postData() {
-    const rawResponse = await fetch('https://httpbin.org/post', {
+}
+setupEventListeners();
+
+
+function postTransData() {
+        
+    const url = 'transdata/';
+    const data =  {a: 1, b: 'Textual content'};
+    
+    const json_resp = postData(url, data);
+    console.log(json_resp);
+}
+
+// Post transactionn data to server after payment is done  
+async function postData(url, data) {
+    const rawResponse = await fetch(url, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({a: 1, b: 'Textual content'})
+      body: JSON.stringify(data)
     });
     const content = await rawResponse.json();
 
     console.log(content);
-  };
+};
 
 </script>
 {% endblock %}

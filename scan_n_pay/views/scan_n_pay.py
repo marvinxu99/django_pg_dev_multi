@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.apps import apps
 from django.core.exceptions import ObjectDoesNotExist
+from django.template import RequestContext
 
 from core.models import ItemBarcode, ItemIdentifier, ItemPrice
 from core.constants import ITEM_BARCODE_TYPE, ITEM_IDENTIFIER_TYPE, ITEM_PRICE_TYPE
@@ -97,3 +98,14 @@ def get_item_str(request, barcode):
 
 def pay_successful(request):
     return render(request, 'scan_n_pay/pay_successful.html')
+
+
+def trans_data(request):
+
+    print('trans_data reqest received.')
+    
+    data = {
+        'is_successful': True,
+        'item_count': 28
+    }
+    return JsonResponse(data, )

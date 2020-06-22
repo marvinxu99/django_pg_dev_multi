@@ -1,4 +1,6 @@
-from django.urls import path, include, re_path
+from django.urls import path
+from django.views.decorators.csrf import csrf_exempt
+
 
 from . import views
 
@@ -9,5 +11,6 @@ urlpatterns = [
     path('scan/get_item/<str:barcode>/', views.get_item, name='get_item'),
     path('scan/get_item/', views.get_item, name='get_item'),
     path('pay_successful/', views.pay_successful, name='pay_successful'),
+    path('scan/transdata/', csrf_exempt(views.trans_data), name='trans_data'),
 
 ]
