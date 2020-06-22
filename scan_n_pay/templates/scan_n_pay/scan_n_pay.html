@@ -95,6 +95,7 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script src="{% static 'payments/js/payments.js' %}"></script> 
 <script>
+  
   async function getItem(barcode) {
     try {
         const result = await fetch(`get_item/?barcode=${barcode}`);
@@ -116,6 +117,16 @@
   }
 
   document.getElementById('btn_enter').addEventListener('click', getItemByCode);
+
+  document.getElementById('barcode').addEventListener('keypress', function(event) {   
+    if((event.keyCode === 13) || (event.which === 13)) {
+      event.preventDefault();
+      getItemByCode();
+      // console.log(event.target);
+      // console.log(event.target, event.target.parentNode);
+      // console.log(event.keyCode);
+    }
+  })
 
   
   // Fetch post
@@ -145,6 +156,7 @@
 
     console.log(content);
   };
+
 
 </script>
 {% endblock %}
