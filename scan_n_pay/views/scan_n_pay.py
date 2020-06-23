@@ -108,6 +108,7 @@ def trans_data(request):
     
     
     data = {
+        'status': "S",         # 'S': successful, 'F': Failed 
         'is_successful': True,
         'item_count': 28
     }

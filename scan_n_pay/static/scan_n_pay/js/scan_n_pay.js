@@ -62,7 +62,7 @@ class TransactionData {
 
         this.allItems.push(newItem);  
 
-        this.CalculateTotals();
+        this.addItemToTotals(newItem);
         
         return newItem;
     }
@@ -90,13 +90,18 @@ class TransactionData {
     } 
     
     // Calculate totals: price, quantity
-    CalculateTotals() {
+    calculateTotals() {
         this.totals.price = this.allItems.reduce( (total, item) => 
             { return total + item.priceFinal; }, 0);
 
         this.totals.quantity = this.allItems.reduce( (total, item) => 
             { return total + item.quantity; }, 0);
+    }
 
+    // Add item price, quantity to totals
+    addItemToTotals(item) {
+        this.totals.price += item.priceFinal;
+        this.totals.quantity += item.quantity;
     }
 } 
 
@@ -109,6 +114,7 @@ class UIController {
         itemsList: 'items__list',
         transactionItem: '.transaction-item',
         totalPrice: 'total_price',
+        warningMessage: 'warning_msg',
     };
 
     // Add and display the item in the allItems list
@@ -127,10 +133,10 @@ class UIController {
         newRow.innerHTML = html;
 
         // Update the total price as well
-        this.displayTotalPrice(totalPrice);
+        this.updateTotalPrice(totalPrice);
     }   
     
-    static displayTotalPrice(totalPrice) {
+    static updateTotalPrice(totalPrice) {
         // Update the total price as well
         let html = `<td><strong></strong></td>
                 <td><strong>Total:</strong></td>
@@ -152,7 +158,7 @@ class UIController {
             listRef.removeChild(listRef.firstChild);
         }
 
-        this.displayTotalPrice(0);
+        this.updateTotalPrice(0);
     }
 
     // Reset the barcode input field.    
@@ -160,6 +166,8 @@ class UIController {
         let el_barcode = document.getElementById(this.#DOMstrings.barcodeInput);
         el_barcode.value = '';
         el_barcode.focus();
+
+        this.hideWarningMsg();
     }
 
     // Reset UI display to ready for a new transaction
@@ -167,13 +175,27 @@ class UIController {
         this.deleteAllListItems();
         this.clearBarcodeField();
     }
+
+    // Display warning message in red  
+    static displayWarningMsg(msg) {
+        const msg_div = document.getElementById(this.#DOMstrings.warningMessage);
+        msg_div.classList.remove('invisible');
+        msg_div.innerText = `**${msg}**`
+    }
+    
+    // Hide warning message
+    static hideWarningMsg() {
+        const msg_div = document.getElementById(this.#DOMstrings.warningMessage);
+        msg_div.classList.add('invisible');
+        msg_div.innerText = "";
+    }
 }
 
 
 // Global variable to hold all transaction data
 const transData = new TransactionData(); 
 
-async function getItem(barcode) {
+async function getItemInfo(barcode) {
     try {
         const result = await fetch(`get_item/?barcode=${barcode}`);
         const data = await result.json();
@@ -192,33 +214,35 @@ async function getItem(barcode) {
             UIController.clearBarcodeField();
 
         } else {
-            console.log("data not valid.")
+            //console.log("data not valid.")
+            UIController.displayWarningMsg('Invalid barcode.');
         }
 
     } catch(error) {
-        console.log(error);
+        //console.log(error);
+        UIController.displayWarningMsg('Not able to get item information.');
     }
 }
 
-function getItemByCode() {
+function getItemInfoByCode() {
     const barcode =  document.getElementById('barcode').value;
     if (barcode.length > 0) {
-      getItem(barcode);
+      getItemInfo(barcode);
     }
 }
 
 const setupEventListeners = () => {
     // When the Enter button is pressed
-    document.getElementById('btn_enter').addEventListener('click', getItemByCode);
+    document.getElementById('btn_enter').addEventListener('click', getItemInfoByCode);
 
     // When a Enter key is pressed in Barcode input box
     document.getElementById('barcode').addEventListener('keypress', function(event) {   
         if((event.keyCode === 13) || (event.which === 13)) {
-        event.preventDefault();
-        getItemByCode();
-        // console.log(event.target);
-        // console.log(event.target, event.target.parentNode);
-        // console.log(event.keyCode);
+            event.preventDefault();
+            getItemInfoByCode();
+            // console.log(event.target);
+            // console.log(event.target, event.target.parentNode);
+            // console.log(event.keyCode);
         }
     })
 
@@ -246,7 +270,7 @@ function postTransData() {
         
     const URL_POST = 'transdata/';
     
-    // Check data - rule out zero transaction data.
+    // Check data - doing nothing if no transaction data.
     if (transData.allItems.length === 0) { 
         return; 
     }
@@ -269,6 +293,9 @@ async function postData(url, data) {
       body: JSON.stringify(data)
     });
     const resp = await rawResponse.json();
+    if(resp.status === "S") {
+        console.log('Server received data sucessfully.')
+    }
 
     console.log(resp);
 };
