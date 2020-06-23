@@ -7,13 +7,25 @@ class Item {
         this.itemId = itemId;
         this.description = description;
         this.quantity = quantity;
-        this.price = price;         // regular price 
-        this.discount = discount;
-        this.discountType = 1;       // 1: percentage off regular price; 2: ammount off, e.g., 50 cents
-        this.specialDiscount = 0;   // this can manager's account, item damaged discount. etc
-        this.discountCalc = 0;      // 
-        this.purchasePrice = 0 ;    // this is the price to pay for the item. It is equal to (regular_price - discounts)
+        this.price = price;               // regular price 
+        this.discount = discount;         // this can be a percentage, or amount (UOM: dollar)
+        this.discountType = discountType;            // 1: percentage off regular price (10 is 10%); 2: ammount off. (0.5 = 50 cents)
+        this.discountSpecial = 0;         // this can manager's account, item damaged discount. etc
+        this.discountAmount = 0;          // this is the amount in cents.
+        this.priceFinal = 0 ;             // Price customer paying for the item, is equal to (price - discountCalculated)
         this.comment ='';
+    }
+    
+    // For now - 
+    calcFinalPrice() {
+        if(this.discountType === 1) {
+            this.discountAmount = this.discount;
+        } 
+        else if (this.discountType === 2) {     /* percentage off */
+            this.discountAmount = this.price * (1 - this.discount/100);
+        }
+
+        this.priceFinal = this.price - this.discountAmount;
     }
 }
  
@@ -22,12 +34,19 @@ class TransactionData {
     constructor() {
         this.allItems = [];      // Array of Items
         this.totals = {
-            price: 0,
+            price: 0,            // addition of all priceFinal
             quantity: 0 
         }
+        this.coupon = {
+            amount: 0,
+            couponId: 0,       // it means no coupon if coupon_id <= 0
+
+        }
+        this.payment_amt = -1   // this the final amount to pay (total price - coupon amount)
         this.comment = '';
     }
 
+    // add a new item
     addItem(itemId, description, price, discount=0, discountType=1, quantity=1) {
         let id, newItem; 
 
@@ -39,7 +58,11 @@ class TransactionData {
         }
 
         newItem = new Item(id, itemId, description, price, discount=0, discountType=1, quantity=1); 
+        newItem.calcFinalPrice();
+
         this.allItems.push(newItem);  
+
+        this.CalculateTotals();
         
         return newItem;
     }
@@ -66,6 +89,15 @@ class TransactionData {
         this.comment = '';
     } 
     
+    // Calculate totals: price, quantity
+    CalculateTotals() {
+        this.totals.price = this.allItems.reduce( (total, item) => 
+            { return total + item.priceFinal; }, 0);
+
+        this.totals.quantity = this.allItems.reduce( (total, item) => 
+            { return total + item.quantity; }, 0);
+
+    }
 } 
 
 // Class to hold UI data and methods
@@ -76,36 +108,51 @@ class UIController {
         itemsContainer: 'ItemsContainer',
         itemsList: 'items__list',
         transactionItem: '.transaction-item',
+        totalPrice: 'total_price',
     };
 
     // Add and display the item in the allItems list
-    static addListItem(item) {      
+    static addListItem(item, totalPrice) {      
         // Create HTML string        
         let html = `<tr class="transaction-item" id="item-${item.id}">
-          <td>${item.description}</td>
-          <td>${item.quantity}</td>
-          <td class='text-right'>${item.price}</td>
-        </tr>`
+                        <td>${item.description}</td>
+                        <td>${item.quantity}</td>
+                        <td class='text-right'>${item.price}</td>
+                    </tr>`
         console.log(html);
         
         // Insert the HTML into the DOM
         const listRef = document.getElementById(this.#DOMstrings.itemsList);
         const newRow = listRef.insertRow();   // Insert a row at the end of the table
         newRow.innerHTML = html;
+
+        // Update the total price as well
+        this.displayTotalPrice(totalPrice);
     }   
     
+    static displayTotalPrice(totalPrice) {
+        // Update the total price as well
+        let html = `<td><strong></strong></td>
+                <td><strong>Total:</strong></td>
+                <td class='text-right'><strong>${totalPrice}</strong></td>`
+
+        document.getElementById(this.#DOMstrings.totalPrice).innerHTML = html;
+    }
+
     // Delete the select item from UI display
     static deleteListItem(selectorID) {            
         const el = document.getElementById(selectorID);
         el.parentNode.removeChild(el);       
     }
-        
+    
     // Delelet all list items - empty the list for next transaction.
     static deleteAllListItems() {
         const listRef = document.getElementById(this.#DOMstrings.itemsList);
         while (listRef.firstChild) {
             listRef.removeChild(listRef.firstChild);
         }
+
+        this.displayTotalPrice(0);
     }
 
     // Reset the barcode input field.    
@@ -139,7 +186,7 @@ async function getItem(barcode) {
             console.log(transData);       
 
             // 2. add the item to UI display
-            UIController.addListItem(newItem);
+            UIController.addListItem(newItem, transData.totals.price);
 
             // 3. Reset the barcode input box
             UIController.clearBarcodeField();
@@ -199,9 +246,9 @@ function postTransData() {
         
     const URL_POST = 'transdata/';
     
-    // Check data - rule out no transaction data.
+    // Check data - rule out zero transaction data.
     if (transData.allItems.length === 0) { 
-        return 
+        return; 
     }
     console.log("sending transData...")
 

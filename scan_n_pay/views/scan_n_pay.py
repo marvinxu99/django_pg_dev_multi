@@ -1,9 +1,10 @@
+import json
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.apps import apps
 from django.core.exceptions import ObjectDoesNotExist
-from django.template import RequestContext
+
 
 from core.models import ItemBarcode, ItemIdentifier, ItemPrice
 from core.constants import ITEM_BARCODE_TYPE, ITEM_IDENTIFIER_TYPE, ITEM_PRICE_TYPE
@@ -101,8 +102,10 @@ def pay_successful(request):
 
 
 def trans_data(request):
-
-    print('trans_data reqest received.')
+    if request.method == 'POST':
+        transdata = json.loads(request.body) 
+    print(transdata)
+    
     
     data = {
         'is_successful': True,
