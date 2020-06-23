@@ -101,6 +101,7 @@ class TransactionData {
     // Add item price, quantity to totals
     addItemToTotals(item) {
         this.totals.price += item.priceFinal;
+        this.totals.price.toFixed(2);
         this.totals.quantity += item.quantity;
     }
 } 
@@ -121,9 +122,9 @@ class UIController {
     static addListItem(item, totalPrice) {      
         // Create HTML string        
         let html = `<tr class="transaction-item" id="item-${item.id}">
-                        <td>${item.description}</td>
-                        <td>${item.quantity}</td>
-                        <td class='text-right'>${item.price}</td>
+                        <td class="item-name">${item.description}</td>
+                        <td class="item-quantity">${item.quantity}</td>
+                        <td class="item-price">${item.price}</td>
                     </tr>`
         console.log(html);
         
@@ -136,11 +137,27 @@ class UIController {
         this.updateTotalPrice(totalPrice);
     }   
     
+    static formatMoney(number, decPlaces, decSep, thouSep) {
+        decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
+        decSep = typeof decSep === "undefined" ? "." : decSep;
+        thouSep = typeof thouSep === "undefined" ? "," : thouSep;
+        const sign = number < 0 ? "-" : "";
+        var i = String(parseInt(number = Math.abs(Number(number) || 0).toFixed(decPlaces)));
+        var j = (j = i.length) > 3 ? j % 3 : 0;
+        
+        return sign +
+            (j ? i.substr(0, j) + thouSep : "") +
+            i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
+            (decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
+    }
+
     static updateTotalPrice(totalPrice) {
         // Update the total price as well
-        let html = `<td><strong></strong></td>
-                <td><strong>Total:</strong></td>
-                <td class='text-right'><strong>${totalPrice}</strong></td>`
+        let html = `<td class="item-name"><strong> </strong></td>
+                <td class="item-quantity"><strong>Total:</strong></td>
+                <td class="item-price">
+                    <strong>${this.formatMoney(totalPrice)}</strong>
+                </td>`
 
         document.getElementById(this.#DOMstrings.totalPrice).innerHTML = html;
     }
@@ -187,7 +204,7 @@ class UIController {
     static hideWarningMsg() {
         const msg_div = document.getElementById(this.#DOMstrings.warningMessage);
         msg_div.classList.add('invisible');
-        msg_div.innerText = "";
+        msg_div.innerText = "ww";
     }
 }
 

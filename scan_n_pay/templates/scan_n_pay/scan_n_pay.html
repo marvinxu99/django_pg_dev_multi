@@ -14,33 +14,32 @@
         <input class="button" type="button" id="btn_enter" value="Enter">
         <input class="button ml-5" type="button" id="btn_lookup" value="Search Products">
       </form>
-      <a href="#" class="btn btn-sm btn-primary mb-3" role="button">Purchase</a>
+      <a href="#" class="btn btn-sm btn-primary" role="button">Purchase</a>
     </div>
     <div id='warning_msg' class='invisible text-danger'>warnings:</div>
   </div>
-  <div class='mt-3 mb-5'>
+  <div class="mb-5 mt-3">
     <p class="h5">Produts to purchase:</p>
-    <div id='ItemsContainer'>
+    <div id="ItemsContainer" class="items-container">
       <table>
         <thead>
-            <tr class="bg-primary">
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th class='text-center'>Price</th>
-            </tr>
+          <tr class="bg-primary">
+            <th class="item-name">Product Name</th>
+            <th class="item-quantity">Quantity</th>
+            <th class="text-center item-price">Price</th>
+           </tr>
         </thead>
         <tbody id="items__list">
         </tbody>
         <tfoot>
-            <tr id="total_price">
-                <td><strong></strong></td>
-                <td><strong>Total:</strong></td>
-                <td class='text-right'><strong>0.00</strong></td>
-            </tr>
+          <tr id="total_price">
+            <td class="item-name"><strong></strong></td>
+            <td class="item-quantity"><strong>Total:</strong></td>
+            <td class="item-price"><strong>0.00</strong></td>
+          </tr>
         </tfoot>
       </table>      
     </div>
-
   </div>
 
   <div class='mt-5'>
