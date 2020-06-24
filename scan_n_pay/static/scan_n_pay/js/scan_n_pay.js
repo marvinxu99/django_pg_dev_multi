@@ -142,24 +142,24 @@ class UIController {
 
         // Update the total price as well
         this.updateTotalPrice(totalPrice);
-
-        return `"item-${item.id}"`;
     }   
     
-    static formatMoney(number, decPlaces, decSep, thouSep) {
-        decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
-        decSep = typeof decSep === "undefined" ? "." : decSep;
-        thouSep = typeof thouSep === "undefined" ? "," : thouSep;
-        const sign = number < 0 ? "-" : "";
-        var i = String(parseInt(number = Math.abs(Number(number) || 0).toFixed(decPlaces)));
-        var j = (j = i.length) > 3 ? j % 3 : 0;
-        
-        return sign +
-            (j ? i.substr(0, j) + thouSep : "") +
-            i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
-            (decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
+    static formatMoney(number, locale='en-CA', currency='CAD') {
+        return number.toLocaleString(locale, 
+                { style: 'currency', currency: currency }
+            );
     }
 
+    static getCurrencySymbol = (locale, currency) => {
+        
+        // getCurrencySymbol('en-US', 'CNY') // CN¥
+        //getCurrencySymbol('zh-CN', 'CNY') // ￥      
+        
+        return (0).toLocaleString(locale, 
+                    { style: 'currency', currency, minimumFractionDigits: 0, maximumFractionDigits: 0 }
+            ).replace(/\d/g, '').trim();
+    }
+    
     static updateTotalPrice(totalPrice) {
         // Update the total price as well
         let html = `<td class="item-name"><strong> </strong></td>
@@ -322,11 +322,12 @@ async function postData(url, data) {
       },
       body: JSON.stringify(data)
     });
-    const resp = await rawResponse.json();
-    if(resp.status === "S") {
-        console.log('Server received data sucessfully.')
-    }
 
-    console.log(resp);
+    const resp = await rawResponse.json();
+    // if(resp.status === "S") {
+    //     console.log('Server received data sucessfully.')
+    // }
+
+    return resp;
 };
 

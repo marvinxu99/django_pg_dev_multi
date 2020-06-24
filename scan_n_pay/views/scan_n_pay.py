@@ -102,15 +102,3 @@ def get_item_str(request, barcode):
 def pay_successful(request):
     return render(request, 'scan_n_pay/pay_successful.html')
 
-@csrf_exempt
-def trans_data(request):
-    if request.method == 'POST':
-        transdata = json.loads(request.body) 
-    print(transdata)
-        
-    data = {
-        'status': "S",         # 'S': successful, 'F': Failed 
-        'is_successful': True,
-        'item_count': 28
-    }
-    return JsonResponse(data, )

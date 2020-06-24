@@ -4,6 +4,8 @@ from django.conf import settings
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
+import json
+
 import stripe
 
 
@@ -17,14 +19,12 @@ def stripe_config(request):
 @csrf_exempt
 def create_checkout_session(request):
     if request.method == 'GET':
-        # domain_url = 'http://localhost:8000/payments/'
         successful_url = request.build_absolute_uri(reverse('scan_n_pay:stripe_success'))
         cancelled_url = request.build_absolute_uri(reverse('scan_n_pay:stripe_cancelled'))
-
         stripe.api_key = settings.STRIPE_SECRET_KEY
 
         amount = request.GET.get('amount')
-        
+      
         try:
             # Create new Checkout Session for the order
             # Other optional params include:
@@ -62,3 +62,17 @@ class SuccessView(TemplateView):
 
 class CancelledView(TemplateView):
     template_name = 'scan_n_pay/pay_cancelled.html'
+
+
+@csrf_exempt
+def trans_data(request):
+    if request.method == 'POST':
+        transdata = json.loads(request.body) 
+    print(transdata)
+        
+    data = {
+        'status': "S",         # 'S': successful, 'F': Failed 
+        'is_successful': True,
+        'item_count': 28
+    }
+    return JsonResponse(data)
