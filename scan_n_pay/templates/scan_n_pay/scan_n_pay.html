@@ -44,11 +44,11 @@
     </div>
     <div class="mt-3">
       <div>
-        <input class="btn btn-primary mt-1 mb-1" type="button" value="Operator Signin">
-        <input class="btn btn-primary mt-1 mb-1" type="button" value="Supervisor Signin">
+        <button class="btn btn-primary mt-1 mb-1" type="button">Operator Signin</button>
+        <button class="btn btn-primary mt-1 mb-1" type="button">Supervisor Signin</button>
       </div>
-      <div>
-        <input class="btn btn-primary mt-1 mb-1" type="button" value="Reserved actions">
+      <div class="mt-5">
+        <button id="post-n-pay" class="btn btn-primary mt-1 mb-1">Post & Pay</button>
       </div>
     </div>  
   </div>
@@ -56,9 +56,9 @@
   <div class='mt-5'>
     <hr>
     <div class="mt-1 mb-1">
-      <button class="button btn-primary" id="submitPayment">Purchase!</button>
-      <button class="button btn-primary" id="send_trans_data">Send Data!</button>
-      <button class="button btn-primary" id="new_transaction">New Transaction</button>
+      <button class="button btn-primary" id=submitPayment>Purchase!</button>
+      <button class="button btn-primary" id=send_trans_data>Send Data!</button>
+      <button class="button btn-primary" id=new_transaction>New Transaction</button>
     </div>
     </p>
     <h5>How to test:</h5>
@@ -73,6 +73,6 @@
 {% endblock %}
 {% block javascript %}
 <script src="https://js.stripe.com/v3/"></script>
-<script src="{% static 'scan_n_pay/js/scan_n_pay.js' %}"></script>
 <script src="{% static 'scan_n_pay/js/stripe_pay.js' %}"></script>
+<script src="{% static 'scan_n_pay/js/scan_n_pay.js' %}"></script>
 {% endblock %}

@@ -38,8 +38,8 @@ def create_checkout_session(request):
             checkout_session = stripe.checkout.Session.create(
                 # success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
                 # cancel_url=domain_url + 'cancelled/',
-                success_url=successful_url + '?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url=cancelled_url,
+                success_url = successful_url + '?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url = cancelled_url,
                 payment_method_types=['card'],
                 mode='payment',
                 line_items=[

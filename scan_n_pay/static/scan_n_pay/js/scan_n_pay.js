@@ -281,6 +281,8 @@ const setupEventListeners = () => {
         document.querySelector("#submitPayment").click();
     });
 
+    document.getElementById('post-n-pay').addEventListener('click', postTransData2);
+
 }
 setupEventListeners();
 
@@ -307,7 +309,7 @@ function postTransData() {
     console.log("sending transData...")
 
     const resp_json = postData(URL_POST, transData);
-    console.log(resp_json);
+    console.log('after post data.');
 }
 
 // Post transactionn data to server after payment is done 
@@ -324,9 +326,9 @@ async function postData(url, data) {
     });
 
     const resp = await rawResponse.json();
-    // if(resp.status === "S") {
-    //     console.log('Server received data sucessfully.')
-    // }
+    if(resp.status === "S") {
+         console.log('Server received data sucessfully.')
+    }
 
     return resp;
 };
