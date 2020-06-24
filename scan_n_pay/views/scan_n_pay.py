@@ -107,8 +107,7 @@ def trans_data(request):
     if request.method == 'POST':
         transdata = json.loads(request.body) 
     print(transdata)
-    
-    
+        
     data = {
         'status': "S",         # 'S': successful, 'F': Failed 
         'is_successful': True,

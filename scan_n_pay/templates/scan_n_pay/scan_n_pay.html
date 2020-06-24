@@ -18,28 +18,39 @@
     </div>
     <div id='warning_msg' class='invisible text-danger'>warnings:</div>
   </div>
-  <div class="mb-5 mt-3">
-    <p class="h5">Produts to purchase:</p>
-    <div id="ItemsContainer" class="items-container">
-      <table>
-        <thead>
-          <tr class="bg-primary">
-            <th class="item-name">Product Name</th>
-            <th class="item-quantity">Quantity</th>
-            <th class="text-center item-price">Price</th>
-           </tr>
-        </thead>
-        <tbody id="items__list">
-        </tbody>
-        <tfoot>
-          <tr id="total_price">
-            <td class="item-name"><strong></strong></td>
-            <td class="item-quantity"><strong>Total price:</strong></td>
-            <td class="item-price total-price"><strong>0.00</strong></td>
-          </tr>
-        </tfoot>
-      </table>      
+  <div class="d-flex justify-content-between">
+    <div class="mb-5 mt-3">
+      <p class="h5">Produts to purchase:</p>
+      <div id="ItemsContainer" class="items-container">
+        <table>
+          <thead>
+            <tr class="bg-primary">
+              <th class="item-name">Product Name</th>
+              <th class="item-quantity">Quantity</th>
+              <th class="text-center item-price">Price</th>
+            </tr>
+          </thead>
+          <tbody id="items__list">
+          </tbody>
+          <tfoot>
+            <tr id="total_price">
+              <td class="item-name"><strong></strong></td>
+              <td class="item-quantity"><strong>Total price:</strong></td>
+              <td class="item-price total-price"><strong>0.00</strong></td>
+            </tr>
+          </tfoot>
+        </table>      
+      </div>
     </div>
+
+    <div>
+      <div>
+        <input class="button" type="button" value="Supervisor Signin">
+      </div>
+      <div>
+        Specail actions
+      </div>
+    </div>  
   </div>
 
   <div class='mt-5'>
@@ -63,4 +74,5 @@
 {% block javascript %}
 <script src="https://js.stripe.com/v3/"></script>
 <script src="{% static 'scan_n_pay/js/scan_n_pay.js' %}"></script>
+<script src="{% static 'scan_n_pay/js/stripe_pay.js' %}"></script>
 {% endblock %}
