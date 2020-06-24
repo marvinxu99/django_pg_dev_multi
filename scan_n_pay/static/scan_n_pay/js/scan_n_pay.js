@@ -1,4 +1,4 @@
-console.log("Sanity check!");
+//console.log("Sanity check!");
 
 // Class to hold basic item data (front-end)
 class Item {
@@ -18,7 +18,7 @@ class Item {
     
     // For now - 
     calcFinalPrice() {
-        if(this.discountType === 1) {
+        if(this.discountType === 1) {         // amount off 
             this.discountAmount = this.discount;
         } 
         else if (this.discountType === 2) {     /* percentage off */
