@@ -268,6 +268,10 @@ const setupEventListeners = () => {
 
     document.getElementById('new_transaction').addEventListener('click', startNewTransaction);
 
+    document.getElementById('pay_submit').addEventListener('click', ()=> {
+        document.querySelector("#submitPayment").click();
+    });
+
 }
 setupEventListeners();
 
@@ -328,21 +332,22 @@ async function setupStripePayments() {
 
         // Event handler
         document.querySelector("#submitPayment").addEventListener("click", () => {
-            
-            URL = `/scan_n_pay/stripe/checkout/?amount=${ transData.totals.price * 100 }`;
+            if(transData.totals.price > 0) {
+                URL = `/scan_n_pay/stripe/checkout/?amount=${ transData.totals.price * 100 }`;
 
-            // Get Checkout Session ID
-            fetch(URL)
-            .then((result) => { return result.json(); })
-            .then((data) => {
-                console.log(data);
-                
-                // Redirect to Stripe Checkout
-                return stripe.redirectToCheckout({sessionId: data.sessionId})
-            })
-            .then((res) => {
-                console.log(res);
-            });
+                // Get Checkout Session ID
+                fetch(URL)
+                .then((result) => { return result.json(); })
+                .then((data) => {
+                    console.log(data);
+                    
+                    // Redirect to Stripe Checkout
+                    return stripe.redirectToCheckout({sessionId: data.sessionId})
+                })
+                .then((res) => {
+                    console.log(res);
+                });
+            }
         });
     });
 }
