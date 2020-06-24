@@ -18,10 +18,12 @@ def stripe_config(request):
 def create_checkout_session(request):
     if request.method == 'GET':
         # domain_url = 'http://localhost:8000/payments/'
-        successful_url = request.build_absolute_uri(reverse('scan_n_pay:paysuccess'))
-        cancelled_url = request.build_absolute_uri(reverse('scan_n_pay:paycancelled'))
+        successful_url = request.build_absolute_uri(reverse('scan_n_pay:stripe_success'))
+        cancelled_url = request.build_absolute_uri(reverse('scan_n_pay:stripe_cancelled'))
 
         stripe.api_key = settings.STRIPE_SECRET_KEY
+
+        amount = request.GET.get('amount')
         
         try:
             # Create new Checkout Session for the order
@@ -42,11 +44,11 @@ def create_checkout_session(request):
                 mode='payment',
                 line_items=[
                     {
-                        'name': 'TEST ITEM',
+                        'name': 'Total Purchase Amount',
                         'quantity': 1,
                         'currency': 'usd',
-                        'amount': '20000',
-                    }
+                        'amount': amount,
+                    },
                 ]
             )
             return JsonResponse({'sessionId': checkout_session['id']})

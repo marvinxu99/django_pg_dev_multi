@@ -9,9 +9,9 @@ urlpatterns = [
     path('scan/get_item/', views.get_item, name='get_item'),
     path('scan/transdata/', views.trans_data, name='trans_data'),
 
-    path('pay/config/', views.stripe_config, name='config'), 
-    path('pay/create-checkout-session/', views.create_checkout_session, name='create-checkout-session'),
-    path('pay/success/', views.SuccessView.as_view(),  name='paysuccess'),
-    path('pay/cancelled/', views.CancelledView.as_view(), name='paycancelled'), 
+    path('stripe/config/', views.stripe_config, name='stripe_config'), 
+    path('stripe/checkout/', views.create_checkout_session, name='stripe_checkout'),
+    path('stripe/success/', views.SuccessView.as_view(),  name='stripe_success'),
+    path('stripe/cancelled/', views.CancelledView.as_view(), name='stripe_cancelled'), 
 
 ]

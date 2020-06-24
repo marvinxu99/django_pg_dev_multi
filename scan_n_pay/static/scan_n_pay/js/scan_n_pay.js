@@ -320,7 +320,7 @@ async function postData(url, data) {
 // Setup Stripe payments
 async function setupStripePayments() { 
     // Get Stripe publishable key
-    fetch("/scan_n_pay/pay/config")
+    fetch("/scan_n_pay/stripe/config")
     .then((result) => { return result.json(); })
     .then((data) => {
         // Initialize Stripe.js
@@ -328,8 +328,11 @@ async function setupStripePayments() {
 
         // Event handler
         document.querySelector("#submitPayment").addEventListener("click", () => {
+            
+            URL = `/scan_n_pay/stripe/checkout/?amount=${ transData.totals.price * 100 }`;
+
             // Get Checkout Session ID
-            fetch("/scan_n_pay/pay/create-checkout-session/")
+            fetch(URL)
             .then((result) => { return result.json(); })
             .then((data) => {
                 console.log(data);
