@@ -34,8 +34,8 @@
         <tfoot>
           <tr id="total_price">
             <td class="item-name"><strong></strong></td>
-            <td class="item-quantity"><strong>Total:</strong></td>
-            <td class="item-price"><strong>0.00</strong></td>
+            <td class="item-quantity"><strong>Total price:</strong></td>
+            <td class="item-price total-price"><strong>0.00</strong></td>
           </tr>
         </tfoot>
       </table>      
@@ -45,7 +45,7 @@
   <div class='mt-5'>
     <hr>
     <div class="mt-1 mb-1">
-      <button class="button btn-primary" id="submitBtn">Purchase!</button>
+      <button class="button btn-primary" id="submitPayment">Purchase!</button>
       <button class="button btn-primary" id="send_trans_data">Send Data!</button>
       <button class="button btn-primary" id="new_transaction">New Transaction</button>
     </div>
@@ -62,6 +62,5 @@
 {% endblock %}
 {% block javascript %}
 <script src="https://js.stripe.com/v3/"></script>
-<script src="{% static 'payments/js/payments.js' %}"></script> 
 <script src="{% static 'scan_n_pay/js/scan_n_pay.js' %}"></script>
 {% endblock %}

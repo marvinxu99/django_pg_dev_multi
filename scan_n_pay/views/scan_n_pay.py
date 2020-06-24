@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.apps import apps
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 from core.models import ItemBarcode, ItemIdentifier, ItemPrice
@@ -100,7 +102,7 @@ def get_item_str(request, barcode):
 def pay_successful(request):
     return render(request, 'scan_n_pay/pay_successful.html')
 
-
+@csrf_exempt
 def trans_data(request):
     if request.method == 'POST':
         transdata = json.loads(request.body) 

@@ -155,7 +155,7 @@ class UIController {
         // Update the total price as well
         let html = `<td class="item-name"><strong> </strong></td>
                 <td class="item-quantity"><strong>Total:</strong></td>
-                <td class="item-price">
+                <td class="item-price total-price"">
                     <strong>${this.formatMoney(totalPrice)}</strong>
                 </td>`
 
@@ -316,3 +316,31 @@ async function postData(url, data) {
 
     console.log(resp);
 };
+
+// Setup Stripe payments
+async function setupStripePayments() { 
+    // Get Stripe publishable key
+    fetch("/scan_n_pay/pay/config")
+    .then((result) => { return result.json(); })
+    .then((data) => {
+        // Initialize Stripe.js
+        const stripe = Stripe(data.publicKey);
+
+        // Event handler
+        document.querySelector("#submitPayment").addEventListener("click", () => {
+            // Get Checkout Session ID
+            fetch("/scan_n_pay/pay/create-checkout-session/")
+            .then((result) => { return result.json(); })
+            .then((data) => {
+                console.log(data);
+                
+                // Redirect to Stripe Checkout
+                return stripe.redirectToCheckout({sessionId: data.sessionId})
+            })
+            .then((res) => {
+                console.log(res);
+            });
+        });
+    });
+}
+setupStripePayments();
