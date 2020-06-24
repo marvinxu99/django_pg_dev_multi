@@ -136,9 +136,14 @@ class UIController {
         const listRef = document.getElementById(this.#DOMstrings.itemsList);
         const newRow = listRef.insertRow();   // Insert a row at the end of the table
         newRow.innerHTML = html;
+        
+        // Make the last inserted item to be visible if needed.
+        newRow.scrollIntoView(false);
 
         // Update the total price as well
         this.updateTotalPrice(totalPrice);
+
+        return `"item-${item.id}"`;
     }   
     
     static formatMoney(number, decPlaces, decSep, thouSep) {
