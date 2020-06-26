@@ -181,7 +181,7 @@ class UIController {
     
     static updateTotals({ quantity, originalPrice, discount, price }) {
         // Update the total price as well
-        let html = `<td class="item-name"><strong> Totals:</strong></td>
+        let html = `<td class="text-right item-name"><strong> Totals:</strong></td>
                 <td class="item-quantity">
                     ${ quantity }
                 </td>
