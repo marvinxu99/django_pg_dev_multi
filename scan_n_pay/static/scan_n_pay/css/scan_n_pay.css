@@ -1,6 +1,6 @@
 /* Settings for Fixed table head */
 .items-container {
-  width: 70%;
+  width: 80%;
 }
 
 tbody {
@@ -30,7 +30,7 @@ table {
 td, th {
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 8px;
+  padding: 4px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -43,16 +43,28 @@ tbody tr:nth-child(even) {
 }
 
 .item-name {
-  width: 55%;
+  width: 40%;
 }
 .item-quantity {
-  width: 20%;
+  width: 10%;
   text-align: center;
 }
+
+.item-original-price {
+  width: 18%;
+  text-align: right;
+}
+
+.item-discount {
+  width: 15%;
+  text-align: right;
+}
+
 .item-price {
   width: auto;
   text-align: right;
 }
+
 
 .total-price {
   background-color: lightskyblue;

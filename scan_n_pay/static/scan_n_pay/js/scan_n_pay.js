@@ -11,7 +11,7 @@ class Item {
         this.discount = discount;         // this can be a percentage, or amount (UOM: dollar)
         this.discountType = discountType;            // 1: percentage off regular price (10 is 10%); 2: ammount off. (0.5 = 50 cents)
         this.discountSpecial = 0;         // this can manager's account, item damaged discount. etc
-        this.discountAmount = 0;          // this is the amount in cents.
+        this.discountAmount = 0;          // this is the amount ($).
         this.priceFinal = 0 ;             // Price customer paying for the item, is equal to (price - discountCalculated)
         this.comment ='';
     }
@@ -34,8 +34,10 @@ class TransactionData {
     constructor() {
         this.allItems = [];      // Array of Items
         this.totals = {
+            quantity: 0,
+            originalPrice: 0,
+            discount: 0, 
             price: 0,            // addition of all priceFinal
-            quantity: 0 
         }
         this.coupon = {
             amount: 0,
@@ -90,6 +92,8 @@ class TransactionData {
         this.allItems.splice(0, this.allItems.length);
         this.totals.price = 0;
         this.totals.quantity = 0;
+        this.totals.originalPrice = 0;
+        this.discountAmount = 0;
         this.comment = '';
     } 
     
@@ -100,13 +104,26 @@ class TransactionData {
 
         this.totals.quantity = this.allItems.reduce( (total, item) => 
             { return total + item.quantity; }, 0);
+        
+        this.totals.discount = this.allItems.reduce( (total, item) =>
+            { return total + item.discountAmount; }, 0);
+
+        this.totals.originalPrice = this.allItems.reduce( (total, item) =>
+            { return total + item.price; }, 0);
     }
 
     // Add item price, quantity to totals
     addItemToTotals(item) {
         this.totals.price += item.priceFinal;
         this.totals.price.toFixed(2);
+        
+        this.totals.originalPrice += item.price;
+        this.totals.originalPrice.toFixed(2);
+        
         this.totals.quantity += item.quantity;
+
+        this.totals.discount += item.discountAmount;
+        this.totals.discount.toFixed(2);
     }
 } 
 
@@ -123,12 +140,14 @@ class UIController {
     };
 
     // Add and display the item in the allItems list
-    static addListItem(item, totalPrice) {      
+    static addListItem(item, totals) {      
         // Create HTML string        
         let html = `<tr class="transaction-item" id="item-${item.id}">
                         <td class="item-name">${item.description}</td>
                         <td class="item-quantity">${item.quantity}</td>
-                        <td class="item-price">${item.price}</td>
+                        <td class="item-original-price">${item.price}</td>
+                        <td class="item-discount">${item.discountAmount}</td>
+                        <td class="item-price">${item.priceFinal}</td>
                     </tr>`
         console.log(html);
         
@@ -141,7 +160,7 @@ class UIController {
         newRow.scrollIntoView(false);
 
         // Update the total price as well
-        this.updateTotalPrice(totalPrice);
+        this.updateTotals(totals);
     }   
     
     static formatMoney(number, locale='en-CA', currency='CAD') {
@@ -160,12 +179,20 @@ class UIController {
             ).replace(/\d/g, '').trim();
     }
     
-    static updateTotalPrice(totalPrice) {
+    static updateTotals({ quantity, originalPrice, discount, price }) {
         // Update the total price as well
-        let html = `<td class="item-name"><strong> </strong></td>
-                <td class="item-quantity"><strong>Total:</strong></td>
-                <td class="item-price total-price"">
-                    <strong>${this.formatMoney(totalPrice)}</strong>
+        let html = `<td class="item-name"><strong> Totals:</strong></td>
+                <td class="item-quantity">
+                    ${ quantity }
+                </td>
+                <td class="item-original-price">
+                    ${ this.formatMoney(originalPrice) }
+                </td>
+                <td class="item-discount">
+                    ${ this.formatMoney(discount) }
+                </td>
+                <td class="item-price total-price">
+                    <strong>${ this.formatMoney(price) }</strong>
                 </td>`
 
         document.getElementById(this.#DOMstrings.totalPrice).innerHTML = html;
@@ -184,7 +211,7 @@ class UIController {
             listRef.removeChild(listRef.firstChild);
         }
 
-        this.updateTotalPrice(0);
+        this.updateTotals({ price: 0, discount: 0 });
     }
 
     // Reset the barcode input field.    
@@ -234,7 +261,7 @@ async function getItemInfo(barcode) {
             console.log(transData);       
 
             // 2. add the item to UI display
-            UIController.addListItem(newItem, transData.totals.price);
+            UIController.addListItem(newItem, transData.totals);
 
             // 3. Reset the barcode input box
             UIController.clearBarcodeField();
