@@ -215,7 +215,7 @@ class UIController {
             listRef.removeChild(listRef.firstChild);
         }
 
-        this.updateTotals({ price: 0, discount: 0 });
+        this.updateTotals({ quantity: 0, originalPrice: 0, discount: 0, price: 0 });
     }
 
     // Reset the barcode input field.    
@@ -392,11 +392,10 @@ function deleteItemFromList(event) {
         
         // Remove from UI
         const item_id = "item-" + ID;
-        console.log(item_id);
-        //UIController.deleteListItem(item_id);
-        const row = document.getElementById(item_id);
-        row.parentNode.removeChild(row);       
+        UIController.deleteListItem(item_id);
 
+        // Update totals.
+        UIController.updateTotals(transData.totals);
 
     }
     // Delete from

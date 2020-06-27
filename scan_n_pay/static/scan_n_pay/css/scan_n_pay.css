@@ -45,6 +45,14 @@ tbody tr:nth-child(even) {
 .transaction-item {
   padding: 1px;
 }
+.item-delete-btn {
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
+
 
 .item-name {
   width: 40%;
