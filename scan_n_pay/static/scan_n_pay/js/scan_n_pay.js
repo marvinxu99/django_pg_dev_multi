@@ -85,6 +85,8 @@ class TransactionData {
         if (index !== -1) {
             this.allItems.splice(index, 1);
         }
+
+        this.calculateTotals();
     }
 
     // Reset transactionData to empty (ready for next transaction)
@@ -142,23 +144,20 @@ class UIController {
     // Add and display the item in the allItems list
     static addListItem(item, totals) {      
         // Create HTML string        
-        let html = `<tr class="transaction-item" id="item-${item.id}">
-                        <td class="item-name" onmouseover="mouseOverListItemHandler(event);" 
-                            onmouseleave="mouseLeaveListItemHandler(event);"
-                        >
-                            <button class="btn btn-sm" style="display:none">&times;</button>
-                            ${item.description}
-                        </td>
-                        <td class="item-quantity">${item.quantity}</td>
-                        <td class="item-original-price">${item.price}</td>
-                        <td class="item-discount">${item.discountAmount}</td>
-                        <td class="item-price">${item.priceFinal}</td>
-                    </tr>`
-        console.log(html);
-        
+        let html = `<td class="item-name" onmouseover="mouseOverListItem(event);" onmouseleave="mouseLeaveListItem(event);">
+                        <button class="btn btn-sm" id="btn-${item.id}" style="display:none">&times;</button>
+                        ${item.description}
+                    </td>
+                    <td class="item-quantity">${item.quantity}</td>
+                    <td class="item-original-price">${item.price}</td>
+                    <td class="item-discount">${item.discountAmount}</td>
+                    <td class="item-price">${item.priceFinal}</td>`
+    
         // Insert the HTML into the DOM
         const listRef = document.getElementById(this.#DOMstrings.itemsList);
         const newRow = listRef.insertRow();   // Insert a row at the end of the table
+        newRow.id = "item-" + item.id;
+        newRow.className = "transaction-item";
         newRow.innerHTML = html;
         
         // Make the last inserted item to be visible if needed.
@@ -320,11 +319,6 @@ const setupEventListeners = () => {
 setupEventListeners();
 
 
-// Delete an item from the item list
-function deleteItemFromList(event) {
-    console.log("inside item_list");
-}
-
 // Start a new transaction - discard previous data
 function startNewTransaction() {
     // 1. Reset the transaction data to empty
@@ -372,17 +366,39 @@ async function postData(url, data) {
 };
 
 // SHow the delete button when mouse over the item-name
-function mouseOverListItemHandler(event) {
-    var target = $(event.target);
-
-    console.log(target.children(':first-child'));
-
+function mouseOverListItem(event) {
+    const target = $(event.target);
     target.children(':first-child').css('display', 'inline');
-
 }
 
 // Hide the delete button when mouse over the item-name
-function mouseLeaveListItemHandler(event) {
-    var target = $(event.target);
+function mouseLeaveListItem(event) {
+    const target = $(event.target);
     target.children(':first-child').css('display', 'none');
+}
+
+// Delete an item from the item list
+function deleteItemFromList(event) {
+    const target = $(event.target);
+    const btn_id = target.attr('id');
+
+    if(btn_id) {
+        //btn-1
+        const splitID = btn_id.split('-');  
+        const ID = parseInt(splitID[1]);
+
+        // remove from transData
+        transData.deleteItem(ID);
+        
+        // Remove from UI
+        const item_id = "item-" + ID;
+        console.log(item_id);
+        //UIController.deleteListItem(item_id);
+        const row = document.getElementById(item_id);
+        row.parentNode.removeChild(row);       
+
+
+    }
+    // Delete from
+
 }
