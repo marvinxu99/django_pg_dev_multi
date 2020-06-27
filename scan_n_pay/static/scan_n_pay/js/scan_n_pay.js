@@ -308,7 +308,7 @@ const setupEventListeners = () => {
         document.querySelector("#submitPayment").click();
     });
 
-    document.getElementById('post-n-pay').addEventListener('click', postTransData2);
+    document.getElementById('post-n-pay').addEventListener('click', postAndPay);
 
 }
 setupEventListeners();

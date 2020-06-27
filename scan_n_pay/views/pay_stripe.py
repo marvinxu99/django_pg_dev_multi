@@ -51,9 +51,15 @@ def create_checkout_session(request):
                     },
                 ]
             )
-            return JsonResponse({'sessionId': checkout_session['id']})
+            return JsonResponse({
+                    'status': 'S',
+                    'sessionId': checkout_session['id']
+                })
         except Exception as e:
-            return JsonResponse({'error': str(e)})
+            return JsonResponse({
+                    'status': 'F',
+                    'error': str(e)
+                })
 
 
 class SuccessView(TemplateView):

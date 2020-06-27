@@ -32,54 +32,70 @@ setupStripePayments();
 
 
 // Send the transData to Server
-function postTransData2() {
-        
-    const URL_POST = 'transdata/';
-    
+async function postAndPay() {
+
     // Check data - doing nothing if no transaction data.
     if (transData.allItems.length === 0) { 
-        return; 
+        return { status: 'F' }; 
     }
-    console.log("sending transData...")
 
-    const resp_json = postData2(URL_POST, transData);
+    // 1. Send transaction data to server
+    const res_post = await postTransData();
 
     console.log('after post data.');
+
+    // 2. Handl stripe payment...
+    // Stripe only accepts acmount in cents.
+    const amount = Math.round(transData.totals.price * 100);    
+    const res_pay = await processPayment(amount);
+
+    return stripe.redirectToCheckout({sessionId: data_id.sessionId})
+
 }
 
 // Post transactionn data to server after payment is done 
 // data: should be an object of (k,v)'s 
-async function postData2(url, data) {
+async function postTransData() {
 
-    const rawResponse = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
+    const URL_POST = 'transdata/';
+
+    console.log("sending transData...")
+
+    const rawResponse = await fetch(URL_POST, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(transData)
     });
 
-    const resp = await rawResponse.json();
+    // Status data from server
+    const res = await rawResponse.json();
 
-    if(resp.status === "S") {
-        console.log('Server received data sucessfully.')
-
-        const amount = Math.round(transData.totals.price * 100);
-
-        URL_PAY = `/scan_n_pay/stripe/checkout/?amount=${ amount }`;
-
-        // Get Checkout Session ID
-        const result = await fetch(URL_PAY);
-
-        const data_id = await result.json();
-        
-        console.log(data_id);
-             
-        // Redirect to Stripe Checkout
-        return stripe.redirectToCheckout({sessionId: data_id.sessionId})
-
-    }
-
-    return resp;
+    return res;
 };
+
+async function processPayment(amount) {
+    // URL
+    URL_PAY = `/scan_n_pay/stripe/checkout/?amount=${ amount }`;
+
+    // Get Checkout Session ID
+    const result = await fetch(URL_PAY);
+    const data = await result.json();
+    //console.log(data);
+    
+    return data;
+}
+
+
+//     //Payment is successful...
+//     if(data.status === 'S') {
+//         // logics 
+
+//         // Redirect to Stripe Checkout
+//         return stripe.redirectToCheckout({ sessionId: data.sessionId });
+//    } else {
+//        //If Payment is not successful...
+//        return { status: 'F' };
+//    }
