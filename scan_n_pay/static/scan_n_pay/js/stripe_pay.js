@@ -41,15 +41,21 @@ async function postAndPay() {
 
     // 1. Send transaction data to server
     const res_post = await postTransData();
-
     console.log('after post data.');
 
-    // 2. Handl stripe payment...
-    // Stripe only accepts acmount in cents.
-    const amount = Math.round(transData.totals.price * 100);    
-    const res_pay = await processPayment(amount);
+    if(res_post.status === 'S') {
 
-    return stripe.redirectToCheckout({sessionId: data_id.sessionId})
+        // 2. Handl stripe payment...
+        // Stripe only accepts acmount in cents.
+        const amount = Math.round(transData.totals.price * 100);    
+        const res_pay = await processPayment(amount);
+
+        if (res_pay.status === 'S')
+            return stripe.redirectToCheckout({sessionId: data_id.sessionId})
+    }
+
+    // The post and/or pay didn't succeed
+    // TO DO: to add some warnings 
 
 }
 
