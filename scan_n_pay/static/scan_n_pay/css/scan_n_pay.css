@@ -1,6 +1,21 @@
 /* Settings for Fixed table head */
-.items-container {
+.scan-container {
+  width: 100%;
+	padding: 10px 10px 10px 10px;  /* top, right, bottom, left */
+	border-left:1px solid lightgrey;
+	border-top: 1px solid lightgrey;
+	border-right: 2px solid grey;
+	border-bottom: 2px solid grey;
+}
+.purcahse-container {
   width: 80%;
+}
+.special-btn-container {
+  width: 15%;
+}
+
+.items-container {
+  width: 100%;
 }
 
 tbody {
