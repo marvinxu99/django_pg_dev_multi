@@ -143,7 +143,12 @@ class UIController {
     static addListItem(item, totals) {      
         // Create HTML string        
         let html = `<tr class="transaction-item" id="item-${item.id}">
-                        <td class="item-name">${item.description}</td>
+                        <td class="item-name" onmouseover="mouseOverListItemHandler(event);" 
+                            onmouseleave="mouseLeaveListItemHandler(event);"
+                        >
+                            <button class="btn btn-sm" style="display:none">&times;</button>
+                            ${item.description}
+                        </td>
                         <td class="item-quantity">${item.quantity}</td>
                         <td class="item-original-price">${item.price}</td>
                         <td class="item-discount">${item.discountAmount}</td>
@@ -245,9 +250,10 @@ class UIController {
 }
 
 
-// Global variable to hold all transaction data
-const transData = new TransactionData(); 
+// global variable to hol transaction data
+const transData = new TransactionData();
 
+// To retrieve item information
 async function getItemInfo(barcode) {
     try {
         const result = await fetch(`get_item/?barcode=${barcode}`);
@@ -308,11 +314,16 @@ const setupEventListeners = () => {
         document.querySelector("#submitPayment").click();
     });
 
-    document.getElementById('post-n-pay').addEventListener('click', postAndPay);
+    document.getElementById('items__list').addEventListener('click', deleteItemFromList);
 
 }
 setupEventListeners();
 
+
+// Delete an item from the item list
+function deleteItemFromList(event) {
+    console.log("inside item_list");
+}
 
 // Start a new transaction - discard previous data
 function startNewTransaction() {
@@ -360,3 +371,18 @@ async function postData(url, data) {
     return resp;
 };
 
+// SHow the delete button when mouse over the item-name
+function mouseOverListItemHandler(event) {
+    var target = $(event.target);
+
+    console.log(target.children(':first-child'));
+
+    target.children(':first-child').css('display', 'inline');
+
+}
+
+// Hide the delete button when mouse over the item-name
+function mouseLeaveListItemHandler(event) {
+    var target = $(event.target);
+    target.children(':first-child').css('display', 'none');
+}

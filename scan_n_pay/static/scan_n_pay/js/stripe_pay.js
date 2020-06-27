@@ -30,6 +30,8 @@ function setupStripePayments() {
 }
 setupStripePayments();
 
+// Set up event listener for "Ready to Pay" button
+document.getElementById('post-n-pay').addEventListener('click', postAndPay);
 
 // Send the transData to Server
 async function postAndPay() {
