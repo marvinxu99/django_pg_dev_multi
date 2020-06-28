@@ -18,7 +18,6 @@ def scan_n_pay(request):
     #     #print(app.name, app.verbose_name, app.label, app.path)
     #     print(app.label)
 
-
     query = request.GET.get('q')
     if query:
         print("q= " + query)

@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
@@ -7,6 +8,7 @@ class Item(models.Model):
     """ Parent table for all items
     ."""
     item_id = models.BigAutoField(primary_key=True, editable=False)
+    item_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     active_ind = models.BooleanField("Active", default=True)
     active_status_cd = models.CharField(max_length=2, 

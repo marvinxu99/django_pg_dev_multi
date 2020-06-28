@@ -4,10 +4,11 @@ from ..constants import ITEM_IDENTIFIER_TYPE
 
 # Item Identifier
 class ItemIdentifier(models.Model):
-    """ Item Itentifiers, such barcode
+    """ Item Itentifiers, such brand name, description, generic name, etc.
+        Barcode is stored in item_barcode table
     ."""
     item_identifier_id = models.BigAutoField(primary_key=True, editable=False)
-    
+
     active_ind = models.BooleanField("Active", default=True)
 
     item = models.ForeignKey(Item, related_name='items', on_delete=models.CASCADE)

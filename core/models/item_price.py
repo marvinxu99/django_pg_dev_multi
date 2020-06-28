@@ -41,7 +41,7 @@ class ItemPrice(models.Model):
 
     organization_id = models.BigIntegerField(default=0)
     package_type_id = models.BigIntegerField(default=0)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
     price_quote_source = models.CharField(max_length=100, default='none')
     price_type_cd = models.CharField(max_length=2, 
                                         choices=ITEM_PRICE_TYPE.choices, 

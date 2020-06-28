@@ -12,7 +12,10 @@
           <a class="dropdown-item" href="{% url 'itrac:get_issues' %}"><i class="fas fa-clipboard-check"></i> Issue Tracker</a>
           <a class="dropdown-item" href="{% url 'catalog:index' %}"><i class="fas fa-book-reader"></i> Mini Library</a>
           <a class="dropdown-item" href="{% url 'polls:question' %}"><i class='fas fa-poll-h'></i> Polls</a>
-        </div>
+          <a class="dropdown-item" href="{% url 'scan_n_pay:scan_n_pay' %}">
+            <img src="https://img.icons8.com/wired/64/000000/barcode-scanner-2.png" width=16 height=16> Scan & Pay
+          </a>
+      </div>
       </li>
     </ul>
     <a class="navbar-brand" href="{% url 'home' %}">
@@ -66,9 +69,6 @@
             <a class="dropdown-item" href="{% url 'payments:demo' %}"><i class="fab fa-cc-stripe"></i> Stripe Payment</a>
             <a class="dropdown-item" href="{% url 'budget:budget_home' %}" target="_blank">
               <i class="fa fa-balance-scale" aria-hidden="true"></i> Budgety
-            </a>
-            <a class="dropdown-item" href="{% url 'scan_n_pay:scan_n_pay' %}">
-              <img src="https://img.icons8.com/wired/64/000000/barcode-scanner-2.png" width=24 height=24> Scan & Pay
             </a>
           </div>
         </li>

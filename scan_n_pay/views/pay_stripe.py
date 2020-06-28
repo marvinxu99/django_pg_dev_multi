@@ -72,13 +72,17 @@ class CancelledView(TemplateView):
 
 @csrf_exempt
 def trans_data(request):
-    if request.method == 'POST':
-        transdata = json.loads(request.body) 
+    # accept POST
+    if request.method != 'POST':
+        return { 'status': 'F' }
+
+    transdata = json.loads(request.body) 
     print(transdata)
-        
+
+    print(f"there are { len(transdata['allItems']) } items in the transdata.")
+    
     data = {
         'status': "S",         # 'S': successful, 'F': Failed 
-        'is_successful': True,
         'item_count': 28
     }
     return JsonResponse(data)

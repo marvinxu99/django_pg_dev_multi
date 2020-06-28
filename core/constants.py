@@ -17,6 +17,12 @@ class ACTIVE_STATUS(models.TextChoices):
     SUSPENDED = '09', _('Suspended')
     UNKNOWN = '10', _('Unknown')
 
+class ENTRY_MODE(models.TextChoices):
+    SCAN_N_PAY = '01', _("Scan-N-Pay")
+    ESI = '02', _('ESI') 
+    DIRECT_ENTRY = '03', _('Direct Entry')
+    CASHIER = '04', _('Cashier')
+
 # Item Types
 class ITEM_TYPE(models.TextChoices):
     GENERAL = '12', _('General')
@@ -104,6 +110,19 @@ class ITEM_BARCODE_TYPE(models.TextChoices):
     UPC	= '28', _('Universal Product Code')
     UPN = '29', _('Universal Product Number')
     VENDOR_ITEM_NBR = '30', _('Vendor Item Number')
+
+class TRANSACTION_TYPE(models.TextChoices):
+    PURCHASE = '01', _('Purchase')		
+    REFUND = '02', _('Refund')
+    EXCHANGE = '03', _('Exchange')
+
+class TRANS_COMMENT_TYPE(models.TextChoices):
+    COMMENT_STAFF = '01', _('Staff Comment')		
+    COMMENT_CLIENT = '02', _('Client Comment')
+    COMMENT_AUDIT = '03', _('Audit Comment')
+    COMMENT_SYSTEM = '04', _('System Comment')
+    COMMENT_VOID = '05', _('Void Reason')
+
 
 # Unit of Measure(UOM) - all
 class UOM(models.TextChoices):
