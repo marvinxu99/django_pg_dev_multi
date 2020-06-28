@@ -43,8 +43,6 @@ async function postAndPay() {
 
     // 1. Send transaction data to server
     const res_post = await postTransData();
-    console.log('after post data.');
-
     if(res_post.status === 'S') {
 
         // 2. Handl stripe payment...
@@ -53,7 +51,7 @@ async function postAndPay() {
         const res_pay = await processPayment(amount);
 
         if (res_pay.status === 'S')
-            return stripe.redirectToCheckout({sessionId: data_id.sessionId})
+            return stripe.redirectToCheckout({sessionId: res_pay.sessionId})
     }
 
     // The post and/or pay didn't succeed
@@ -69,7 +67,7 @@ async function postTransData() {
 
     console.log("sending transData...")
 
-    const rawResponse = await fetch(URL_POST, {
+    const response = await fetch(URL_POST, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -79,9 +77,10 @@ async function postTransData() {
     });
 
     // Status data from server
-    const res = await rawResponse.json();
+    const res_post = await response.json();
+    console.log(res_post);
 
-    return res;
+    return res_post;
 };
 
 async function processPayment(amount) {

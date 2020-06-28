@@ -132,8 +132,8 @@ class TransactionData {
 // Class to hold UI data and methods
 class UIController {
 
-    static #DOMstrings = {
-        barcodeInput: 'barcode',
+    static DOMstrings = {
+        barcodeInput: 'barcode_input',
         itemsContainer: 'ItemsContainer',
         itemsList: 'items__list',
         transactionItem: '.transaction-item',
@@ -154,7 +154,7 @@ class UIController {
                     <td class="item-price">${item.priceFinal}</td>`
     
         // Insert the HTML into the DOM
-        const listRef = document.getElementById(this.#DOMstrings.itemsList);
+        const listRef = document.getElementById(this.DOMstrings.itemsList);
         const newRow = listRef.insertRow();   // Insert a row at the end of the table
         newRow.id = "item-" + item.id;
         newRow.className = "transaction-item";
@@ -199,7 +199,7 @@ class UIController {
                     <strong>${ this.formatMoney(price) }</strong>
                 </td>`
 
-        document.getElementById(this.#DOMstrings.totalPrice).innerHTML = html;
+        document.getElementById(this.DOMstrings.totalPrice).innerHTML = html;
     }
 
     // Delete the select item from UI display
@@ -210,7 +210,7 @@ class UIController {
     
     // Delelet all list items - empty the list for next transaction.
     static deleteAllListItems() {
-        const listRef = document.getElementById(this.#DOMstrings.itemsList);
+        const listRef = document.getElementById(this.DOMstrings.itemsList);
         while (listRef.firstChild) {
             listRef.removeChild(listRef.firstChild);
         }
@@ -220,7 +220,7 @@ class UIController {
 
     // Reset the barcode input field.    
     static clearBarcodeField() {
-        let el_barcode = document.getElementById(this.#DOMstrings.barcodeInput);
+        let el_barcode = document.getElementById(this.DOMstrings.barcodeInput);
         el_barcode.value = '';
         el_barcode.focus();
 
@@ -235,14 +235,14 @@ class UIController {
 
     // Display warning message in red  
     static displayWarningMsg(msg) {
-        const msg_div = document.getElementById(this.#DOMstrings.warningMessage);
+        const msg_div = document.getElementById(this.DOMstrings.warningMessage);
         msg_div.classList.remove('invisible');
         msg_div.innerText = `**${msg}**`
     }
     
     // Hide warning message
     static hideWarningMsg() {
-        const msg_div = document.getElementById(this.#DOMstrings.warningMessage);
+        const msg_div = document.getElementById(this.DOMstrings.warningMessage);
         msg_div.classList.add('invisible');
         msg_div.innerText = "ww";
     }
@@ -283,9 +283,9 @@ async function getItemInfo(barcode) {
 }
 
 function getItemInfoByCode() {
-    const barcode =  document.getElementById('barcode').value;
+    const barcode =  document.getElementById(UIController.DOMstrings.barcodeInput).value;
     if (barcode.length > 0) {
-      getItemInfo(barcode);
+        getItemInfo(barcode);
     }
 }
 
@@ -294,18 +294,23 @@ const setupEventListeners = () => {
     document.getElementById('btn_enter').addEventListener('click', getItemInfoByCode);
 
     // When a Enter key is pressed in Barcode input box
-    document.getElementById('barcode').addEventListener('keypress', function(event) {   
-        if((event.keyCode === 13) || (event.which === 13)) {
+    const barcode_input = document.getElementById(UIController.DOMstrings.barcodeInput)
+    barcode_input.addEventListener('keypress', function(event) {   
+        if((event.keyCode === 13) || (event.which === 13)      /* Enter key */
+            || (event.keyCode === 32) || (event.which === 32))   /* or space key */
+        {  
             event.preventDefault();
             getItemInfoByCode();
-            // console.log(event.target);
-            // console.log(event.target, event.target.parentNode);
-            // console.log(event.keyCode);
         }
+    })
+    barcode_input.addEventListener('blur', function(event) {   
+        event.preventDefault();
+        getItemInfoByCode();
+        barcode_input.focus();
     })
 
     // When the Send Data! button is clicked
-    document.getElementById('send_trans_data').addEventListener('click', postTransData);
+    document.getElementById('send_trans_data').addEventListener('click', sendTransData);
 
     document.getElementById('new_transaction').addEventListener('click', startNewTransaction);
 
@@ -327,7 +332,7 @@ function startNewTransaction() {
 
 
 // Send the transData to Server
-function postTransData() {
+function sendTransData() {
         
     const URL_POST = 'transdata/';
     
@@ -343,7 +348,7 @@ function postTransData() {
 
 // Post transactionn data to server after payment is done 
 // data: should be an object of (k,v)'s 
-async function postData(url, data) {
+async function sendData(url, data) {
 
     const rawResponse = await fetch(url, {
       method: 'POST',

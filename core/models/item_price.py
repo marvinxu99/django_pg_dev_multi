@@ -34,7 +34,7 @@ class ItemPrice(models.Model):
     expiration_dt_tm = models.DateTimeField(null=True, blank=True)
     fixed_price_ind = models.BooleanField("Price Fixed", default=True)
 
-    item = models.ForeignKey(Item, related_name='+', on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, related_name='Prices', on_delete=models.CASCADE)
 
     min_order_quantity = models.BigIntegerField(default=0)
     order_qty_multiple = models.IntegerField(default=0)

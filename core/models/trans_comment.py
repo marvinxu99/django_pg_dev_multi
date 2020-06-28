@@ -1,6 +1,6 @@
 from django.db import models
-from .item import Item
 from ..constants import TRANS_COMMENT_TYPE
+from .transaction import Transaction
 
 # Item Identifier
 class TransComment(models.Model):
@@ -9,6 +9,7 @@ class TransComment(models.Model):
     trans_comment_id = models.BigAutoField(primary_key=True, editable=False)    
 
     action_sequence = models.IntegerField(default=0)
+
     comment_dt_tm = models.DateTimeField(auto_now=True)  
     comment_prsnl_id = models.BigIntegerField(default=0)
     comment_type_cd = models.CharField("Comment Type", max_length=2, 
@@ -19,7 +20,7 @@ class TransComment(models.Model):
 
     display_mask = models.IntegerField(default=0)
 
-    transaction_id = models.BigIntegerField(default=0)
+    transaction =  models.ForeignKey(Transaction, related_name='Comments', on_delete=models.CASCADE)
 
     updt_cnt = models.IntegerField(default=0)
     updt_dt_tm = models.DateTimeField(auto_now=True)  
@@ -35,5 +36,5 @@ class TransComment(models.Model):
         
     def __str__(self):
         """String for representing the Model object."""
-
-        return self.comment[:20]
+        comment = self.comment[:20] 
+        return comment

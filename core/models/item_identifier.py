@@ -11,7 +11,7 @@ class ItemIdentifier(models.Model):
 
     active_ind = models.BooleanField("Active", default=True)
 
-    item = models.ForeignKey(Item, related_name='items', on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, related_name='Identifiers', on_delete=models.CASCADE)
     
     parent_entity_id = models.IntegerField(default=0)
     parent_entity_name = models.CharField(max_length=100, blank=True)

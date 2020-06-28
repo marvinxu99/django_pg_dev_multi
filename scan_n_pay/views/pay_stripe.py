@@ -82,7 +82,7 @@ def trans_data(request):
     print(f"there are { len(transdata['allItems']) } items in the transdata.")
     
     data = {
-        'status': "S",         # 'S': successful, 'F': Failed 
+        'status': 'S',         # 'S': successful, 'F': Failed 
         'item_count': 28
     }
     return JsonResponse(data)
