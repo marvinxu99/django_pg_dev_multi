@@ -309,10 +309,7 @@ const setupEventListeners = () => {
 
     document.getElementById('new_transaction').addEventListener('click', startNewTransaction);
 
-    document.getElementById('pay_submit').addEventListener('click', ()=> {
-        document.querySelector("#submitPayment").click();
-    });
-
+    // handle deleting item from the list of items
     document.getElementById('items__list').addEventListener('click', deleteItemFromList);
 
 }
