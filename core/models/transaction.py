@@ -1,12 +1,15 @@
 import uuid
+import pytz
 from django.db import models
 from ..constants import ENTRY_MODE, TRANSACTION_TYPE
+from datetime import datetime
 
 # Item Identifier
 class Transaction(models.Model):
     """ Transactions 
     ."""
     transaction_id = models.BigAutoField(primary_key=True, editable=False)
+    trans_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     client_id = models.BigIntegerField(default=0)
     coupon_used_ind = models.BooleanField("Coupon Used", default=False)
@@ -33,8 +36,7 @@ class Transaction(models.Model):
                         choices = TRANSACTION_TYPE.choices,
                         default = TRANSACTION_TYPE.PURCHASE
                         )
-    trans_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-
+    
     total_quantity = models.IntegerField(default=0)
     total_orig_price = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
     total_discount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
@@ -45,6 +47,9 @@ class Transaction(models.Model):
     updt_id = models.BigIntegerField(default=0)
     updt_task = models.BigIntegerField(default=0)
     updt_applabel = models.CharField(max_length=20, default='0')
+
+    valid_from_dt_tm = models.DateTimeField(auto_now_add=True)
+    valid_until_dt_tm = models.DateTimeField(default=datetime(2150,12,31,0,0, tzinfo=pytz.UTC)) 
 
     workstation_id = models.BigIntegerField(default=0)
 
