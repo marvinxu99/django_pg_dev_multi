@@ -277,7 +277,8 @@ async function getItemInfo(barcode) {
 
         } else {
             //console.log("data not valid.")
-            UIController.displayWarningMsg('Invalid barcode.');
+            UIController.clearBarcodeField();
+            UIController.displayWarningMsg(`Invalid barcode: ${ barcode }.`);
         }
 
     } catch(error) {
