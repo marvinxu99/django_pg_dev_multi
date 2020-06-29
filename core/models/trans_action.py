@@ -3,7 +3,7 @@ from ..constants import ACTION_TYPE
 from .transaction import Transaction
 
 # Item Identifier
-class TransAction(models.Model):
+class TransEventAction(models.Model):
     """ Transaction Action
     ."""
     trans_action_id = models.BigAutoField(primary_key=True, editable=False)    
