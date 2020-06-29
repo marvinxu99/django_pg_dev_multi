@@ -145,6 +145,24 @@ class ITEM_BARCODE_TYPE(models.TextChoices):
     UPN = '29', _('Universal Product Number')
     VENDOR_ITEM_NBR = '30', _('Vendor Item Number')
 
+class RESULT_STATUS(models.TextChoices):
+    ACTIVE = '01', _('Active')
+    ALTERED = '02', _('Modified')
+    ANTICIPATED = '03', _('Anticipated')
+    AUTH = '04', _('Auth (Verified)')
+    CANCELLED = '05', _('Canceled')
+    DICTATED = '06', _('Dictated')
+    IN_PROGRESS = '07', _('In Progress')
+    INERROR = '08', _('In Error')
+    MODIFIED = '09', _('Modified')
+    NOT_DONE = '10', _('Not Done')
+    REJECTED = '11', _('Rejected')
+    STARTED = '12', _('Started')
+    SUPERSEDED = '13', _('Superseded')
+    TRANSCRIBED = '14', _('Transcribed')
+    UNAUTH = '15', _('Unauth')
+    UNKNOWN = '16', _('Unknown')
+
 class TRANSACTION_TYPE(models.TextChoices):
     PURCHASE = '01', _('Purchase')		
     REFUND = '02', _('Refund')

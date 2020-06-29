@@ -1,6 +1,6 @@
 from django.db import models
 from ..constants import TRANS_COMMENT_TYPE
-from .transaction import Transaction
+from .trans_event import TransEvent
 
 # Item Identifier
 class TransComment(models.Model):
@@ -20,7 +20,7 @@ class TransComment(models.Model):
 
     display_mask = models.IntegerField(default=0)
 
-    transaction =  models.ForeignKey(Transaction, related_name='Comments', on_delete=models.CASCADE)
+    trans_event =  models.ForeignKey(TransEvent, related_name='Comments', on_delete=models.CASCADE)
 
     updt_cnt = models.IntegerField(default=0)
     updt_dt_tm = models.DateTimeField(auto_now=True)  
@@ -30,7 +30,7 @@ class TransComment(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=['transaction_id',]),
+            models.Index(fields=['trans_event_id',]),
         ]
         db_table = 'core_trans_comment'
         

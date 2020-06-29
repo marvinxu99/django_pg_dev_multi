@@ -1,13 +1,17 @@
 //console.log("Sanity check!");
 
 // Class to hold basic item data (front-end)
+// iteminfo 
 class Item {
-    constructor(id, itemId, description, price, discount=0, discountType=1, quantity=1){
+    constructor(id, iteminfo, discount=0, discountType=1, quantity=1){
         this.id = id;
-        this.itemId = itemId;
-        this.description = description;
+    
+        this.itemId = iteminfo.itemId;
+        this.itemIdentId = iteminfo.itemIdentId;
+        this.itemPriceId = iteminfo.itemPriceId;
+        this.description = iteminfo.description;
+        this.price = iteminfo.price;               // regular price 
         this.quantity = quantity;
-        this.price = price;               // regular price 
         this.discount = discount;         // this can be a percentage, or amount (UOM: dollar)
         this.discountType = discountType;            // 1: percentage off regular price (10 is 10%); 2: ammount off. (0.5 = 50 cents)
         this.discountSpecial = 0;         // this can manager's account, item damaged discount. etc
@@ -53,7 +57,7 @@ class TransactionData {
     }
 
     // add a new item
-    addItem(itemId, description, price, discount=0, discountType=1, quantity=1) {
+    addItem(iteminfo, discount=0, discountType=1, quantity=1) {
         let id, newItem; 
 
         // Create new ID
@@ -63,7 +67,7 @@ class TransactionData {
             id = 0;
         }
 
-        newItem = new Item(id, itemId, description, price, discount=0, discountType=1, quantity=1); 
+        newItem = new Item(id, iteminfo, discount=0, discountType=1, quantity=1); 
         newItem.calcFinalPrice();
 
         this.allItems.push(newItem);  
@@ -261,7 +265,7 @@ async function getItemInfo(barcode) {
         if(data.validInd === 1) {
             
             // 1. Add the item data to TransData
-            const newItem = transData.addItem(data.itemId, data.description, data.price);
+            const newItem = transData.addItem(data);
             console.log(newItem);
             console.log(transData);       
 
@@ -342,7 +346,7 @@ function sendTransData() {
     }
     console.log("sending transData...")
 
-    const resp_json = postData(URL_POST, transData);
+    const resp_json = sendData(URL_POST, transData);
     console.log('after post data.');
 }
 

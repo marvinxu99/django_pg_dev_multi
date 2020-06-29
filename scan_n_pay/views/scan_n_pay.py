@@ -12,6 +12,7 @@ from core.models import ItemBarcode, ItemIdentifier, ItemPrice
 from core.constants import ITEM_BARCODE_TYPE, ITEM_IDENTIFIER_TYPE, ITEM_PRICE_TYPE
 
 
+# Home of scan_n_pay app
 def scan_n_pay(request): 
     # # print("app: " + apps.get_app_config('scan_n_pay').name)
     # for app in apps.get_app_configs():
@@ -44,7 +45,9 @@ def get_item(request):
     # Default return data if not found.
     data = {
         'validInd': 1,
-        "itemId": -1,
+        'itemId': -1,
+        'itemIdentId': -1,
+        'itemPriceId': -1,
         'description': 'NOT FOUND',
         'price': -0.01,
     }
@@ -58,19 +61,23 @@ def get_item(request):
                 )[0].item.pk
         data['itemId'] = item_id
 
-        # Query the item name from the ITEM_IDENTIFIER table
-        data['description'] = ItemIdentifier.objects.filter(
+        # Query the item description from the ITEM_IDENTIFIER table
+        item_ident = ItemIdentifier.objects.filter(
                     active_ind = True, 
                     item_identifier_type_cd = ITEM_IDENTIFIER_TYPE.DESCRIPTION,
                     item_id = item_id
-                    )[0].value
+                    )[0]
+        data['description'] = item_ident.value
+        data['itemIdentId'] = item_ident.item_identifier_id
         
         # Query the item price from the ITEM_PRICE table
-        data['price'] = ItemPrice.objects.filter(
+        item_price = ItemPrice.objects.filter(
                     active_ind = True, 
                     price_type_cd = ITEM_PRICE_TYPE.QUOTE,  
                     item_id = item_id
-                    )[0].price_float()
+                    )[0]
+        data['price'] = item_price.price_float()
+        data['itemPriceId'] = item_price.item_price_id
 
     except Exception:
         if data['itemId'] == -1:

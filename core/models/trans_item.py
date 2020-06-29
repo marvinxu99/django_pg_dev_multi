@@ -5,20 +5,16 @@ from ..constants import ACTIVE_STATUS, ITEM_PRICE_TYPE
 
 
 # Product Identifier
-class ItemPrice(models.Model):
-    """ Item Itentifiers, such barcode
+class TransItem(models.Model):
+    """ Items in a transaction event
     ."""
-    item_price_id = models.BigAutoField(primary_key=True, editable=False)
+    trans_item_id = models.BigAutoField(primary_key=True, editable=False)
+    item = models.ForeignKey(Item, related_name='+', on_delete=models.CASCADE)
+    event_id = models.BigIntegerField(default=0)
 
-    active_ind = models.BooleanField("Active", default=True)
-    active_status_cd = models.CharField(max_length=2, 
-                                        choices=ACTIVE_STATUS.choices, 
-                                        default=ACTIVE_STATUS.ACTIVE
-                                        )
-    active_status_dt_tm = models.DateTimeField(default=timezone.now)
-    active_status_prsnl_id = models.BigIntegerField(default=0)
 
-    contract_description = models.CharField(max_length=100, default='none')
+    description = models.CharField(max_length=200)
+    
     contract_id = models.BigIntegerField(default=0)
     contract_line_id = models.BigIntegerField(default=0)
     contract_nbr = models.CharField(max_length=40, default='none')
@@ -34,7 +30,6 @@ class ItemPrice(models.Model):
     expiration_dt_tm = models.DateTimeField(null=True, blank=True)
     fixed_price_ind = models.BooleanField("Price Fixed", default=True)
 
-    item = models.ForeignKey(Item, related_name='Prices', on_delete=models.CASCADE)
 
     min_order_quantity = models.BigIntegerField(default=0)
     order_qty_multiple = models.IntegerField(default=0)
@@ -60,7 +55,7 @@ class ItemPrice(models.Model):
             models.Index(fields=['item',]),
             models.Index(fields=['contract_line_id',]),
         ]
-        db_table = 'core_item_price'
+        db_table = 'core_trans_item'
 
     def price_float(self):
             return float(self.price)
