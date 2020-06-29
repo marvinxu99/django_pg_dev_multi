@@ -106,16 +106,19 @@ class TransactionData {
     // Calculate totals: price, quantity
     calculateTotals() {
         this.totals.price = this.allItems.reduce( (total, item) => 
-            { return total + item.priceFinal; }, 0);
-
+            { return total + item.priceFinal; }, 0);   
+        this.totals.price.toFixed(2);
+    
         this.totals.quantity = this.allItems.reduce( (total, item) => 
             { return total + item.quantity; }, 0);
         
         this.totals.discount = this.allItems.reduce( (total, item) =>
             { return total + item.discountAmount; }, 0);
+        this.totals.discount.toFixed(2);
 
         this.totals.originalPrice = this.allItems.reduce( (total, item) =>
             { return total + item.price; }, 0);
+        this.totals.originalPrice.toFixed(2);
     }
 
     // Add item price, quantity to totals
