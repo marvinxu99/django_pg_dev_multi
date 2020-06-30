@@ -7,7 +7,7 @@ urlpatterns = [
     path('scan/', views.scan_n_pay, name='scan_n_pay'),
     path('scan/get_item/<str:barcode>/', views.get_item, name='get_item'),
     path('scan/get_item/', views.get_item, name='get_item'),
-    path('scan/transdata/', views.trans_data, name='trans_data'),
+    path('scan/transdata/', views.save_trans_data, name='trans_data'),
 
     path('stripe/config/', views.stripe_config, name='stripe_config'), 
     path('stripe/checkout/', views.create_checkout_session, name='stripe_checkout'),

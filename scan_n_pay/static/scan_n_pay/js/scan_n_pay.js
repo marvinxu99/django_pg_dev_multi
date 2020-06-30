@@ -371,6 +371,7 @@ async function sendData(url, data) {
     if(resp.status === "S") {
          console.log('Server received data sucessfully.')
     }
+    console.log(resp);
 
     return resp;
 };

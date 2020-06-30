@@ -21,6 +21,7 @@
 tbody {
   display: block;
   height: 300px;
+  /*overflow-y: auto; */
   overflow-y: scroll;
 }
 

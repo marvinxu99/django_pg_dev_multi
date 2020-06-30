@@ -4,7 +4,6 @@ from django.conf import settings
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
-import json
 
 import stripe
 
@@ -68,21 +67,3 @@ class SuccessView(TemplateView):
 
 class CancelledView(TemplateView):
     template_name = 'scan_n_pay/pay_cancelled.html'
-
-
-@csrf_exempt
-def trans_data(request):
-    # accept POST
-    if request.method != 'POST':
-        return { 'status': 'F' }
-
-    transdata = json.loads(request.body) 
-    print(transdata)
-
-    print(f"there are { len(transdata['allItems']) } items in the transdata.")
-    
-    data = {
-        'status': 'S',         # 'S': successful, 'F': Failed 
-        'item_count': 28
-    }
-    return JsonResponse(data)
