@@ -406,8 +406,5 @@ function deleteItemFromList(event) {
 
         // Update totals.
         UIController.updateTotals(transData.totals);
-
     }
-    // Delete from
-
 }

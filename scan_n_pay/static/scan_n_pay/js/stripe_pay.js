@@ -94,15 +94,3 @@ async function processPayment(amount) {
     
     return data;
 }
-
-
-//     //Payment is successful...
-//     if(data.status === 'S') {
-//         // logics 
-
-//         // Redirect to Stripe Checkout
-//         return stripe.redirectToCheckout({ sessionId: data.sessionId });
-//    } else {
-//        //If Payment is not successful...
-//        return { status: 'F' };
-//    }
