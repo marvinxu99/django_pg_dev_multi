@@ -350,6 +350,9 @@ function sendTransData() {
     }
     console.log("sending transData...")
 
+    // for testing
+    transData.payment_amt = transData.totals.price
+
     const resp_json = sendData(URL_POST, transData);
     console.log('after post data.');
 }

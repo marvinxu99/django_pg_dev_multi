@@ -4,6 +4,7 @@ from django.db import models
 from ..constants import ENTRY_MODE, TRANSACTION_TYPE, RESULT_STATUS
 from datetime import datetime
 
+
 # Item Identifier
 class TransEvent(models.Model):
     """ Transactions 
@@ -44,7 +45,7 @@ class TransEvent(models.Model):
     # event_id is a unique identifier for an event.  Uniquely identifies a logical clinical event row.  
     # There may be more than one row with the same event_id, but only one of those 
     # rows will be current as indicated by the valid_until_dt_tm field.
-    event_id = models.BigIntegerField(default=0)    # its id should be the same id when the event was created.
+    event_id = models.BigIntegerField(default=0)                           # its id should be the same id when the event was created.
     event_tag = models.CharField(max_length=255, blank=True, null=True)    # for display the event, e.g., "$34.56 <modified>"
     event_title = models.CharField(max_length=255, blank=True, null=True)  
     
@@ -85,7 +86,11 @@ class TransEvent(models.Model):
             models.Index(fields=['trans_end_dt_tm',]),
         ]
         db_table = 'core_trans_event'
-        
+
+    # def save(self, *args, **kwargs):
+    #     # do something
+    #     super(TransEvent, self).save(*args, **kwargs)
+
     def __str__(self):
         """String for representing the Model object."""
         return f'Item: {self.event_tag}'
