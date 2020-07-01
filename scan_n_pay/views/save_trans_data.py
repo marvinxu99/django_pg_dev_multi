@@ -10,7 +10,6 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 import json
 
-
 from core.constants import ENTRY_MODE, RESULT_STATUS, TRANSACTION_TYPE
 from core.models import TransEvent, TransItem
 
@@ -48,7 +47,6 @@ def save_trans_data(request):
             'status': 'S',         # 'S': successful, 'F': Failed 
             'item_count': num_trans_items,
         }
-
     except Exception as e:
         print(e)
         resp = {
@@ -57,7 +55,6 @@ def save_trans_data(request):
             'error': str(e)
         }
    
-
     return JsonResponse(resp)
 
 
