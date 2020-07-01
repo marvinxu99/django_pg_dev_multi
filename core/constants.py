@@ -38,7 +38,6 @@ class ACTION_TYPE(models.TextChoices):
     WITNESS = '30', _('Witness')
     PRINTED = '31', _('Printed')
 
-
 class ACTIVE_STATUS(models.TextChoices):
     ACTIVE = '01', _("Active")
     COMBINED = '02', _('Combined') 
@@ -57,6 +56,36 @@ class ENTRY_MODE(models.TextChoices):
     DIRECT_ENTRY = '03', _('Direct Entry')
     CASHIER = '04', _('Cashier')
 
+# Item barcodes (one item can have multiple barcodes)
+class ITEM_BARCODE_TYPE(models.TextChoices):
+    BARCODE = '20', _('Barcode')		
+    CHARGE_NBR = '21', _('Charge Number')
+    ITEM_NBR_SYS = '22', _('System Assigned Item Number')
+    LOT_NBR	= '23', _('Lot Number')
+    MANF_ITM_NBR ='24', _('Manufacturer Item Number')
+    SERIAL_NBR = '25', _('Serial Number')
+    SERVIC_REQ_NBR = '26', _('Service Request Number')
+    UB92 = '27', _('UB92 Interface Identifier')
+    UPC	= '28', _('Universal Product Code')
+    UPN = '29', _('Universal Product Number')
+    VENDOR_ITEM_NBR = '30', _('Vendor Item Number')
+
+# Product Identifier Type (excluding barcodes)
+class ITEM_IDENTIFIER_TYPE(models.TextChoices):
+    BRAND_NAME = '01', _('Brand Name')
+    DESCRIPTION = '02', _('Description')
+    DESC_CLINIC = '03',	_('Clinical Description')
+    DESC_SHORT = '04', _('Short Description')
+    FOREIGNALIAS ='05', _('Foreign System Item Alias')
+    GENERIC_NAME = '06', _('Generic Name')
+    TRADE_NAME = '07', _('Trade Name')
+
+# Price Type
+class ITEM_PRICE_TYPE(models.TextChoices):
+    CONTRACT = '01', _('Contract')		
+    LIST = '02', _('List')
+    QUOTE = '03', _('Quote')
+
 # Item Types
 class ITEM_TYPE(models.TextChoices):
     GENERAL = '12', _('General')
@@ -74,14 +103,12 @@ class ITEM_TYPE(models.TextChoices):
     INSTANCE = '01', _('Instance')
     INSTANCE_EQP = '02', _('Equipment Instance')
 
-
 # Loan Status
 class LOAN_STATUS(models.TextChoices):
     AVAILABLE = 'a', _('Available')
     MAINTENANCE = 'm', _('Maintenance')
     ON_LOAN = 'o', _('On loan')
     RESERVED = 'r', _('Reserved')
-
 
 #MONTH_CHOICES = [(str(i), calendar.month_name[i]) for i in range(1,13)]
 class MONTH_CHOICES(models.TextChoices):
@@ -113,38 +140,6 @@ MEDIA_CHOICES = [
     ('unknown', 'Unknown'),
 ]
 
-
-# Price Type
-class ITEM_PRICE_TYPE(models.TextChoices):
-    CONTRACT = '01', _('Contract')		
-    LIST = '02', _('List')
-    QUOTE = '03', _('Quote')
-
-
-# Product Identifier Type (excluding barcodes)
-class ITEM_IDENTIFIER_TYPE(models.TextChoices):
-    BRAND_NAME = '01', _('Brand Name')
-    DESCRIPTION = '02', _('Description')
-    DESC_CLINIC = '03',	_('Clinical Description')
-    DESC_SHORT = '04', _('Short Description')
-    FOREIGNALIAS ='05', _('Foreign System Item Alias')
-    GENERIC_NAME = '06', _('Generic Name')
-    TRADE_NAME = '07', _('Trade Name')
-
-# Item barcodes (one item can have multiple barcodes)
-class ITEM_BARCODE_TYPE(models.TextChoices):
-    BARCODE = '20', _('Barcode')		
-    CHARGE_NBR = '21', _('Charge Number')
-    ITEM_NBR_SYS = '22', _('System Assigned Item Number')
-    LOT_NBR	= '23', _('Lot Number')
-    MANF_ITM_NBR ='24', _('Manufacturer Item Number')
-    SERIAL_NBR = '25', _('Serial Number')
-    SERVIC_REQ_NBR = '26', _('Service Request Number')
-    UB92 = '27', _('UB92 Interface Identifier')
-    UPC	= '28', _('Universal Product Code')
-    UPN = '29', _('Universal Product Number')
-    VENDOR_ITEM_NBR = '30', _('Vendor Item Number')
-
 class RESULT_STATUS(models.TextChoices):
     ACTIVE = '01', _('Active')
     ALTERED = '02', _('Modified')
@@ -175,12 +170,10 @@ class TRANS_COMMENT_TYPE(models.TextChoices):
     COMMENT_SYSTEM = '04', _('System Comment')
     COMMENT_VOID = '05', _('Void Reason')
 
-
 # Unit of Measure(UOM) - all
 class UOM(models.TextChoices):
     DEGC = 'C', _("degree Celsius")
     DEGF = 'F', _("degree Fahrenheit")
-
 
 # Unit of Measure(UOM) - shelf life
 class UOM_SHELF_LIFE(models.TextChoices):

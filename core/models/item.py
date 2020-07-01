@@ -21,7 +21,7 @@ class Item(models.Model):
     approved_ind = models.BooleanField(default=False)
 
     item_type_cd = models.CharField("Item Type", max_length=2,
-                                    choices=ITEM_TYPE.choices,
+                                    choices=ITEM_TYPE.choices, 
                                     default=ITEM_TYPE.GENERAL
                                     )
 

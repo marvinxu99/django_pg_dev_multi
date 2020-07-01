@@ -9,7 +9,10 @@ $(document).ready(function(){
         //var modal = $(this)
         //modal.find('.modal-title').text('TEST:' + recipient)
         //$("#detail_img").attr("src", data)
-
+        $.get('products/', function(data, status){
+            console.log(data);
+            
+        });
 
     });
   
