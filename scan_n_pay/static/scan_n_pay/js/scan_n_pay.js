@@ -355,6 +355,7 @@ function sendTransData() {
 
     const resp_json = sendData(URL_POST, transData);
     console.log('after post data.');
+    console.log(resp_json)
 }
 
 // Post transactionn data to server after payment is done 

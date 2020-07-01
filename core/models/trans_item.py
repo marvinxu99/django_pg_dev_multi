@@ -38,4 +38,4 @@ class TransItem(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return f'{self.description}: ${self.price_final}'
+        return f'{self.description}, ${self.price_final}'

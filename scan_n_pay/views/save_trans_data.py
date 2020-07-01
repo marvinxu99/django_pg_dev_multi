@@ -7,15 +7,17 @@ from django.urls import reverse
 from django.apps import apps
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 import json
 
 
-from core.models import TransEvent
 from core.constants import ENTRY_MODE, RESULT_STATUS, TRANSACTION_TYPE
+from core.models import TransEvent, TransItem
 
 
 @csrf_exempt
 @login_required
+@transaction.atomic
 def save_trans_data(request):
     # accept POST
     if request.method != 'POST':
@@ -27,10 +29,39 @@ def save_trans_data(request):
     print(trans_data)
     print(f"there are { num_trans_items } items in the transdata.")
     
-    # Validate data before saving
-    print(trans_data['totals'])
-    print(trans_data['coupon'])
+    # Validate data before saving..
+    # print(trans_data['totals'])
+    # print(trans_data['coupon'])
 
+    # Save data
+    try:
+        # 1. Save transacrion event data
+        trans_event_pk = save_trans_event(trans_data)
+        print(trans_event_pk)
+
+        # 2. Save transaction items data
+        save_trans_items(trans_data, trans_event_pk)
+
+
+        ## te_rec.event_id = 
+        resp = {
+            'status': 'S',         # 'S': successful, 'F': Failed 
+            'item_count': num_trans_items,
+        }
+
+    except Exception as e:
+        print(e)
+        resp = {
+            'status': 'F',         # 'S': successful, 'F': Failed 
+            'item_count': num_trans_items,
+            'error': str(e)
+        }
+   
+
+    return JsonResponse(resp)
+
+
+def save_trans_event(trans_data):
     # Save data
     try:
         te_rec = TransEvent()
@@ -69,19 +100,47 @@ def save_trans_data(request):
 
         te_rec.save()
 
-        ## te_rec.event_id = 
-        resp = {
-            'status': 'S',         # 'S': successful, 'F': Failed 
-            'item_count': num_trans_items,
-        }
+        if not te_rec.event_id:             
+            te_rec.event_id = te_rec.trans_event_id
+            te_rec.save()
+            print('save event_id after created')
+
     except Exception as e:
-        print(e)
-        resp = {
-            'status': 'F',         # 'S': successful, 'F': Failed 
-            'item_count': num_trans_items,
-            'error': str(e)
-        }
+        raise e
 
-   
+    return te_rec.trans_event_id
 
-    return JsonResponse(resp)
+
+# Save the items to the database
+def save_trans_items(trans_data, event_id):
+
+    items = trans_data['allItems']    
+
+    try:
+        trans_items = []
+
+        for i in range(len(items)):
+            trans_items.append(
+                TransItem(
+                    event_id = event_id,
+                    item_id = items[i]['itemId'],
+                    item_identifier_id = items[i]['itemIdentId'],
+                    item_price_id = items[i]['itemPriceId'],
+                    item_discount_id = 0,
+                    description = items[i]['description'],
+                    quantity = items[i]['quantity'],
+                    price =  items[i]['price'],
+                    discountAmount = items[i]['price'],
+                    price_final = items[i]['priceFinal'],
+                    comment = items[i]['comment'],
+                    updt_cnt = 0,
+                    updt_dt_tm = timezone.now(),
+                    updt_id = trans_data['operator_id'],
+                    updt_task = 1234,
+                    updt_applabel = apps.get_app_config('scan_n_pay').name,
+                )
+            )
+        #print(trans_items)
+        TransItem.objects.bulk_create(trans_items)
+    except Exception as e:
+        raise e
