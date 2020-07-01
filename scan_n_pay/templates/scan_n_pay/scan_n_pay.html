@@ -10,11 +10,16 @@
     <p class="h5 mt-1">Scan products:</p>
     <div class="d-flex justify-content-between mt-3">
       <div>
-        <form>
+        <div class="input-group">
           <input type='text' id='barcode_input' value='' placeholder="barcode">
           <input class="button" type="button" id="btn_enter" value="Enter">
-          <input class="button ml-5" type="button" id="btn_lookup" value="Search Products">
-        </form>
+          <button class="btn btn-sm btn-outline-secondary ml-5" id="btn_search_products"
+            data-toggle="modal" data-target="#searchProductsModal"
+            data-whatever="test"
+          >
+            Search Products
+          </button>
+        </div>
         <div id='warning_msg' class='invisible text-danger'>warnings:</div>
       </div>
       <div>
@@ -89,9 +94,81 @@
     </ul>
   </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="searchProductsModal" tabindex="-1" role="dialog" aria-labelledby="searchProductsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewDetailsModalLabel">Products</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+          <p>test item 1</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm to delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this post?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <a id="confirm_delete_post" class="btn btn-sm btn-outline-secondary" href="#" role="button">Yes, delete.</a>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 {% block javascript %}
 <script src="https://js.stripe.com/v3/"></script>
 <script src="{% static 'scan_n_pay/js/stripe_pay.js' %}"></script>
 <script src="{% static 'scan_n_pay/js/scan_n_pay.js' %}"></script>
+<script src="{% static 'scan_n_pay/js/search_products.js' %}"></script>
 {% endblock %}

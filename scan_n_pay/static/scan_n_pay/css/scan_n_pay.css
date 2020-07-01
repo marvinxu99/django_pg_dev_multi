@@ -35,7 +35,6 @@ thead, tfoot {
   width: calc( 100% - 1em );    /* scrollbar is average 1em/16px width, remove it from thead width */
 }
 
-
 /** common table settings **/
 table {
   font-family: arial, sans-serif;
@@ -68,7 +67,6 @@ tbody tr:nth-child(even) {
   cursor: pointer;
   display: none;
 }
-
 
 .item-name {
   width: 40%;
