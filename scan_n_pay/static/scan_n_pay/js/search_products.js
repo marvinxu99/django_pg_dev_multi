@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+
     $('#searchProductsModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var data = button.data('whatever') // Extract info from data-* attributes
@@ -7,7 +9,7 @@ $(document).ready(function(){
         //var modal = $(this)
         //modal.find('.modal-title').text('TEST:' + recipient)
         //$("#detail_img").attr("src", data)
-        
+
 
     });
   
