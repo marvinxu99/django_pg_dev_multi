@@ -1,4 +1,5 @@
 {% extends "core/base_core.html" %}
+{% load static %}
 {% block title %}Winter Winn{% endblock %}
 {% block content %}
 <div class="winn-heading text-center">
@@ -78,4 +79,8 @@
     </div>
   </div>
 </div>
+<div class="mt-5">
+  <img src="{% static 'img/winter_friends.jpg' %}" alt="winter and friends">
+</div>
+
 {% endblock %}

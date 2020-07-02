@@ -9,8 +9,6 @@ def oxford(request):
         
         if form.is_valid():
             search_result = form.search()
-
-            print(search_result)
     
     else:
         form = DictionaryForm()
