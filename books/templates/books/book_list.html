@@ -1,0 +1,52 @@
+{% extends 'base_no_crumb.html' %}
+{% block content %}
+{% load static %}
+  <h1 class="page-header">Books</h1>
+  <!-- BUTTON TO TRIGGER THE ACTION -->
+  <p>
+    <button type="button" class="btn btn-primary js-create-book">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      New book
+    </button>
+  </p>
+  <table class="table" id="book-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Type</th>
+        <th>Publication date</th>
+        <th>Pages</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in book_list %}
+        <tr>
+          <td>{{ book.id }}</td>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.get_book_type_display }}</td>
+          <td>{{ book.publication_date }}</td>
+          <td>{{ book.pages }}</td>
+          <td>{{ book.price }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7" class="text-center bg-warning">No book</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- THE MODAL WE WILL BE USING -->
+  <div class="modal fade" id="modal-book">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+{% load static %}
+  <script src="{% static 'books/js/books.js' %}"></script>
+{% endblock %}

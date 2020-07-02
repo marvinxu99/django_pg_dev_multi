@@ -47,6 +47,7 @@ urlpatterns = [
     path('payments/', include('payments.urls')),
     path('budget/', include('budget.urls')),
     path('scan_n_pay/', include('scan_n_pay.urls')),
+    path('books/', include('books.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
