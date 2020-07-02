@@ -25,4 +25,5 @@ class DictionaryForm(forms.Form):
                 result['message'] = 'No entry found for "%s"' % word
             else:
                 result['message'] = 'The Oxford API is not available at the moment. Please try again later.'
+                
         return result
