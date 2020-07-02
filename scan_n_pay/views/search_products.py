@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from core.models import ItemBarcode, ItemIdentifier, ItemPrice
 from core.constants import ITEM_BARCODE_TYPE, ITEM_IDENTIFIER_TYPE, ITEM_PRICE_TYPE
 
+
 def search_products(request):
     # Default return data if not found.
     data = {
