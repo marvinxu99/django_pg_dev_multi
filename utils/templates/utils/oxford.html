@@ -14,8 +14,8 @@
       {% for result in search_result.results %}
         <h3>{{ result.word }}</h3>
         {% for lexicalentry in result.lexicalEntries %}
-          <h4>{{ lexicalentry.lexicalCategory }}</h4>
           <ul>
+            <p>{{ lexicalentry.lexicalCategory.text }}</p>
             {% for entry in lexicalentry.entries %}
               {% for sense in entry.senses %}
                 {% for definition in sense.definitions %}
