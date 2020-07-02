@@ -17,7 +17,7 @@ class ItemPriceHist(models.Model):
                                         default=ACTIVE_STATUS.ACTIVE
                                         )
     active_status_dt_tm = models.DateTimeField(null=True, blank=True)
-    active_status_prsnl_id = models.BigIntegerField(null=True, blank=True)
+    active_status_prsnl_id = models.BigIntegerField(default=0, blank=True)
 
     contract_description = models.CharField(max_length=100)
     contract_id = models.BigIntegerField(default=0)

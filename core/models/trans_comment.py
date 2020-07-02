@@ -16,7 +16,7 @@ class TransComment(models.Model):
                         choices = TRANS_COMMENT_TYPE.choices,
                         blank = False
                         )
-    comment = models.TextField(blank=True, null=True)
+    comment = models.TextField(blank=True)
 
     display_mask = models.IntegerField(default=0)
 

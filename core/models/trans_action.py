@@ -18,13 +18,13 @@ class Trans_Action(models.Model):
     client_id = models.BigIntegerField(default=0)
     person_id = models.BigIntegerField(default=0)
 
-    comment = models.TextField(blank=True, null=True)
+    comment = models.TextField(blank=True)
 
     event_id = models.BigIntegerField(default=0)    # its id should be the same id when the event was created.
     event_cd = models.IntegerField(default=0)
     event_class_cd = models.IntegerField(default=0)
-    event_tag = models.CharField(max_length=255, blank=True, null=True)    # for display the event, e.g., "$34.56 <modified>"
-    event_title = models.CharField(max_length=255, blank=True, null=True)  
+    event_tag = models.CharField(max_length=255, blank=True)    # for display the event, e.g., "$34.56 <modified>"
+    event_title = models.CharField(max_length=255, blank=True)  
 
     result_status_cd = models.CharField("Result Status", max_length=2, 
                         choices = RESULT_STATUS.choices,

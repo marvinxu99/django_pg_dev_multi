@@ -21,7 +21,7 @@ class TransItem(models.Model):
     discountAmount = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
     price_final = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
 
-    comment =  models.CharField(max_length=255, blank=True, null=True)
+    comment =  models.CharField(max_length=255, blank=True)
 
     updt_cnt = models.IntegerField(default=0)
     updt_dt_tm = models.DateTimeField(auto_now=True)  
