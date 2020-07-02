@@ -26,7 +26,7 @@ class ItemPrice(models.Model):
     contributor_system_cd = models.BigIntegerField(default=0)
 
     create_applabel = models.CharField(max_length=20, default='0')
-    create_dt_tm = models.DateTimeField(default=timezone.now)
+    create_dt_tm = models.DateTimeField(auto_now_add=True)
     create_id = models.BigIntegerField(default=0)
     create_task = models.BigIntegerField(default=0)
 

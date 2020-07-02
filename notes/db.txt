@@ -1,0 +1,8 @@
+(1) use of select_related() :
+https://simpleisbetterthancomplex.com/tips/2016/05/16/django-tip-3-optimize-database-queries.html
+https://docs.djangoproject.com/en/dev/ref/models/querysets/#select-related
+
+(2) The auto_now_add will set the timezone.now() only when the instance is created, 
+and auto_now will update the field everytime the save method is called.
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
