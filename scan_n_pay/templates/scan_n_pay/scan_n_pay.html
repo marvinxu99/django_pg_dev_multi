@@ -15,7 +15,7 @@
           <input class="button" type="button" id="btn_enter" value="Enter">
           <button class="btn btn-sm btn-outline-secondary ml-5" id="btn_search_products"
             data-toggle="modal" data-target="#searchProductsModal"
-            data-whatever="test"
+            data-url="{% url 'scan_n_pay:search-products' %}"
           >
             Search Products
           </button>
@@ -112,6 +112,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary">Select Item</button>
       </div>
     </div>
   </div>
