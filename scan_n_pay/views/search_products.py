@@ -61,6 +61,7 @@ def search_products(request):
                 item_identifier_type_cd = ITEM_IDENTIFIER_TYPE.DESCRIPTION
             )[0]
         item_details['itemIdentId'] = qs_identifier.item_identifier_id 
+        item_details['description'] = qs_identifier.value 
         print(f"item identifier id = {item_details['itemIdentId']}")
 
         # ItemPrice

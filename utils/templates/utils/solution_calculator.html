@@ -1,0 +1,89 @@
+{% extends 'base_no_crumb.html' %}
+{% block title %}Solution Dilution Calculator{% endblock %}
+{% block stylesheet %}
+	<style>
+		.number-field {
+			width: 50px;
+		}
+		.volume-field {
+			width: 70px;
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+<h2 class="mt-5 text-center">Solution Dilution Calcultor:</h2>
+<div class="row justify-content-center">
+	<div class="card border-success w-50">
+		<div class="card-header">
+		<ul class="nav nav-tabs card-header-tabs">
+			<li class="nav-item"><a id="nav_2d" class="nav-link active" href="#" onclick=";">Scenario #1</a></li>
+			<li class="nav-item"><a id="nav_1d" class="nav-link" href="#" onclick=";">Scenario #2</a></li>
+		</ul>
+		</div>
+		<div class="card-body">
+		<!--
+		<h5 class="card-title">Winter's Barcode Generator</h5>
+		<p class="card-text">Type in some numbers and characters in the first field, and try it out.</p>
+		-->
+      <h3>(1) If you have the following solution:</h3>
+      <div>			
+        <table>
+        <tr>
+          <td>Concentration:</td>
+      <td><input type="text" class="number-field" id="sol1-concentration" /> %</td>
+        </tr>
+        <tr>
+          <td>Solution Volume:</td> 
+          <td><input type="text" class="number-field"  id="sol1-volume" /> mL</td>
+        </tr>
+        </table>
+      </div>
+      
+      <h3>(2) Target solution:</h3>
+      <div>
+        Target concentration: <input type="text" class="number-field" id="sol2-concentration" /> %
+      </div>
+      <div>
+        </p>
+      <h2>(3) Click to calculate:</h2>
+      <button class="button" id="calc-volume" onclick="calc_vloume();">Calculate Volume</button>
+      <div id="msg_warning" style="display:none;color:red;"></div>
+        </p>
+      </div>
+      <div>
+        <h3>(4) You will need to add the following amount of water:</h3>
+        The Amount of water to add: <input type="number" id="sol2-volume" class="volume-field" disabled /> mL <br>
+        The total volume of the target solution will be <input type="number" id="sol2-total-volume" class="volume-field" disabled /> mL
+      </div>
+		</div>
+	</div>
+{% endblock %}
+{% block javascript %}	
+<script type="text/javascript">
+	function calc_vloume() {
+		var sol1_p = parseFloat(document.getElementById("sol1-concentration").value);
+		var sol1_v = parseFloat(document.getElementById("sol1-volume").value);
+		var sol2_p = parseFloat(document.getElementById("sol2-concentration").value);
+		console.log(sol1_p, sol1_v, sol2_p);
+
+		if (!sol1_v || !sol1_v || !sol2_p) {
+			var warning = document.getElementById("msg_warning")
+			warning.style.display = "block";
+			warning.innerHTML = "check the input fields. they must be numbers and cannot be empty."
+			
+		} else {
+
+			var sol2_volume = (sol1_v * sol1_p)/sol2_p - sol1_v;
+			var sol2_total = Number(sol2_volume) + Number(sol1_v);
+
+			document.getElementById("sol2-volume").value = sol2_volume.toFixed(2);
+			document.getElementById("sol2-total-volume").value = sol2_total.toFixed(2);
+			warning = document.getElementById("msg_warning")
+			warning.style.display = "none";
+
+		}
+	}	
+</script>
+{% endblock %}
+	

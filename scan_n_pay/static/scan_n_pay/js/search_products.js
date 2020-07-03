@@ -12,11 +12,43 @@ $(document).ready(function(){
         //modal.find('.modal-title').text('TEST:' + recipient)
         //$("#detail_img").attr("src", data)
         $.get('products/', function(data, status){
-            console.log(data);
+            console.log(data)
+            console.log(data.itemsCount);
+            let html = "";
+            if (data.itemsCount > 0) {
+                for (var i=0; i<data.itemsCount; i++) {
+                    element_id = `prod-${i}`
+                    html += `<tr>
+                            <td>${ data.items[i].description }</td>
+                            <td class="text-right">${ data.items[i].price }</td>
+                            <td class="text-center">
+                                <input type="number" class="js-spinner" size='2' id=element_id value=0>
+                            </td>             
+                        </tr>`
+                
+                    console.log('test');
+                    html += "test,"
+                }
+            } else {
+                html = `
+                    <tr>
+                        <td colspan="7" class="text-center bg-warning">Products not found. </td>
+                    </tr>`
+            }
             
+            $('#search_item_list').html(html);
+
         });
 
     });
+
+    // Handling search in the Modal Window
+    $("#products-table").on("click", ".js-update-book", loadForm);
+    
+    
+    
+    //$("#search_item_list").on("submit", ".js-book-update-form", saveForm);
+    
   
     $('#confirmDeleteModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
@@ -24,4 +56,4 @@ $(document).ready(function(){
         $("#confirm_delete_post").attr("href", data)
     });
   
-  });
+});
