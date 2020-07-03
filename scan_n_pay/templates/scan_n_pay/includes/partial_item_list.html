@@ -1,0 +1,29 @@
+{% for book in books %}
+  <tr>
+    <td>{{ book.id }}</td>
+    <td>{{ book.title }}</td>
+    <td>{{ book.author }}</td>
+    <td>{{ book.get_book_type_display }}</td>
+    <td>{{ book.publication_date }}</td>
+    <td>{{ book.pages }}</td>
+    <td>{{ book.price }}</td>
+    <td>
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-book"
+              data-url="{% url 'books:book_update' book.id %}"
+              title="Click to edit the book.">
+        <i class="fa fa-edit"></i>
+      </button>
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-book"
+              data-url="{% url 'books:book_delete' book.id %}"
+              title="Click to delete the book.">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="7" class="text-center bg-warning">No book</td>
+  </tr>
+{% endfor %}

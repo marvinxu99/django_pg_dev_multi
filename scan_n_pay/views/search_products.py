@@ -73,4 +73,6 @@ def search_products(request):
 
     print(data)
 
+    
+
     return JsonResponse(data)

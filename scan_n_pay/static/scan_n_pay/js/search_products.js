@@ -1,6 +1,8 @@
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();   
 
+
+    // Handle the modal window when 'Search Products" btton is pressed
     $('#searchProductsModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var data = button.data('whatever') // Extract info from data-* attributes
