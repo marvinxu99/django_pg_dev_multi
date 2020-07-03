@@ -24,13 +24,8 @@ def save_trans_data(request):
 
     trans_data = json.loads(request.body)
     num_trans_items = len(trans_data['allItems'])
-
-    print(trans_data)
-    print(f"there are { num_trans_items } items in the transdata.")
-    
-    # Validate data before saving..
-    # print(trans_data['totals'])
-    # print(trans_data['coupon'])
+    # print(trans_data)
+    # print(f"there are { num_trans_items } items in the transdata.")   
 
     # Save data
     try:
@@ -41,8 +36,6 @@ def save_trans_data(request):
         # 2. Save transaction items
         save_trans_items(trans_data, trans_event_pk)
 
-
-        ## te_rec.event_id = 
         resp = {
             'status': 'S',         # 'S': successful, 'F': Failed 
             'item_count': num_trans_items,
@@ -58,6 +51,7 @@ def save_trans_data(request):
     return JsonResponse(resp)
 
 
+@transaction.atomic
 def save_trans_event(trans_data):
     # Save data
     try:
@@ -115,7 +109,6 @@ def save_trans_items(trans_data, event_id):
 
     try:
         trans_items = []
-
         for i in range(len(items)):
             trans_items.append(
                 TransItem(
