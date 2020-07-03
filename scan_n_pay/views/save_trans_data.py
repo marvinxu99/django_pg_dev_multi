@@ -34,11 +34,11 @@ def save_trans_data(request):
 
     # Save data
     try:
-        # 1. Save transacrion event data
+        # 1. Save transacrion event
         trans_event_pk = save_trans_event(trans_data)
         print(trans_event_pk)
 
-        # 2. Save transaction items data
+        # 2. Save transaction items
         save_trans_items(trans_data, trans_event_pk)
 
 
