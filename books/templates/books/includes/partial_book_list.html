@@ -10,8 +10,15 @@
     <td>
       <button type="button"
               class="btn btn-warning btn-sm js-update-book"
-              data-url="{% url 'books:book_update' book.id %}">
-              <i class="fa fa-edit"></i> Edit
+              data-url="{% url 'books:book_update' book.id %}"
+              title="Click to edit the book.">
+        <i class="fa fa-edit"></i>
+      </button>
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-book"
+              data-url="{% url 'books:book_delete' book.id %}"
+              title="Click to delete the book.">
+        <i class="fa fa-trash" aria-hidden="true"></i>
       </button>
     </td>
   </tr>
