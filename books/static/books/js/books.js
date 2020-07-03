@@ -1,19 +1,21 @@
 $(function () {
-    $(".js-create-book").click(function () {
-        $.ajax({
-            url: '/books/create/',
-            type: 'get',
-            dataType: 'json',
-            beforeSend: function () {
-                $("#modal-book").modal("show");
-                },
-            success: function (data) {
-                $("#modal-book .modal-content").html(data.html_form);
-            }
-        });
-    });
 
-    $("#modal-book").on("submit", ".js-book-create-form", function () {
+    var loadForm = function () {
+        var btn = $(this);
+        $.ajax({
+          url: btn.attr("data-url"),
+          type: 'get',
+          dataType: 'json',
+          beforeSend: function () {
+            $("#modal-book").modal("show");
+          },
+          success: function (data) {
+            $("#modal-book .modal-content").html(data.html_form);
+          }
+        });
+    };
+
+    var saveForm = function () {
         // In this context, this refers to the element with class .js-book-create-form. 
         // Which is the element that fired the submit event. So when we select $(this) we are selecting the actual form.
         var form = $(this);
@@ -38,6 +40,13 @@ $(function () {
         // we are capturing the form submission event. So to avoid the browser to perform a full HTTP POST 
         // to the server, we cancel the default behavior returning false in the function
         return false;
-    });
-  
+    };
+
+    // Create book
+    $(".js-create-book").click(loadForm);
+    $("#modal-book").on("submit", ".js-book-create-form", saveForm);
+
+    // Update book
+    $("#book-table").on("click", ".js-update-book", loadForm);
+    $("#modal-book").on("submit", ".js-book-update-form", saveForm);
 });

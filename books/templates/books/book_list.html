@@ -4,7 +4,9 @@
   <h1 class="page-header">Books</h1>
   <!-- BUTTON TO TRIGGER THE ACTION -->
   <p>
-    <button type="button" class="btn btn-primary js-create-book">
+    <button type="button" 
+            class="btn btn-primary js-create-book"
+            data-url="{% url 'books:book_create' %}">
       <i class="fa fa-plus-circle" aria-hidden="true"></i>
       New book
     </button>

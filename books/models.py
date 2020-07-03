@@ -16,3 +16,6 @@ class Book(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
     pages = models.IntegerField(blank=True, null=True)
     book_type = models.PositiveSmallIntegerField(choices=BOOK_TYPES)
+
+    class Meta:
+        ordering = ['title']
