@@ -57,12 +57,10 @@
             <i class="fas fa-toolbox"></i> Tools
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="utilMenu">
-            <a class="dropdown-item" href="{% url 'utils:oxford' %}">
-              <i class="fa fa-search-plus" aria-hidden="true"></i> Oxford Dictionary
-            </a>
-            <a class="dropdown-item" href="{% url 'budget:budget_home' %}" target="_blank">
-              <i class="fa fa-balance-scale" aria-hidden="true"></i> Budgety
-            </a>
+            <a class="dropdown-item" href="{% url 'utils:solution_calculator' %}"><i class="fa fa-calculator" style="font-size:16px;color:red"></i> Solution Calculator</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'utils:oxford' %}"><i class="fa fa-search-plus" aria-hidden="true"></i> Oxford Dictionary</a>
+            <a class="dropdown-item" href="{% url 'budget:budget_home' %}" target="_blank"><i class="fa fa-balance-scale" aria-hidden="true"></i> Budgety</a>
             <a class="dropdown-item" href="{% url 'utils:calendar' %}"><i class="fa fa-calendar" aria-hidden="true"></i> Calendar</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{% url 'polls:email' %}"><i class="fa fa-envelope"></i> Email</a>

@@ -1,0 +1,19 @@
+body {
+    background-image: url(../img/whitey.png);
+    background-repeat:  no-repeat;
+    background-size: cover;
+    color: black;
+    height: 100%;
+    }    
+
+.number-field {
+    width: 50px;
+}
+.volume-field {
+    width: 70px;
+}
+
+.logo {
+    font-family: 'Clicker Script', cursive;
+  }
+  

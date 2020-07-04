@@ -1,66 +1,102 @@
 {% extends 'base_no_crumb.html' %}
+{% load static %}
 {% block title %}Solution Dilution Calculator{% endblock %}
 {% block stylesheet %}
-	<style>
-		.number-field {
-			width: 50px;
-		}
-		.volume-field {
-			width: 70px;
-		}
-	</style>
+<link href="https://fonts.googleapis.com/css?family=Clicker+Script" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'utils/css/solu-calculator.css' %}">
 {% endblock %}
-
 {% block content %}
-<h2 class="mt-5 text-center">Solution Dilution Calcultor:</h2>
 <div class="row justify-content-center">
-	<div class="card border-success w-50">
-		<div class="card-header">
-		<ul class="nav nav-tabs card-header-tabs">
-			<li class="nav-item"><a id="nav_2d" class="nav-link active" href="#" onclick=";">Scenario #1</a></li>
-			<li class="nav-item"><a id="nav_1d" class="nav-link" href="#" onclick=";">Scenario #2</a></li>
-		</ul>
-		</div>
-		<div class="card-body">
-		<!--
-		<h5 class="card-title">Winter's Barcode Generator</h5>
-		<p class="card-text">Type in some numbers and characters in the first field, and try it out.</p>
-		-->
-      <h3>(1) If you have the following solution:</h3>
-      <div>			
-        <table>
-        <tr>
-          <td>Concentration:</td>
-      <td><input type="text" class="number-field" id="sol1-concentration" /> %</td>
-        </tr>
-        <tr>
-          <td>Solution Volume:</td> 
-          <td><input type="text" class="number-field"  id="sol1-volume" /> mL</td>
-        </tr>
-        </table>
+  <div class="col-md-10 col-sm-12">
+    <div class="row mt-5">
+      <div class="col-6">
+        <h1 class="logo text-primary">
+          <strong>Solution Dilution Calcultor</strong>:
+        </h1>
       </div>
-      
-      <h3>(2) Target solution:</h3>
-      <div>
-        Target concentration: <input type="text" class="number-field" id="sol2-concentration" /> %
+      <div class="col-6 text-right mt-2">
+          <a href="{% url 'winter_univer' %}" target="_blank"> by winter</a>
       </div>
-      <div>
-        </p>
-      <h2>(3) Click to calculate:</h2>
-      <button class="button" id="calc-volume" onclick="calc_vloume();">Calculate Volume</button>
-      <div id="msg_warning" style="display:none;color:red;"></div>
-        </p>
+    </div>
+    <div class="card border-success">
+      <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item"><a id="fixed-stock-a" class="nav-link active" href="#">Scenario #1</a></li>
+        <li class="nav-item"><a id="fixed-diluted-a" class="nav-link" href="#">Scenario #2</a></li>
+      </ul>
       </div>
-      <div>
-        <h3>(4) You will need to add the following amount of water:</h3>
-        The Amount of water to add: <input type="number" id="sol2-volume" class="volume-field" disabled /> mL <br>
-        The total volume of the target solution will be <input type="number" id="sol2-total-volume" class="volume-field" disabled /> mL
+      <div class="card-body ml-3">
+        <!-- <h5 class="card-title">Winter's Barcode Generator</h5> -->
+        <div id="div-fixed-stock">
+          <p class="card-text">To dilute a fixed amount of stock solution to a certain concentration.</p>
+          <h5>(1) You have the following stock solution:</h5>
+          <div class="ml-3">			
+            <table>
+              <tr>
+                <td>Concentration:</td>
+                <td><input type="text" class="number-field" id="sol1-concentration" /> %</td>
+              </tr>
+              <tr>
+                <td>Solution Volume:</td> 
+                <td><input type="text" class="number-field"  id="sol1-volume" /> mL</td>
+              </tr>
+            </table>
+          </div>      
+          <h5 class="mt-3">(2) Diluted solution:</h5>
+          <div class="ml-3">
+            Target concentration: <input type="text" class="number-field" id="sol2-concentration" /> %
+          </div>
+          <h5 class="mt-3">(3) Click to calculate:</h5>
+          <div class="ml-3">
+            <button class="button" id="calc-volume">Calculate <i class="fa fa-calculator"></i></button>
+            <div id="msg_warning" style="display:none;color:red;"></div>
+          </div>
+          <h5 class="mt-3">(4) You will need to add the following amount of water:</h5>
+          <div class="ml-3">
+            <p>The amount of water needed to add to stock solution: <input type="number" id="sol2-volume" class="volume-field" disabled /> mL</p>
+            <p>The total volume of diluted solution will be: <input type="number" id="sol2-total-volume" class="volume-field" disabled /> mL</p>
+          </div>
+        </div>
+
+        <div id="div-fixed-diluted">
+          <p class="card-text">To make a certain amount of a diluted solution from a stock solution.</p>
+          <h5>(1) You have the following stock solution:</h5>
+          <div class="ml-3">
+            Concentration: <input type="text" class="number-field" id="sol1-concentration2" /> %
+          </div>
+          <h5 class="mt-3">(2) You want to make the following diluted solution:</h5>
+          <div class="ml-3">			
+            <table>
+              <tr>
+                <td>Concentration:</td>
+                <td><input type="text" class="number-field" id="sol2-concentration2" /> %</td>
+              </tr>
+              <tr>
+                <td>Solution Volume:</td> 
+                <td><input type="text" class="number-field"  id="sol2-volume2" /> mL</td>
+              </tr>
+            </table>
+          </div>      
+          <h5 class="mt-3">(3) Click to calculate:</h5>
+          <div class="ml-3">
+            <button class="button" id="calc-volume2">Calculate <i class="fa fa-calculator"></i></button>
+            <div id="msg_warning" style="display:none;color:red;"></div>
+          </div>
+          <h5 class="mt-3">(4) Follow the steps below to make the desired diluted solution:</h5>
+          <div class="ml-3">
+            <p>You will need <input type="number" id="sol1-volume1" class="volume-field" disabled /> mL of stock solution</p>
+            <p>you will need to add <input type="number" id="sol1-volume1" class="volume-field" disabled /> mL of water to your stock solution.</p>
+            <p>The total volume of the diluted solution will be: <input type="number" id="sol2-total-volume" class="volume-field" disabled /> mL</p>
+          </div>
+        </div>
       </div>
-		</div>
-	</div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 {% block javascript %}	
 <script type="text/javascript">
+$(document).ready(function(){
 	function calc_vloume() {
 		var sol1_p = parseFloat(document.getElementById("sol1-concentration").value);
 		var sol1_v = parseFloat(document.getElementById("sol1-volume").value);
@@ -83,7 +119,29 @@
 			warning.style.display = "none";
 
 		}
-	}	
+  }	
+  $("#calc-volume").on("click", calc_vloume);
+  
+  function showFixedStock(){
+    $('#div-fixed-stock').show();
+    $('#div-fixed-diluted').hide();
+    $('#fixed-stock-a').addClass('active');
+    $('#fixed-diluted-a').removeClass('active');
+  }
+  $("#fixed-stock-a").on("click", showFixedStock);
+  
+  function showFixedDiluted(){
+    $('#div-fixed-stock').hide();
+    $('#div-fixed-diluted').show();
+    $('#fixed-stock-a').removeClass('active');
+    $('#fixed-diluted-a').addClass('active');
+  }
+  $("#fixed-diluted-a").on("click", showFixedDiluted);
+
+  showFixedStock();
+});  
+
+
 </script>
 {% endblock %}
 	
