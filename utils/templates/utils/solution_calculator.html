@@ -119,7 +119,9 @@ $(document).ready(function(){
 
 			document.getElementById("volume_to_add").value = vol_to_add.toFixed(2);
 			document.getElementById("sol2-total-volume").value = sol2_v.toFixed(2);
+
 			warning = document.getElementById("msg_warning");
+      warning.innerHTML = '';
 			warning.style.display = "none";
 
 		}
@@ -145,7 +147,9 @@ $(document).ready(function(){
 			document.getElementById("sol1-volume2").value = sol1_v.toFixed(2);
 			document.getElementById("volume_to_add2").value = vol_to_add.toFixed(2);
 			document.getElementById("sol2-total-volume2").value = sol2_v.toFixed(2);
-			warning = document.getElementById("msg_warning")
+
+			warning = document.getElementById("msg_warning2")
+      warning.innerHTML='';
 			warning.style.display = "none";
 
 		}
