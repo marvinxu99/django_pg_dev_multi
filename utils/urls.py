@@ -12,5 +12,5 @@ urlpatterns = [
     path('robot/', views.robot_friends, name='robot_friends'),
     path('github/', views.github, name='github'),
     path('oxford/', views.oxford, name='oxford'),
-    path('solution-calc/', views.solution_calculator, name='solution_calculator'),
+    path('solu-calc/', views.solution_calculator, name='solution_calculator'),
 ]

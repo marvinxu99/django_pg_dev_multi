@@ -15,7 +15,7 @@
         </h1>
       </div>
       <div class="col-6 text-right mt-2">
-          <a href="{% url 'winter_univer' %}" target="_blank"> by winter</a>
+        made by <a href="{% url 'winter_univer' %}" target="_blank">winter</a> for Lady JJ.
       </div>
     </div>
     <div class="card border-success">
@@ -27,9 +27,10 @@
       </div>
       <div class="card-body ml-3">
         <!-- <h5 class="card-title">Winter's Barcode Generator</h5> -->
+        <!-- Scenario #1 -->
         <div id="div-fixed-stock">
           <p class="card-text">To dilute a fixed amount of stock solution to a certain concentration.</p>
-          <h5>(1) You have the following stock solution:</h5>
+          <h5 class="mt-3">(1) You have the following stock solution:</h5>
           <div class="ml-3">			
             <table>
               <tr>
@@ -37,7 +38,7 @@
                 <td><input type="text" class="number-field" id="sol1-concentration" /> %</td>
               </tr>
               <tr>
-                <td>Solution Volume:</td> 
+                <td>Solution volume:</td> 
                 <td><input type="text" class="number-field"  id="sol1-volume" /> mL</td>
               </tr>
             </table>
@@ -53,11 +54,11 @@
           </div>
           <h5 class="mt-3">(4) You will need to add the following amount of water:</h5>
           <div class="ml-3">
-            <p>The amount of water needed to add to stock solution: <input type="number" id="sol2-volume" class="volume-field" disabled /> mL</p>
+            <p>The amount of water needed to add to stock solution: <input type="number" id="volume_to_add" class="volume-field" disabled /> mL</p>
             <p>The total volume of diluted solution will be: <input type="number" id="sol2-total-volume" class="volume-field" disabled /> mL</p>
           </div>
         </div>
-
+        <!-- Scenario #2 -->
         <div id="div-fixed-diluted">
           <p class="card-text">To make a certain amount of a diluted solution from a stock solution.</p>
           <h5>(1) You have the following stock solution:</h5>
@@ -80,13 +81,13 @@
           <h5 class="mt-3">(3) Click to calculate:</h5>
           <div class="ml-3">
             <button class="button" id="calc-volume2">Calculate <i class="fa fa-calculator"></i></button>
-            <div id="msg_warning" style="display:none;color:red;"></div>
+            <div id="msg_warning2" style="display:none;color:red;"></div>
           </div>
           <h5 class="mt-3">(4) Follow the steps below to make the desired diluted solution:</h5>
           <div class="ml-3">
-            <p>You will need <input type="number" id="sol1-volume1" class="volume-field" disabled /> mL of stock solution</p>
-            <p>you will need to add <input type="number" id="sol1-volume1" class="volume-field" disabled /> mL of water to your stock solution.</p>
-            <p>The total volume of the diluted solution will be: <input type="number" id="sol2-total-volume" class="volume-field" disabled /> mL</p>
+            <p>You will need <input type="number" id="sol1-volume2" class="volume-field" disabled /> mL of stock solution</p>
+            <p>you will need to add <input type="number" id="volume_to_add2" class="volume-field" disabled /> mL of water to your stock solution.</p>
+            <p>The total volume of the diluted solution will be: <input type="number" id="sol2-total-volume2" class="volume-field" disabled /> mL</p>
           </div>
         </div>
       </div>
@@ -97,30 +98,59 @@
 {% block javascript %}	
 <script type="text/javascript">
 $(document).ready(function(){
-	function calc_vloume() {
+  
+  function calc_vloume() {
 		var sol1_p = parseFloat(document.getElementById("sol1-concentration").value);
 		var sol1_v = parseFloat(document.getElementById("sol1-volume").value);
 		var sol2_p = parseFloat(document.getElementById("sol2-concentration").value);
 		console.log(sol1_p, sol1_v, sol2_p);
 
-		if (!sol1_v || !sol1_v || !sol2_p) {
+		if (!sol1_p || !sol1_v || !sol2_p) {
 			var warning = document.getElementById("msg_warning")
 			warning.style.display = "block";
-			warning.innerHTML = "check the input fields. they must be numbers and cannot be empty."
+			warning.innerHTML = "**Check the input fields - they must be numbers and cannot be empty.**"
 			
 		} else {
 
-			var sol2_volume = (sol1_v * sol1_p)/sol2_p - sol1_v;
-			var sol2_total = Number(sol2_volume) + Number(sol1_v);
+			var vol_to_add = (sol1_v * sol1_p)/sol2_p - sol1_v;
+			var sol2_v = Number(vol_to_add) + Number(sol1_v);
 
-			document.getElementById("sol2-volume").value = sol2_volume.toFixed(2);
-			document.getElementById("sol2-total-volume").value = sol2_total.toFixed(2);
-			warning = document.getElementById("msg_warning")
+        console.log(vol_to_add, sol2_v);
+
+			document.getElementById("volume_to_add").value = vol_to_add.toFixed(2);
+			document.getElementById("sol2-total-volume").value = sol2_v.toFixed(2);
+			warning = document.getElementById("msg_warning");
 			warning.style.display = "none";
 
 		}
   }	
   $("#calc-volume").on("click", calc_vloume);
+
+  function calc_vloume2() {
+		var sol1_p = parseFloat(document.getElementById("sol1-concentration2").value);
+		var sol2_p = parseFloat(document.getElementById("sol2-concentration2").value);
+		var sol2_v = parseFloat(document.getElementById("sol2-volume2").value);
+		console.log(sol1_p, sol2_p, sol2_v);
+
+		if (!sol1_p || !sol2_p || !sol2_v) {
+			var warning = document.getElementById("msg_warning2")
+			warning.style.display = "block";
+			warning.innerHTML = "**Check the input fields - they must be numbers and cannot be empty.**"
+			
+		} else {
+
+			var sol1_v = (sol2_v * sol2_p)/sol1_p;
+      var vol_to_add = Number(sol2_v) - Number(sol1_v);
+      
+			document.getElementById("sol1-volume2").value = sol1_v.toFixed(2);
+			document.getElementById("volume_to_add2").value = vol_to_add.toFixed(2);
+			document.getElementById("sol2-total-volume2").value = sol2_v.toFixed(2);
+			warning = document.getElementById("msg_warning")
+			warning.style.display = "none";
+
+		}
+  }	
+  $("#calc-volume2").on("click", calc_vloume2);
   
   function showFixedStock(){
     $('#div-fixed-stock').show();
@@ -139,8 +169,8 @@ $(document).ready(function(){
   $("#fixed-diluted-a").on("click", showFixedDiluted);
 
   showFixedStock();
-});  
 
+});  
 
 </script>
 {% endblock %}
