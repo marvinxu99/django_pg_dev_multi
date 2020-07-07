@@ -1,23 +1,23 @@
 {% extends "itrac/base_itrac.html" %} 
 {% block subcontent %}
-        <div class="row">
-            <h1>Issues</h1>
-        </div>
+    <div class="row">
+        <h1>Issues</h1>
+    </div>
 
-        <div class="row">
-            <div id="completed_daily_container" class="col s12 m4"></div>
-            <div id="completed_weekly_container" class="col s12 m4"></div>
-            <div id="completed_monthly_container" class="col s12 m4"></div>
-        </div>
-        <div class="row">
-            <div id="bug_upvotes_container" class="col s12 m6" data-url="{% url 'itrac:get_bug_upvotes_json' %}"></div>
-            <div id="feature_upvotes_container" class="col s12 m6" data-url="{% url 'itrac:get_feature_upvotes_json' %}"></div>
-        </div>
+    <div class="row">
+        <div id="completed_daily_container" class="col s12 m4"></div>
+        <div id="completed_weekly_container" class="col s12 m4"></div>
+        <div id="completed_monthly_container" class="col s12 m4"></div>
+    </div>
+    <div class="row">
+        <div id="bug_upvotes_container" class="col s12 m6" data-url="{% url 'itrac:get_bug_upvotes_json' %}"></div>
+        <div id="feature_upvotes_container" class="col s12 m6" data-url="{% url 'itrac:get_feature_upvotes_json' %}"></div>
+    </div>
 
-        <div id="issue_type_container" data-url="{% url 'itrac:get_issue_type_json' %}"></div>
-        <div id="status_container" data-url="{% url 'itrac:get_status_json' %}"></div>
+    <div id="issue_type_container" data-url="{% url 'itrac:get_issue_type_json' %}"></div>
+    <div id="status_container" data-url="{% url 'itrac:get_status_json' %}"></div>
 
-      <script>
+    <script>
         $.ajax({
           url: $("#issue_type_container").attr("data-url"),
           dataType: 'json',
@@ -25,7 +25,7 @@
             Highcharts.chart("issue_type_container", data);
           }
         });
-       $.ajax({
+        $.ajax({
           url: $("#status_container").attr("data-url"),
           dataType: 'json',
           success: function (data) {
@@ -46,6 +46,7 @@
             Highcharts.chart("feature_upvotes_container", data);
           }
         });
+        
         $(document).ready(function() {
 
             var chart = new Highcharts.Chart({

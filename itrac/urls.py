@@ -19,14 +19,17 @@ urlpatterns = [
     path('<int:issue_pk>/<int:pk>/edit/', create_or_edit_comment, name='edit_comment'),
     path('<int:issue_pk>/<int:comment_pk>/new/', create_or_edit_reply, name='new_reply'),
     path('<int:issue_pk>/<int:comment_pk>/<int:pk>/edit/', create_or_edit_reply, name='edit_reply'),
+    
     path('search/', search, name='search'),
     path('do_search/', do_search, name='do_search'),
     path('do_search_my/', do_search_my, name='do_search_my'),
+    
     path('report/get_issue_type_json/', get_issue_type_json, name='get_issue_type_json'),
     path('report/get_status_json/', get_status_json, name='get_status_json'),
     path('report/get_bug_upvotes_json/', get_bug_upvotes_json, name='get_bug_upvotes_json'),
     path('report/get_feature_upvotes_json/', get_feature_upvotes_json, name='get_feature_upvotes_json'),
     path('report/', report, name='report'),
+
     path('<int:pk>/upvote/', upvote, name='upvote'),
     path('<int:pk>/save_issue/', save_issue, name='save_issue'),
     path('<int:pk>/delete_saved_issue/', delete_saved_issue, name='delete_saved_issue'),
