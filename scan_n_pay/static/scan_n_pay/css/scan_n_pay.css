@@ -94,3 +94,9 @@ tbody tr:nth-child(even) {
 .total-price {
   background-color: lightskyblue;
 }
+.modal_description {
+  width: 50%;
+}
+.modal_quantity {
+  width: 20%;
+}

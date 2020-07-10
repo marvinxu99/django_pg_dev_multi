@@ -1,17 +1,15 @@
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();   
 
-
     // Handle the modal window when 'Search Products" btton is pressed
     $('#searchProductsModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var data = button.data('whatever') // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        //var modal = $(this)
-        //modal.find('.modal-title').text('TEST:' + recipient)
-        //$("#detail_img").attr("src", data)
-        $.get('products/', function(data, status){
+
+        $('#search_item_list').html(`<div class="spinner-border" role="status">
+                 <span class="sr-only">Loading...</span> </div>`);
+
+        $.get('products/', function(data) {
             console.log(data)
             console.log(data.itemsCount);
             let html = "";
@@ -19,10 +17,10 @@ $(document).ready(function(){
                 for (var i=0; i<data.itemsCount; i++) {
                     element_id = `prod-${i}`
                     html += `<tr>
-                            <td>${ data.items[i].description }</td>
+                            <td style="width:50%">${ data.items[i].description }</td>
                             <td class="text-right">${ data.items[i].price }</td>
-                            <td class="text-center">
-                                <input type="number" class="js-spinner" size='2' id=element_id value=0>
+                            <td class="text-center" style="width:30%">
+                                <input type="number" class="js-spinner" style="width:40px;" id=element_id value=0>
                             </td>             
                         </tr>`
                 
@@ -42,8 +40,8 @@ $(document).ready(function(){
 
     });
 
-    // Handling search in the Modal Window
-    $("#products-table").on("click", ".js-update-book", loadForm);
+    // // Handling search in the Modal Window
+    // $("#products-table").on("click", ".js-update-book", loadForm);
     
     
     
