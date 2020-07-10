@@ -259,12 +259,12 @@ class UIController {
 // global variable to hol transaction data
 const transData = new TransactionData();
 
-// To retrieve item information
+// To retrieve item information 
 async function getItemInfo(barcode) {
     try {
         const result = await fetch(`get_item/?barcode=${barcode}`);
         const data = await result.json();
-        console.log(data);
+        console.log("data=", data);
         if(data.validInd === 1) {
             
             // 1. Add the item data to TransData
@@ -291,9 +291,12 @@ async function getItemInfo(barcode) {
 }
 
 function getItemInfoByCode() {
-    const barcode =  document.getElementById(UIController.DOMstrings.barcodeInput).value;
+    const barcode_input = document.getElementById(UIController.DOMstrings.barcodeInput);
+    const barcode = barcode_input.value;
     if (barcode.length > 0) {
         getItemInfo(barcode);
+        
+        barcode_input.focus();
     }
 }
 
@@ -305,7 +308,7 @@ const setupEventListeners = () => {
     const barcode_input = document.getElementById(UIController.DOMstrings.barcodeInput)
     barcode_input.addEventListener('keypress', function(event) {   
         if((event.keyCode === 13) || (event.which === 13)      /* Enter key */
-            || (event.keyCode === 32) || (event.which === 32))   /* or space key */
+            || (event.keyCode === 9) || (event.which === 9))   /* or Tab key */
         {  
             event.preventDefault();
             getItemInfoByCode();
@@ -314,7 +317,8 @@ const setupEventListeners = () => {
     barcode_input.addEventListener('blur', function(event) {   
         event.preventDefault();
         getItemInfoByCode();
-        barcode_input.focus();
+
+        return false;
     })
 
     // When the Send Data! button is clicked

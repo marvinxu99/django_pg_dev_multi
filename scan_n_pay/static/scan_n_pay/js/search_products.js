@@ -1,11 +1,12 @@
-$(document).ready(function(){
+//$(document).ready(function(){
     $('[data-toggle="popover"]').popover();   
-
+    
     // Handle the modal window when 'Search Products" btton is pressed
     $('#searchProductsModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var data = button.data('whatever') // Extract info from data-* attributes
 
+        // Loading spinner
         $('#search_item_list').html(`<div class="spinner-border" role="status">
                  <span class="sr-only">Loading...</span> </div>`);
 
@@ -32,26 +33,47 @@ $(document).ready(function(){
                     <tr>
                         <td colspan="7" class="text-center bg-warning">Products not found. </td>
                     </tr>`
-            }
-            
+            }            
             $('#search_item_list').html(html);
-
         });
-
     });
 
-    // // Handling search in the Modal Window
-    // $("#products-table").on("click", ".js-update-book", loadForm);
+    // Handling "Select Items" in the Modal Window
+    //const select_btn = document.getElementById("select-items-btn");
+    //select_btn.onclick = function() { console.log("clicked"); };
+    $('#select-items-btn').click(function(){
+        console.log('clicked');
+
+        $("#searchProductsModal").modal("hide");  // <-- Close the modal dialogue
+
+        data= {
+            description: "vancomycin 1 g inj",
+            itemId: 1,
+            itemIdentId: 1,
+            itemPriceId: 1,
+            price: 10.24,
+            validInd: 1,
+        };
+        // 1. Add the item data to TransData
+        const newItem = transData.addItem(data);
+        console.log(newItem);
+        console.log(transData);       
+
+        // 2. add the item to UI display
+        UIController.addListItem(newItem, transData.totals);
+
+        // 3. Reset the barcode input box
+        UIController.clearBarcodeField();
+        
+        return false;
+    })
     
     
-    
-    //$("#search_item_list").on("submit", ".js-book-update-form", saveForm);
-    
+      
+    // $('#confirmDeleteModal').on('show.bs.modal', function (event) {
+    //     var button = $(event.relatedTarget) // Button that triggered the modal
+    //     var data = button.data('whatever') // Extract info from data-* attributes
+    //     $("#confirm_delete_post").attr("href", data)
+    // });
   
-    $('#confirmDeleteModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var data = button.data('whatever') // Extract info from data-* attributes
-        $("#confirm_delete_post").attr("href", data)
-    });
-  
-});
+//});
