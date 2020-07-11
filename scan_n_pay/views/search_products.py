@@ -56,6 +56,7 @@ def search_products(request):
 
     for item in qs_items: 
         item_details = {}
+        item_details['itemId'] = item.item_id 
 
         # ItemIdentifier
         qs_identifier = item.Identifiers.filter(
@@ -75,6 +76,5 @@ def search_products(request):
         data['items'].append(item_details)
 
     print(data)
-    
 
     return JsonResponse(data)

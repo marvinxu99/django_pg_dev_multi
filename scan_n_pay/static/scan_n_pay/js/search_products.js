@@ -1,80 +1,123 @@
 //$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();   
+$('[data-toggle="popover"]').popover();   
 
-    document.getElementById("barcode_input").focus();   
-    
-    // Handle the modal window when 'Search Products" btton is pressed
-    $('#searchProductsModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var data = button.data('whatever') // Extract info from data-* attributes
+// Set the focus to barcode input once loaded.
+document.getElementById("barcode_input").focus();   
 
-        // Loading spinner
-        $('#search_item_list').html(`<div class="spinner-border" role="status">
-                 <span class="sr-only">Loading...</span> </div>`);
+// To hold all the selecte items form Product Search window
+class ProductItems {
+    constructor() {
+        this.data = [];
+        /* data format:
+            {
+                itemId: 1
+                itemIdentId: 1,
+                description: 'xxxx',
+                itemPriceId: 1, 
+                price: '10.24',
+                quantity: 2
+            }
+        */
+    }
 
-        // Request all product info from server
-        $.get('products/', function(data) {
-            console.log(data)
-            console.log(data.itemsCount);
-            let html = "";
-            if (data.itemsCount > 0) {
-                for (var i=0; i<data.itemsCount; i++) {
-                    element_id = `prod-${i}`
-                    html += `<tr>
-                            <td style="width:50%">${ data.items[i].description }</td>
-                            <td class="text-right">${ data.items[i].price }</td>
-                            <td class="text-center" style="width:30%">
-                                <input type="number" class="js-spinner" style="width:40px;" id=element_id value=0>
-                            </td>             
-                        </tr>`
-                
-                    console.log('test');
-                    html += "test,"
-                }
-            } else {
-                html = `
-                    <tr>
-                        <td colspan="7" class="text-center bg-warning">Products not found. </td>
-                    </tr>`
-            }            
-            $('#search_item_list').html(html);
-        });
-    });
+    updateQuantity(id, qty) {
+        this.data[id].quantity = qty;
+    }
 
-    // Handling "Select Items" in the Modal Window
-    //const select_btn = document.getElementById("select-items-btn");
-    //select_btn.onclick = function() { console.log("clicked"); };
-    $('#select-items-btn').click(function(){
-        console.log('clicked');
+    updatePrice(id, price) {
+        this.data[id].price = price;
+    }
 
-        $("#searchProductsModal").modal("hide");  // <-- Close the modal dialogue
+    resetData() {
+        this.data = [];
+    }
 
-        data= {
-            description: "vancomycin 1 g inj",
-            itemId: 1,
-            itemIdentId: 1,
-            itemPriceId: 1,
-            price: 10.24,
-            validInd: 1,
-        };
-        // 1. Add the item data to TransData
-        const newItem = transData.addItem(data);
-        console.log(newItem);
-        console.log(transData);       
+}
 
-        // 2. add the item to UI display
-        UIController.addListItem(newItem, transData.totals);
+const selectedItems = new ProductItems();
 
-        // 3. Reset the barcode input box
-        UIController.clearBarcodeField();
+// Handle the modal window when 'Search Products" btton is pressed
+$('#searchProductsModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var data = button.data('whatever') // Extract info from data-* attributes
+
+    // Loading spinner...
+    $('#search_item_list').html(`<div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span> </div>`);
+
+    // Request all product info from server
+    $.get('products/', function(data) {
         
-        return false;
-    })
-          
-    // $('#confirmDeleteModal').on('show.bs.modal', function (event) {
-    //     var button = $(event.relatedTarget) // Button that triggered the modal
-    //     var data = button.data('whatever') // Extract info from data-* attributes
-    //     $("#confirm_delete_post").attr("href", data)
-    // });
+        // Store data into the global variable
+        selectedItems.data = data.items
+        console.log(selectedItems.data)
+
+        let html = "";
+        if (data.itemsCount > 0) {
+            for (var i=0; i<data.itemsCount; i++) {
+                
+                element_id = `prod-${i}`
+                html += `
+                    <tr>
+                        <td style="width:50%">${ data.items[i].description }</td>
+                        <td class="text-right">${ data.items[i].price }</td>
+                        <td class="text-center" style="width:30%">
+                            <input type="number" class="js-spinner prod-quantity_input" style="width:50px;" id=${ element_id } value=0 min="0", max="20" >
+                        </td>             
+                    </tr>`
+            }
+        } else {
+            html = `<tr><td colspan="7" class="text-center bg-warning">Products not found. </td></tr>`
+        }            
+        $('#search_item_list').html(html);
+        
+    });
+});
+
+// Handling "Select Items" in the Modal Window
+//const select_btn = document.getElementById("select-items-btn");
+//select_btn.onclick = function() { console.log("clicked"); };
+$('#select-items-btn').click(function(){
+
+    $("#searchProductsModal").modal("hide");  // <-- Close the modal dialogue
+   
+    quantity_list = document.getElementsByClassName("prod-quantity_input");
+    console.log(quantity_list.length)
+
+    for (let i=0; i<quantity_list.length; i++) {
+        qty_input = quantity_list[i];       
+        splitId = qty_input.getAttribute('id').split('-');
+        id = parseInt(splitId[1]);
+
+        selectedItems.updateQuantity(id, parseInt(qty_input.value));
+
+        // To ensure the correct data type for price
+        selectedItems.updatePrice(id, parseFloat(selectedItems.data[id].price));
+    }
+    console.log(selectedItems.data);
+
+    for (let i=0; i<selectedItems.data.length; i++) {
+        item = selectedItems.data[i];
+
+        if(item.quantity > 0) {
+            // 1. Add the item data to TransData
+            const newItem = transData.addItem(item, item.quantity);
+            console.log(newItem);
+
+            // 2. add the item to UI display
+            UIController.addListItem(newItem, transData.totals);
+
+            // 3. Reset the barcode input box
+            UIController.clearBarcodeField();
+        }
+    }
+    console.log(transData);
+})
+        
+// $('#confirmDeleteModal').on('show.bs.modal', function (event) {
+//     var button = $(event.relatedTarget) // Button that triggered the modal
+//     var data = button.data('whatever') // Extract info from data-* attributes
+//     $("#confirm_delete_post").attr("href", data)
+// });
   
 //});
