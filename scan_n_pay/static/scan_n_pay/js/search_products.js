@@ -1,5 +1,7 @@
 //$(document).ready(function(){
     $('[data-toggle="popover"]').popover();   
+
+    document.getElementById("barcode_input").focus();   
     
     // Handle the modal window when 'Search Products" btton is pressed
     $('#searchProductsModal').on('show.bs.modal', function (event) {
@@ -10,6 +12,7 @@
         $('#search_item_list').html(`<div class="spinner-border" role="status">
                  <span class="sr-only">Loading...</span> </div>`);
 
+        // Request all product info from server
         $.get('products/', function(data) {
             console.log(data)
             console.log(data.itemsCount);
@@ -67,9 +70,7 @@
         
         return false;
     })
-    
-    
-      
+          
     // $('#confirmDeleteModal').on('show.bs.modal', function (event) {
     //     var button = $(event.relatedTarget) // Button that triggered the modal
     //     var data = button.data('whatever') // Extract info from data-* attributes
