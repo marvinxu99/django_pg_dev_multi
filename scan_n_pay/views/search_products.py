@@ -4,13 +4,15 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.apps import apps
 from django.core.exceptions import ObjectDoesNotExist
-from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+
 
 from core.models import Item, ItemBarcode, ItemIdentifier, ItemPrice
 from core.constants import ITEM_BARCODE_TYPE, ITEM_IDENTIFIER_TYPE, ITEM_PRICE_TYPE
 from core.constants import ITEM_TYPE
 
 
+@login_required
 def search_products(request):
 
     data = {
@@ -26,7 +28,7 @@ def search_products(request):
         ],
     }
 
-    # item types to search for
+    # Item types to search for
     search_item_types = [
         ITEM_TYPE.GENERAL,
         ITEM_TYPE.PRODUCE,
@@ -73,7 +75,6 @@ def search_products(request):
         data['items'].append(item_details)
 
     print(data)
-
     
 
     return JsonResponse(data)

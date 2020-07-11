@@ -366,13 +366,16 @@ function sendTransData() {
 // data: should be an object of (k,v)'s 
 async function sendData(url, data) {
 
+    let csrftoken = getCookie('csrftoken');
+
     const rawResponse = await fetch(url, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
+      headers: { "X-CSRFToken": csrftoken },
     });
 
     const resp = await rawResponse.json();

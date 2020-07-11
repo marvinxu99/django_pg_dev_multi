@@ -62,10 +62,8 @@ async function postAndPay() {
 // Post transactionn data to server after payment is done 
 // data: should be an object of (k,v)'s 
 async function postTransData() {
-
     const URL_POST = 'transdata/';
-
-    console.log("sending transData...")
+    let csrftoken = getCookie('csrftoken');
 
     const response = await fetch(URL_POST, {
             method: 'POST',
@@ -73,7 +71,8 @@ async function postTransData() {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
         },
-        body: JSON.stringify(transData)
+        body: JSON.stringify(transData),
+        headers: { "X-CSRFToken": csrftoken },
     });
 
     // Status data from server

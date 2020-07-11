@@ -5,7 +5,6 @@ from . import views
 app_name = 'scan_n_pay'
 urlpatterns = [
     path('scan/', views.scan_n_pay, name='scan_n_pay'),
-    path('scan/get_item/<str:barcode>/', views.get_item, name='get_item'),
     path('scan/get_item/', views.get_item, name='get_item'),
     path('scan/transdata/', views.save_trans_data, name='trans_data'),
     path('scan/products/', views.search_products, name='search-products'),

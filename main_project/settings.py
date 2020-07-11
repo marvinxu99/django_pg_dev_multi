@@ -16,6 +16,9 @@ import django_heroku
 
 
 AUTH_USER_MODEL = 'accounts.User'
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -198,10 +201,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, 'uploaded_files_temp')
 GENERATED_BARCODE__DIR = os.path.join(BASE_DIR, 'generated_codes')
-
-LOGOUT_REDIRECT_URL = 'home'
-LOGIN_REDIRECT_URL = 'home'
-LOGIN_URL = 'accounts:login'
 
 STRIPE_PUBLISHABLE_KEY = 'pk_test_LBnp367Zb5XklDLhtXFg1cgr00SIM9ArGv'
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')

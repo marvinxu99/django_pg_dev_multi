@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.http.response import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from django.apps import apps
 from django.utils import timezone
@@ -14,22 +14,23 @@ from core.constants import ENTRY_MODE, RESULT_STATUS, TRANSACTION_TYPE
 from core.models import TransEvent, TransItem
 
 
-@csrf_exempt
 @login_required
+# @csrf_exempt
 @transaction.atomic
 def save_trans_data(request):
-    # accept POST
+    ''' 
+    (1) Save transaction event + (2) save the items included in the transaction
+    '''
+    # Only accept POST
     if request.method != 'POST':
         return { 'status': 'F' }
 
     trans_data = json.loads(request.body)
     num_trans_items = len(trans_data['allItems'])
-    # print(trans_data)
-    # print(f"there are { num_trans_items } items in the transdata.")   
 
     # Save data
     try:
-        # 1. Save transacrion event
+        # 1. Save transaction event
         trans_event_pk = save_trans_event(trans_data)
         print(trans_event_pk)
 

@@ -4,13 +4,16 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.apps import apps
 from django.core.exceptions import ObjectDoesNotExist
-from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+
 
 from core.models import ItemBarcode, ItemIdentifier, ItemPrice
 from core.constants import ITEM_BARCODE_TYPE, ITEM_IDENTIFIER_TYPE, ITEM_PRICE_TYPE
 
 
 # Home of scan_n_pay app
+@login_required
 def scan_n_pay(request): 
     # # print("app: " + apps.get_app_config('scan_n_pay').name)
     # for app in apps.get_app_configs():
@@ -34,6 +37,7 @@ def scan_n_pay(request):
 
 # Return the item information as per Barcode
 # for urls like "/scan/?barcode=12345"
+@login_required
 def get_item(request): 
 
     barcode = request.GET.get('barcode') 
@@ -85,21 +89,6 @@ def get_item(request):
         data['validInd'] = 0
 
 
-    return JsonResponse(data)
-
-# Return the item information as per Barcode
-# for url like "/scan/123456/"
-def get_item_str(request, barcode): 
-
-    if barcode:
-        print('barcode: ' + barcode)
-    
-    data = {
-        'name': 'Winter Winter',
-        'location': 'Vancouver',
-        'is_active': True,
-        'count': 28
-    }
     return JsonResponse(data)
 
 
