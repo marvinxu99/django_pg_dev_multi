@@ -23,13 +23,13 @@ class Item {
     // For now - 
     calcFinalPrice() {
         if(this.discountType === 1) {         // amount off 
-            this.discountAmount = this.discount * this.quantity;
+            this.discountAmount = Math.round((this.discount * this.quantity + Number.EPSILON) * 100) / 100;
         } 
         else if (this.discountType === 2) {     /* percentage off */
-            this.discountAmount = (this.price * (1 - this.discount/100)) * this.quantity;
+            this.discountAmount = Math.round(((this.price * (1 - this.discount/100)) * this.quantity + Number.EPSILON) * 100) / 100;
         }
 
-        this.priceFinal = this.price * this.quantity - this.discountAmount;
+        this.priceFinal = Math.round(((this.price * this.quantity - this.discountAmount) + Number.EPSILON) *100) / 100;
     }
 }
  
@@ -152,13 +152,20 @@ class UIController {
     static addListItem(item, totals) {      
         // Create HTML string        
         let html = `<td class="item-name" onmouseover="mouseOverListItem(event);" onmouseleave="mouseLeaveListItem(event);">
-                        <button class="btn btn-sm" id="btn-${item.id}" style="display:none">&times;</button>
+                        <button 
+                            class="btn btn-sm btn-danger" 
+                            id="btn-${item.id}" 
+                            style="display:none"
+                            title="Click to delete this item"
+                        >
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
                         ${item.description}
                     </td>
-                    <td class="item-original-price">${item.price}</td>
+                    <td class="item-original-price">${item.price.toFixed(2)}</td>
                     <td class="item-quantity">${item.quantity}</td>
-                    <td class="item-discount">${item.discountAmount}</td>
-                    <td class="item-price">${item.priceFinal}</td>`
+                    <td class="item-discount">${item.discountAmount.toFixed(2)}</td>
+                    <td class="item-price">${item.priceFinal.toFixed(2)}</td>`
     
         // Insert the HTML into the DOM
         const listRef = document.getElementById(this.DOMstrings.itemsList);
