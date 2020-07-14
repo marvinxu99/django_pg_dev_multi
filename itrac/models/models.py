@@ -13,12 +13,12 @@ class Issue(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     is_resolved = models.BooleanField(default=False)
     resolved_date = models.DateTimeField(blank=True, null=True)
-    upvotes = models.IntegerField(default=0)
+    upvotes = models.IntegerField('likes', default=0)
     tag = models.CharField(max_length=30, blank=True, null=True)
     image = models.ImageField(upload_to='img', blank=True, null=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='issue_author', on_delete=models.CASCADE)
     assignee = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='issue_assignee', null=True, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
     # Encapsulation, we meet again.
     class Issue_Types(ChoiceEnum):
@@ -29,7 +29,7 @@ class Issue(models.Model):
     class Statuses(ChoiceEnum):
         OPEN = 'Open'
         INVESTIGATE = 'Investigate'
-        TRRIAGE ="Await Approval"
+        TRIAGE ="Await Approval"
         BUILD_IN_PROGRESS = 'Build in progress'
         VALIDATE = 'Validate'
         COMPLETE = 'Complete'
