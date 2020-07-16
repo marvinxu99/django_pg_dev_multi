@@ -12,15 +12,14 @@
     <p>{{ issue_count }}</p>
     <form action="{% url 'itrac:do_search' %}" method="get">
         <input type="text" name="q">
-        <button class="btn waves-effect waves-light"  type="submit"><i class="material-icons right">search</i>Search</button>
+        <button class="btn waves-effect waves-light" type="submit">Search</button>
     </form>
   </div>
   <ul class="collapsible popout">
   {% for issue in issues %}
     <li>
-      <div class="collapsible-header"><i class="material-icons">expand_more</i>{{ issue.title }}
-      </div>
-      <div class="collapsible-body">
+      <a href="#issue{{ forloop.counter }}" data-toggle="collapse">{{ issue.title }}</a>
+      <div id="issue{{ forloop.counter }}" class="collapse">
           <a class="btn-floating btn-large" href="{% url 'itrac:issue_detail' issue.id %}"><i class="material-icons">navigate_next</i></a>
           <p><span><b>Created: </b>{{ issue.created_date }}</span></p>
           <p><span><b>Tag: </b>{{ issue.tag }}</span></p>
@@ -31,6 +30,8 @@
           <p><span><b>Assigned to: </b>{{ issue.assignee }}</span></p>
       </div>
     </li>
+  {% empty %}
+    No issue has been created yet.
   {% endfor %}
   </ul>
   {% if issues.has_other_pages %}

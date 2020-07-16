@@ -266,6 +266,7 @@ def create_issue(request):
             return redirect('itrac:issue_detail', issue.pk)
     else:
         form = IssueForm()
+        
     return render(request, 'itrac/issueform.html', {'form': form})
 
 
