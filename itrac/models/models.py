@@ -1,7 +1,26 @@
 from django.db import models
 from django.utils import timezone
-from .utils import ChoiceEnum
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _ 
+
+#from django.apps import apps
+#MyModel1 = apps.get_model('app1', 'MyModel1')
+
+class ISSUE_TYPE(models.TextChoices):
+    BREAK_FIX =     '01', _('Break/fix')
+    FEATURE =       '02', _('New feature')
+    OPTIMIZATION =  '03', _('Optimization')
+
+
+class ISSUE_STATUS(models.TextChoices):
+    OPEN =          '01', _('Open')
+    INVESTIGATE =   '02', _('Investigate')
+    TRIAGE =        '03', _('Await approval')
+    BUILD_IN_PROGRESS = '04', _('Build in progress')
+    VALIDATING =    '05', _('Validate in progress')
+    COMPLETE =      '06', _('Complete')
+    CLOSED =        '07', _('Closed')
+
 
 class Issue(models.Model):
     """
@@ -9,34 +28,21 @@ class Issue(models.Model):
     """
     title = models.CharField(max_length=200)
     description = models.TextField()
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
     is_resolved = models.BooleanField(default=False)
     resolved_date = models.DateTimeField(blank=True, null=True)
     upvotes = models.IntegerField('likes', default=0)
     tag = models.CharField(max_length=30, blank=True, null=True)
     image = models.ImageField(upload_to='img', blank=True, null=True)
+
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='issue_author', on_delete=models.CASCADE)
     assignee = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='issue_assignee', null=True, on_delete=models.CASCADE)
+
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
-    # Encapsulation, we meet again.
-    class Issue_Types(ChoiceEnum):
-        BREAK_FIX = 'Break/fix'
-        FEATURE = 'New feature'
-        OPTIMIZATION ='Optimization'
-
-    class Statuses(ChoiceEnum):
-        OPEN = 'Open'
-        INVESTIGATE = 'Investigate'
-        TRIAGE ="Await Approval"
-        BUILD_IN_PROGRESS = 'Build in progress'
-        VALIDATE = 'Validate'
-        COMPLETE = 'Complete'
-        CLOSED = 'Closed'
-
-    issue_type = models.CharField(max_length=20, choices=Issue_Types.choices(), default='BREAK_FIX')
-    status = models.CharField(max_length=20, choices=Statuses.choices(), default='TODO')
+    issue_type = models.CharField(max_length=2, choices=ISSUE_TYPE.choices, default=ISSUE_TYPE.BREAK_FIX)
+    status = models.CharField(max_length=2, choices=ISSUE_STATUS.choices, default=ISSUE_STATUS.OPEN)
 
 
     def __unicode__(self):
