@@ -11,9 +11,9 @@ from django.http import JsonResponse
 from django.db.models import Count, Q
 from django.core import serializers
 
-from .models import Issue, Comment, Reply, SavedIssue
-from .forms import IssueForm, CommentForm, ReplyForm
-from .filters import IssueFilter
+from ..models import Issue, Comment, Reply, SavedIssue
+from ..forms import IssueForm, CommentForm, ReplyForm
+from ..filters import IssueFilter
 
 
 def report(request):
