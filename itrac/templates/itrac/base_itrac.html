@@ -92,11 +92,12 @@
   </div>
 </nav>
 {% endblock %}
-{% block breadcrumb %}
-<li class="breadcrumb-item"><a href="#">Add New Issue</a></li>
-<li class="breadcrumb-item">
-  <a href="{% url 'itrac:new_issue' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add New Issue</a>
-</li>
+{% block announcement %}
+<div id="announcement-banner" class="mx-3 my-1 d-flex align-items-center" style="background-color: powderblue;font-size: 90%; height:6vh;">
+	<div class="ml-3"> 
+	  If you have any questions related to Issue Tracker, please submit your request to the <b><a href="#" target="_blank"> Winn Service Portal</a></b>.
+	</div> 
+</div>
 {% endblock %}
 
 {% block content %}

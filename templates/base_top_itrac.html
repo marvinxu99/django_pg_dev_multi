@@ -15,11 +15,9 @@
       {% block topnav %}
       {% endblock %}
       <div>
-        <ol class="breadcrumb my-1">
-            {% block breadcrumb %}
-            {% endblock %}
-        </ol>
-      </div>  
+        {% block announcement %}
+        {% endblock %}
+      </div>
       {% block content %}
       {% endblock %}
       {% include "winn_footer.html" %}
