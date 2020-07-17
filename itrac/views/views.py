@@ -32,31 +32,21 @@ def report(request):
 
     return render(request, "itrac/report.html", {'completed_daily': str(completed_daily), 'completed_weekly': str(completed_weekly), 'completed_monthly': str(completed_monthly)})
 
-
-def get_issues(request):
+@login_required
+def issues_assigned_to_me(request):
     """
     Create a view that will return a list
-    of Issues render them to the 'issues.html' template
+    of Issues assigned to the current user.
     """
     
-    issue_list = Issue.objects.all().order_by('-created_date')
-
-    # Pagination settings
-    page = request.GET.get('page', 1)
-    paginator = Paginator(issue_list, 10)
+    issues = Issue.objects.filter(assignee=request.user).order_by('-created_date')
     
-    try:
-        issues = paginator.page(page)
-        
-    except PageNotAnInteger:
-        
-        issues = paginator.page(1)
-        
-    except EmptyPage:
-        
-        issues = paginator.page(paginator.num_pages)
+    context = {
+            'issues': issues,
+            'filter_name': "Issues assigned to me",
+        }
 
-    return render(request, "itrac/issues.html", {'issues': issues})
+    return render(request, "itrac/issues.html", context)
 
 
 def do_search(request):
@@ -79,14 +69,20 @@ def do_search_my(request):
 
 
 @login_required()
-def my_issues(request):
+def issues_reported_by_me(request):
     """
     Create a view that will return a list
     of current user's Issues and render them to the 'myissues.html' template
     """
     user = request.user
     issues = Issue.objects.filter(author=user).order_by('-created_date')
-    return render(request, "itrac/myissues.html", {'issues': issues})
+
+    context = {
+        'issues': issues,
+        'filter_name': "Issues Reported by me"
+    }
+
+    return render(request, "itrac/issues.html", context)
 
 
 @login_required()
@@ -218,7 +214,7 @@ def upvote(request, pk):
     issue = Issue.objects.get(pk=pk)
     issue.upvotes += 1
     issue.save()
-    notify.send(request.user, recipient=issue.author, verb="upvoted your Issue: " + issue.title)
+    # notify.send(request.user, recipient=issue.author, verb="upvoted your Issue: " + issue.title)
     messages.success(request, 'Issue upvoted!')
     return redirect('itrac:issue_detail', pk)
 
@@ -297,7 +293,7 @@ def edit_issue(request, pk=None):
             else:
                 form.instance.price = 0
             issue = form.save()
-            notify.send(request.user, recipient=issue.author, verb="updated your Issue: " + issue.title)
+            # notify.send(request.user, recipient=issue.author, verb="updated your Issue: " + issue.title)
             messages.success(request, 'Issue Edited with success!')
 
             return redirect('itrac:issue_detail', issue.pk)
@@ -321,7 +317,7 @@ def create_or_edit_comment(request, issue_pk, pk=None):
             form.instance.author = request.user
             form.instance.issue = issue
             form.save()
-            notify.send(request.user, recipient=issue.author, verb="added a comment to your Issue: " + issue.title)
+            # notify.send(request.user, recipient=issue.author, verb="added a comment to your Issue: " + issue.title)
             messages.success(request, 'Comment Saved!')
             return redirect('itrac:issue_detail', issue_pk)
     else:
@@ -344,7 +340,7 @@ def create_or_edit_reply(request, issue_pk, comment_pk, pk=None):
             form.instance.author = request.user
             form.instance.comment = comment
             form.save()
-            notify.send(request.user, recipient=comment.author, verb="added a reply to your Comment: " + comment.comment)
+            # notify.send(request.user, recipient=comment.author, verb="added a reply to your Comment: " + comment.comment)
             messages.success(request, 'Reply Saved!')
             return redirect('itrac:issue_detail', issue_pk)
     else:

@@ -18,7 +18,7 @@
   <div class="row mt-3 d-flex align-items-center" style="border: 2px solid lightgray; height: 8vh;">
     <div class="col-md-8">  
       <div class="dropdown">
-        <h2><span id="issue-filter-title">Issues assigned to me</span>
+        <h2><span id="issue-filter-title">{{ filter_name }}</span>
           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             (switch filter) <span class="caret"></span>
           </button>
@@ -42,7 +42,7 @@
       <ul class="list-group list-group-flush issue-list">
         {% for issue in issues %}
           <li  class="list-group-item ">
-            <a href="#issue{{ forloop.counter }}" data-toggle="collapse">{{ issue.title }}</a>
+            <a href="#issue{{ forloop.counter }}" data-toggle="collapse">{{ issue.issue_id }}: {{ issue.title }}</a>
             <div id="issue{{ forloop.counter }}" class="collapse">
                 <a class="btn-floating btn-large" href="{% url 'itrac:issue_detail' issue.id %}"><i class="material-icons">navigate_next</i></a>
                 <p><span><b>Created: </b>{{ issue.created_date }}</span></p>
@@ -58,29 +58,6 @@
           No issue has been created yet.
         {% endfor %}
       </ul>
-      {% if issues.has_other_pages %}
-        <ul class="pagination">
-            {% if issues.has_previous %}
-                <li><a href="?page={{ issues.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
-            {% else %}
-                <li class="disabled"><i class="material-icons">chevron_left</i></li>
-            {% endif %} 
-            
-            {% for i in issues.paginator.page_range %} 
-                {% if issues.number == i %}
-                    <li class="active"><a>{{ i }}</a></li>
-                {% else %}
-                <li><a href="?page={{ i }}">{{ i }}</a></li>
-                {% endif %} 
-            {% endfor %} 
-            
-            {% if issues.has_next %}
-                <li><a href="?page={{ issues.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
-            {% else %}
-                <li class="disabled"><i class="material-icons">chevron_right</i></li>
-            {% endif %}
-        </ul>
-      {% endif %} 
     </div>
     <div class="col-md-4" id="issue-details" style="border-left:1px solid lightgray;">
       Issue details go here.

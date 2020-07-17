@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _ 
 
+
 #from django.apps import apps
 #MyModel1 = apps.get_model('app1', 'MyModel1')
 
@@ -26,6 +27,9 @@ class Issue(models.Model):
     """
     A single Issue
     """
+    # The prefix is specfic to a project or subproject
+    issue_prefix = models.CharField(max_length=20, default='WINN')
+    
     title = models.CharField(max_length=200)
     description = models.TextField()
     is_resolved = models.BooleanField(default=False)
@@ -50,6 +54,10 @@ class Issue(models.Model):
 
     def __str__(self):
         return self.title
+    
+    @property
+    def issue_id(self):
+        return f"{self.issue_prefix}-{self.id}"
 
 
 class Comment(models.Model):
