@@ -28,6 +28,7 @@ li a {
 
 ul li a {
   text-decoration: none;
+  color: blue
   margin: 10px, 10px;
 }
 
