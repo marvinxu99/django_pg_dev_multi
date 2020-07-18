@@ -1,2 +1,2 @@
-from .models import *
-from .tags import Tag
+from .issue import *
+from .tag import Tag

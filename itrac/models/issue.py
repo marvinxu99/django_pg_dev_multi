@@ -4,6 +4,7 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _ 
 from django.urls import reverse
 
+from .tag import Tag
 
 #from django.apps import apps
 #MyModel1 = apps.get_model('app1', 'MyModel1')
@@ -32,12 +33,15 @@ class Issue(models.Model):
     issue_prefix = models.CharField(max_length=20, default='WINN')
     
     title = models.CharField(max_length=200)
-    slug = models.CharField(max_length=250)
     description = models.TextField()
+    slug = models.CharField(max_length=250, blank=True)
+    
     is_resolved = models.BooleanField(default=False)
     resolved_date = models.DateTimeField(blank=True, null=True)
     upvotes = models.IntegerField('likes', default=0)
-    tags = models.CharField(max_length=30, blank=True, null=True)
+    
+    tags = models.ManyToManyField(Tag, related_name='issues')
+    
     image = models.ImageField(upload_to='img', blank=True, null=True)
 
     created_date = models.DateTimeField(auto_now_add=True)

@@ -206,7 +206,7 @@ def issue_detail(request, pk):
         replies = Reply.objects.filter(comment=comment)
         comment_replies.append(replies)
 
-    return render(request, "itrac/issuedetail.html", {'issue': issue, 'comments': comments, 'comment_replies': comment_replies})
+    return render(request, "itrac/issue_detail.html", {'issue': issue, 'comments': comments, 'comment_replies': comment_replies})
 
 
 @login_required()

@@ -4,4 +4,4 @@ import django_filters
 class IssueFilter(django_filters.FilterSet):
     class Meta:
         model = Issue
-        fields = ['issue_type', 'status', 'is_resolved', 'tag', 'author', 'assignee']
+        fields = ['issue_type', 'status', 'is_resolved', 'tags', 'author', 'assignee']

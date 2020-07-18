@@ -41,17 +41,22 @@
     <div class="searh-results col-md-4" style="height:65vh; overflow:auto;">
       <ul class="list-group list-group-flush issue-list">
         {% for issue in issues %}
-          <li  class="list-group-item ">
+          <li  class="list-group-item" onmouseover="mouseOverListItem(event);" onmouseleave="mouseLeaveListItem(event);">
             <a href="#issue{{ forloop.counter }}" data-toggle="collapse">{{ issue.issue_id }}: {{ issue.title }}</a>
+            <a class="btn-floating btn-large" href="{% url 'itrac:issue_detail' issue.id %}" 
+                style="display:none" title="Click to view details"
+            >
+              <i class='fas fa-angle-double-right' style='font-size:24px'></i>
+            </a>
             <div id="issue{{ forloop.counter }}" class="collapse">
-                <a class="btn-floating btn-large" href="{% url 'itrac:issue_detail' issue.id %}"><i class="material-icons">navigate_next</i></a>
                 <p><span><b>Created: </b>{{ issue.created_date }}</span></p>
-                <p><span><b>Tag: </b>{{ issue.tag }}</span></p>
+                <p><span><b>Updated: </b>{{ issue.updated_date }}</span></p>
+                <p><span><b>Tags: </b>{{ issue.tags }}</span></p>
                 <p><span><b>Upvotes: </b>{{ issue.upvotes }}</span></p>
                 <p><span><b>Status: </b>{{ issue.status }}</span></p>
                 <p><span><b>Type: </b>{{ issue.issue_type }}</span></p>
-                <p><span><b>Logged by: </b>{{ issue.author }}</span></p>
-                <p><span><b>Assigned to: </b>{{ issue.assignee }}</span></p>
+                <p><span><b>Reporter: </b>{{ issue.author }}</span></p>
+                <p><span><b>Assignee: </b>{{ issue.assignee }}</span></p>
             </div>
           </li>
         {% empty %}
@@ -64,4 +69,18 @@
     </div>
   </div>
 </div>
+<script>
+  // SHow the delete button when mouse over the item-name
+  function mouseOverListItem(event) {
+      const target = $(event.target);
+      target.children(':nth-child(2)').css('display', 'inline');
+  }
+
+  // Hide the delete button when mouse over the item-name
+  function mouseLeaveListItem(event) {
+      const target = $(event.target);
+      target.children(':nth-child(2)').css('display', 'none');
+  }
+
+</script>
 {% endblock %}
