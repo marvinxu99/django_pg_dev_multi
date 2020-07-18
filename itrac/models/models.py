@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _ 
+from django.urls import reverse
 
 
 #from django.apps import apps
@@ -31,11 +32,12 @@ class Issue(models.Model):
     issue_prefix = models.CharField(max_length=20, default='WINN')
     
     title = models.CharField(max_length=200)
+    slug = models.CharField(max_length=250)
     description = models.TextField()
     is_resolved = models.BooleanField(default=False)
     resolved_date = models.DateTimeField(blank=True, null=True)
     upvotes = models.IntegerField('likes', default=0)
-    tag = models.CharField(max_length=30, blank=True, null=True)
+    tags = models.CharField(max_length=30, blank=True, null=True)
     image = models.ImageField(upload_to='img', blank=True, null=True)
 
     created_date = models.DateTimeField(auto_now_add=True)
@@ -48,16 +50,26 @@ class Issue(models.Model):
     issue_type = models.CharField(max_length=2, choices=ISSUE_TYPE.choices, default=ISSUE_TYPE.BREAK_FIX)
     status = models.CharField(max_length=2, choices=ISSUE_STATUS.choices, default=ISSUE_STATUS.OPEN)
 
+    class Meta:
+        verbose_name = "issue"
+        verbose_name_plural = "issues"
+        ordering = ['title']
+        indexes = [
+            models.Index(fields=['title',]),
+        ]
 
     def __unicode__(self):
         return self.title
 
     def __str__(self):
         return self.title
-    
+
     @property
     def issue_id(self):
         return f"{self.issue_prefix}-{self.id}"
+
+    def get_absolute_url(self):
+        return reverse('itrac:issue_detail', args=(self.slug,))
 
 
 class Comment(models.Model):

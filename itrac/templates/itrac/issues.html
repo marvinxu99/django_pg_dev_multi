@@ -23,8 +23,8 @@
             (switch filter) <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a class="dropdown-item" href="#">Issues assigned to me</a></li>
-            <li><a class="dropdown-item" href="#">Issue reported by me</a></li>
+            <li><a class="dropdown-item" href="{% url 'itrac:issues_assigned_to_me' %}">Issues assigned to me</a></li>
+            <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me' %}">Issue reported by me</a></li>
             <li><a class="dropdown-item" href="#">All issues</a></li>
             <li><a class="dropdown-item" href="#">Open issues</a></li>
             <div class="dropdown-divider"></div>
