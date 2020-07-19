@@ -29,6 +29,15 @@ body {
   transform: rotate(20deg);
 }
 
+.winter-logo2 {
+  width: 64px; 
+	height: 64px; 
+}
+.winter-logo2:hover {
+  transition: 1s;
+  transform: rotate(20deg);
+}
+
 .winter-sm-logo {
   width: 32px; 
   height: 32px; 

@@ -9,29 +9,42 @@
 </div>
 <div>  
   <a data-toggle="collapse" href="#collapse_details"><h5>Details</h5></a>
-  <div class="row collapse js-collapse-details ml-3" id="collapse_details">
+  <div class="row collapse js-collapse ml-3" id="collapse-details">
     <div class="col s12 m6" id="issue-details-1">
-      <p><b>Type: {{ issue.issue_type }}</p>
-      <p><b>Created: </b>{{ issue.created_date }}</p>
-      <p><b>Updated: </b>{{ issue.updated_date }}</p>
-      <p><b>Resolved: </b>{{ issue.is_resolved | yesno:"Yes,No" }}</p>
-      <p><b>Resolved Date: </b>{{ issue.resolved_date }}</p>
+      test
     </div>
     <div class="col s12 m6" id="issue-details-2">
-      <p><b>Status: </b>{{ issue.status }}</p>
-      <p><b>Assigned to: </b>{{ issue.assignee }}</p>
-      <p><b>Reported by: </b>{{ issue.author }}</p>
-      <p><b>Upvotes: </b>{{ issue.upvotes }}
-        {% if issue.issue_type == "BUG" %}
-          <a class="btn-floating btn-small waves-effect waves-light teal" href="{% url 'itrac:upvote' issue.id %}">[thumb_up]</a>
-        {% endif %}</p>
-      <a class="btn-floating btn-large waves-effect waves-light yellow" href="{% url 'itrac:save_issue' issue.id %}"><i class="material-icons">star</i></a>
-      {% if user == issue.author or user.is_staff %}
-      <a class="btn-floating btn-large waves-effect waves-light blue" href="{% url 'itrac:edit_issue' issue.id %}"><i class="material-icons">edit</i></a>
-      {% endif %}
+      <div class="row">
+        <div class="col-md-4 font-weight-bold">Status:</div>
+        <div class="col-md-8">{{ issue.status }}</div>
+        <div class="w-100"></div>
+        <div class="col-md-4 font-weight-bold">Assigned to:</div>
+        <div class="col-md-8">{{ issue.assignee }}</div>
+        <div class="w-100"></div>
+        <div class="col-md-4 font-weight-bold">Reported by:</div>
+        <div class="col-md-8">{{ issue.author }}</div>
+        <div class="w-100"></div>
+        <div class="col-md-4 font-weight-bold">Upvotes:</div>
+        <div class="col-md-8">
+          {{ issue.upvotes }}
+          {% if issue.issue_type == "BUG" %}
+            <a class="btn-floating btn-small waves-effect waves-light teal" href="{% url 'itrac:upvote' issue.id %}">[thumb_up]</a>
+          {% endif %}
+        </div>
+        <div class="w-100"></div>
+        <div class="col-md-4">
+          <a class="btn" href="{% url 'itrac:save_issue' issue.id %}">Star</a>
+        </div>
+        <div class="col-md-8">
+          {% if user == issue.author or user.is_staff %}
+          <a class="btn btn-sm" href="{% url 'itrac:edit_issue' issue.id %}">Edit</a>
+          {% endif %}   
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
 
 <p><b>Tags: </b>{{ issue.tag }}</p>
 

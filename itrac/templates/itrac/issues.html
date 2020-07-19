@@ -93,6 +93,7 @@ $(function () {
           },
           success: function (data) {
             $("#issue-details").html(data.html_issue_detail);
+            $(".js-collapse-details").collapse();
           }
         });
     };
