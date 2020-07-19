@@ -83,25 +83,42 @@ $(function () {
   }
 
   const loadIssueDetailPartial = function () {
-        const btn = $(this);
-        $.ajax({
+      const btn = $(this);
+      $.ajax({
           url: btn.attr("data-url"),
           type: 'get',
           dataType: 'json',
           beforeSend: function () {
-            $("#issue-details").html("Loading...")
+              $("#issue-details").html("Loading...")
           },
           success: function (data) {
-            $("#issue-details").html(data.html_issue_detail);
-            $(".js-collapse-details").collapse();
+              $("#issue-details").html(data.html_issue_detail);
+              
+              $(".js-collapse-toggle").click(function () {
+                  console.log("toggle")
+                  $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
+              });
+
+              $(".js-collapse-details").collapse();
           }
-        });
-    };
+      });
+  };
 
   $(".js_issue_item").on("mouseover", mouseOverListItem);
   $(".js_issue_item").on("mouseleave", mouseLeaveListItem);
 
   $(".js_issue_partial").click(loadIssueDetailPartial);
+
+  const toggleIcons = function () {
+    console.log("toggle")
+    $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
+  };
+
+  $(".js-collapse-toggle").click(function () {
+    console.log("toggle")
+    $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
+  });
+  
 
 });
 </script>

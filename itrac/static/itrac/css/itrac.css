@@ -76,3 +76,21 @@ div a {
 .winter-sm-logo:hover {
   transform: rotate(-20deg);
 }
+
+.issue_tag_title {
+  background-color: rgba(9,30,66,0.08);
+  border: 1px solid transparent;
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 1px 5px;
+  margin: 0 3px 0 0;
+  text-align: left;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

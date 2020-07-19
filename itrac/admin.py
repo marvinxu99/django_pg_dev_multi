@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Issue, Comment, Reply, SavedIssue
+from .models import Issue, Comment, Reply, SavedIssue, Tag
 
 # Register your models here.
 
@@ -25,3 +25,5 @@ admin.site.register(Issue, CommentAdmin)
 admin.site.register(Comment, ReplyAdmin)
 
 admin.site.register(SavedIssue)
+
+admin.site.register(Tag)

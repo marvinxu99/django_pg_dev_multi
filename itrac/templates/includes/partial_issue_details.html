@@ -8,51 +8,67 @@
   </div>
 </div>
 <div>  
-  <a data-toggle="collapse" href="#collapse_details"><h5>Details</h5></a>
-  <div class="row collapse js-collapse-details ml-3" id="collapse_details">
-    <div class="col-md-2">Type:</div>
-    <div class="col-md-4">{{ issue.issue_type }}</div>
-    <div class="col-md-2">Status:</div>
-    <div class="col-md-4">{{ issue.status }}</div>
-    <div class="w-100"></div>
+  <a class="js-collapse-toggle" data-toggle="collapse" href="#collapse_details">
+    <i class="fa fa-plus-circle"></i><span class="font-weight-bold">Details</span>
+  </a>
+  <div class="collapse js-collapse-details ml-3" id="collapse_details">
+    <div class="row">
+      <div class="col-md-2">Type:</div>
+      <div class="col-md-4">{{ issue.issue_type }}</div>
+      <div class="col-md-2">Status:</div>
+      <div class="col-md-4">{{ issue.status }}</div>
+      <div class="w-100"></div>
 
-    <div class="col-md-2">Created:</div>
-    <div class="col-md-4">{{ issue.created_date }}</div>
-    <div class="col-md-2">Assigned to:</div>
-    <div class="col-md-4">{{ issue.assignee }}</div>
-    <div class="w-100"></div>
+      <div class="col-md-2">Created:</div>
+      <div class="col-md-4">{{ issue.created_date }}</div>
+      <div class="col-md-2">Assigned to:</div>
+      <div class="col-md-4">{{ issue.assignee }}</div>
+      <div class="w-100"></div>
 
-    <div class="col-md-2">Updated:</div>
-    <div class="col-md-4">{{ issue.updated_date }}</div>
-    <div class="col-md-2">Reported by:</div>
-    <div class="col-md-4">{{ issue.author }}</div>
-    <div class="w-100"></div>
+      <div class="col-md-2">Updated:</div>
+      <div class="col-md-4">{{ issue.updated_date }}</div>
+      <div class="col-md-2">Reported by:</div>
+      <div class="col-md-4">{{ issue.author }}</div>
+      <div class="w-100"></div>
 
-    <div class="col-md-2">Resolved:</div>
-    <div class="col-md-4">{{ issue.is_resolved | yesno:"Yes,No" }}</div>
-    <div class="col-md-2">Upvotes:</div>
-    <div class="col-md-4">{{ issue.upvotes }}
-        {% if issue.issue_type == "BUG" %}
-          <a class="btn" href="{% url 'itrac:upvote' issue.id %}">[thumb_up]</a>
-        {% endif %}
-    </div>
-    <div class="w-100"></div>
-          
-    <div class="col-md-2">Resolved Date:</div>
-    <div class="col-md-4">{{ issue.resolved_date }}</div>
-    <div class="col-md-2"><a class="btn" href="{% url 'itrac:save_issue' issue.id %}">star</a></div>
-    <div class="col-md-4">
-        {% if user == issue.author or user.is_staff %}
-        <a class="btn" href="{% url 'itrac:edit_issue' issue.id %}">edit</a>
-        {% endif %}
+      <div class="col-md-2">Resolved:</div>
+      <div class="col-md-4">{{ issue.is_resolved|yesno:"Yes,No" }}</div>
+      <div class="col-md-2">Upvotes:</div>
+      <div class="col-md-4">{{ issue.upvotes }}
+          {% if issue.issue_type == "BUG" %}
+            <a class="btn" href="{% url 'itrac:upvote' issue.id %}">[thumb_up]</a>
+          {% endif %}
+      </div>
+      <div class="w-100"></div>
+            
+      <div class="col-md-2">Resolved Date:</div>
+      <div class="col-md-4">{{ issue.resolved_date }}</div>
+      <div class="col-md-2"><a class="btn" href="{% url 'itrac:save_issue' issue.id %}">star</a></div>
+      <div class="col-md-4">
+          {% if user == issue.author or user.is_staff %}
+          <a class="btn" href="{% url 'itrac:edit_issue' issue.id %}">edit</a>
+          {% endif %}
+      </div>
     </div>      
+    <div class="d-flex align-items-baseline">
+      <div><span class="font-weight-bold">Tags:</span></div>
+      <div>
+        <ul class="nav">
+          {% for tag in issue.tags.all %}
+            <li class="nav-item">
+              <a class="nav-link" href="#">{{ tag.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 
-<p><b>Tags: </b>{{ issue.tag }}</p>
-
-<p><strong>Description</strong>: </p>
-<p class="ml-3 p-3" style="border: 1px solid lightgray">{{ issue.description }}</p>
+<div>
+  <p><strong>Description</strong>: </p>
+  <p class="ml-3 p-3" style="border: 1px solid lightgray">{{ issue.description }}</p>
+</div>
    
 
   {% if issue.image %}
