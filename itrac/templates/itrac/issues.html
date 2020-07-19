@@ -23,8 +23,8 @@
             (switch filter) <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a class="dropdown-item" href="{% url 'itrac:issues_assigned_to_me' %}">Issues assigned to me</a></li>
-            <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me' %}">Issue reported by me</a></li>
+            <li><a class="dropdown-item" href="{% url 'itrac:issues_assigned_to_me' %}">My Open Issues</a></li>
+            <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me' %}">Reported by me</a></li>
             <li><a class="dropdown-item" href="#">All issues</a></li>
             <li><a class="dropdown-item" href="#">Open issues</a></li>
             <div class="dropdown-divider"></div>
@@ -41,13 +41,12 @@
     <div class="searh-results col-md-4" style="height:65vh; overflow:auto;">
       <ul class="list-group list-group-flush issue-list">
         {% for issue in issues %}
-          <li  class="list-group-item" onmouseover="mouseOverListItem(event);" onmouseleave="mouseLeaveListItem(event);">
+          <li  class="list-group-item js_issue_item">
             <a href="#issue{{ forloop.counter }}" data-toggle="collapse">{{ issue.issue_id }}: {{ issue.title }}</a>
-            <a class="btn-floating btn-large" href="{% url 'itrac:issue_detail' issue.id %}" 
-                style="display:none" title="Click to view details"
-            >
-              <i class='fas fa-angle-double-right' style='font-size:24px'></i>
-            </a>
+            <button class="btn btn-sm btn-outline-info js_issue_partial" data-url="{% url 'itrac:issue_detail_partial' issue.id %}" 
+                style="display:none" title="Click to view more details">
+                <i class='fas fa-angle-double-right' style='font-size:16px'></i>
+            </button>
             <div id="issue{{ forloop.counter }}" class="collapse">
                 <p><span><b>Created: </b>{{ issue.created_date }}</span></p>
                 <p><span><b>Updated: </b>{{ issue.updated_date }}</span></p>
@@ -64,12 +63,13 @@
         {% endfor %}
       </ul>
     </div>
-    <div class="col-md-4" id="issue-details" style="border-left:1px solid lightgray;">
+    <div class="col-md-8" id="issue-details" style="border-left:1px solid lightgray;">
       Issue details go here.
     </div>
   </div>
 </div>
 <script>
+$(function () {
   // SHow the delete button when mouse over the item-name
   function mouseOverListItem(event) {
       const target = $(event.target);
@@ -82,5 +82,26 @@
       target.children(':nth-child(2)').css('display', 'none');
   }
 
+  const loadIssueDetailPartial = function () {
+        const btn = $(this);
+        $.ajax({
+          url: btn.attr("data-url"),
+          type: 'get',
+          dataType: 'json',
+          beforeSend: function () {
+            $("#issue-details").html("Loading...")
+          },
+          success: function (data) {
+            $("#issue-details").html(data.html_issue_detail);
+          }
+        });
+    };
+
+  $(".js_issue_item").on("mouseover", mouseOverListItem);
+  $(".js_issue_item").on("mouseleave", mouseLeaveListItem);
+
+  $(".js_issue_partial").click(loadIssueDetailPartial);
+
+});
 </script>
 {% endblock %}

@@ -10,6 +10,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.db.models import Count, Q
 from django.core import serializers
+from django.template.loader import render_to_string
+
 
 from ..models import Issue, Comment, Reply, SavedIssue
 from ..forms import IssueForm, CommentForm, ReplyForm
@@ -43,7 +45,7 @@ def issues_assigned_to_me(request):
     
     context = {
             'issues': issues,
-            'filter_name': "Issues assigned to me",
+            'filter_name': "My Open Issues",
         }
 
     return render(request, "itrac/issues.html", context)
@@ -79,7 +81,7 @@ def issues_reported_by_me(request):
 
     context = {
         'issues': issues,
-        'filter_name': "Issues Reported by me"
+        'filter_name': "Reported by me"
     }
 
     return render(request, "itrac/issues.html", context)
@@ -199,14 +201,47 @@ def issue_detail(request, pk):
     not found
     """
     issue = get_object_or_404(Issue, pk=pk)
-    issue.save()
     comments = Comment.objects.filter(issue=pk)
     comment_replies = []
     for comment in comments:
         replies = Reply.objects.filter(comment=comment)
         comment_replies.append(replies)
 
-    return render(request, "itrac/issue_detail.html", {'issue': issue, 'comments': comments, 'comment_replies': comment_replies})
+    context = {
+        'issue': issue, 
+        'comments': comments, 
+        'comment_replies': comment_replies
+    }
+
+    return render(request, "itrac/issue_detail.html", context)
+
+
+@login_required()
+def issue_detail_partial(request, pk):
+    """
+    Create a view that returns a single
+    Issue object based on the issue ID (pk) and
+    render it to the 'issuedetail.html' template.
+    Or return a 404 error if the issue is
+    not found
+    """
+    data = dict()
+    issue = get_object_or_404(Issue, pk=pk)
+    comments = Comment.objects.filter(issue=pk)
+    comment_replies = []
+    for comment in comments:
+        replies = Reply.objects.filter(comment=comment)
+        comment_replies.append(replies)
+
+    context = {
+        'issue': issue, 
+        'comments': comments, 
+        'comment_replies': comment_replies
+    }
+
+    data['html_issue_detail'] = render_to_string('includes/partial_issue_details.html', context, request=request)
+
+    return JsonResponse(data)
 
 
 @login_required()
