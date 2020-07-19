@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 <div class="row">
   <img class="m-1 winter-logo2" src="{% static 'img/winter-logo-sm-white.png' %}">
   <div class="ml-1">
@@ -14,19 +15,19 @@
   <div class="collapse js-collapse-details ml-3" id="collapse_details">
     <div class="row">
       <div class="col-md-2">Type:</div>
-      <div class="col-md-4">{{ issue.issue_type }}</div>
+      <div class="col-md-4">{{ issue.get_issue_type_display }}</div>
       <div class="col-md-2">Status:</div>
-      <div class="col-md-4">{{ issue.status }}</div>
+      <div class="col-md-4">{{ issue.get_status_display }}</div>
       <div class="w-100"></div>
 
       <div class="col-md-2">Created:</div>
-      <div class="col-md-4">{{ issue.created_date }}</div>
+      <div class="col-md-4" title="{{ issue.created_date }}">{{ issue.created_date|naturaltime }}</div>
       <div class="col-md-2">Assigned to:</div>
       <div class="col-md-4">{{ issue.assignee }}</div>
       <div class="w-100"></div>
 
       <div class="col-md-2">Updated:</div>
-      <div class="col-md-4">{{ issue.updated_date }}</div>
+      <div class="col-md-4" title="{{ issue.updated_date }}">{{ issue.updated_date|naturaltime }}</div>
       <div class="col-md-2">Reported by:</div>
       <div class="col-md-4">{{ issue.author }}</div>
       <div class="w-100"></div>
@@ -42,7 +43,7 @@
       <div class="w-100"></div>
             
       <div class="col-md-2">Resolved Date:</div>
-      <div class="col-md-4">{{ issue.resolved_date }}</div>
+      <div class="col-md-4" title="{{ issue.resolved_date|default_if_none:'' }}">{{ issue.resolved_date|default_if_none:""|naturaltime }}</div>
       <div class="col-md-2"><a class="btn" href="{% url 'itrac:save_issue' issue.id %}">star</a></div>
       <div class="col-md-4">
           {% if user == issue.author or user.is_staff %}
@@ -64,16 +65,19 @@
     </div>
   </div>
 </div>
-
 <div>
-  <p><strong>Description</strong>: </p>
-  <p class="ml-3 p-3" style="border: 1px solid lightgray">{{ issue.description }}</p>
+  <a class="js-collapse-toggle" data-toggle="collapse" href="#collapse_description">
+    <i class="fa fa-plus-circle"></i><span class="font-weight-bold">Description</span>
+  </a>
+  <div class="collapse js-collapse-details ml-3" id="collapse_description">
+    <p class="p-1" style="border: 1px solid lightgray">{{ issue.description }}</p>
+  </div>
 </div>
-   
-
+<div>
   {% if issue.image %}
     <img class="materialboxed" src="{{ MEDIA_URL }}{{ issue.image }}" alt="Issue Image" style="width:100%;height:450px;">
   {% endif %}
+</div>
 
   {% if issue.issue_type == "FEATURE" %}
   <h5>Purchase Feature Upvotes</h5>
@@ -86,42 +90,49 @@
       </div>
   </form>
   {% endif %}
-  
-  <h3>Comments</h3>
-  <a class="btn-floating btn waves-effect waves-light green" href="{% url 'itrac:new_comment' issue.id %}"><i class="material-icons left">add</i>Add New Comment</a>
-  {% for comment in comments %}
-  <div class="card-panel blue-grey lighten-4">
-      <div class="row">
-          <div class="col s12 m8">
-              <p><b>User: </b>{{ comment.author }} <b>Created: </b>{{ comment.created_date }} <b>Updated: </b>{{ comment.updated_date }}</p>
-              <p><h6><b>Comment: </b>{{ comment.comment }}</p></h6>
-              <h4>Replies</h4>
-              <a class="btn-floating btn-small waves-effect waves-light green" href="{% url 'itrac:new_reply' issue.id comment.id %}"><i class="material-icons left">add</i>Add New Reply</a>
-              {% for replies in comment_replies %}
-              {% for reply in replies %}
-              {% if reply.comment == comment %}
-              <div class="card-panel blue-grey lighten-3">
-                  <div class="row">
-                      <div class="col s12 m8">
-                          <p><b>Created: </b>{{ reply.created_date }} <b>Updated: </b>{{ reply.updated_date }} <b>User: </b>{{ reply.author }}</p>
-                          <p><b>Reply: </b>{{ reply.reply }}</p>
-                      </div>
-                      <div class="col s12 m4">
-                          {% if user == reply.author or user.is_staff %}
-                          <a class="btn-floating btn-small waves-effect waves-light blue" href="{% url 'edit_reply' issue.id comment.id reply.id %}"><i class="material-icons left">edit</i>Edit Reply</a>
-                          {% endif %}
-                      </div>
-                  </div>
-              </div>
-              {% endif %}
-              {% endfor %}
-              {% endfor %}
-          </div>
-          <div class="col s12 m4">
-              {% if user == comment.author or user.is_staff %}
-              <a class="btn-floating btn waves-effect waves-light blue" href="{% url 'itrac:edit_comment' issue.id comment.id %}"><i class="material-icons left">edit</i>Edit Comment</a>
-              {% endif %}
-          </div>
-      </div>
+
+<div>
+  <a class="js-collapse-toggle" data-toggle="collapse" href="#collapse_comments">
+    <i class="fa fa-plus-circle"></i><span class="font-weight-bold">Comments</span>
+  </a>
+  <div class="collapse js-collapse-details ml-3" id="collapse_comments">
+    <a class="btn-floating btn waves-effect waves-light green" href="{% url 'itrac:new_comment' issue.id %}"><i class="material-icons left">add</i>Add New Comment</a>
+    {% for comment in comments %}
+    <div class="card-panel blue-grey lighten-4">
+        <div class="row">
+            <div class="col s12 m8">
+                <p><b>User: </b>{{ comment.author }} <b>Created: </b>{{ comment.created_date }} <b>Updated: </b>{{ comment.updated_date }}</p>
+                <p><h6><b>Comment: </b>{{ comment.comment }}</p></h6>
+                <h4>Replies</h4>
+                <a class="btn-floating btn-small waves-effect waves-light green" href="{% url 'itrac:new_reply' issue.id comment.id %}"><i class="material-icons left">add</i>Add New Reply</a>
+                {% for replies in comment_replies %}
+                {% for reply in replies %}
+                {% if reply.comment == comment %}
+                <div class="card-panel blue-grey lighten-3">
+                    <div class="row">
+                        <div class="col s12 m8">
+                            <p><b>Created: </b>{{ reply.created_date }} <b>Updated: </b>{{ reply.updated_date }} <b>User: </b>{{ reply.author }}</p>
+                            <p><b>Reply: </b>{{ reply.reply }}</p>
+                        </div>
+                        <div class="col s12 m4">
+                            {% if user == reply.author or user.is_staff %}
+                            <a class="btn-floating btn-small waves-effect waves-light blue" href="{% url 'edit_reply' issue.id comment.id reply.id %}"><i class="material-icons left">edit</i>Edit Reply</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="col s12 m4">
+                {% if user == comment.author or user.is_staff %}
+                <a class="btn-floating btn waves-effect waves-light blue" href="{% url 'itrac:edit_comment' issue.id comment.id %}"><i class="material-icons left">edit</i>Edit Comment</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
+</div>
+    
