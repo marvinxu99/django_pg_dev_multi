@@ -42,7 +42,7 @@
       <ul class="list-group list-group-flush issue-list">
         {% for issue in issues %}
           <li  class="list-group-item js_issue_item">
-            <a href="#issue{{ forloop.counter }}" data-toggle="collapse">{{ issue.issue_id }}: {{ issue.title }}</a>
+            <a class="js_issue_item_title" href="#issue{{ forloop.counter }}" data-toggle="collapse">{{ issue.issue_id }}: {{ issue.title }}</a>
             <button class="btn btn-sm btn-outline-info js_issue_partial" data-url="{% url 'itrac:issue_detail_partial' issue.id %}" 
                 style="display:none" title="Click to view more details">
                 <i class='fas fa-angle-double-right' style='font-size:16px'></i>
@@ -70,22 +70,21 @@
 </div>
 <script>
 $(function () {
-  // SHow the delete button when mouse over the item-name
+  // SHow the "click to view" icon when mouse over the item-name
   function mouseOverListItem(event) {
       const target = $(event.target);
       target.children(':nth-child(2)').css('display', 'inline');
   }
 
-  // Hide the delete button when mouse over the item-name
+  // Hide the "click to view" icon when mouse leaves the item-name
   function mouseLeaveListItem(event) {
       const target = $(event.target);
       target.children(':nth-child(2)').css('display', 'none');
   }
 
-  const loadIssueDetailPartial = function () {
-      const btn = $(this);
+  const issue_details_ajax = (url) => {
       $.ajax({
-          url: btn.attr("data-url"),
+          url: url,
           type: 'get',
           dataType: 'json',
           beforeSend: function () {
@@ -94,19 +93,27 @@ $(function () {
           success: function (data) {
               $("#issue-details").html(data.html_issue_detail);
               
+              //set up the event istener
               $(".js-collapse-toggle").click(function () {
                   console.log("toggle")
                   $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
               });
 
+              // default to expand
               $(".js-collapse-details").collapse();
           }
       });
   };
 
+  const loadIssueDetailPartial = function () {
+      const btn = $(this);
+      url = btn.attr("data-url");
+      issue_details_ajax(url);
+  };
+
   $(".js_issue_item").on("mouseover", mouseOverListItem);
   $(".js_issue_item").on("mouseleave", mouseLeaveListItem);
-
+  
   $(".js_issue_partial").click(loadIssueDetailPartial);
 
   const toggleIcons = function () {
@@ -119,7 +126,6 @@ $(function () {
     $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
   });
   
-
 });
 </script>
 {% endblock %}
