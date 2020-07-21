@@ -86,6 +86,21 @@ def issues_reported_by_me(request):
 
     return render(request, "itrac/issues.html", context)
 
+@login_required()
+def issues_reported_by_me2(request):
+    """
+    Create a view that will return a list
+    of current user's Issues and render them to the 'myissues.html' template
+    """
+    user = request.user
+    issues = Issue.objects.filter(author=user).order_by('-created_date')
+
+    context = {
+        'issues': issues,
+        'filter_name': "Reported by me2"
+    }
+
+    return render(request, "itrac/issues_list_collapse.html", context)
 
 @login_required()
 def saved_issues(request):

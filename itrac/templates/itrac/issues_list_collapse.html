@@ -39,13 +39,25 @@
     </div>
   </div>
   <div class="row" style="border-bottom: 2px solid lightgrey;">
-    <div class="search-results col-md-4" id="search-results-list" style="height:65vh; overflow:auto;">
+    <div class="searh-results col-md-4" style="height:65vh; overflow:auto;">
       <ul class="list-group list-group-flush issue-list">
         {% for issue in issues %}
           <li  class="list-group-item js_issue_item">
-            <a class="js_issue_item_title" data-url="{% url 'itrac:issue_detail_partial' issue.id %}">
-              {{ issue.issue_id }}: {{ issue.title }}
-            </a>
+            <a class="js_issue_item_title" href="#issue{{ forloop.counter }}" data-toggle="collapse">{{ issue.issue_id }}: {{ issue.title }}</a>
+            <button class="btn btn-sm btn-outline-info js_issue_partial" data-url="{% url 'itrac:issue_detail_partial' issue.id %}" 
+                style="display:none" title="Click to view more details">
+                <i class='fas fa-angle-double-right' style='font-size:16px'></i>
+            </button>
+            <div id="issue{{ forloop.counter }}" class="collapse">
+                <p><span><b>Created: </b>{{ issue.created_date }}</span></p>
+                <p><span><b>Updated: </b>{{ issue.updated_date }}</span></p>
+                <p><span><b>Tags: </b>{{ issue.tags }}</span></p>
+                <p><span><b>Upvotes: </b>{{ issue.upvotes }}</span></p>
+                <p><span><b>Status: </b>{{ issue.status }}</span></p>
+                <p><span><b>Type: </b>{{ issue.issue_type }}</span></p>
+                <p><span><b>Reporter: </b>{{ issue.author }}</span></p>
+                <p><span><b>Assignee: </b>{{ issue.assignee }}</span></p>
+            </div>
           </li>
         {% empty %}
           No issue has been created yet.
@@ -96,26 +108,19 @@ $(function () {
   };
 
   const loadIssueDetailPartial = function () {
-      url = $(this).attr("data-url");
+      const btn = $(this);
+      url = btn.attr("data-url");
       issue_details_ajax(url);
-  };  
-  $(".js_issue_item_title").click(loadIssueDetailPartial);
+  };
 
-  $('#search-results-list ul li').hover(function(){
-       $(this).css('background-color', 'lightblue');
-  });
-  $('#search-results-list ul li').mouseleave(function(){
-       $(this).css('background-color', 'white');
-  });
-  $('#search-results-list ul li').click(function(){
-      $('#search-results-list ul li').css('color', 'black');
-       $(this).css('color', 'blue');
-  });
+  $(".js_issue_item").on("mouseover", mouseOverListItem);
+  $(".js_issue_item").on("mouseleave", mouseLeaveListItem);
+  
+  $(".js_issue_partial").click(loadIssueDetailPartial);
 
   $(".js-collapse-toggle").click(function () {
-      $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
+    $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
   });
-
   
 });
 </script>

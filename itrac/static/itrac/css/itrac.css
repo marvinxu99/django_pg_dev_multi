@@ -94,3 +94,7 @@ div a {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+#search-results-list ul li:hover {
+  background-color: #7386D5;
+}

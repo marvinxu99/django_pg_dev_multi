@@ -6,6 +6,7 @@ app_name = 'itrac'
 urlpatterns = [
     path('', views.issues_assigned_to_me, name='issues_assigned_to_me'),
     path('my_issues/', views.issues_reported_by_me, name='issues_reported_by_me'),
+    path('my_issues2/', views.issues_reported_by_me2, name='issues_reported_by_me2'),
     path('saved_issues/', views.saved_issues, name='saved_issues'),
     path('notifications/', views.my_notifications, name='my_notifications'),
     path('issue/<int:pk>/', views.issue_detail, name='issue_detail'),
