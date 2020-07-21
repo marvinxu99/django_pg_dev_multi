@@ -44,7 +44,7 @@
         {% for issue in issues %}
           <li  class="list-group-item js_issue_item">
             <a class="js_issue_item_title" data-url="{% url 'itrac:issue_detail_partial' issue.id %}">
-              {{ issue.issue_id }}: {{ issue.title }}
+              <span class="text-muted">{{ issue.issue_id }}:</span> {{ issue.title }}
             </a>
           </li>
         {% empty %}
@@ -105,11 +105,11 @@ $(function () {
        $(this).css('background-color', 'lightblue');
   });
   $('#search-results-list ul li').mouseleave(function(){
-       $(this).css('background-color', 'white');
+       $(this).css('background-color', '');
   });
-  $('#search-results-list ul li').click(function(){
-      $('#search-results-list ul li').css('color', 'black');
-       $(this).css('color', 'blue');
+  $('#search-results-list ul li a').click(function(){
+      $('#search-results-list ul li a').css('color', 'black');
+      $(this).css('color', 'blue');
   });
 
   $(".js-collapse-toggle").click(function () {

@@ -95,6 +95,6 @@ div a {
   white-space: nowrap;
 }
 
-#search-results-list ul li:hover {
-  background-color: #7386D5;
+.selected {
+    background-color: #7386D5;
 }
