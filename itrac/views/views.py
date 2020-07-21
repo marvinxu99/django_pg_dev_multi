@@ -34,31 +34,6 @@ def report(request):
 
     return render(request, "itrac/report.html", {'completed_daily': str(completed_daily), 'completed_weekly': str(completed_weekly), 'completed_monthly': str(completed_monthly)})
 
-@login_required
-def issues_assigned_to_me(request):
-    """
-    Create a view that will return a list
-    of Issues assigned to the current user.
-    """
-    
-    issues = Issue.objects.filter(assignee=request.user).order_by('-created_date')
-    
-    context = {
-            'issues': issues,
-            'filter_name': "My Open Issues",
-        }
-
-    return render(request, "itrac/issues.html", context)
-
-
-def do_search(request):
-    """
-    Create a view for searching all issues by keyword search on Issue.Title to return a list
-    of matching Issues and render them to the 'issues.html' template
-    """
-    issues = Issue.objects.filter(title__icontains=request.GET['q'])
-    return render(request, "itrac/issues.html", {"issues": issues})
-
 
 def do_search_my(request):
     """
@@ -70,16 +45,67 @@ def do_search_my(request):
     return render(request, "itrac/myissues.html", {"issues": issues})
 
 
+def do_search(request):
+    """
+    Create a view for searching all issues by keyword search on Issue.Title to return a list
+    of matching Issues and render them to the 'issues.html' template
+    """
+    issues = Issue.objects.filter(title__icontains=request.GET['q'])
+
+    issue_count_total = Issue.objects.count()
+    issue_count_filter = issues.count()
+
+    filter_name = f'''Issue title contains "{ request.GET['q']}" '''
+
+    context = {
+            'issue_count_total': issue_count_total,
+            'issue_count_filter': issue_count_filter,
+            'issues': issues,
+            'filter_name': filter_name,
+        }
+
+    return render(request, "itrac/issues.html", context)
+
+
+@login_required
+def issues_assigned_to_me(request):
+    """
+    Create a view that will return a list
+    of Issues assigned to the current user.
+    """
+    issue_count_total = Issue.objects.count()
+
+    issues = Issue.objects.filter(assignee=request.user).order_by('-created_date')
+
+    issue_count_filter = issues.count()
+
+    
+    context = {
+            'issue_count_total': issue_count_total,
+            'issue_count_filter': issue_count_filter,
+            'issues': issues,
+            'filter_name': "My Open Issues",
+        }
+
+    return render(request, "itrac/issues.html", context)
+
+
 @login_required()
 def issues_reported_by_me(request):
     """
     Create a view that will return a list
     of current user's Issues and render them to the 'myissues.html' template
     """
+    issue_count_total = Issue.objects.count()
+
     user = request.user
     issues = Issue.objects.filter(author=user).order_by('-created_date')
 
+    issue_count_filter = issues.count()
+
     context = {
+        'issue_count_total': issue_count_total,
+        'issue_count_filter': issue_count_filter,
         'issues': issues,
         'filter_name': "Reported by me"
     }
@@ -95,7 +121,12 @@ def issues_reported_by_me2(request):
     user = request.user
     issues = Issue.objects.filter(author=user).order_by('-created_date')
 
+    issue_count_total = Issue.objects.count()
+    issue_count_filter = issues.count()
+
     context = {
+        'issue_count_total': issue_count_total,
+        'issue_count_filter': issue_count_filter,
         'issues': issues,
         'filter_name': "Reported by me2"
     }

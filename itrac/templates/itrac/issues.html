@@ -8,30 +8,32 @@
   </ul>
 {% endif %}
 <div >
-  <div>
-    <p>{{ issue_count }}</p>
-    <form action="{% url 'itrac:do_search' %}" method="get">
-        <input type="text" name="q">
-        <button class="btn waves-effect waves-light" type="submit">Search</button>
+  <div class="d-flex align-items-center">
+    <div >There are <span class="text-info">{{ issue_count_total }}</span> issues in total. </div>
+    <form class="ml-3" action="{% url 'itrac:do_search' %}" method="get">
+        <input type="text" name="q" placeholder="search">
+        <button class="btn" type="submit">
+          <i class="fa fa-search" title="Search"></i>
+        </button>
     </form>
   </div>
   <div class="row mt-3 d-flex align-items-center" style="border: 2px solid lightgray; height: 8vh;">
     <div class="col-md-8">  
-      <div class="dropdown">
-        <h2><span id="issue-filter-title">{{ filter_name }}</span>
-          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            (switch filter) <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a class="dropdown-item" href="{% url 'itrac:issues_assigned_to_me' %}">My Open Issues</a></li>
-            <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me' %}">Reported by me</a></li>
-            <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me2' %}">Reported by me2</a></li>
-            <li><a class="dropdown-item" href="#">All issues</a></li>
-            <li><a class="dropdown-item" href="#">Open issues</a></li>
-            <div class="dropdown-divider"></div>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-          </ul>
-        </h2>
+      <div class="dropdown d-flex align-items-center">
+        <span class="h3" id="issue-filter-title">{{ filter_name }}</span>
+        <span class="text-info ml-1"> [{{ issue_count_filter }} issues]</span>
+        <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          (switch filter) <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li><a class="dropdown-item" href="{% url 'itrac:issues_assigned_to_me' %}">My Open Issues</a></li>
+          <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me' %}">Reported by me</a></li>
+          <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me2' %}">Reported by me2</a></li>
+          <li><a class="dropdown-item" href="#">All issues</a></li>
+          <li><a class="dropdown-item" href="#">Open issues</a></li>
+          <div class="dropdown-divider"></div>
+          <li><a class="dropdown-item" href="#">Separated link</a></li>
+        </ul>
       </div>
     </div>
     <div class="col-md-4 text-right">
@@ -48,11 +50,11 @@
             </a>
           </li>
         {% empty %}
-          No issue has been created yet.
+          Not found.
         {% endfor %}
       </ul>
     </div>
-    <div class="col-md-8" id="issue-details" style="border-left:1px solid lightgray;">
+    <div class="col-md-8" id="issue-details" style="border-left:1px solid lightgray;height:65vh;overflow:auto;">
       Issue details go here.
     </div>
   </div>
