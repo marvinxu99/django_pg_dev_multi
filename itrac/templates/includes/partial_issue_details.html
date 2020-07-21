@@ -10,7 +10,7 @@
 </div>
 <div>  
   <a class="js-collapse-toggle" data-toggle="collapse" href="#collapse_details">
-    <i class="fa fa-plus-circle"></i><span class="font-weight-bold">Details</span>
+    <i class="fa fa-minus-circle"></i><span class="font-weight-bold">Details</span>
   </a>
   <div class="collapse js-collapse-details ml-3" id="collapse_details">
     <div class="row">
@@ -67,7 +67,7 @@
 </div>
 <div>
   <a class="js-collapse-toggle" data-toggle="collapse" href="#collapse_description">
-    <i class="fa fa-plus-circle"></i><span class="font-weight-bold">Description</span>
+    <i class="fa fa-minus-circle"></i><span class="font-weight-bold">Description</span>
   </a>
   <div class="collapse js-collapse-details ml-3" id="collapse_description">
     <p class="p-1" style="border: 1px solid lightgray">{{ issue.description }}</p>
@@ -93,7 +93,7 @@
 
 <div>
   <a class="js-collapse-toggle" data-toggle="collapse" href="#collapse_comments">
-    <i class="fa fa-plus-circle"></i><span class="font-weight-bold">Comments</span>
+    <i class="fa fa-minus-circle"></i><span class="font-weight-bold">Comments</span>
   </a>
   <div class="collapse js-collapse-details ml-3" id="collapse_comments">
     <a class="btn-floating btn waves-effect waves-light green" href="{% url 'itrac:new_comment' issue.id %}"><i class="material-icons left">add</i>Add New Comment</a>
