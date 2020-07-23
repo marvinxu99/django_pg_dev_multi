@@ -13,7 +13,7 @@ from django.core import serializers
 from django.template.loader import render_to_string
 
 
-from ..models import Issue, Comment, Reply, SavedIssue
+from ..models import Issue, Comment, Reply, SavedIssue, Tag
 from ..forms import IssueForm, CommentForm, ReplyForm
 from ..filters import IssueFilter
 
@@ -132,6 +132,29 @@ def issues_reported_by_me2(request):
     }
 
     return render(request, "itrac/issues_list_collapse.html", context)
+
+@login_required()
+def issues_with_tag(request):
+    """
+    Create a view that will return a list
+    of current user's Issues and render them to the 'myissues.html' template
+    """
+    issue_count_total = Issue.objects.count()
+
+    tag = request.GET['tag']
+    issues = Tag.objects.filter(title=tag)[0].issues.all().order_by('-created_date')
+
+    issue_count_filter = issues.count()
+
+    context = {
+        'issue_count_total': issue_count_total,
+        'issue_count_filter': issue_count_filter,
+        'issues': issues,
+        'filter_name': f"Issues with tag '{ tag }'"
+    }
+
+    return render(request, "itrac/issues.html", context)
+
 
 @login_required()
 def saved_issues(request):

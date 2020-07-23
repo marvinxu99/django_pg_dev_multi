@@ -17,6 +17,7 @@ urlpatterns = [
     path('issue/<int:issue_pk>/<int:pk>/edit/', views.create_or_edit_comment, name='edit_comment'),
     path('issue/<int:issue_pk>/<int:comment_pk>/new/', views.create_or_edit_reply, name='new_reply'),
     path('issue/<int:issue_pk>/<int:comment_pk>/<int:pk>/edit/', views.create_or_edit_reply, name='edit_reply'),
+    path('issue/tag/', views.issues_with_tag, name='issues_with_tag'),
     
     path('search/', views.search, name='search'),
     path('do_search/', views.do_search, name='do_search'),
