@@ -426,6 +426,7 @@ def create_or_edit_comment(request, issue_pk, pk=None):
             return redirect('itrac:issue_detail', issue_pk)
     else:
         form = CommentForm(instance=comment)
+        
     return render(request, 'itrac/commentform.html', {'form': form})
 
 

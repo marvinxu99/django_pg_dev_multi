@@ -86,9 +86,6 @@ class Comment(models.Model):
         author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='comment_author', on_delete=models.CASCADE)
         issue = models.ForeignKey(Issue, related_name='comment_issue', on_delete=models.CASCADE)
 
-        def __unicode__(self):
-            return self.comment
-
         def __str__(self):
             return self.comment
 
