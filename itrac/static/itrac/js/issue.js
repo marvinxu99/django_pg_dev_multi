@@ -24,12 +24,27 @@ $(function () {
                 
                 //set up the event istener
                 $(".js-collapse-toggle").click(function () {
-                    console.log("toggle")
                     $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
                 });
   
                 // default to expand
-                $(".js-collapse-details").collapse();
+                $(".js-collapse-details").collapse();        
+                
+                $('.js_comment_list ul li').hover(function(){
+                    console.log("hover1")
+                    $(this).css('background-color', 'lightblue');
+                });
+                $('#collapse_comments ul li').mouseleave(function(){
+                    $(this).css('background-color', '');
+                });
+            
+                $('.js_comment_item').hover(function(){
+                    console.log("hover2")
+                    $(this).css('background-color', 'lightblue');
+                });
+                $('.js_comment_item').mouseleave(function(){
+                    $(this).css('background-color', '');
+                });
             }
         });
     };
@@ -51,7 +66,4 @@ $(function () {
         $(this).css('color', 'blue');
     });
   
-    $(".js-collapse-toggle").click(function () {
-        $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
-    });
 });
