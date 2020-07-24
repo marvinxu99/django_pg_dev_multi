@@ -25,7 +25,7 @@ def create_or_edit_comment(request, issue_pk, pk=None):
             form.instance.issue = issue
             form.save()
             # notify.send(request.user, recipient=issue.author, verb="added a comment to your Issue: " + issue.title)
-            messages.success(request, 'Comment Saved!')
+            # messages.success(request, 'Comment Saved!')
             return redirect('itrac:issue_detail', issue_pk)
     else:
         form = CommentForm(instance=comment)

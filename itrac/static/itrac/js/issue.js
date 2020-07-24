@@ -28,8 +28,7 @@ $(function () {
                 });
   
                 // default to expand
-                $(".js-collapse-details").collapse();        
-                            
+                $(".js-collapse-details").collapse();                                    
             }
         });
     };

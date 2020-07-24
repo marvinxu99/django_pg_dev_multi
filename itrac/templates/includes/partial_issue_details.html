@@ -130,10 +130,10 @@
             {% if comment.updated_date != comment.created_date %} 
               <span title="comment.updated_date">(edited at {{ comment.updated_date|naturaltime }})</span> 
             {% endif %}
-            {% if user == comment.author or user.is_staff %}
+            {% if user == comment.author%}
             <a class="btn btn-sm" href="{% url 'itrac:edit_comment' issue.id comment.id %}"><i class="fa fa-edit"></i></a>
             <a class="btn btn-sm" href="{% url 'itrac:delete_comment' issue.id comment.id %}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-            {% endif %}</span>
+            {% endif %}
         </div>
       </div>
       <div class="collapse js-collapse-details ml-3" id="collapse_comment{{comment.id}}">
@@ -149,13 +149,9 @@
 </div>
 <script>
   $('#collapse_comments ul li').hover(function(){
-      console.log("hover1")
       $(this).css('background-color', 'lightblue');
   }, function(){
       $(this).css('background-color', '');
-  });
-  $('#collapse_comments ul li').click(function(){
-      console.log('clicked comment');
   });
 </script>
     
