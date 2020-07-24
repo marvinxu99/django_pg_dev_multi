@@ -147,4 +147,15 @@
     </div>
   </div>
 </div>
+<script>
+  $('#collapse_comments ul li').hover(function(){
+      console.log("hover1")
+      $(this).css('background-color', 'lightblue');
+  }, function(){
+      $(this).css('background-color', '');
+  });
+  $('#collapse_comments ul li').click(function(){
+      console.log('clicked comment');
+  });
+</script>
     

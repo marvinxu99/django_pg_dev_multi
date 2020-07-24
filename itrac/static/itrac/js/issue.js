@@ -29,22 +29,7 @@ $(function () {
   
                 // default to expand
                 $(".js-collapse-details").collapse();        
-                
-                $('.js_comment_list ul li').hover(function(){
-                    console.log("hover1")
-                    $(this).css('background-color', 'lightblue');
-                });
-                $('#collapse_comments ul li').mouseleave(function(){
-                    $(this).css('background-color', '');
-                });
-            
-                $('.js_comment_item').hover(function(){
-                    console.log("hover2")
-                    $(this).css('background-color', 'lightblue');
-                });
-                $('.js_comment_item').mouseleave(function(){
-                    $(this).css('background-color', '');
-                });
+                            
             }
         });
     };
@@ -57,8 +42,7 @@ $(function () {
   
     $('#search-results-list ul li').hover(function(){
          $(this).css('background-color', 'lightblue');
-    });
-    $('#search-results-list ul li').mouseleave(function(){
+    }, function(){
          $(this).css('background-color', '');
     });
     $('#search-results-list ul li a').click(function(){
