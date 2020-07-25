@@ -93,7 +93,8 @@
 </nav>
 {% endblock %}
 {% block announcement %}
-<div id="announcement-banner" class="mx-3 my-1 d-flex align-items-center" style="background-color: powderblue;font-size: 90%; height:6vh;">
+<div id="announcement-banner" class="alert alert-info alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 	<div class="ml-3"> 
     If you have any questions related to Issue Tracker, please submit your request to the <b><a href="#" target="_blank"> Winn Service Portal</a></b>. 
     More announcement to come. 
@@ -102,7 +103,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
+<div class="container-fluid mt-1">
   {% block subcontent %}
   {% endblock %}
 </div>

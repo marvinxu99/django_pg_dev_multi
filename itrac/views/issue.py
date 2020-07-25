@@ -367,7 +367,7 @@ def create_issue(request):
     else:
         form = IssueForm()
         
-    return render(request, 'itrac/issueform.html', {'form': form})
+    return render(request, 'itrac/issue_create.html', {'form': form})
 
 
 @login_required()
@@ -403,7 +403,7 @@ def edit_issue(request, pk=None):
             return redirect('itrac:issue_detail', issue.pk)
     else:
         form = IssueForm(instance=issue)
-    return render(request, 'itrac/issueform.html', {'form': form})
+    return render(request, 'itrac/issue_edit.html', {'form': form})
 
 
 @login_required()

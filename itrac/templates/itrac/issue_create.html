@@ -1,0 +1,17 @@
+{% extends "itrac/base_itrac.html" %}
+{% block subcontent %}
+<div class="row justify-content-center">
+  <div class="card w-50">
+    <div class="card-body">
+      <h1>Create Issue</h1>
+      <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% include 'includes/form.html' %}
+          <button class="btn btn-sm btn-secondary" type="submit" name="action" onclick="showNewIssueToast();">
+            Save Issue
+          </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

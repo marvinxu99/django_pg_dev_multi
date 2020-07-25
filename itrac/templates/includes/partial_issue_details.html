@@ -9,8 +9,8 @@
   </div>
 </div>
 <div>
-  <button class="btn btn-sm btn-outline-info">Edit Issue</button>
-  <button class="btn btn-sm btn-outline-info">New comment</button>
+  <a class="btn btn-sm btn-outline-info" href="{% url 'itrac:edit_issue' issue.id %}">Edit Issue</a>
+  <a class="btn btn-sm btn-outline-info" href="{% url 'itrac:new_comment' issue.id %}">New Comment</a>
   <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="dropdownStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     Change Status to: <span class="caret"></span>
   </button>
@@ -142,7 +142,7 @@
     </li>
     {% endfor %}
     </ul>
-    <div class="mt-3">
+    <div id="new_comment_btn_div" class="mt-3">
       <a class="btn btn-sm btn-outline-info" href="{% url 'itrac:new_comment' issue.id %}">New Comment</a>
     </div>
   </div>
