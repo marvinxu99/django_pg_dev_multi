@@ -11,6 +11,7 @@
 <div>
   <a class="btn btn-sm btn-outline-info" href="{% url 'itrac:edit_issue' issue.id %}">Edit Issue</a>
   <a class="btn btn-sm btn-outline-info" href="{% url 'itrac:new_comment' issue.id %}">New Comment</a>
+  <a class="btn btn-sm btn-outline-info mx-3" href="{% url 'itrac:save_issue' issue.id %}">Add to Favorite</a>
   <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="dropdownStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     Change Status to: <span class="caret"></span>
   </button>
@@ -63,14 +64,10 @@
             
       <div class="col-md-2">Resolved Date:</div>
       <div class="col-md-4" title="{{ issue.resolved_date|default_if_none:'' }}">{{ issue.resolved_date|default_if_none:""|naturaltime }}</div>
-      <div class="col-md-2"><a class="btn" href="{% url 'itrac:save_issue' issue.id %}">star</a></div>
-      <div class="col-md-4">
-          {% if user == issue.author or user.is_staff %}
-          <a class="btn" href="{% url 'itrac:edit_issue' issue.id %}">edit</a>
-          {% endif %}
-      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-4"></div>
     </div>      
-    <div class="d-flex align-items-baseline">
+    <div class="d-flex align-items-baseline mt-3">
       <div><span class="font-weight-bold">Tags:</span></div>
       <div class="d-flex">
           {% for tag in issue.tags.all %}
