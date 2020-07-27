@@ -128,12 +128,13 @@
             <strong>{{ comment.author }}</strong> 
             added a comment - <span title="{{comment.created_date}}">{{ comment.created_date|naturaltime }}</span> 
             {% if comment.updated_date != comment.created_date %} 
-              <span title="comment.updated_date">(edited at {{ comment.updated_date|naturaltime }})</span> 
+              <span title="{{comment.updated_date}}">(edited at {{ comment.updated_date|naturaltime }})</span> 
             {% endif %}
             {% if user == comment.author %}
             <a class="btn btn-sm" href="{% url 'itrac:edit_comment' issue.id comment.id %}"><i class="fa fa-edit"></i></a>
             <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#confirmDeleteComment"
-                data-url="{% url 'itrac:delete_comment' issue.id comment.id %}"><i class="fa fa-trash" aria-hidden="true"></i>
+                data-url="{% url 'itrac:delete_comment' issue.id comment.id %}"
+                data-comment='"{{ comment.comment|truncatechars:30 }}"'><i class="fa fa-trash" aria-hidden="true"></i>
             </button>
             {% endif %}
         </div>
@@ -160,10 +161,11 @@
       </div>
       <div class="modal-body">
         <p>Are you sure you want to delete this comment?</p>
+        <p id="comment_to_delete" class="text-muted ml-3"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <a id="confirm_delete_comment" class="btn btn-sm btn-outline-secondary" href="#" role="button">Delete.</a>
+        <a id="confirm_delete_comment" class="btn btn-sm btn-outline-secondary" href="#" role="button">Delete Comment</a>
       </div>
     </div>
   </div>
@@ -176,9 +178,11 @@
   });
 
   $('#confirmDeleteComment').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget)     // Button that triggered the modal
-    var data = button.data('url')           // Extract info from data-* attributes
-    $("#confirm_delete_comment").attr("href", data)
+    const button = $(event.relatedTarget);     // Button that triggered the modal
+    const data = button.data('url');           // Extract info from data-* attributes
+    const comment = button.data('comment');
+    $("#confirm_delete_comment").attr("href", data);
+    $("#comment_to_delete").html(comment);
   });
 
 </script>
