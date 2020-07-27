@@ -13,6 +13,7 @@ urlpatterns = [
     path('issue/<int:pk>/partial', views.issue_detail_partial, name='issue_detail_partial'),
     path('issue/new/', views.create_issue, name='new_issue'),
     path('issue/<int:pk>/edit/', views.edit_issue, name='edit_issue'),
+    path('issue/<int:pk>/change_status/', views.issue_change_status, name='change_status'),
     path('comment/<int:issue_pk>/new/', views.create_comment, name='new_comment'),
     path('comment/<int:issue_pk>/<int:pk>/edit/', views.edit_comment, name='edit_comment'),
     path('comment/<int:issue_pk>/<int:pk>/delete/', views.delete_comment, name='delete_comment'),

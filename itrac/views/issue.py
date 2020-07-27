@@ -11,9 +11,11 @@ from django.http import JsonResponse
 from django.db.models import Count, Q
 from django.core import serializers
 from django.template.loader import render_to_string
+from django.views.decorators.http import require_POST
+import json
 
 
-from ..models import Issue, Comment, Reply, SavedIssue, Tag
+from ..models import Issue, Comment, Reply, SavedIssue, Tag, ISSUE_STATUS
 from ..forms import IssueForm, CommentForm, ReplyForm
 from ..filters import IssueFilter
 
@@ -111,6 +113,7 @@ def issues_reported_by_me(request):
     }
 
     return render(request, "itrac/issues.html", context)
+
 
 @login_required()
 def issues_reported_by_me2(request):
@@ -371,12 +374,12 @@ def create_issue(request):
 
 
 @login_required()
-def edit_issue(request, pk=None):
+def edit_issue(request, pk):
     """
     Create a view that allows us to edit a issue depending if the Issue ID
     is null or not
     """
-    issue = get_object_or_404(Issue, pk=pk) if pk else None
+    issue = get_object_or_404(Issue, pk=pk)
     user = request.user
     # Prevents a non-staff user from editing another users comment
     if not request.user.is_staff:
@@ -403,7 +406,31 @@ def edit_issue(request, pk=None):
             return redirect('itrac:issue_detail', issue.pk)
     else:
         form = IssueForm(instance=issue)
+
     return render(request, 'itrac/issue_edit.html', {'form': form})
+
+
+@login_required()
+@require_POST
+def issue_change_status(request, pk):
+    """
+    Change the status of the issue, also log tracking information
+    """
+    data = dict()
+
+    issue = get_object_or_404(Issue, pk=pk)
+    new_status = request.POST['new_status']
+    issue.status = ISSUE_STATUS[new_status]
+    issue.save()
+    
+    # Reload issue status post change
+    issue = get_object_or_404(Issue, pk=pk)
+    data['issue_status'] = issue.get_status_display()
+    data['status'] = 'S'
+
+    # TO ADD status change tracking later
+
+    return JsonResponse(data)
 
 
 @login_required()
