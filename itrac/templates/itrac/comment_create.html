@@ -1,9 +1,9 @@
 {% extends "itrac/base_itrac.html" %}
 {% block subcontent %}
-    <h1>Create/Update Comment</h1>
+    <h1>Create Comment</h1>
     <form method="POST">
         {% csrf_token %}
         {% include 'includes/form.html' %}
-        <button class="btn" type="submit" name="action" onclick=";">Save Comment</button>
+        <button class="btn btn-sm btn-outline-info" type="submit" name="action" onclick=";">Save Comment</button>
     </form>
 {% endblock %}
