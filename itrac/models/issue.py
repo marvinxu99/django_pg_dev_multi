@@ -40,7 +40,7 @@ class Issue(models.Model):
     resolved_date = models.DateTimeField(blank=True, null=True)
     upvotes = models.IntegerField('likes', default=0)
     
-    tags = models.ManyToManyField(Tag, related_name='issues')
+    tags = models.ManyToManyField(Tag, related_name='issues', blank=True)
     
     image = models.ImageField(upload_to='img', blank=True, null=True)
 

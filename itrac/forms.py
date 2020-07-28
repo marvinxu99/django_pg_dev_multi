@@ -5,7 +5,7 @@ from .models import Issue, Comment, Reply
 class IssueForm(forms.ModelForm):
     class Meta:
         model = Issue
-        fields = ('title', 'issue_type', 'description', 'image', 'tags', )
+        fields = ('title', 'issue_type', 'is_resolved', 'resolved_date', 'description', 'image', 'tags', )
 
 
 class CommentForm(forms.ModelForm):
