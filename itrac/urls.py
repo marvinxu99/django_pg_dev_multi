@@ -7,7 +7,11 @@ urlpatterns = [
     path('', views.issues_assigned_to_me, name='issues_assigned_to_me'),
     path('my_issues/', views.issues_reported_by_me, name='issues_reported_by_me'),
     path('my_issues2/', views.issues_reported_by_me2, name='issues_reported_by_me2'),
-    path('saved_issues/', views.saved_issues, name='saved_issues'),
+    path('saved_issues/', views.my_saved_issues, name='saved_issues'),
+
+    path('issues/all/', views.filtered_issues, {'filter': 'all'}, name='filtered_issues_all'),
+    path('issues/open/', views.filtered_issues, {'filter': 'open'}, name='filtered_issues_open'),
+
     path('notifications/', views.my_notifications, name='my_notifications'),
     path('issue/<int:pk>/', views.issue_detail, name='issue_detail'),
     path('issue/<int:pk>/partial', views.issue_detail_partial, name='issue_detail_partial'),

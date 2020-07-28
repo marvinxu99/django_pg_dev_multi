@@ -29,10 +29,11 @@
           <li><a class="dropdown-item" href="{% url 'itrac:issues_assigned_to_me' %}">My Open Issues</a></li>
           <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me' %}">Reported by me</a></li>
           <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me2' %}">Reported by me2</a></li>
-          <li><a class="dropdown-item" href="#">All issues</a></li>
-          <li><a class="dropdown-item" href="#">Open issues</a></li>
+          <li><a class="dropdown-item" href="{% url 'itrac:saved_issues' %}">My Favorite Issues</a></li>
           <div class="dropdown-divider"></div>
-          <li><a class="dropdown-item" href="#">Separated link</a></li>
+          <li><a class="dropdown-item" href="{% url 'itrac:filtered_issues_open' %}">All Open issues</a></li>
+          <li><a class="dropdown-item" href="{% url 'itrac:filtered_issues_all' %}">All issues</a></li>
+          <div class="dropdown-divider"></div>
         </ul>
       </div>
     </div>

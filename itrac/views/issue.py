@@ -121,10 +121,11 @@ def issues_reported_by_me2(request):
     Create a view that will return a list
     of current user's Issues and render them to the 'myissues.html' template
     """
+    issue_count_total = Issue.objects.count()
+
     user = request.user
     issues = Issue.objects.filter(author=user).order_by('-created_date')
 
-    issue_count_total = Issue.objects.count()
     issue_count_filter = issues.count()
 
     context = {
@@ -135,6 +136,65 @@ def issues_reported_by_me2(request):
     }
 
     return render(request, "itrac/issues_list_collapse.html", context)
+
+
+@login_required()
+def my_saved_issues(request):
+    """
+    Create a view that will return a list
+    of current user's Saved Issues and render them to the 'issues.html' template
+    """
+    issue_count_total = Issue.objects.count()
+
+    user = request.user
+    saved_issues = SavedIssue.objects.filter(user=user).order_by('-created_date')
+    issues = []
+    for saved_issue in saved_issues:
+        issues.append(saved_issue.issue)
+
+    issue_count_filter = saved_issues.count()
+
+    context = {
+        'issue_count_total': issue_count_total,
+        'issue_count_filter': issue_count_filter,
+        'issues': issues,
+        'filter_name': "My Favorite Issues"
+    }
+
+    return render(request, "itrac/issues.html", context)
+
+@login_required()
+def filtered_issues(request, filter):
+    """
+    Create a view that will return a list
+    of current user's Saved Issues and render them to the 'issues.html' template
+    """
+    issue_count_total = Issue.objects.count()
+
+    issues = None
+    filter_name = ''
+
+    if filter == "all":
+        print('ALl')
+        filter_name = 'All issues'
+        issues = Issue.objects.all().order_by('-created_date')
+
+    elif filter == "open":
+        print('open')
+        filter_name = 'All open issues'
+        issues = Issue.objects.filter(status=ISSUE_STATUS.OPEN).order_by('-created_date')
+
+    issue_count_filter = issues.count()
+
+    context = {
+        'issue_count_total': issue_count_total,
+        'issue_count_filter': issue_count_filter,
+        'issues': issues,
+        'filter_name': filter_name
+    }
+
+    return render(request, "itrac/issues.html", context)
+
 
 @login_required()
 def issues_with_tag(request):
@@ -157,17 +217,6 @@ def issues_with_tag(request):
     }
 
     return render(request, "itrac/issues.html", context)
-
-
-@login_required()
-def saved_issues(request):
-    """
-    Create a view that will return a list
-    of current user's Saved Issues and render them to the 'issues.html' template
-    """
-    user = request.user
-    savedissues = SavedIssue.objects.filter(user=user).order_by('-created_date')
-    return render(request, "itrac/savedissues.html", {'savedissues': savedissues})
 
 
 def my_notifications(request):
