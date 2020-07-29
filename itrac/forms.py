@@ -12,8 +12,8 @@ class IssueForm(forms.ModelForm):
         model = Issue
         fields = ('title', 'issue_type', 'is_resolved', 'resolved_date', 'description', 'image', 'tags', )
         widgets = {
-            'is_resolved': forms.Select(choices=TRUE_FALSE_CHOICES, attrs={'style':'width:120px;'}),
-            'resolved_date': forms.DateInput(attrs={'type': 'date'}),
+            'is_resolved': forms.Select(choices=TRUE_FALSE_CHOICES, attrs={'style':'width:150px;'}),
+            'resolved_date': forms.DateInput(attrs={'type': 'date', 'style':'width:200px;'}),
             'description': forms.Textarea(attrs={'rows': 4}),
         }
 
