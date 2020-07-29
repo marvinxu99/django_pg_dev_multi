@@ -15,8 +15,7 @@ from django.views.decorators.http import require_POST
 import json
 
 
-from ..models import Issue, Comment, Reply, SavedIssue, Tag, ISSUE_STATUS
-from ..forms import IssueForm, CommentForm, ReplyForm
+from ..models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS, ISSUE_TYPE
 from ..filters import IssueFilter
 
 
@@ -46,13 +45,19 @@ def get_issue_type_json(request):
         .annotate(total=Count('issue_type')) \
         .order_by('issue_type')
 
+    # get the issue type display
+    # https://docs.djangoproject.com/en/3.0/ref/models/fields/
+    for i in range(len(dataset)):
+        dataset[i]['issue_type_display'] = ISSUE_TYPE(dataset[i]['issue_type']).label
+
+    # Highchart.js configure
     chart = {
         'chart': {'type': 'column'},
         'title': {'text': 'Issue Type'},
         'xAxis': {'type': "category"},
         'series': [{
             'name': 'Issue Type',
-            'data': list(map(lambda row: {'name': [row['issue_type']], 'y': row['total']}, dataset))
+            'data': list(map(lambda row: {'name': [row['issue_type_display']], 'y': row['total']}, dataset))
         }]
     }
 
