@@ -34,6 +34,9 @@ urlpatterns = [
     path('report/get_bug_upvotes_json/', views.get_bug_upvotes_json, name='get_bug_upvotes_json'),
     path('report/get_feature_upvotes_json/', views.get_feature_upvotes_json, name='get_feature_upvotes_json'),
     path('report/', views.report, name='report'),
+    path('report/resolved_by_days', views.rpt_resolved_by_days, name='rpt_resolved_by_days'),
+    path('report/issues_by_type', views.rpt_issues_by_type, name='rpt_issues_by_type'),
+    path('report/issues_by_status', views.rpt_issues_by_status, name='rpt_issues_by_status'),
 
     path('issue/<int:pk>/upvote/', views.upvote, name='upvote'),
     path('issue/<int:pk>/save_issue/', views.save_issue, name='save_issue'),

@@ -1,0 +1,20 @@
+{% extends "itrac/base_itrac.html" %} 
+{% block subcontent %}
+<div class="row mt-3 ml-3">
+    <h1>Issues by Status</h1>
+</div>
+
+<div class="ml-3" id="status_container" data-url="{% url 'itrac:get_status_json' %}"></div>
+
+<script>
+    $.ajax({
+        url: $("#status_container").attr("data-url"),
+        dataType: 'json',
+        success: function (data) {
+        Highcharts.chart("status_container", data);
+        }
+    });
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends "itrac/base_itrac.html" %} 
+{% block subcontent %}
+<div class="row mt-3 ml-3">
+    <h1>Issues Resolved by Days</h1>
+</div>
+
+<div class="row mt-5 ml-3">
+<div id="completed_daily_container" class="col s12 m4"></div>
+<div id="completed_weekly_container" class="col s12 m4"></div>
+<div id="completed_monthly_container" class="col s12 m4"></div>
+</div>
+
+<script>
+$(document).ready(function() {
+
+    var chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'completed_daily_container',
+                type: 'pie',
+                backgroundColor:'transparent',
+
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: '70%'
+                }
+            },
+            title: {
+                text: 'Issues Resolved Today:',
+                style: { 'color': 'black' }
+
+            },
+            subtitle: {
+                text: '{{completed_daily}}',
+                align: 'center',
+                verticalAlign: 'middle',
+                style: { "fontSize": "5em", 'color': 'black' },
+                y: 15
+            },
+            credits: { enabled: false },
+
+        });
+
+    var chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'completed_weekly_container',
+                type: 'pie',
+                backgroundColor:'transparent',
+
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: '70%'
+                }
+            },
+            title: {
+                text: 'Issues Resolved in the past 7 days:',
+                style: { 'color': 'black' }
+
+            },
+            subtitle: {
+                text: '{{completed_weekly}}',
+                align: 'center',
+                verticalAlign: 'middle',
+                style: { "fontSize": "5em", 'color': 'black' },
+                y: 15
+            },
+            credits: { enabled: false },
+
+        });
+
+    var chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'completed_monthly_container',
+                type: 'pie',
+                backgroundColor:'transparent',
+
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: '70%'
+                }
+            },
+            title: {
+                text: 'Issues Resolved in the past 28 days:',
+                style: { 'color': 'black' }
+
+            },
+            subtitle: {
+                text: '{{completed_monthly}}',
+                align: 'center',
+                verticalAlign: 'middle',
+                style: { "fontSize": "5em", 'color': 'black' },
+                y: 15
+            },
+            credits: { enabled: false },
+
+        });
+    });
+
+</script>
+
+{% endblock %}
