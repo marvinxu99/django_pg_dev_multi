@@ -90,7 +90,7 @@ def get_issue_type_json(request):
         'title': {'text': 'Issue Type'},
         'xAxis': {'type': "category"},
         'series': [{
-            'name': 'Issue Type',
+            'name': 'Issues',
             'data': list(map(lambda row: {'name': [row['issue_type_display']], 'y': row['total']}, dataset))
         }]
     }
@@ -115,7 +115,7 @@ def get_status_json(request):
         'chart': {'type': 'pie'},
         'title': {'text': 'Issue Status'},
         'series': [{
-            'name': 'Issue Status',
+            'name': 'Issues',
             'data': list(map(lambda row: {'name': [row['status_display']], 'y': row['total']}, dataset))
         }]
     }
