@@ -37,7 +37,7 @@ class Issue(models.Model):
     slug = models.CharField(max_length=250, blank=True)
     
     is_resolved = models.BooleanField(default=False)
-    resolved_date = models.DateTimeField(blank=True, null=True)
+    resolved_date = models.DateField(blank=True, null=True)
     upvotes = models.IntegerField('likes', default=0)
     
     tags = models.ManyToManyField(Tag, related_name='issues', blank=True)
