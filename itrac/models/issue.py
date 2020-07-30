@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _ 
 from django.urls import reverse
+from markdown import markdown
+from django.utils.html import mark_safe
 
 from .tag import Tag
 
@@ -33,7 +35,7 @@ class Issue(models.Model):
     issue_prefix = models.CharField(max_length=20, default='WINN')
     
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.TextField(max_length=4000, blank=True)
     slug = models.CharField(max_length=250, blank=True)
     
     is_resolved = models.BooleanField(default=False)
@@ -74,6 +76,10 @@ class Issue(models.Model):
 
     def get_absolute_url(self):
         return reverse('itrac:issue_detail', args=(self.slug,))
+
+    def get_description_as_markdown(self):
+        return mark_safe(markdown(self.description, safe_mode='escape'))
+
 
 
 class Comment(models.Model):

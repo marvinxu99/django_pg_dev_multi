@@ -16,7 +16,7 @@ import json
 
 
 from ..models import Issue, Comment, Reply, SavedIssue, Tag, ISSUE_STATUS
-from ..forms import IssueForm, CommentForm, ReplyForm
+from ..forms import IssueEditForm, IssueCreateForm, CommentForm, ReplyForm
 from ..filters import IssueFilter
 
 
@@ -214,7 +214,7 @@ def create_issue(request):
     is null or not
     """
     if request.method == "POST":
-        form = IssueForm(request.POST, request.FILES)
+        form = IssueCreateForm(request.POST, request.FILES)
         if form.is_valid():
             
             form.instance.author = request.user
@@ -226,7 +226,7 @@ def create_issue(request):
             
             return redirect('itrac:issue_detail', issue.pk)
     else:
-        form = IssueForm()
+        form = IssueCreateForm()
         
     return render(request, 'itrac/issue_create.html', {'form': form})
 
@@ -249,7 +249,7 @@ def edit_issue(request, pk):
             return redirect('itrac:issue_detail', issue.pk)
 
     if request.method == "POST":
-        form = IssueForm(request.POST, request.FILES, instance=issue)
+        form = IssueEditForm(request.POST, request.FILES, instance=issue)
         if form.is_valid():
 
             form.instance.author = request.user
@@ -263,7 +263,7 @@ def edit_issue(request, pk):
 
             return redirect('itrac:issue_detail', issue.pk)
     else:
-        form = IssueForm(instance=issue)
+        form = IssueEditForm(instance=issue)
 
     return render(request, 'itrac/issue_edit.html', {'form': form})
 

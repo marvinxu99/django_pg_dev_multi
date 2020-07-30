@@ -16,7 +16,6 @@ import json
 
 
 from ..models import Issue, Comment, Reply, SavedIssue, Tag, ISSUE_STATUS
-from ..forms import IssueForm, CommentForm, ReplyForm
 from ..filters import IssueFilter
 
 

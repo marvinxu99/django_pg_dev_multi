@@ -1,4 +1,8 @@
 {% extends "itrac/base_itrac.html" %}
+{% load static %}
+{% block head_js %}
+<link rel="stylesheet" href="{% static 'boards/css/simplemde.min.css' %}">
+{% endblock head_js %}
 {% block subcontent %}
 <div class="row justify-content-center">
   <div class="card w-50">
@@ -11,7 +15,6 @@
             Save Issue
           </button>
       </form>
-
       <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000" style="position: absolute; top: 1rem; right: 1rem;">
           <div class="toast-header">
             <strong class="mr-auto text-primary">New Issue</strong>
@@ -23,13 +26,16 @@
           <div class="toast-body">
             New Issue Submitted!
           </div>
-        </div>
+      </div>
     </div>
   </div>
 </div>
+<script src="{% static 'itrac/js/simplemde.min.js' %}"></script>
 <script>
   function showNewIssueToast() {
       $('.toast').toast('show');
   }
+  var simplemde = new SimpleMDE({ element: document.getElementById("id_description_edit") });
+  //var simplemde = new SimpleMDE();
 </script>
 {% endblock %}
