@@ -57,7 +57,13 @@ def report(request):
     completed_monthly = Issue.objects.filter(resolved_date__gte=this_month_start).filter(resolved_date__lt=today_end).count()
     print(completed_daily)
 
-    return render(request, "itrac/report.html", {'completed_daily': str(completed_daily), 'completed_weekly': str(completed_weekly), 'completed_monthly': str(completed_monthly)})
+    context = {
+        'completed_daily': str(completed_daily), 
+        'completed_weekly': str(completed_weekly), 
+        'completed_monthly': str(completed_monthly)
+    }
+
+    return render(request, "itrac/report.html", context)
 
 
 

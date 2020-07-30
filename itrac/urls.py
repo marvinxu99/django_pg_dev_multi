@@ -18,11 +18,12 @@ urlpatterns = [
     path('issue/new/', views.create_issue, name='new_issue'),
     path('issue/<int:pk>/edit/', views.edit_issue, name='edit_issue'),
     path('issue/<int:pk>/change_status/', views.issue_change_status, name='change_status'),
+
     path('comment/<int:issue_pk>/new/', views.create_comment, name='new_comment'),
     path('comment/<int:issue_pk>/<int:pk>/edit/', views.edit_comment, name='edit_comment'),
     path('comment/<int:issue_pk>/<int:pk>/delete/', views.delete_comment, name='delete_comment'),
-    path('reply/<int:issue_pk>/<int:comment_pk>/new/', views.create_or_edit_reply, name='new_reply'),
-    path('reply/<int:issue_pk>/<int:comment_pk>/<int:pk>/edit/', views.create_or_edit_reply, name='edit_reply'),
+    # path('reply/<int:issue_pk>/<int:comment_pk>/new/', views.create_or_edit_reply, name='new_reply'),
+    # path('reply/<int:issue_pk>/<int:comment_pk>/<int:pk>/edit/', views.create_or_edit_reply, name='edit_reply'),
     path('issue/tag/', views.issues_with_tag, name='issues_with_tag'),
     
     path('search/', views.search, name='search'),
@@ -34,6 +35,7 @@ urlpatterns = [
     path('report/get_bug_upvotes_json/', views.get_bug_upvotes_json, name='get_bug_upvotes_json'),
     path('report/get_feature_upvotes_json/', views.get_feature_upvotes_json, name='get_feature_upvotes_json'),
     path('report/', views.report, name='report'),
+
     path('report/resolved_by_days', views.rpt_resolved_by_days, name='rpt_resolved_by_days'),
     path('report/issues_by_type', views.rpt_issues_by_type, name='rpt_issues_by_type'),
     path('report/issues_by_status', views.rpt_issues_by_status, name='rpt_issues_by_status'),
