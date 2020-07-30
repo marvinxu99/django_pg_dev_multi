@@ -20,8 +20,9 @@
 </div>
 <script src="{% static 'itrac/js/simplemde.min.js' %}"></script>
 <script>
-  var simplemde = new SimpleMDE({ element: document.getElementById("id_description_edit") });
+  //https://github.com/sparksuite/simplemde-markdown-editor
   //var simplemde = new SimpleMDE();
+  const simplemde = new SimpleMDE({ element: document.getElementById("id_description_edit") });
 </script>
 
 {% endblock %}
