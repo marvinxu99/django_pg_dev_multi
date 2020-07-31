@@ -41,8 +41,8 @@
       <a href="#">View all issues and filters</a>
     </div>
   </div>
-  <div class="row" style="border-bottom: 2px solid lightgrey;">
-    <div class="search-results col-md-4" id="search-results-list" style="height:65vh; overflow:auto;">
+  <div class="row" id="panel_container" style="position:absolute; width: 100%; height:75%; border-bottom: 2px solid lightgrey;">
+    <div class="search-results" id="search-results-list" style="overflow-y:auto; overflow-x:hidden;">
       <ul class="list-group list-group-flush issue-list">
         {% for issue in issues %}
           <li  class="list-group-item js_issue_item">
@@ -55,7 +55,7 @@
         {% endfor %}
       </ul>
     </div>
-    <div class="col-md-8" id="issue-details" style="border-left:1px solid lightgray;height:65vh;overflow:auto;">
+    <div class="pl-3" id="issue-details" style="border-left:1px solid lightgray; overflow-x:hidden; overflow-y:auto;">
       Issue details go here.
     </div>
   </div>
@@ -63,6 +63,16 @@
 {% endblock %}
 {% load static %}
 {% block subjavascript %}
-  <script src="{% static 'itrac/js/issue.js' %}"></script>
+<script src="{% static 'itrac/js/issue.js' %}"></script>
+<script>
+$( function() {
+  $("#search-results-list").resizable({
+    handles: 'e',
+    resize: function() {
+      $("#issue-details").outerWidth($("#panel_container").innerWidth() - $("#search-results-list").outerWidth());
+    }
+  });
+});
+</script>
 {% endblock %}
 

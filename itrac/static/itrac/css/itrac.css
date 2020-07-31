@@ -98,3 +98,23 @@ div a {
 .selected {
     background-color: #7386D5;
 }
+
+#search-results-list,
+#issue-details {
+  top: 0;
+  height: 100%;
+  position: absolute;
+  padding: 10px;
+  color: black;
+}
+
+#search-results-list {
+  width: 25%;
+  left: 0;
+  border-right: 6px solid lightgray;
+}
+
+#issue-details {
+  width: 75%;
+  right: 0;
+}
