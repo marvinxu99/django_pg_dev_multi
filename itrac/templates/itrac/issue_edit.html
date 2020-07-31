@@ -1,7 +1,6 @@
 {% extends "itrac/base_itrac.html" %}
 {% load static %}
 {% block head_js %}
-<link rel="stylesheet" href="{% static 'boards/css/simplemde.min.css' %}">
 {% endblock head_js %}
 {% block subcontent %}
 <div class="row justify-content-center">
@@ -30,7 +29,6 @@
     </div>
   </div>
 </div>
-<script src="{% static 'itrac/js/simplemde.min.js' %}"></script>
 <script>
   function showNewIssueToast() {
       $('.toast').toast('show');
