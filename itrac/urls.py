@@ -23,6 +23,8 @@ urlpatterns = [
     path('comment/<int:issue_pk>/save_new/', views.save_new_comment, name='save_new_comment'),
     path('comment/<int:issue_pk>/<int:pk>/edit/', views.edit_comment, name='edit_comment'),
     path('comment/<int:issue_pk>/<int:pk>/delete/', views.delete_comment, name='delete_comment'),
+    path('comment/<int:issue_pk>/<int:pk>/markdown/', views.comment_markdown, name='comment_markdown'),
+
     # path('reply/<int:issue_pk>/<int:comment_pk>/new/', views.create_or_edit_reply, name='new_reply'),
     # path('reply/<int:issue_pk>/<int:comment_pk>/<int:pk>/edit/', views.create_or_edit_reply, name='edit_reply'),
     path('issue/tag/', views.issues_with_tag, name='issues_with_tag'),

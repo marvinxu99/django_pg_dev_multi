@@ -2,8 +2,9 @@ import os
 import requests
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 from django.http.response import JsonResponse
+from django.template.loader import render_to_string
 import json
 
 from ..models import Issue, Comment
@@ -60,7 +61,8 @@ def save_new_comment(request, issue_pk):
     return JsonResponse(resp)
 
 
-@login_required()
+@login_required
+@require_POST
 def edit_comment(request, issue_pk, pk):
     """
     Create a view that allows us to create
@@ -69,22 +71,40 @@ def edit_comment(request, issue_pk, pk):
     """
     issue = get_object_or_404(Issue, pk=issue_pk)
     comment = get_object_or_404(Comment, pk=pk)
-    if request.method == "POST":
-        form = CommentForm(request.POST, request.FILES, instance=comment)
-        if form.is_valid():
-            form.instance.author = request.user
-            form.instance.issue = issue
-            form.save()
-            # notify.send(request.user, recipient=issue.author, verb="added a comment to your Issue: " + issue.title)
-            # messages.success(request, 'Comment Saved!')
-            return redirect('itrac:issue_detail', issue_pk)
+
+    form = CommentForm(request.POST, request.FILES, instance=comment)
+    if form.is_valid():
+        form.instance.author = request.user
+        form.instance.issue = issue
+        form.save()
+   
+        resp = {
+            'status': 'S',         # 'S': successful, 'F': Failed 
+        }
     else:
-        form = CommentForm(instance=comment)
-        
-    return render(request, 'itrac/comment_edit.html', {'form': form})
+        resp = {
+            'status': 'F',         # 'S': successful, 'F': Failed 
+            'error': "error",
+        }
+
+    return JsonResponse(resp)
+
 
 @login_required()
 def delete_comment(request, issue_pk, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
     return redirect('itrac:issue_detail', issue_pk)
+
+@login_required
+@require_GET
+def comment_markdown(request, issue_pk, pk):
+    """
+     return the raw markdown of the comment field
+    """
+    comment = get_object_or_404(Comment, pk=pk)
+    data = {
+        'comment': comment.comment,  
+    }
+
+    return JsonResponse(data)

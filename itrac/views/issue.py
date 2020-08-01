@@ -155,15 +155,10 @@ def issue_detail(request, pk):
     """
     issue = get_object_or_404(Issue, pk=pk)
     comments = Comment.objects.filter(issue=pk)
-    comment_replies = []
-    for comment in comments:
-        replies = Reply.objects.filter(comment=comment)
-        comment_replies.append(replies)
 
     context = {
         'issue': issue, 
         'comments': comments, 
-        'comment_replies': comment_replies
     }
 
     return render(request, "itrac/issue_detail.html", context)
@@ -180,16 +175,11 @@ def issue_detail_partial(request, pk):
     """
     data = dict()
     issue = get_object_or_404(Issue, pk=pk)
-    comments = Comment.objects.filter(issue=pk)
-    comment_replies = []
-    for comment in comments:
-        replies = Reply.objects.filter(comment=comment)
-        comment_replies.append(replies)
+    comments = Comment.objects.filter(issue=pk).order_by('created_date')
 
     context = {
         'issue': issue, 
         'comments': comments, 
-        'comment_replies': comment_replies
     }
 
     data['html_issue_detail'] = render_to_string('includes/partial_issue_details.html', context, request=request)
