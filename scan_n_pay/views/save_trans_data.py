@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.apps import apps
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.db import transaction
 import json
 
@@ -15,15 +16,15 @@ from core.models import TransEvent, TransItem
 
 
 @login_required
-# @csrf_exempt
+@require_POST
 @transaction.atomic
 def save_trans_data(request):
     ''' 
     (1) Save transaction event + (2) save the items included in the transaction
     '''
-    # Only accept POST
-    if request.method != 'POST':
-        return { 'status': 'F' }
+    # # Only accept POST
+    # if request.method != 'POST':
+    #     return { 'status': 'F' }
 
     trans_data = json.loads(request.body)
     num_trans_items = len(trans_data['allItems'])

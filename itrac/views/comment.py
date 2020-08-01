@@ -2,8 +2,9 @@ import os
 import requests
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
-
+from django.views.decorators.http import require_POST
+from django.http.response import JsonResponse
+import json
 
 from ..models import Issue, Comment
 from ..forms import CommentForm
@@ -17,6 +18,7 @@ def create_comment(request, issue_pk):
     is null or not
     """
     issue = get_object_or_404(Issue, pk=issue_pk)
+
     if request.method == "POST":
         form = CommentForm(request.POST, request.FILES)
         if form.is_valid():
@@ -30,6 +32,33 @@ def create_comment(request, issue_pk):
         form = CommentForm()
         
     return render(request, 'itrac/comment_create.html', {'form': form})
+
+
+@login_required()
+@require_POST
+def save_new_comment(request, issue_pk):
+    """
+    Save a comment created using an ajax POST call
+    """
+    issue = get_object_or_404(Issue, pk=issue_pk)
+
+    form = CommentForm(request.POST, request.FILES)
+    if form.is_valid():
+        form.instance.author = request.user
+        form.instance.issue = issue
+        form.save()
+   
+        resp = {
+            'status': 'S',         # 'S': successful, 'F': Failed 
+        }
+    else:
+        resp = {
+            'status': 'F',         # 'S': successful, 'F': Failed 
+            'error': str(e),
+        }
+
+    return JsonResponse(resp)
+
 
 @login_required()
 def edit_comment(request, issue_pk, pk):

@@ -143,8 +143,11 @@
     {% endfor %}
     </ul>
     <div id="new_comment_btn_div" class="my-3">
-{#      <a class="btn btn-sm btn-outline-info" href="{% url 'itrac:new_comment' issue.id %}">New Comment</a> #}
-        <button class="btn btn-sm btn-outline-info" id="add_new_comment">New Comment</button>
+        <button class="btn btn-sm btn-outline-info" 
+            data-url="{% url 'itrac:save_new_comment' issue.id %}" 
+            reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
+            id="add_new_comment">New Comment
+        </button>
     </div>
   </div>
 </div>
@@ -216,6 +219,10 @@
       // const last_child = $('#partial_comment_list').children().last();
       // console.log(last_child);
 
+      const data_url = $(event.target).attr('data-url');
+      const reload_url = $(event.target).attr('reload-url');
+      const csrftoken = getCookie('csrftoken');
+
       const html = `
             <div class="my-3" style="max-width:800px; max-height:60px">
               <textarea id="comment_editable"></textarea>
@@ -234,7 +241,55 @@
       });
       $("#smde_cancel").click(function(){
           $('#partial_comment_list').children().last().remove();
+          simplemde = null;
+      });
+      $("#smde_save").click(function(){
+          // to get text and save it
+          $('#partial_comment_list').children().last().remove();
+          new_comment = simplemde.value();
+
+          $.ajax({
+              type: "POST",
+              url: data_url,
+              data: {
+                'comment': new_comment
+              },
+              headers: {'X-CSRFToken': '{{ csrf_token }}'},
+              success: function (data) {
+                if (data.status === "S") {
+                  //$('#issue_status_display').html(data.issue_status);
+                  console.log("success");
+                  issue_details_ajax(reload_url);
+                }
+              }
+          });
+
+          simplemde = null;
       });
   });
+  
+  // This is also defined in issue.js
+  // TODO: need to consolidate them
+  const issue_details_ajax = (url) => {
+    $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'json',
+        beforeSend: function () {
+            $("#issue-details").html("Loading...")
+        },
+        success: function (data) {
+            $("#issue-details").html(data.html_issue_detail);
+            
+            //set up the event istener
+            $(".js-collapse-toggle").click(function () {
+                $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
+            });
+
+            // default to expand
+            $(".js-collapse-details").collapse();                                    
+        }
+    });
+  };
 </script>
     

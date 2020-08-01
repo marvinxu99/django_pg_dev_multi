@@ -20,6 +20,7 @@ urlpatterns = [
     path('issue/<int:pk>/change_status/', views.issue_change_status, name='change_status'),
 
     path('comment/<int:issue_pk>/new/', views.create_comment, name='new_comment'),
+    path('comment/<int:issue_pk>/save_new/', views.save_new_comment, name='save_new_comment'),
     path('comment/<int:issue_pk>/<int:pk>/edit/', views.edit_comment, name='edit_comment'),
     path('comment/<int:issue_pk>/<int:pk>/delete/', views.delete_comment, name='delete_comment'),
     # path('reply/<int:issue_pk>/<int:comment_pk>/new/', views.create_or_edit_reply, name='new_reply'),
