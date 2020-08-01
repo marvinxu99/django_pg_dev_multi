@@ -257,8 +257,6 @@
               headers: {'X-CSRFToken': '{{ csrf_token }}'},
               success: function (data) {
                 if (data.status === "S") {
-                  //$('#issue_status_display').html(data.issue_status);
-                  console.log("success");
                   issue_details_ajax(reload_url);
                 }
               }
