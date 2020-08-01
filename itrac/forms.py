@@ -49,6 +49,13 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('comment',)
+    
+    def clean_comment(self):
+        '''Ensure the field is not empty'''
+        comment = self.cleaned_data.get('comment')
+        if not comment:
+            raise forms.ValidationError(_('This field should not be empty.'), code='invalid')
+        return comment
 
 
 class ReplyForm(forms.ModelForm):

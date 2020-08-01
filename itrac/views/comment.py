@@ -54,7 +54,7 @@ def save_new_comment(request, issue_pk):
     else:
         resp = {
             'status': 'F',         # 'S': successful, 'F': Failed 
-            'error': str(e),
+            'error': "error",
         }
 
     return JsonResponse(resp)

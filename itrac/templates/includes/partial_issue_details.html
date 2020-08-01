@@ -166,13 +166,14 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <a id="confirm_delete_comment" class="btn btn-sm btn-outline-secondary" href="#" role="button">Delete Comment</a>
+        <a id="btn_confirm_delete_comment" class="btn btn-sm btn-outline-secondary" href="#" role="button">Delete Comment</a>
       </div>
     </div>
   </div>
 </div>
 <script src="{% static 'js/winn_utils.js' %}"></script>
 <script>
+$(function () {
   $('#collapse_comments ul li').hover(function(){
       $(this).css('background-color', 'lightblue');
   }, function(){
@@ -184,7 +185,7 @@
     const button = $(event.relatedTarget);     // Button that triggered the modal
     const data = button.data('url');           // Extract info from data-* attributes
     const comment = button.data('comment');
-    $("#confirm_delete_comment").attr("href", data);
+    $("#btn_confirm_delete_comment").attr("href", data);
     $("#comment_to_delete").html(comment);
   });
  
@@ -234,7 +235,7 @@
 
       $('#partial_comment_list').append(html);
 
-      const simplemde = new SimpleMDE({ 
+      let simplemde = new SimpleMDE({ 
           element: document.getElementById("comment_editable"),
           autofocus: true, 
           //initialValue: "Hello world!",
@@ -290,5 +291,6 @@
         }
     });
   };
+});
 </script>
     
