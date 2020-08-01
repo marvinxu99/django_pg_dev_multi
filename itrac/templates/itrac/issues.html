@@ -9,7 +9,7 @@
 {% endif %}
 <div >
   <div class="d-flex align-items-center">
-    <div >There are <span class="text-info">{{ issue_count_total }}</span> issues in total. </div>
+    <div >There are <span class="badge badge-primary badge-pill">{{ issue_count_total }}</span> issues in total. </div>
     <form class="ml-3" action="{% url 'itrac:do_search' %}" method="get">
         <input type="text" name="q" placeholder="search">
         <button class="btn" type="submit">
@@ -20,8 +20,8 @@
   <div class="row mt-3 d-flex align-items-center" style="border: 2px solid lightgray; height: 8vh;">
     <div class="col-md-8">  
       <div class="dropdown d-flex align-items-center">
-        <span class="h3" id="issue-filter-title">{{ filter_name }}</span>
-        <span class="text-info ml-1"> [{{ issue_count_filter }} issues]</span>
+        <span class="h3" id="issue-filter-title">{{ filter_name }}</span> 
+        <span class="badge badge-primary badge-pill ml-1">{{ issue_count_filter }} issues</span>
         <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           (switch filter) <span class="caret"></span>
         </button>
