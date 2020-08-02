@@ -228,7 +228,7 @@ $(function () {
       const csrftoken = getCookie('csrftoken');
 
       const html = `
-            <div class="my-3" style="max-width:800px; max-height:60px">
+            <div class="my-3" style="max-width:100%; max-height:100%">
               <textarea id="comment_editable"></textarea>
               <div class="mb-3 btn-toolbar pull-right">
                 <button type="button" class="btn btn-sm btn-outline-info" id="smde_save">Save</button>
@@ -308,8 +308,8 @@ $(function () {
     const csrftoken = getCookie('csrftoken');
 
     // Disable the Add New Comment buttons while updating a comment
-    $("#add_new_comment_btn_main").attr('disabled','disabled');
-    $("#add_new_comment_btn_2").attr('disabled','disabled');
+    $("#add_new_comment_btn_main").attr('disabled',true);
+    $("#add_new_comment_btn_2").attr('disabled',true);
 
     // get the raw markdown for the comment field
     $.ajax({
@@ -321,7 +321,7 @@ $(function () {
           console.log(raw_markdown);
 
           const html = `
-            <div class="my-3" style="max-width:800px; max-height:60px">
+            <div class="my-3" style="max-width:100%; max-height:100%">
               <textarea id="comment_edit_markdown">${raw_markdown}</textarea>
               <div class="mb-3 btn-toolbar pull-right">
                 <button type="button" class="btn btn-sm btn-outline-info" id="smde_save">Save</button>

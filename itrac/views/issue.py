@@ -279,29 +279,3 @@ def issue_change_status(request, pk):
     # TO ADD status change tracking later
 
     return JsonResponse(data)
-
-
-@login_required()
-def create_or_edit_reply(request, issue_pk, comment_pk, pk=None):
-    """
-    Create a view that allows us to create
-    or edit a reply depending if the Reply ID
-    is null or not
-    """
-    comment = get_object_or_404(Comment, pk=comment_pk)
-    reply = get_object_or_404(Reply, pk=pk) if pk else None
-    if request.method == "POST":
-        form = ReplyForm(request.POST, request.FILES, instance=reply)
-        if form.is_valid():
-            form.instance.author = request.user
-            form.instance.comment = comment
-            form.save()
-            # notify.send(request.user, recipient=comment.author, verb="added a reply to your Comment: " + comment.comment)
-            messages.success(request, 'Reply Saved!')
-            return redirect('itrac:issue_detail', issue_pk)
-    else:
-        form = ReplyForm(instance=reply)
-    return render(request, 'itrac/replyform.html', {'form': form})
-
-
-
