@@ -4,18 +4,13 @@ from datetime import datetime, timedelta, time
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from django.conf import settings
 from django.contrib import messages
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
-from django.db.models import Count, Q
-from django.core import serializers
 from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
-import json
 
 
-from ..models import Issue, Comment, Reply, SavedIssue, Tag, ISSUE_STATUS
+from ..models import Issue, SavedIssue
 from ..filters import IssueFilter
 
 
@@ -45,25 +40,66 @@ def my_saved_issues(request):
     return render(request, "itrac/issues.html", context)
 
 
-@login_required()
-def save_issue(request, pk):
+@login_required
+@require_POST
+def save_issue_favourite(request, pk):
+    '''
+    handle Add to or Remove from favourites
+    '''
+    favourite_action = request.POST['favourite_action']
+
+    print(favourite_action)
+
+    if favourite_action == "add":
+        resp = save_issue_as_favourite(request, pk)
+    else:
+        resp = remove_from_favourites(request, pk)
+
+    return JsonResponse(resp)
+
+
+def save_issue_as_favourite(request, pk):
+    '''
+    Helper function - Save an issue as favourite
+    '''
+    data = dict()
+    data['status'] = 'S'
+
     user = request.user
     issue = Issue.objects.get(pk=pk)
     try:
         savedissue = SavedIssue.objects.get(user=user, issue=issue)
     except SavedIssue.DoesNotExist:
         savedissue = None
+  
     if savedissue is None:
         savedissue = SavedIssue(user=user, issue=issue)
         savedissue.save()
         messages.success(request, 'Issue added to your Saved Issues!')
+        data['message']= 'Issue added to your Saved Issues!'
     else:
         messages.error(request, 'Issue already added in your Saved Issues!')
-    return redirect('itrac:issue_detail', pk)
+        data['message']= 'Issue already added in your Saved Issues!'
 
-@login_required()
-def delete_saved_issue(request, pk):
-    savedissue = SavedIssue.objects.get(pk=pk)
-    savedissue.delete()
-    messages.success(request, 'Saved Issue deleted!')
-    return redirect('saved_issues')
+    return data
+
+
+def remove_from_favourites(request, pk):
+    '''
+    Helper function - Remove issue from favourites
+    '''
+    data = dict()
+    data['status'] = 'S'
+
+    user = request.user
+    issue = Issue.objects.get(pk=pk)
+
+    try:
+        savedissue = SavedIssue.objects.get(user=user, issue=issue)
+        savedissue.delete()
+        messages.success(request, 'Saved Issue deleted!')
+    except Exception as e:
+        data['status'] = 'F'
+        data['message'] = str(e)
+
+    return data

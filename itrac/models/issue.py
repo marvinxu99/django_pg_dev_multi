@@ -48,6 +48,7 @@ class Issue(models.Model):
 
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='issue_updated_by', on_delete=models.CASCADE, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='issue_author', on_delete=models.CASCADE)
     assignee = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='issue_assignee', null=True, on_delete=models.CASCADE)
 
@@ -79,41 +80,6 @@ class Issue(models.Model):
 
     def get_description_as_markdown(self):
         return mark_safe(markdown(self.description, safe_mode='escape'))
-
-
-
-class Comment(models.Model):
-    """
-    A single Comment
-    """
-    comment = models.CharField(max_length=200)
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='comment_author', on_delete=models.CASCADE)
-    issue = models.ForeignKey(Issue, related_name='comment_issue', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.comment
-
-    def get_comment_as_markdown(self):
-        return mark_safe(markdown(self.comment, safe_mode='escape'))
-
-
-class Reply(models.Model):
-    """
-    A single reply
-    """
-    reply = models.CharField(max_length=200)
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reply_author', on_delete=models.CASCADE)
-    comment = models.ForeignKey(Comment, related_name='reply_comment', on_delete=models.CASCADE)
-
-    def __unicode__(self):
-        return self.reply
-
-    def __str__(self):
-        return self.reply
 
 
 class SavedIssue(models.Model):

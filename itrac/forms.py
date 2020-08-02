@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 
-from .models import Issue, Comment, Reply
+from .models import Issue, Comment
 
 
 TRUE_FALSE_CHOICES = (
@@ -10,20 +10,6 @@ TRUE_FALSE_CHOICES = (
     (False, 'No')
 )
 
-class IssueEditForm(forms.ModelForm):
-    description = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 4, 'id':'id_description_edit'}), 
-        max_length=4000,
-        help_text='The max length of the text is 4000.'
-    )
-
-    class Meta:
-        model = Issue
-        fields = ('title', 'issue_type', 'is_resolved', 'resolved_date', 'description', 'image', 'tags', )
-        widgets = {
-            'is_resolved': forms.Select(choices=TRUE_FALSE_CHOICES, attrs={'style':'width:150px;'}),
-            'resolved_date': forms.DateInput(attrs={'type': 'date', 'style':'width:200px;'}),
-        }
 
 class IssueCreateForm(forms.ModelForm):
     description = forms.CharField(
@@ -45,6 +31,37 @@ class IssueCreateForm(forms.ModelForm):
         return desc
 
 
+class IssueEditForm(forms.ModelForm):
+    description = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 4, 'id':'id_description_edit'}), 
+        max_length=4000,
+        help_text='The max length of the text is 4000.'
+    )
+
+    class Meta:
+        model = Issue
+        fields = ('title', 'issue_type', 'is_resolved', 'resolved_date', 'description', 'image', 'tags', )
+        widgets = {
+            'is_resolved': forms.Select(choices=TRUE_FALSE_CHOICES, attrs={'style':'width:150px;'}),
+            'resolved_date': forms.DateInput(attrs={'type': 'date', 'style':'width:200px;'}),
+        }
+
+
+class IssueEditDescriptionForm(forms.ModelForm):
+    '''
+    It is used for data validation purpose
+    '''
+    description = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 4, 'id':'id_description_edit'}), 
+        max_length=4000,
+        help_text='The max length of the text is 4000.'
+    )
+
+    class Meta:
+        model = Issue
+        fields = ('description', )
+
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
@@ -56,9 +73,3 @@ class CommentForm(forms.ModelForm):
         if not comment:
             raise forms.ValidationError(_('This field should not be empty.'), code='invalid')
         return comment
-
-
-class ReplyForm(forms.ModelForm):
-    class Meta:
-        model = Reply
-        fields = ('reply',)

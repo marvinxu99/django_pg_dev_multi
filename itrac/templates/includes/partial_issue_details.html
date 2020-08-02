@@ -11,7 +11,17 @@
 <div>
   <a class="btn btn-sm btn-outline-info" href="{% url 'itrac:edit_issue' issue.id %}">Edit Issue</a>
   <a class="btn btn-sm btn-outline-info" id="add_new_comment_btn_2" href="#" role="button">New Comment</a>
-  <a class="btn btn-sm btn-outline-info mx-3" href="{% url 'itrac:save_issue' issue.id %}">Add to Favorite</a>
+  {% if favorite %}
+  <button class="btn btn-sm btn-outline-info mx-3 js_update_favourite" type="button" favourite-action="remove"
+      reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
+      data-url="{% url 'itrac:save_issue_favourite' issue.id %}"><i class="fa fa-star" aria-hidden="true"></i> Remove from Favourites
+  </button>
+  {% else %}
+  <button class="btn btn-sm btn-outline-info mx-3 js_update_favourite" type="button" favourite-action="add"
+      reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
+      data-url="{% url 'itrac:save_issue_favourite' issue.id %}"><i class="fa fa-star" aria-hidden="true"></i> Add to Favourites
+</button>
+  {% endif %}
   <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="dropdownStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     Change Status to: <span class="caret"></span>
   </button>
@@ -83,6 +93,12 @@
       <i class="fa fa-minus-circle" style="font-size:12px;color:gray"></i>
     </a>
     <strong>Description</strong>
+    <button type="button" class="btn btn-sm js-update-description" 
+      markdown-url="{% url 'itrac:description_raw_markdown' issue.id %}"
+      save-url="{% url 'itrac:edit_description' issue.id %}"
+      reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
+      title="Click to edit the description."><i class="fa fa-edit"></i>
+    </button>
   </div>
   <div class="collapse js-collapse-details ml-3" id="collapse_description">
     {{ issue.get_description_as_markdown }}
@@ -196,28 +212,52 @@ $(function () {
     $("#comment_to_delete").html(comment);
   });
  
+  // Add to or remove from favourites
+  $('.js_update_favourite').click(function(event){
+      const status = $(this).attr('value');
+      const favourite_action = $(this).attr('favourite-action');
+      const url = $(this).attr('data-url');
+      const reload_url = $(this).attr('reload-url');
+
+      const csrftoken = getCookie('csrftoken');
+
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+          'favourite_action': favourite_action,
+        },
+        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+        success: function (data) {
+          if (data.status === "S") {
+            issue_details_ajax(reload_url);
+          }
+        }
+      });
+  });
+
   // Change issue status
   $(".js_issue_status").click(function(event) {
-    const status = $(event.target).attr('value');
-    const url = $(event.target).attr('url');
-    const csrftoken = getCookie('csrftoken');
+      const status = $(event.target).attr('value');
+      const url = $(event.target).attr('url');
+      const csrftoken = getCookie('csrftoken');
 
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: {
-        'new_status': status
-      },
-      headers: {'X-CSRFToken': '{{ csrf_token }}'},
-      // beforeSend: function(xhr, settings) {
-      //       xhr.setRequestHeader("X-CSRFToken", csrftoken);
-      // },
-      success: function (data) {
-        if (data.status === "S") {
-          $('#issue_status_display').html(data.issue_status);
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+          'new_status': status
+        },
+        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+        // beforeSend: function(xhr, settings) {
+        //       xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        // },
+        success: function (data) {
+          if (data.status === "S") {
+            $('#issue_status_display').html(data.issue_status);
+          }
         }
-      }
-    });
+      });
   });
 
   // Insert a comment
@@ -297,9 +337,7 @@ $(function () {
 
   // Edit a comment
   $('.js-update-comment').click(function(event){
-
-    var btn = $(this);
-
+    const btn = $(this);
     const data_url = btn.attr('data-url');
     const reload_url = btn.attr('reload-url');
     const comment_div_id = '#' + btn.attr('comment-div-id');
@@ -362,12 +400,71 @@ $(function () {
           });
         }
     });
-
     return false;
-
   });
 
+  // Edit the description
+  $('.js-update-description').click(function(event){
+    const btn = $(this);
+    const markdown_url = btn.attr('markdown-url')
+    const save_url = btn.attr('save-url');
+    const reload_url = btn.attr('reload-url');
 
+    const csrftoken = getCookie('csrftoken');
+
+    // get the raw markdown for the description field
+    $.ajax({
+        url: markdown_url,
+        type: 'get',
+        dataType: 'json',
+        success: function(data) {
+          const raw_markdown = data.description;
+          console.log(raw_markdown);
+
+          const html = `
+            <div class="my-3" style="max-width:100%; max-height:100%">
+              <textarea id="description_edit_markdown">${raw_markdown}</textarea>
+              <div class="mb-3 btn-toolbar pull-right">
+                <button type="button" class="btn btn-sm btn-outline-info" id="smde_save">Save</button>
+                <button type="button" class="btn btn-sm btn-outline-info ml-3" id="smde_cancel">Cancel</button>
+              </div>
+            </div>`
+
+          $('#collapse_description').html(html);
+
+          let simplemde = new SimpleMDE({ 
+              element: document.getElementById("description_edit_markdown"),
+              autofocus: true, 
+              initialValue: raw_markdown,
+          });
+          $("#smde_cancel").click(function(){
+              simplemde = null;
+              issue_details_ajax(reload_url);
+          });
+          $("#smde_save").click(function(){
+              // to get text and save it
+              description = simplemde.value();
+
+              $.ajax({
+                  type: "POST",
+                  url: save_url,
+                  data: {
+                    'description': description
+                  },
+                  headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                  success: function (data) {
+                    if (data.status === "S") {
+                      issue_details_ajax(reload_url);
+                    }
+                  }
+              });
+              simplemde = null;
+          });
+        }
+    });
+    return false;
+  });
+  
 });
 
 </script>

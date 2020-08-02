@@ -6,17 +6,16 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.conf import settings
 from django.contrib import messages
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.db.models import Count, Q
 from django.core import serializers
 from django.template.loader import render_to_string
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 import json
 
 
-from ..models import Issue, Comment, Reply, SavedIssue, Tag, ISSUE_STATUS
-from ..forms import IssueEditForm, IssueCreateForm, CommentForm, ReplyForm
+from ..models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS
+from ..forms import IssueEditForm, IssueCreateForm, CommentForm, IssueEditDescriptionForm
 from ..filters import IssueFilter
 
 
@@ -169,19 +168,27 @@ def issue_detail_partial(request, pk):
     """
     Create a view that returns a single
     Issue object based on the issue ID (pk) and
-    render it to the 'issuedetail.html' template.
-    Or return a 404 error if the issue is
-    not found
+    render it to the 'issuedetail.html' and issue.html templates.
+    Or return a 404 error if the issue is not found
     """
     data = dict()
     issue = get_object_or_404(Issue, pk=pk)
     comments = Comment.objects.filter(issue=pk).order_by('created_date')
 
+    user = request.user
+    issue = Issue.objects.get(pk=pk)
+    try:
+        savedissue = SavedIssue.objects.get(user=user, issue=issue)
+        favourite = True
+    except SavedIssue.DoesNotExist:
+        savedissue = None
+        favourite = False
+
     context = {
         'issue': issue, 
         'comments': comments, 
+        'favorite': favourite,
     }
-
     data['html_issue_detail'] = render_to_string('includes/partial_issue_details.html', context, request=request)
 
     return JsonResponse(data)
@@ -208,6 +215,8 @@ def create_issue(request):
         if form.is_valid():
             
             form.instance.author = request.user
+            form.instance.updated_by = request.user
+
             if form.instance.issue_type == 'FEATURE':
                 form.instance.price = 100
             else:
@@ -242,11 +251,13 @@ def edit_issue(request, pk):
         form = IssueEditForm(request.POST, request.FILES, instance=issue)
         if form.is_valid():
 
-            form.instance.author = request.user
+            form.instance.updated_by = request.user
+
             if form.instance.issue_type == 'FEATURE':
                 form.instance.price = 100
             else:
                 form.instance.price = 0
+
             issue = form.save()
             # notify.send(request.user, recipient=issue.author, verb="updated your Issue: " + issue.title)
             messages.success(request, 'Issue Edited with success!')
@@ -256,6 +267,56 @@ def edit_issue(request, pk):
         form = IssueEditForm(instance=issue)
 
     return render(request, 'itrac/issue_edit.html', {'form': form})
+
+
+@login_required
+@require_GET
+def description_raw_markdown(request, pk):
+    """
+     return the raw markdown of the description field of the issue
+    """
+    issue = get_object_or_404(Issue, pk=pk)
+    data = {
+        'description': issue.description,  
+    }
+    return JsonResponse(data)
+
+
+@login_required
+@require_GET
+def description_as_html(request, pk):
+    """
+     return the raw markdown of the description field of the issue
+    """
+    issue = get_object_or_404(Issue, pk=pk)
+    data = {
+        'description': issue.description,  
+    }
+    return JsonResponse(data)
+
+
+@login_required
+@require_POST
+def edit_description(request, pk):
+    """
+    Create a view that allows us to create
+    or edit a comment depending if the Comment ID
+    is null or not
+    """
+    issue = get_object_or_404(Issue, pk=pk)
+
+    form = IssueEditDescriptionForm(request.POST, instance=issue)
+    if form.is_valid():
+        form.instance.updated_by = request.user
+        form.save()   
+        resp = { 'status': 'S', }         # 'S': successful, 'F': Failed 
+    else:
+        resp = {
+            'status': 'F',         # 'S': successful, 'F': Failed 
+            'error': "error",
+        }
+
+    return JsonResponse(resp)
 
 
 @login_required()

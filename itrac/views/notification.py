@@ -15,7 +15,7 @@ from django.views.decorators.http import require_POST
 import json
 
 
-from ..models import Issue, Comment, Reply, SavedIssue, Tag, ISSUE_STATUS
+from ..models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS
 from ..filters import IssueFilter
 
 

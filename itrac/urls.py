@@ -17,8 +17,14 @@ urlpatterns = [
     path('issue/<int:pk>/partial', views.issue_detail_partial, name='issue_detail_partial'),
     path('issue/new/', views.create_issue, name='new_issue'),
     path('issue/<int:pk>/edit/', views.edit_issue, name='edit_issue'),
+    path('issue/<int:pk>/desc_markdown/', views.description_raw_markdown, name='description_raw_markdown'),
+    path('issue/<int:pk>/desc_html/', views.description_as_html, name='description_as_html'),
+    path('issue/<int:pk>/desc_edit/', views.edit_description, name='edit_description'),
     path('issue/<int:pk>/change_status/', views.issue_change_status, name='change_status'),
 
+    path('issue/<int:pk>/upvote/', views.upvote, name='upvote'),
+    path('issue/<int:pk>/save_issue/', views.save_issue_favourite, name='save_issue_favourite'),
+    
     path('comment/<int:issue_pk>/new/', views.create_comment, name='new_comment'),
     path('comment/<int:issue_pk>/save_new/', views.save_new_comment, name='save_new_comment'),
     path('comment/<int:issue_pk>/<int:pk>/edit/', views.edit_comment, name='edit_comment'),
@@ -41,7 +47,4 @@ urlpatterns = [
     path('report/issues_by_type', views.rpt_issues_by_type, name='rpt_issues_by_type'),
     path('report/issues_by_status', views.rpt_issues_by_status, name='rpt_issues_by_status'),
 
-    path('issue/<int:pk>/upvote/', views.upvote, name='upvote'),
-    path('issue/<int:pk>/save_issue/', views.save_issue, name='save_issue'),
-    path('issue/<int:pk>/delete_saved_issue/', views.delete_saved_issue, name='delete_saved_issue'),
 ]
