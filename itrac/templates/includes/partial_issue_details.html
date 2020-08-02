@@ -10,7 +10,7 @@
 </div>
 <div>
   <a class="btn btn-sm btn-outline-info" href="{% url 'itrac:edit_issue' issue.id %}">Edit Issue</a>
-  <a class="btn btn-sm btn-outline-info" href="{% url 'itrac:new_comment' issue.id %}">New Comment</a>
+  <a class="btn btn-sm btn-outline-info" id="add_new_comment_btn_2" href="#" role="button">New Comment</a>
   <a class="btn btn-sm btn-outline-info mx-3" href="{% url 'itrac:save_issue' issue.id %}">Add to Favorite</a>
   <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="dropdownStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     Change Status to: <span class="caret"></span>
@@ -133,7 +133,6 @@
                   reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
                   comment-div-id="collapse_comment{{comment.id}}"
                   markdown-url="{% url 'itrac:comment_markdown' issue.id comment.id %}"
-                  raw-markdown="{{ comment.comment }}"
                   title="Click to edit the comment."><i class="fa fa-edit"></i>
               </button>
               <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#confirmDeleteComment"
@@ -153,7 +152,7 @@
         <button class="btn btn-sm btn-outline-info" 
             data-url="{% url 'itrac:save_new_comment' issue.id %}" 
             reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
-            id="add_new_comment">New Comment
+            id="add_new_comment_btn_main">New Comment
         </button>
     </div>
   </div>
@@ -219,15 +218,11 @@ $(function () {
         }
       }
     });
-
-    return false; 
   });
 
   // Insert a comment
-  $("#add_new_comment").click(function(event) {
-      // const last_child = $('#partial_comment_list').children().last();
-      // console.log(last_child);
-
+  $("#add_new_comment_btn_2").click(function(event) { $("#add_new_comment_btn_main").click(); });  
+  $("#add_new_comment_btn_main").click(function(event) {
       const data_url = $(event.target).attr('data-url');
       const reload_url = $(event.target).attr('reload-url');
       const csrftoken = getCookie('csrftoken');
@@ -300,7 +295,6 @@ $(function () {
     });
   };
 
-  let raw_markdown = "";
   // Edit a comment
   $('.js-update-comment').click(function(event){
 
@@ -309,26 +303,24 @@ $(function () {
     const data_url = btn.attr('data-url');
     const reload_url = btn.attr('reload-url');
     const comment_div_id = '#' + btn.attr('comment-div-id');
-    // const markdown_url = btn.attr('markdown-url')
-    const raw_markdown = btn.attr('raw-markdown');
+    const markdown_url = btn.attr('markdown-url')
 
     const csrftoken = getCookie('csrftoken');
 
-    $("#add_new_comment").attr('disabled','disabled');
+    // Disable the Add New Comment buttons while updating a comment
+    $("#add_new_comment_btn_main").attr('disabled','disabled');
+    $("#add_new_comment_btn_2").attr('disabled','disabled');
 
-    //let raw_markdown = $(comment_div_id).text();
-    // // get the raw markdown for the comment field
-    // $.ajax({
-    //     url: markdown_url,
-    //     type: 'get',
-    //     dataType: 'json',
-    //     success: function (data) {
-    //       raw_markdown = data.comment;
-    //       console.log(raw_markdown);
-    //     }
-    // });
+    // get the raw markdown for the comment field
+    $.ajax({
+        url: markdown_url,
+        type: 'get',
+        dataType: 'json',
+        success: function(data) {
+          const raw_markdown = data.comment;
+          console.log(raw_markdown);
 
-    const html = `
+          const html = `
             <div class="my-3" style="max-width:800px; max-height:60px">
               <textarea id="comment_edit_markdown">${raw_markdown}</textarea>
               <div class="mb-3 btn-toolbar pull-right">
@@ -337,37 +329,40 @@ $(function () {
               </div>
             </div>`
 
-    $(comment_div_id).html(html);
+          $(comment_div_id).html(html);
 
-    let simplemde = new SimpleMDE({ 
-        element: document.getElementById("comment_edit_markdown"),
-        autofocus: true, 
-        //initialValue: "Hello world!",
-    });
-    $("#smde_cancel").click(function(){
-        simplemde = null;
-        issue_details_ajax(reload_url);
-    });
-    $("#smde_save").click(function(){
-        // to get text and save it
-        comment = simplemde.value();
+          let simplemde = new SimpleMDE({ 
+              element: document.getElementById("comment_edit_markdown"),
+              autofocus: true, 
+              initialValue: raw_markdown,
+          });
+          $("#smde_cancel").click(function(){
+              simplemde = null;
+              issue_details_ajax(reload_url);
+          });
+          $("#smde_save").click(function(){
+              // to get text and save it
+              comment = simplemde.value();
 
-        $.ajax({
-            type: "POST",
-            url: data_url,
-            data: {
-              'comment': comment
-            },
-            headers: {'X-CSRFToken': '{{ csrf_token }}'},
-            success: function (data) {
-              if (data.status === "S") {
-                issue_details_ajax(reload_url);
-              }
-            }
-        });
+              $.ajax({
+                  type: "POST",
+                  url: data_url,
+                  data: {
+                    'comment': comment
+                  },
+                  headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                  success: function (data) {
+                    if (data.status === "S") {
+                      issue_details_ajax(reload_url);
+                    }
+                  }
+              });
 
-        simplemde = null;
+              simplemde = null;
+          });
+        }
     });
+
     return false;
 
   });

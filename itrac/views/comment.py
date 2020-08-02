@@ -90,12 +90,6 @@ def edit_comment(request, issue_pk, pk):
     return JsonResponse(resp)
 
 
-@login_required()
-def delete_comment(request, issue_pk, pk):
-    comment = get_object_or_404(Comment, pk=pk)
-    comment.delete()
-    return redirect('itrac:issue_detail', issue_pk)
-
 @login_required
 @require_GET
 def comment_markdown(request, issue_pk, pk):
@@ -108,3 +102,12 @@ def comment_markdown(request, issue_pk, pk):
     }
 
     return JsonResponse(data)
+
+
+@login_required()
+def delete_comment(request, issue_pk, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.delete()
+    return redirect('itrac:issue_detail', issue_pk)
+
+
