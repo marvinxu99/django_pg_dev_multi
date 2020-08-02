@@ -14,12 +14,12 @@
   {% if favorite %}
   <button class="btn btn-sm btn-outline-info mx-3 js_update_favourite" type="button" favourite-action="remove"
       reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
-      data-url="{% url 'itrac:save_issue_favourite' issue.id %}"><i class="fa fa-star" aria-hidden="true"></i> Remove from Favourites
+      data-url="{% url 'itrac:save_issue_favourite' issue.id %}"><i class="fa fa-star"></i> Remove from Favourites
   </button>
   {% else %}
   <button class="btn btn-sm btn-outline-info mx-3 js_update_favourite" type="button" favourite-action="add"
       reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
-      data-url="{% url 'itrac:save_issue_favourite' issue.id %}"><i class="fa fa-star" aria-hidden="true"></i> Add to Favourites
+      data-url="{% url 'itrac:save_issue_favourite' issue.id %}"><i class="fa fa-star" style="color:red"></i> Add to Favourites
 </button>
   {% endif %}
   <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="dropdownStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

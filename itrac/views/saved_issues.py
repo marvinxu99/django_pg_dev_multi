@@ -1,17 +1,11 @@
-import os
 import requests
-from datetime import datetime, timedelta, time
-from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
 from django.contrib import messages
 from django.http import JsonResponse
-from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
-
+from django.shortcuts import render
 
 from ..models import Issue, SavedIssue
-from ..filters import IssueFilter
 
 
 @login_required()
@@ -47,8 +41,6 @@ def save_issue_favourite(request, pk):
     handle Add to or Remove from favourites
     '''
     favourite_action = request.POST['favourite_action']
-
-    print(favourite_action)
 
     if favourite_action == "add":
         resp = save_issue_as_favourite(request, pk)
