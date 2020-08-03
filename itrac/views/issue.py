@@ -104,12 +104,12 @@ def filtered_issues(request, filter):
     if filter == "all":
         filter_name = 'All issues'
         issues = Issue.objects.all().order_by('-created_date')
-        refresh_url = reverse('itrac:filtered_issues_all'),
+        refresh_url = 'itrac:filtered_issues_all'
 
     elif filter == "open":
         filter_name = 'All open issues'
         issues = Issue.objects.filter(status=ISSUE_STATUS.OPEN).order_by('-created_date')
-        refresh_url = reverse('itrac:filtered_issues_open'),
+        refresh_url = 'itrac:filtered_issues_open'
 
     issue_count_filter = issues.count()
 
@@ -118,7 +118,7 @@ def filtered_issues(request, filter):
         'issue_count_filter': issue_count_filter,
         'issues': issues,
         'filter_name': filter_name,
-        'refresh_url': refresh_url,
+        'refresh_url': reverse(refresh_url),
     }
 
     return render(request, "itrac/issues.html", context)
