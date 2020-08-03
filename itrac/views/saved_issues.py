@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 
 from ..models import Issue, SavedIssue
 
@@ -12,7 +12,7 @@ from ..models import Issue, SavedIssue
 def my_saved_issues(request):
     """
     Create a view that will return a list
-    of current user's Saved Issues and render them to the 'issues.html' template
+    of current user's Saved Issues (favourite issues) and render them to the 'issues.html' template
     """
     issue_count_total = Issue.objects.count()
 
@@ -28,7 +28,8 @@ def my_saved_issues(request):
         'issue_count_total': issue_count_total,
         'issue_count_filter': issue_count_filter,
         'issues': issues,
-        'filter_name': "My Favorite Issues"
+        'filter_name': "My Favorite Issues",
+        'refresh_url': reverse('itrac:my_saved_issues'),
     }
 
     return render(request, "itrac/issues.html", context)

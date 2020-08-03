@@ -36,6 +36,7 @@ def issues_assigned_to_me(request):
             'issue_count_filter': issue_count_filter,
             'issues': issues,
             'filter_name': "My Open Issues",
+            'refresh_url': reverse('itrac:issues_assigned_to_me'),
         }
 
     return render(request, "itrac/issues.html", context)
@@ -58,7 +59,8 @@ def issues_reported_by_me(request):
         'issue_count_total': issue_count_total,
         'issue_count_filter': issue_count_filter,
         'issues': issues,
-        'filter_name': "Reported by me"
+        'filter_name': "Reported by me",
+        'refresh_url': reverse('itrac:issues_reported_by_me'),
     }
 
     return render(request, "itrac/issues.html", context)
@@ -81,7 +83,7 @@ def issues_reported_by_me2(request):
         'issue_count_total': issue_count_total,
         'issue_count_filter': issue_count_filter,
         'issues': issues,
-        'filter_name': "Reported by me2"
+        'filter_name': "Reported by me2(TEST)"
     }
 
     return render(request, "itrac/issues_list_collapse.html", context)
@@ -90,23 +92,27 @@ def issues_reported_by_me2(request):
 @login_required()
 def filtered_issues(request, filter):
     """
-    Create a view that will return a list
-    of current user's Saved Issues and render them to the 'issues.html' template
+    Create a view that will return a list of "All issues" or "Open Issues" 
+    filter: 'all' or 'open'
     """
     issue_count_total = Issue.objects.count()
 
     issues = None
     filter_name = ''
+    refresh_url = None
+
 
     if filter == "all":
         print('ALl')
         filter_name = 'All issues'
         issues = Issue.objects.all().order_by('-created_date')
+        refresh_url = reverse('itrac:filtered_issues_all'),
 
     elif filter == "open":
         print('open')
         filter_name = 'All open issues'
         issues = Issue.objects.filter(status=ISSUE_STATUS.OPEN).order_by('-created_date')
+        refresh_url = reverse('itrac:filtered_issues_open'),
 
     issue_count_filter = issues.count()
 
@@ -114,7 +120,8 @@ def filtered_issues(request, filter):
         'issue_count_total': issue_count_total,
         'issue_count_filter': issue_count_filter,
         'issues': issues,
-        'filter_name': filter_name
+        'filter_name': filter_name,
+        'refresh_url': refresh_url,
     }
 
     return render(request, "itrac/issues.html", context)

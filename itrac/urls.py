@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.issues_assigned_to_me, name='issues_assigned_to_me'),
     path('my_issues/', views.issues_reported_by_me, name='issues_reported_by_me'),
     path('my_issues2/', views.issues_reported_by_me2, name='issues_reported_by_me2'),
-    path('saved_issues/', views.my_saved_issues, name='saved_issues'),
+    path('saved_issues/', views.my_saved_issues, name='my_saved_issues'),
 
     path('issues/all/', views.filtered_issues, {'filter': 'all'}, name='filtered_issues_all'),
     path('issues/open/', views.filtered_issues, {'filter': 'open'}, name='filtered_issues_open'),
@@ -25,7 +25,7 @@ urlpatterns = [
     path('issue/<int:pk>/upvote/', views.upvote, name='upvote'),
     path('issue/<int:pk>/save_issue/', views.save_issue_favourite, name='save_issue_favourite'),
     
-    path('comment/<int:issue_pk>/new/', views.create_comment, name='new_comment'),
+    # path('comment/<int:issue_pk>/new/', views.create_comment, name='new_comment'),
     path('comment/<int:issue_pk>/save_new/', views.save_new_comment, name='save_new_comment'),
     path('comment/<int:issue_pk>/<int:pk>/edit/', views.edit_comment, name='edit_comment'),
     path('comment/<int:issue_pk>/<int:pk>/delete/', views.delete_comment, name='delete_comment'),

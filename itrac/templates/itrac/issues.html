@@ -11,7 +11,7 @@
   <div class="d-flex align-items-center">
     <div >There are <span class="badge badge-primary badge-pill">{{ issue_count_total }}</span> issues in total. </div>
     <form class="ml-3" action="{% url 'itrac:do_search' %}" method="get">
-        <input type="text" name="q" placeholder="search">
+        <input type="search"  pattern="[^'\x22]+" name="q" placeholder="search" title="characters only">
         <button class="btn" type="submit">
           <i class="fa fa-search" title="Search"></i>
         </button>
@@ -21,19 +21,25 @@
     <div class="col-md-8">  
       <div class="dropdown d-flex align-items-center">
         <span class="h3" id="issue-filter-title">{{ filter_name }}</span> 
-        <span class="badge badge-primary badge-pill ml-1">{{ issue_count_filter }} issues</span>
+        {% if refresh_url %}
+          <a class="badge badge-primary badge-pill ml-1" role="button" href="{{ refresh_url }}">
+            {{ issue_count_filter }} issues <i class="fas fa-sync"></i>
+          </a>
+        {% else %}
+          <span class="badge badge-primary badge-pill ml-1">{{ issue_count_filter }} issues</span>
+        {% endif %}
         <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           (switch filter) <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
           <li><a class="dropdown-item" href="{% url 'itrac:issues_assigned_to_me' %}">My Open Issues</a></li>
           <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me' %}">Reported by me</a></li>
-          <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me2' %}">Reported by me2</a></li>
-          <li><a class="dropdown-item" href="{% url 'itrac:saved_issues' %}">My Favorite Issues</a></li>
+          <li><a class="dropdown-item" href="{% url 'itrac:my_saved_issues' %}">My Favorite Issues</a></li>
           <div class="dropdown-divider"></div>
           <li><a class="dropdown-item" href="{% url 'itrac:filtered_issues_open' %}">All Open issues</a></li>
           <li><a class="dropdown-item" href="{% url 'itrac:filtered_issues_all' %}">All issues</a></li>
           <div class="dropdown-divider"></div>
+          <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me2' %}">Reported by me2(TEST)</a></li>
         </ul>
       </div>
     </div>
@@ -56,7 +62,7 @@
       </ul>
     </div>
     <div class="px-5" id="issue-details" style="border-left:1px solid lightgray; overflow-x:hidden; overflow-y:auto;">
-      Select an issue on the left to virw its details.
+      Select an issue on the left to view its details.
     </div>
   </div>
 </div>
