@@ -101,15 +101,12 @@ def filtered_issues(request, filter):
     filter_name = ''
     refresh_url = None
 
-
     if filter == "all":
-        print('ALl')
         filter_name = 'All issues'
         issues = Issue.objects.all().order_by('-created_date')
         refresh_url = reverse('itrac:filtered_issues_all'),
 
     elif filter == "open":
-        print('open')
         filter_name = 'All open issues'
         issues = Issue.objects.filter(status=ISSUE_STATUS.OPEN).order_by('-created_date')
         refresh_url = reverse('itrac:filtered_issues_open'),
@@ -165,6 +162,7 @@ def issue_detail(request, pk):
     context = {
         'issue': issue, 
         'comments': comments, 
+        'btn_expand_disabled': True,   # disable the expand button as it is fullscreen already 
     }
 
     return render(request, "itrac/issue_detail.html", context)
