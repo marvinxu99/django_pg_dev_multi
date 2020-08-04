@@ -11,39 +11,39 @@
 </style>
   
   <div class="dropdown">
-    <div id="myDropdown" class="dropdown-content">
-      <input type="text" placeholder="Search users" id="myInput" onkeyup="filterFunction()">
+    <div id="assigneeDropdown" class="dropdown-content">
+      <input type="text" placeholder="Search users" id="assigneeInput">
       <div style="width:400px; height:200px; overflow:scroll; list-style: none">
-        <a href="#about">About</a>
-        <a href="#base">Base</a>
-        <a href="#blog">Blog</a>
-        <a href="#contact">Contact</a>
-        <a href="#custom">Custom</a>
-        <a href="#support">Support</a>
-        <a href="#tools">Tools</a>
+        {% for user in users %}
+        <a class="users-item-user" href="{% url 'itrac:change_assignee_change' issue_id user.user_id %}">
+          {{ user.first_name }}, {{ user.last_name }} ({{ user.username }})
+        </a> 
+        {% endfor %}
       </div>
     </div>
   </div>
   
 <script>
 $(document).ready(function(){
-  document.getElementById("myDropdown").classList.toggle("show");
+  document.getElementById("assigneeDropdown").classList.toggle("show");
   
   function filterFunction() {
-    var input, filter, ul, li, a, i;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    div = document.getElementById("myDropdown");
-    a = div.getElementsByTagName("a");
-    for (i = 0; i < a.length; i++) {
-      txtValue = a[i].textContent || a[i].innerText;
+    const input = document.getElementById("assigneeInput");
+    const filter = input.value.toUpperCase();
+
+    const users = document.getElementsByClassName("users-item-user");
+    for (let i = 0; i < users.length; i++) {
+      let user_item = users.item(i)
+      const txtValue = user_item.textContent || user_item.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        a[i].style.display = "";
+        user_item.style.display = "";
       } else {
-        a[i].style.display = "none";
+        user_item.style.display = "none";
       }
     }
   }
-}
+  document.getElementById("assigneeInput").onkeyup = filterFunction;
+
+});
 </script>
   
