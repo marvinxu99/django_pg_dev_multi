@@ -35,5 +35,9 @@ class User(AbstractUser):
     get_name.admin_order_field = 'name'
     get_name.short_description = 'name'
 
+    def __str__(self):
+        return f'{ self.first_name } { self.last_name } ({ self.username })'
+
+
 
 

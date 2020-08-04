@@ -10,40 +10,16 @@
   .show {display: block;}
 </style>
   
-  <div class="dropdown">
-    <div id="assigneeDropdown" class="dropdown-content">
-      <input type="text" placeholder="Search users" id="assigneeInput">
-      <div style="width:400px; height:200px; overflow:scroll; list-style: none">
-        {% for user in users %}
-        <a class="users-item-user" href="{% url 'itrac:change_assignee_change' issue_id user.user_id %}">
-          {{ user.first_name }}, {{ user.last_name }} ({{ user.username }})
-        </a> 
-        {% endfor %}
-      </div>
+<div class="dropdown">
+  <div id="assigneeDropdown" class="dropdown-content">
+    <input type="text" placeholder="Search users" id="assigneeInput">
+    <div style="width:400px; height:200px; overflow:scroll; list-style: none">
+      {% for user in users %}
+      <a class="users-item-user" url="{% url 'itrac:change_assignee_change' issue_id user.user_id %}"
+        role="button">
+        {{ user.first_name }}, {{ user.last_name }} ({{ user.username }})
+      </a> 
+      {% endfor %}
     </div>
   </div>
-  
-<script>
-$(document).ready(function(){
-  document.getElementById("assigneeDropdown").classList.toggle("show");
-  
-  function filterFunction() {
-    const input = document.getElementById("assigneeInput");
-    const filter = input.value.toUpperCase();
-
-    const users = document.getElementsByClassName("users-item-user");
-    for (let i = 0; i < users.length; i++) {
-      let user_item = users.item(i)
-      const txtValue = user_item.textContent || user_item.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        user_item.style.display = "";
-      } else {
-        user_item.style.display = "none";
-      }
-    }
-  }
-  document.getElementById("assigneeInput").onkeyup = filterFunction;
-
-});
-</script>
-  
+</div>

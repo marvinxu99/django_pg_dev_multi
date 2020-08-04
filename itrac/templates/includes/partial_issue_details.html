@@ -31,7 +31,9 @@
   </button>
   {% endif %}
   <button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#modalChangeAssignee" 
-      data-url="{% url 'itrac:change_assignee_users' issue.id %}"><i class="fa fa-user" aria-hidden="true"></i> Change Assignee
+      data-url="{% url 'itrac:change_assignee_users' issue.id %}"
+      reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
+      id="btn_change_assignee_main"><i class="fa fa-user" aria-hidden="true"></i> Change Assignee
   </button>
   <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="dropdownStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     Change Status to: <span class="caret"></span>
@@ -66,8 +68,8 @@
       <div class="col-md-2">Assignee:</div>
       <div class="col-md-4 align-items-center" id="div_issue_assignee">
         <span id="id_issue_assignee">{{ issue.assignee|default_if_none:"Unassigned" }}</span>
-        <button type="button" class="btn btn-sm js_update_assignee" data-toggle="modal" data-target="#modalChangeAssignee"
-            data-url="{% url 'itrac:change_assignee_users' issue.id %}" title="Click to edit assignee."><i class="fa fa-edit"></i>
+        <button type="button" class="btn btn-sm js_update_assignee" id="btn_change_assignee_2"
+            title="Click to edit assignee."><i class="fa fa-edit"></i>
         </button>
       </div>
       <div class="w-100"></div>
@@ -351,7 +353,7 @@ $(function () {
         type: 'get',
         dataType: 'json',
         beforeSend: function () {
-            $("#issue-details").html("Loading..."`<div class="spinner-border" role="status">
+            $("#issue-details").html(`<div class="spinner-border" role="status">
                   <span class="sr-only">Loading...</span> </div>`)
         },
         success: function (data) {
@@ -498,10 +500,13 @@ $(function () {
     return false;
   });
 
-  // Change assignee
+  // Change assignee 
+  // (there are 2 buttons that can initiate this action)
+  $('#btn_change_assignee_2').click(function(){ $('#btn_change_assignee_main').click(); });
   $('#modalChangeAssignee').on('show.bs.modal', function (event) {
     const btn = $(event.relatedTarget)   // Button that triggered the modal
     const data_url = btn.attr('data-url')    // Extract info from data-* attributes
+    const reload_url = btn.attr('reload-url')
 
     // Loading spinner...
     $('#modal-change-assignee').html(`<div class="spinner-border" role="status">
@@ -515,24 +520,49 @@ $(function () {
         dataType: 'json',
         success: function (data) {
             $("#modal-change-assignee").html(data.html_user_list);
+            document.getElementById("assigneeDropdown").classList.toggle("show");
+  
+            function filterFunction() {
+              const input = document.getElementById("assigneeInput");
+              const filter = input.value.toUpperCase();
+
+              const users = document.getElementsByClassName("users-item-user");
+              for (let i = 0; i < users.length; i++) {
+                let user_item = users.item(i)
+                const txtValue = user_item.textContent || user_item.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  user_item.style.display = "";
+                } else {
+                  user_item.style.display = "none";
+                }
+              }
+            }
+            document.getElementById("assigneeInput").onkeyup = filterFunction;
+
+            $('.users-item-user').click(function(event){
+                const save_url = $(this).attr('url');
+                console.log(url);
+
+                const csrftoken = getCookie('csrftoken');
+                $.ajax({
+                    type: "POST",
+                    url: save_url,
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    success: function (data) {
+                      if (data.status === "S") {
+                        console.log("assignee changed.")
+                        issue_details_ajax(reload_url);
+                      }
+                    }
+                });
+
+                $("#modalChangeAssignee").modal("hide");   
+            });
         }
     });
-
-    
-
   });
-  
 
 
-});
-
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $(".dropdown-menu li").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
 });
 
 

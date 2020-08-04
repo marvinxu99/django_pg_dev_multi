@@ -355,7 +355,7 @@ def change_assignee_users(request, pk):
     data = dict()
 
     print("requested..")
-    
+
     users = get_user_model().objects.all()
 
     context = {
@@ -378,15 +378,11 @@ def change_assignee_change(request, pk, user_pk):
     data = dict()
 
     issue = get_object_or_404(Issue, pk=pk)
-    issue = get_object_or_404(settings.AUTH_USER_MODEL, pk=user_pk)
+    user = get_object_or_404(get_user_model(), pk=user_pk)
 
-    new_status = request.POST['new_status']
-    issue.status = ISSUE_STATUS[new_status]
+    issue.assignee = user
     issue.save()
     
-    # Reload issue status post change
-    issue = get_object_or_404(Issue, pk=pk)
-    data['issue_status'] = issue.get_status_display()
     data['status'] = 'S'
 
     # TO ADD status change tracking later
