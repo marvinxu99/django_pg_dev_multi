@@ -21,6 +21,8 @@ urlpatterns = [
     path('issue/<int:pk>/desc_html/', views.description_as_html, name='description_as_html'),
     path('issue/<int:pk>/desc_edit/', views.edit_description, name='edit_description'),
     path('issue/<int:pk>/change_status/', views.issue_change_status, name='change_status'),
+    path('issue/<int:pk>/assingee/users', views.change_assignee_users, name='change_assignee_users'), 
+    path('issue/<int:pk>/assingee/change/<int:user_pk>', views.change_assignee_change, name='change_assignee_change'),
 
     path('issue/<int:pk>/upvote/', views.upvote, name='upvote'),
     path('issue/<int:pk>/save_issue/', views.save_issue_favourite, name='save_issue_favourite'),

@@ -11,8 +11,8 @@ from django.db.models import Count, Q
 from django.core import serializers
 from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST, require_GET
+from django.contrib.auth import get_user_model
 import json
-
 
 from ..models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS
 from ..forms import IssueEditForm, IssueCreateForm, CommentForm, IssueEditDescriptionForm
@@ -333,6 +333,53 @@ def issue_change_status(request, pk):
     data = dict()
 
     issue = get_object_or_404(Issue, pk=pk)
+    new_status = request.POST['new_status']
+    issue.status = ISSUE_STATUS[new_status]
+    issue.save()
+    
+    # Reload issue status post change
+    issue = get_object_or_404(Issue, pk=pk)
+    data['issue_status'] = issue.get_status_display()
+    data['status'] = 'S'
+
+    # TO ADD status change tracking later
+
+    return JsonResponse(data)
+
+
+@login_required()
+def change_assignee_users(request, pk):
+    """
+    Return a list of users to be choices for assginee
+    """
+    data = dict()
+
+    print("requested..")
+    
+    users = get_user_model().objects.all()
+
+    context = {
+        'issue_id': pk,
+        'users': users,
+    }
+
+    data['html_user_list'] = render_to_string('includes/partial_user_list.html', context, request=request)
+    data['status'] = 'S'
+
+    # TO ADD status change tracking later
+
+    return JsonResponse(data)
+
+@login_required()
+def change_assignee_change(request, pk, user_pk):
+    """
+    Update the database the selected user
+    """
+    data = dict()
+
+    issue = get_object_or_404(Issue, pk=pk)
+    issue = get_object_or_404(settings.AUTH_USER_MODEL, pk=user_pk)
+
     new_status = request.POST['new_status']
     issue.status = ISSUE_STATUS[new_status]
     issue.save()
