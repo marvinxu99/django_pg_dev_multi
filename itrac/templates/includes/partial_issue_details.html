@@ -391,8 +391,6 @@ $(function () {
         dataType: 'json',
         success: function(data) {
           const raw_markdown = data.comment;
-          console.log(raw_markdown);
-
           const html = `
             <div class="my-3" style="max-width:100%; max-height:100%">
               <textarea id="comment_edit_markdown">${raw_markdown}</textarea>
@@ -454,8 +452,6 @@ $(function () {
         dataType: 'json',
         success: function(data) {
           const raw_markdown = data.description;
-          console.log(raw_markdown);
-
           const html = `
             <div class="my-3" style="max-width:100%; max-height:100%">
               <textarea id="description_edit_markdown">${raw_markdown}</textarea>
@@ -512,8 +508,6 @@ $(function () {
     $('#modal-change-assignee').html(`<div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span> </div>`);
 
-      console.log(data_url);
-
     $.ajax({
         url: data_url,
         type: 'get',
@@ -541,16 +535,15 @@ $(function () {
 
             $('.users-item-user').click(function(event){
                 const save_url = $(this).attr('url');
-                console.log(url);
 
                 const csrftoken = getCookie('csrftoken');
+
                 $.ajax({
                     type: "POST",
                     url: save_url,
                     headers: {'X-CSRFToken': '{{ csrf_token }}'},
                     success: function (data) {
                       if (data.status === "S") {
-                        console.log("assignee changed.")
                         issue_details_ajax(reload_url);
                       }
                     }
