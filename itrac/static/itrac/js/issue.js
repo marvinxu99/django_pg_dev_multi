@@ -17,7 +17,8 @@ $(function () {
             type: 'get',
             dataType: 'json',
             beforeSend: function () {
-                $("#issue-details").html("Loading...")
+                $("#issue-details").html(`<div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span> </div>`)
             },
             success: function (data) {
                 $("#issue-details").html(data.html_issue_detail);
