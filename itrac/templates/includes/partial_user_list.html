@@ -13,13 +13,19 @@
 <div class="dropdown">
   <div id="assigneeDropdown" class="dropdown-content">
     <input type="text" placeholder="Search users" id="assigneeInput">
-    <div style="width:400px; height:200px; overflow:scroll; list-style: none">
-      {% for user in users %}
+    <div style="width:400px; height:150px; overflow:scroll;">
+      {% for usr in users %}
       <a class="users-item-user" url="{% url 'itrac:change_assignee_change' issue_id user.user_id %}"
         role="button">
-        {{ user.first_name }}, {{ user.last_name }} ({{ user.username }})
+        {{ usr.first_name }}, {{ usr.last_name }} ({{ usr.username }})
       </a> 
       {% endfor %}
+    </div>
+    <div>
+      <a class="users-item-user" url="{% url 'itrac:change_assignee_change' issue_id user.user_id %}"
+        role="button">Assign to me</a> 
+      <a class="users-item-user" url="{% url 'itrac:change_assignee_change' issue_id 0 %}"
+        role="button">Unassign</a> 
     </div>
   </div>
 </div>
