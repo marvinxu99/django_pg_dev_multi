@@ -354,10 +354,7 @@ def change_assignee_users(request, pk):
     """
     data = dict()
 
-    print("requested..")
-
     users = get_user_model().objects.all()
-
     context = {
         'issue_id': pk,
         'users': users,
