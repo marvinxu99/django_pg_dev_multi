@@ -160,7 +160,7 @@
           <div>
               <strong>{{ comment.author }}</strong> 
               added a comment - <span title="{{comment.created_date}}">{{ comment.created_date|naturaltime }}</span> 
-              {% if comment.updated_date != comment.created_date %} 
+              {% if comment.updated_date and comment.updated_date != comment.created_date %} 
                 <span title="{{comment.updated_date}}">(edited at {{ comment.updated_date|naturaltime }})</span> 
               {% endif %}
               {% if user == comment.author %}
