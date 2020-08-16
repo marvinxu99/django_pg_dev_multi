@@ -25,11 +25,10 @@
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li><a class="dropdown-item" href="{% url 'itrac:issues_assigned_to_me' %}">My Open Issues</a></li>
             <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me' %}">Reported by me</a></li>
-            <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me2' %}">Reported by me2</a></li>
             <li><a class="dropdown-item" href="#">All issues</a></li>
             <li><a class="dropdown-item" href="#">Open issues</a></li>
             <div class="dropdown-divider"></div>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
+            <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me2' %}">Reported by me2</a></li>
           </ul>
         </h2>
       </div>
@@ -38,8 +37,8 @@
       <a href="#">View all issues and filters</a>
     </div>
   </div>
-  <div class="row" style="border-bottom: 2px solid lightgrey;">
-    <div class="searh-results col-md-4" style="height:65vh; overflow:auto;">
+  <div class="row" style="position:absolute; width: 100%; height:75%; border-bottom: 2px solid lightgrey;">
+    <div class="searh-results col-md-4" style="overflow-y:auto; overflow-x:hidden;">
       <ul class="list-group list-group-flush issue-list">
         {% for issue in issues %}
           <li  class="list-group-item js_issue_item">
@@ -49,14 +48,6 @@
                 <i class='fas fa-angle-double-right' style='font-size:16px'></i>
             </button>
             <div id="issue{{ forloop.counter }}" class="collapse">
-                <p><span><b>Created: </b>{{ issue.created_date }}</span></p>
-                <p><span><b>Updated: </b>{{ issue.updated_date }}</span></p>
-                <p><span><b>Tags: </b>{{ issue.tags }}</span></p>
-                <p><span><b>Upvotes: </b>{{ issue.upvotes }}</span></p>
-                <p><span><b>Status: </b>{{ issue.status }}</span></p>
-                <p><span><b>Type: </b>{{ issue.issue_type }}</span></p>
-                <p><span><b>Reporter: </b>{{ issue.author }}</span></p>
-                <p><span><b>Assignee: </b>{{ issue.assignee }}</span></p>
             </div>
           </li>
         {% empty %}
@@ -64,7 +55,7 @@
         {% endfor %}
       </ul>
     </div>
-    <div class="col-md-8" id="issue-details" style="border-left:1px solid lightgray;">
+    <div class="col-md-8 px-5" id="issue-details" style="border-left:1px solid lightgray; overflow-x:hidden; overflow-y:auto;">
       Issue details go here.
     </div>
   </div>

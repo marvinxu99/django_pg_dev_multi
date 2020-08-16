@@ -54,4 +54,9 @@ def do_search(request):
 def search(request):
     issue_list = Issue.objects.all()
     issue_filter = IssueFilter(request.GET, queryset=issue_list)
-    return render(request, 'itrac/search_issues.html', {'filter': issue_filter})
+    issue_count = issue_filter.qs.count()
+    context = {
+        'filter': issue_filter,
+        'issue_count': issue_count,
+    }
+    return render(request, 'itrac/search_issues.html', context)
