@@ -184,13 +184,13 @@
       </li>
       {% endfor %}
     </ul>
-    <div id="new_comment_btn_div" class="my-3">
-        <button class="btn btn-sm btn-outline-info" 
-            data-url="{% url 'itrac:save_new_comment' issue.id %}" 
-            reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
-            id="add_new_comment_btn_main"><i class="far fa-comment"></i> New Comment
-        </button>
-    </div>
+  </div>
+  <div id="new_comment_btn_div" class="my-3">
+    <button class="btn btn-sm btn-outline-info" 
+        data-url="{% url 'itrac:save_new_comment' issue.id %}" 
+        reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
+        id="add_new_comment_btn_main"><i class="far fa-comment"></i> New Comment
+    </button>
   </div>
 </div>
 <div class="modal fade" id="confirmDeleteComment" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteCommentLabel" aria-hidden="true">
