@@ -15,12 +15,11 @@
           <input class="button" type="button" id="btn_enter" value="Enter">
           <button class="btn btn-sm btn-outline-secondary ml-5" id="btn_search_products"
             data-toggle="modal" data-target="#searchProductsModal"
-            data-url="{% url 'scan_n_pay:search-products' %}"
-          >
+            data-url="{% url 'scan_n_pay:search-products' %}">
             Search Products
           </button>
         </div>
-        <div id='warning_msg' class='invisible text-danger'>warnings:</div>
+        <div id="warning_msg" class="invisible text-danger">warnings:</div>
       </div>
       <div title="Hooray! thanks for trying out this app">
         <svg width="250" height="50">
@@ -49,7 +48,7 @@
               <th class="text-center item-price">Price</th>
             </tr>
           </thead>
-          <tbody id="items__list">
+          <tbody id="items__list" style="border-left: 1px solid lightgray;">
           </tbody>
           <tfoot>
             <tr id="total_price">
@@ -80,9 +79,9 @@
   <div class='mt-1'>
     <hr>
     <div class="my-1">
-      <button class="button btn-primary" id=submitPayment>Purchase!</button>
-      <button class="button btn-primary" id=send_trans_data>Send Data!</button>
-      <button class="button btn-primary" id=new_transaction>New Transaction</button>
+      <button class="button btn-primary" id="submitPayment">Purchase!</button>
+      <button class="button btn-primary" id="send_trans_data">Send Data!</button>
+      <button class="button btn-primary" id="new_transaction">New Transaction</button>
     </div>
     </p>
     <h5>How to test:</h5>

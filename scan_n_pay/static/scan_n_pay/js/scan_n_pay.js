@@ -152,14 +152,7 @@ class UIController {
     static addListItem(item, totals) {      
         // Create HTML string        
         let html = `<td class="item-name" onmouseover="mouseOverListItem(event);" onmouseleave="mouseLeaveListItem(event);">
-                        <button 
-                            class="btn btn-sm btn-danger" 
-                            id="btn-${item.id}" 
-                            style="display:none"
-                            title="Click to delete this item"
-                        >
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </button>
+                        <button class="btn btn-sm btn-danger" id="btn-${item.id}" style="display:none">x</button>
                         ${item.description}
                     </td>
                     <td class="item-original-price">${item.price.toFixed(2)}</td>
