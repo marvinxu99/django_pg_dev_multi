@@ -1,18 +1,24 @@
 {% extends "itrac/base_itrac.html" %}
 {% load humanize %}
+{% load widget_tweaks %}
 
 {% block subcontent %}
-<div class="row ml-3">  
-  <div class="col-md-2 m-3" style="border: 2px solid lightgray;">
-    <form class="mt-3" method="get">
-      {{ filter.form.as_p }}
+<div class="row ml-1">  
+  <div class="col-md-2 m-1" style="border: 2px solid lightgray;">
+    <form class="mt-1" method="get">
+      {% for field in filter.form %}
+        <div class="form-group">
+          {{ field.label_tag }}
+          {% render_field field class+="form-control" %}
+        </div>
+      {% endfor %}
       <div class="text-center">
         <button class="btn btn-sm btn-primary mb-3" type="submit">Filter</button>
       </div>
     </form>
   </div>
   <div class="col-md-8 ml-5" style="height:80vh; overflow:auto;">
-    <h3>Found <span class="badge badge-primary badge-pill">{{ issue_count }}</span> issue{{ issue_count|pluralize }}:</h3>
+    <h3>Found <span class="badge badge-primary badge-pill">{{ filter.qs|length }}</span> issue{{ filter.qs|length|pluralize }}:</h3>
     <ul>
     {% for issue in filter.qs %}
       <li>
@@ -21,10 +27,11 @@
             <span class="text-muted">{{ issue.issue_id }}:</span> {{ issue.title }}
           </a>
           <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#issue{{ forloop.counter }}Collapse" aria-expanded="false" aria-controls="collapseExample">
-            (...)
+            <span class="small">(...)</span>
           </button>
         </div>
         <div class="collapse" id="issue{{ forloop.counter }}Collapse">
+          <div class="pl-3" style="border: 2px solid lightgray; width: 50%;">
             <p><span title="{{ issue.created_date }}"><b>Created: </b>{{ issue.created_date|naturaltime }}</span></p>
             <p><span><b>Status: </b>{{ issue.get_status_display }}</span></p>
             <p><span><b>Type: </b>{{ issue.get_issue_type_display }}</span></p>
@@ -32,6 +39,7 @@
             <p><span><b>Assignee: </b>{{ issue.assignee }}</span></p>
             <p><span><b>Tag: </b>{{ issue.tag }}</span></p>
             <p><span><b>Upvotes: </b>{{ issue.upvotes }}</span></p>
+          </div>
         </div>
       </li>
     {% endfor %}
