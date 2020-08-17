@@ -57,15 +57,15 @@
   </div>
   <div class="collapse js-collapse-details ml-3" id="collapse_details">
     <div class="row">
-      <div class="col-md-2">Type:</div>
+      <div class="col-md-2 text-muted">Type:</div>
       <div class="col-md-4">{{ issue.get_issue_type_display }}</div>
-      <div class="col-md-2">Status:</div>
+      <div class="col-md-2 text-muted">Status:</div>
       <div class="col-md-4" id="issue_status_display">{{ issue.get_status_display }}</div>
       <div class="w-100"></div>
 
-      <div class="col-md-2">Created:</div>
+      <div class="col-md-2 text-muted">Created:</div>
       <div class="col-md-4" title="{{ issue.created_date }}">{{ issue.created_date|naturaltime }}</div>
-      <div class="col-md-2">Assignee:</div>
+      <div class="col-md-2 text-muted">Assignee:</div>
       <div class="col-md-4 align-items-center" id="div_issue_assignee">
         <span id="id_issue_assignee">{{ issue.assignee|default_if_none:"Unassigned" }}</span>
         <button type="button" class="btn btn-sm js_update_assignee" id="btn_change_assignee_2"
@@ -74,15 +74,15 @@
       </div>
       <div class="w-100"></div>
 
-      <div class="col-md-2">Updated:</div>
+      <div class="col-md-2 text-muted">Updated:</div>
       <div class="col-md-4" title="{{ issue.updated_date }}">{{ issue.updated_date|naturaltime }}</div>
-      <div class="col-md-2">Reported by:</div>
+      <div class="col-md-2 text-muted">Reported by:</div>
       <div class="col-md-4">{{ issue.author }}</div>
       <div class="w-100"></div>
 
-      <div class="col-md-2">Resolved:</div>
+      <div class="col-md-2 text-muted">Resolved:</div>
       <div class="col-md-4">{{ issue.is_resolved|yesno:"Yes,No" }}</div>
-      <div class="col-md-2">Upvotes:</div>
+      <div class="col-md-2 text-muted">Upvotes:</div>
       <div class="col-md-4">{{ issue.upvotes }}
           {% if issue.issue_type == "BUG" %}
             <a class="btn" href="{% url 'itrac:upvote' issue.id %}">[thumb_up]</a>
@@ -90,7 +90,7 @@
       </div>
       <div class="w-100"></div>
             
-      <div class="col-md-2">Resolved Date:</div>
+      <div class="col-md-2 text-muted">Resolved Date:</div>
       <div class="col-md-4" title="{{ issue.resolved_date|default_if_none:'' }}">{{ issue.resolved_date|default_if_none:""|naturalday }}</div>
       <div class="col-md-2"></div>
       <div class="col-md-4"></div>
@@ -160,7 +160,7 @@
           <div>
               <strong>{{ comment.author }}</strong> 
               added a comment - <span title="{{comment.created_date}}">{{ comment.created_date|naturaltime }}</span> 
-              {% if comment.updated_date and comment.updated_date != comment.created_date %} 
+              {% if comment.updated_date != comment.created_date %} 
                 <span title="{{comment.updated_date}}">(edited at {{ comment.updated_date|naturaltime }})</span> 
               {% endif %}
               {% if user == comment.author %}
