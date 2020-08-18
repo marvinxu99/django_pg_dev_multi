@@ -68,8 +68,32 @@
         <a class="dropdown-item" href="{% url 'itrac:rpt_issues_by_status' %}">Issues by Status</a>
       </div>
     </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="projectsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-project-diagram"></i> Projects
+      </a>
+      <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dashboardMenu">
+        <div class="text-muted ml-1">CURRENT:</div>
+        <a class="dropdown-item" href="#">Current Project</a>
+        <div class="dropdown-divider"></div>
+        <div class="text-muted ml-1">RECENT:</div>
+        <a class="dropdown-item" href="#">Recent #1</a>
+        <a class="dropdown-item" href="#">Recent #2</a>
+        <a class="dropdown-item" href="#">Recent #3</a>
+        <a class="dropdown-item" href="#">Recent #4</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">All projects</a>
+        {% if user.is_superuser %}
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Add project</a>
+          <a class="dropdown-item" href="#">Edit project</a>
+        {% endif %}
+      </div>
+    </li>
     <li class="nav-item">
-      <a class="nav-link" href="{% url 'itrac:new_issue' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add New Issue</a>
+      <a class="nav-link btn btn-sm btn-outline-secondary" href="{% url 'itrac:new_issue' %}">
+        <i class="fa fa-plus" aria-hidden="true"></i> New Issue
+      </a>
     </li>
   </ul>
 
@@ -83,7 +107,7 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class='h5 text-white'><i class="fa fa-user" aria-hidden="true"></i> {{ user.username }}</span>
+            <span class='h5 text-white'>{{ user.username }} <i class="fa fa-user" aria-hidden="true"></i></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
             <a class="dropdown-item" href="{% url 'accounts:my_account' %}">My account</a>
