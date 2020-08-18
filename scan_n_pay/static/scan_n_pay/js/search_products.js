@@ -39,13 +39,13 @@ const selectedItems = new ProductItems();
 // Handle the modal window when 'Search Products" btton is pressed
 $('#searchProductsModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
-    var data = button.data('whatever') // Extract info from data-* attributes
+    //var data = button.data('whatever') // Extract info from data-* attributes
 
     // Loading spinner...
-    $('#search_item_list').html(`<div class="spinner-border" role="status">
+    $('#list-search-products').html(`<div class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span> </div>`);
 
-    // Request all product info from server
+    // Request all product info from server (json data)
     $.get('products/', function(data) {
         
         // Store data into the global variable
@@ -58,7 +58,7 @@ $('#searchProductsModal').on('show.bs.modal', function (event) {
                 
                 element_id = `prod-${i}`
                 html += `
-                    <tr>
+                    <tr class="prod-list-item">
                         <td style="width:50%">${ data.items[i].description }</td>
                         <td class="text-right">${ data.items[i].price }</td>
                         <td class="text-center" style="width:30%">
@@ -73,6 +73,25 @@ $('#searchProductsModal').on('show.bs.modal', function (event) {
         
     });
 });
+
+// Set up Search Product filter
+function filterFunction() {
+    const input = document.getElementById("productInputFilter");
+    const filter = input.value.toUpperCase();
+    console.log("typing..");
+
+    const prods = document.getElementsByClassName("prod-list-item");
+    for (let i = 0; i < prods.length; i++) {
+        let prod_item = prods.item(i)
+        const txtValue = prod_item.textContent || prod_item.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        prod_item.style.display = "";
+        } else {
+        prod_item.style.display = "none";
+        }
+    }
+    }
+    document.getElementById("productInputFilter").onkeyup = filterFunction;
 
 // Handling "Select Items" in the Modal Window
 //const select_btn = document.getElementById("select-items-btn");
