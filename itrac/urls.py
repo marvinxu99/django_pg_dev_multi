@@ -34,7 +34,12 @@ urlpatterns = [
     path('comment/<int:issue_pk>/<int:pk>/markdown/', views.comment_markdown, name='comment_markdown'),
 
     path('issue/tag/', views.issues_with_tag, name='issues_with_tag'),
-    
+
+    path('project/', views.project_list, name='project_list'),
+    path('project/create/', views.project_create, name='project_create'),
+    path('project/edit/<int:pk>', views.project_edit, name='project_edit'),
+    path('project/delete/<int:pk>', views.project_delete, name='project_delete'),
+
     path('search/', views.search, name='search'),
     path('do_search/', views.do_search, name='do_search'),
     path('do_search_my/', views.do_search_my, name='do_search_my'),

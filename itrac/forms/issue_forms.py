@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 
-from .models import Issue, Comment
+from ..models import Issue, Comment
 
 
 TRUE_FALSE_CHOICES = (

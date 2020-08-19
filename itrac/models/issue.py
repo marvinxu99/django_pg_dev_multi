@@ -7,6 +7,7 @@ from markdown import markdown
 from django.utils.html import mark_safe
 
 from .tag import Tag
+from .project import Project
 
 #from django.apps import apps
 #MyModel1 = apps.get_model('app1', 'MyModel1')
@@ -33,7 +34,8 @@ class Issue(models.Model):
     """
     # The prefix is specfic to a project or subproject
     issue_prefix = models.CharField(max_length=20, default='WINN')
-    
+    project = models.ForeignKey(Project, related_name='Issues', null=True, on_delete=models.CASCADE)
+
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=4000, blank=True)
     slug = models.CharField(max_length=250, blank=True)

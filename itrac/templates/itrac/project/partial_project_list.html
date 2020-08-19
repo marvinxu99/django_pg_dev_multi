@@ -1,0 +1,30 @@
+{% load humanize %}
+{% for project in projects %}
+  <tr>
+    <td>{{ project.id }}</td>
+    <td>{{ project.code }}</td>
+    <td>{{ project.title }}</td>
+    <td title="{{ project.created_date }}">{{ project.created_date|naturaltime }}</td>
+    <td>{{ project.created_by }}</td>
+    <td title="{{ project.updated_date }}">{{ project.updated_date|naturaltime }}</td>
+    <td>{{ project.updated_by }}</td>
+    <td>
+      <button type="button"
+              class="btn btn-warning btn-sm js-edit-project"
+              data-url="{% url 'itrac:project_edit' project.id %}"
+              title="Click to edit the project.">
+        <i class="fa fa-edit"></i>
+      </button>
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-project"
+              data-url="{% url 'itrac:project_delete' project.id %}"
+              title="Click to delete the project.">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="7" class="text-center bg-warning">No project</td>
+  </tr>
+{% endfor %}
