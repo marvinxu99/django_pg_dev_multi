@@ -8,6 +8,7 @@
     <td>{{ project.created_by }}</td>
     <td title="{{ project.updated_date }}">{{ project.updated_date|naturaltime }}</td>
     <td>{{ project.updated_by }}</td>
+    {% if user.is_superuser %}
     <td>
       <button type="button"
               class="btn btn-warning btn-sm js-edit-project"
@@ -22,6 +23,7 @@
         <i class="fa fa-trash" aria-hidden="true"></i>
       </button>
     </td>
+    {% endif %}
   </tr>
 {% empty %}
   <tr>
