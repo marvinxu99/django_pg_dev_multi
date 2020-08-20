@@ -4,8 +4,8 @@
   <div class="d-flex">
     <img class="m-1 winter-logo2" src="{% static 'img/winter-logo-sm-white.png' %}">
     <div class="ml-1">
-      <a href="#" id="project-code-val">WINN 1.0 -></a>
-      <a href="{% url 'itrac:issue_detail' issue.id %}">{{ issue.issue_id }}</a>
+      <a href="#" id="project-code-val">{{ issue.project.title }} -></a>
+      <a href="{% url 'itrac:issue_detail' issue.id %}">{{ issue.coded_id }}</a>
       <div class="h3">{{ issue.title }}</div>
     </div>
   </div>

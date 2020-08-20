@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 
-from ..models import Issue, Comment
+from ..models import Issue, Comment, Project
 
 
 TRUE_FALSE_CHOICES = (
@@ -18,10 +18,11 @@ class IssueCreateForm(forms.ModelForm):
         required=False,
         help_text='The max length of the text is 4000.'
     )
+    project = forms.ModelChoiceField(queryset=Project.objects, empty_label=None)
 
     class Meta:
         model = Issue
-        fields = ('title', 'issue_type', 'description', 'image', 'tags', )
+        fields = ('project', 'issue_type', 'title', 'description', 'image', 'tags', )
 
     def clean_description(self):
         '''Ensure field is not empty'''

@@ -26,7 +26,7 @@
       <div class="dropdown-menu dropdown-menu-left" aria-labelledby="appsMenu">
         <a class="dropdown-item" href="{% url 'boards:boards_home' %}"><i class="fas fa-clipboard-list"></i> Boards</a>
         <a class="dropdown-item" href="{% url 'posts:all_posts' %}"><i class="fa fa-camera" aria-hidden="true"></i> Insta Posts</a>
-        <a class="dropdown-item" href="{% url 'itrac:issues_assigned_to_me' %}"><i class="fas fa-clipboard-check"></i> Issue Tracker</a>
+        <a class="dropdown-item" href="{% url 'itrac:my_in_progress_issues' %}"><i class="fas fa-clipboard-check"></i> Issue Tracker</a>
         <a class="dropdown-item" href="{% url 'catalog:index' %}"><i class="fas fa-book-reader"></i> Mini Library</a>
         <a class="dropdown-item" href="{% url 'polls:question' %}"><i class='fas fa-poll-h'></i> Polls</a>
         <a class="dropdown-item" href="{% url 'scan_n_pay:scan_n_pay' %}">
@@ -35,7 +35,7 @@
       </div>
     </li>
   </ul>
-  <a class="navbar-brand" href="{% url 'itrac:issues_assigned_to_me' %}">
+  <a class="navbar-brand" href="{% url 'itrac:my_in_progress_issues' %}">
     <img src="{% static 'img/winter-logo-sm-blue.png' %}" class="d-inline-block align-middle winter-sm-logo" alt="">
     Issue Tracker
   </a>
@@ -48,14 +48,14 @@
         <i class="fas fa-list-alt"></i> Issues
       </a>
       <div class="dropdown-menu dropdown-menu-left" aria-labelledby="issuesMenu">
-        <a class="dropdown-item" href="{% url 'itrac:issues_assigned_to_me' %}"><i class="fa fa-list" aria-hidden="true"></i> My Open Issues</a>
+        <a class="dropdown-item" href="{% url 'itrac:my_in_progress_issues' %}"><i class="fa fa-list" aria-hidden="true"></i> My in progress issues</a>
         <a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me' %}"><i class="fa fa-list-alt" aria-hidden="true"></i> Reported by me</a>
-        <a class="dropdown-item" href="{% url 'itrac:my_saved_issues' %}"><i class="fa fa-star" aria-hidden="true"></i> My Favorite Issues</a>
+        <a class="dropdown-item" href="{% url 'itrac:my_saved_issues' %}"><i class="fa fa-star" aria-hidden="true"></i> My favorite Issues</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="{% url 'itrac:filtered_issues_open' %}">All Open issues</a>
+        <a class="dropdown-item" href="{% url 'itrac:filtered_issues_open' %}">All open issues</a>
         <a class="dropdown-item" href="{% url 'itrac:filtered_issues_all' %}">All issues</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="{% url 'itrac:search' %}"><i class="fa fa-filter" aria-hidden="true"></i> Filter Issues</a>
+        <a class="dropdown-item" href="{% url 'itrac:search' %}"><i class="fa fa-filter" aria-hidden="true"></i> Filter issues</a>
       </div>
     </li>
     <li class="nav-item dropdown">
@@ -76,13 +76,13 @@
         <div class="text-muted ml-1">CURRENT:</div>
         <a class="dropdown-item" href="{% url 'itrac:filtered_issues_open' %}">{{ request.session.current_project.title }}</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="{% url 'itrac:project_list' %}">View all projects</a>
-        <div class="dropdown-divider"></div>
         <div class="text-muted ml-1">RECENT:</div>
         <a class="dropdown-item" href="#">Recent #1</a>
         <a class="dropdown-item" href="#">Recent #2</a>
         <a class="dropdown-item" href="#">Recent #3</a>
         <a class="dropdown-item" href="#">Recent #4</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="{% url 'itrac:project_list' %}">View all projects</a>
       </div>
     </li>
     <li class="nav-item">

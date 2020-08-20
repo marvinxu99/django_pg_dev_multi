@@ -20,14 +20,20 @@ from ..filters import IssueFilter
 
 
 @login_required
-def issues_assigned_to_me(request):
+def my_in_progress_issues(request):
     """
     Create a view that will return a list
     of Issues assigned to the current user.
     """
     issue_count_total = Issue.objects.count()
 
-    issues = Issue.objects.filter(assignee=request.user).order_by('-created_date')
+
+    current_project = request.session.get('current_project', { 'project': 'WINN', 'id': 0 })
+    issues = Issue.objects.filter(
+            assignee=request.user, 
+            project__pk=current_project['id'],
+            status__in = (ISSUE_STATUS.OPEN, ISSUE_STATUS.INVESTIGATE,  ISSUE_STATUS.TRIAGE, ISSUE_STATUS.BUILD_IN_PROGRESS)
+        ).order_by('-created_date')
 
     issue_count_filter = issues.count()
 
@@ -35,8 +41,8 @@ def issues_assigned_to_me(request):
             'issue_count_total': issue_count_total,
             'issue_count_filter': issue_count_filter,
             'issues': issues,
-            'filter_name': "My Open Issues",
-            'refresh_url': reverse('itrac:issues_assigned_to_me'),
+            'filter_name': "My in progress issues",
+            'refresh_url': reverse('itrac:my_in_progress_issues'),
         }
 
     return render(request, "itrac/issues.html", context)
@@ -101,14 +107,19 @@ def filtered_issues(request, filter):
     filter_name = ''
     refresh_url = None
 
+    current_project = request.session.get('current_project', { 'project': 'WINN', 'id': 0 })
+
     if filter == "all":
         filter_name = 'All issues'
-        issues = Issue.objects.all().order_by('-created_date')
+        issues = Issue.objects.filter(project__pk=current_project['id']).order_by('-created_date')
         refresh_url = 'itrac:filtered_issues_all'
 
     elif filter == "open":
         filter_name = 'All open issues'
-        issues = Issue.objects.filter(status=ISSUE_STATUS.OPEN).order_by('-created_date')
+        issues = Issue.objects.filter(
+                    status__in=(ISSUE_STATUS.OPEN,), 
+                    project__pk=current_project['id']
+                ).order_by('-created_date')
         refresh_url = 'itrac:filtered_issues_open'
 
     issue_count_filter = issues.count()
@@ -230,8 +241,12 @@ def create_issue(request):
             
             return redirect('itrac:issue_detail', issue.pk)
     else:
-        form = IssueCreateForm()
-        
+        # Project is default to current_project
+        current_project = request.session.get('current_project', { 'project': 'WINN', 'id': 0 })
+        form = IssueCreateForm(
+            initial = { 'project': current_project['id'] }
+        )
+         
     return render(request, 'itrac/issue_create.html', {'form': form})
 
 

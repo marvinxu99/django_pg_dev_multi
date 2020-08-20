@@ -4,14 +4,13 @@ from django.dispatch import receiver
 from .models import Issue
 from .views.itrac_utils import unique_slug_generator
 
-# update the issue_prefix
-# @receiver(post_save, sender=Issue)
-# def set_issue_prefix(sender, instance, **kwargs):
-#     # print("post_save TransEvent.")
-#     # if not instance.event_id: 
-#     #     instance.event_id = instance.trans_event_id
-#     #     instance.save()
-#     pass
+
+# update the issue.coded_id
+@receiver(post_save, sender=Issue)
+def set_issue_coded_id(sender, instance, created, **kwargs):
+    if created: 
+        instance.coded_id = f'{ instance.project.code }-{ instance.pk }'
+        instance.save()
 
 # update the issue_prefix
 @receiver(pre_save, sender=Issue)

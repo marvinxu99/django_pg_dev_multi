@@ -4,7 +4,7 @@ from . import views
 app_name = 'itrac'
 
 urlpatterns = [
-    path('', views.issues_assigned_to_me, name='issues_assigned_to_me'),
+    path('', views.my_in_progress_issues, name='my_in_progress_issues'),
     path('my_issues/', views.issues_reported_by_me, name='issues_reported_by_me'),
     path('my_issues2/', views.issues_reported_by_me2, name='issues_reported_by_me2'),
     path('saved_issues/', views.my_saved_issues, name='my_saved_issues'),

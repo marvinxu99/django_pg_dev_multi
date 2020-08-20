@@ -32,7 +32,7 @@
           (switch filter) <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li><a class="dropdown-item" href="{% url 'itrac:issues_assigned_to_me' %}">My Open Issues</a></li>
+          <li><a class="dropdown-item" href="{% url 'itrac:my_in_progress_issues' %}">My Open Issues</a></li>
           <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me' %}">Reported by me</a></li>
           <li><a class="dropdown-item" href="{% url 'itrac:my_saved_issues' %}">My Favorite Issues</a></li>
           <div class="dropdown-divider"></div>
@@ -53,7 +53,7 @@
         {% for issue in issues %}
           <li  class="list-group-item js_issue_item">
             <a class="js_issue_item_title" data-url="{% url 'itrac:issue_detail_partial' issue.id %}">
-              <span class="text-muted">{{ issue.issue_id }}:</span> {{ issue.title }}
+              <span class="text-muted">{{ issue.coded_id }}:</span> {{ issue.title }}
             </a>
           </li>
         {% empty %}

@@ -24,7 +24,7 @@
       <li>
         <div class="d-flex">
           <a class="btn" role="button" href="{% url 'itrac:issue_detail' issue.id %}">
-            <span class="text-muted">{{ issue.issue_id }}:</span> {{ issue.title }}
+            <span class="text-muted">{{ issue.coded_id }}:</span> {{ issue.title }}
           </a>
           <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#issue{{ forloop.counter }}Collapse" aria-expanded="false" aria-controls="collapseExample">
             <span class="small">(...)</span>

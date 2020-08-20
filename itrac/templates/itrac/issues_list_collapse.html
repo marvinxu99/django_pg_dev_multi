@@ -23,7 +23,7 @@
             (switch filter) <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a class="dropdown-item" href="{% url 'itrac:issues_assigned_to_me' %}">My Open Issues</a></li>
+            <li><a class="dropdown-item" href="{% url 'itrac:my_in_progress_issues' %}">My Open Issues</a></li>
             <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me' %}">Reported by me</a></li>
             <li><a class="dropdown-item" href="#">All issues</a></li>
             <li><a class="dropdown-item" href="#">Open issues</a></li>
@@ -42,7 +42,7 @@
       <ul class="list-group list-group-flush issue-list">
         {% for issue in issues %}
           <li  class="list-group-item js_issue_item">
-            <a class="js_issue_item_title" href="#issue{{ forloop.counter }}" data-toggle="collapse">{{ issue.issue_id }}: {{ issue.title }}</a>
+            <a class="js_issue_item_title" href="#issue{{ forloop.counter }}" data-toggle="collapse">{{ issue.coded_id }}: {{ issue.title }}</a>
             <button class="btn btn-sm btn-outline-info js_issue_partial" data-url="{% url 'itrac:issue_detail_partial' issue.id %}" 
                 style="display:none" title="Click to view more details">
                 <i class='fas fa-angle-double-right' style='font-size:16px'></i>

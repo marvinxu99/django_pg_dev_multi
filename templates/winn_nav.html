@@ -9,7 +9,7 @@
         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="appsMenu">
           <a class="dropdown-item" href="{% url 'boards:boards_home' %}"><i class="fas fa-clipboard-list"></i> Boards</a>
           <a class="dropdown-item" href="{% url 'posts:all_posts' %}"><i class="fa fa-camera" aria-hidden="true"></i> Insta Posts</a>
-          <a class="dropdown-item" href="{% url 'itrac:issues_assigned_to_me' %}"><i class="fas fa-clipboard-check"></i> Issue Tracker</a>
+          <a class="dropdown-item" href="{% url 'itrac:my_in_progress_issues' %}"><i class="fas fa-clipboard-check"></i> Issue Tracker</a>
           <a class="dropdown-item" href="{% url 'catalog:index' %}"><i class="fas fa-book-reader"></i> Mini Library</a>
           <a class="dropdown-item" href="{% url 'polls:question' %}"><i class='fas fa-poll-h'></i> Polls</a>
           <a class="dropdown-item" href="{% url 'scan_n_pay:scan_n_pay' %}">
