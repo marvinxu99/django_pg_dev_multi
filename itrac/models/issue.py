@@ -27,6 +27,12 @@ class ISSUE_STATUS(models.TextChoices):
     COMPLETE =      '06', _('Complete')
     CLOSED =        '07', _('Closed')
 
+class ISSUE_PRIORITY(models.TextChoices):
+    PRIORITY_1 =  '1', _('1 - highest')
+    PRIORITY_2 =  '2', _('2')
+    PRIORITY_3 =  '3', _('3')
+    PRIORITY_4 =  '4', _('4')
+    PRIORITY_5 =  '5', _('5 - lowest')
 
 class Issue(models.Model):
     """
@@ -34,7 +40,11 @@ class Issue(models.Model):
     """
     # The prefix is specfic to a project or subproject
     issue_prefix = models.CharField(max_length=20, default='WINN')
+
     project = models.ForeignKey(Project, related_name='Issues', null=True, on_delete=models.CASCADE)
+    issue_type = models.CharField(max_length=2, choices=ISSUE_TYPE.choices, default=ISSUE_TYPE.BREAK_FIX)
+    status = models.CharField(max_length=2, choices=ISSUE_STATUS.choices, default=ISSUE_STATUS.OPEN)
+    priority = models.CharField(max_length=1, choices=ISSUE_PRIORITY.choices, null=True)
 
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=4000, blank=True)
@@ -56,8 +66,6 @@ class Issue(models.Model):
 
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
-    issue_type = models.CharField(max_length=2, choices=ISSUE_TYPE.choices, default=ISSUE_TYPE.BREAK_FIX)
-    status = models.CharField(max_length=2, choices=ISSUE_STATUS.choices, default=ISSUE_STATUS.OPEN)
 
     class Meta:
         verbose_name = "issue"

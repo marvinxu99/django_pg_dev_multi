@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
@@ -86,3 +86,16 @@ def project_delete(request, pk):
         data['html_form'] = render_to_string('itrac/project/partial_project_delete.html', context, request=request)
 
     return JsonResponse(data)
+
+
+@login_required
+def set_current_project(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+
+    request.session['current_project'] = { 
+        'title': project.title, 
+        'id': project.id 
+    } 
+
+    return redirect('itrac:filtered_issues_open') 
+
