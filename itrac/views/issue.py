@@ -396,7 +396,7 @@ def change_assignee_change(request, pk, user_pk):
     if user_pk > 0:
         user = get_object_or_404(get_user_model(), pk=user_pk)
     else:
-        user = None
+        user = None   # unassign
 
     issue.assignee = user
     issue.save()

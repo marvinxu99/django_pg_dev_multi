@@ -15,7 +15,7 @@
     <input type="text" placeholder="Search users" id="assigneeInput">
     <div style="width:400px; height:150px; overflow:scroll;">
       {% for usr in users %}
-      <a class="users-item-user" url="{% url 'itrac:change_assignee_change' issue_id user.user_id %}"
+      <a class="users-item-user" url="{% url 'itrac:change_assignee_change' issue_id usr.user_id %}"
         role="button">
         {{ usr.first_name }}, {{ usr.last_name }} ({{ usr.username }})
       </a> 
