@@ -56,8 +56,11 @@ def issues_reported_by_me(request):
     """
     issue_count_total = Issue.objects.count()
 
-    user = request.user
-    issues = Issue.objects.filter(author=user).order_by('-created_date')
+    current_project = request.session.get('current_project', { 'project': 'WINN', 'id': 0 })
+    issues = Issue.objects.filter(
+            author = request.user, 
+            project__pk = current_project['id'],
+        ).order_by('-created_date')
 
     issue_count_filter = issues.count()
 
