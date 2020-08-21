@@ -5,9 +5,12 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from markdown import markdown
 from django.utils.html import mark_safe
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
 
 from .tag import Tag
 from .project import Project
+from ..itrac_utils import unique_slug_generator
 
 #from django.apps import apps
 #MyModel1 = apps.get_model('app1', 'MyModel1')
@@ -93,12 +96,17 @@ class Issue(models.Model):
         return mark_safe(markdown(self.description, safe_mode='escape'))
 
 
-class SavedIssue(models.Model):
-    """
-    A single SavedIssue
-    """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='user_savedissues', on_delete=models.CASCADE)
-    issue = models.ForeignKey(Issue, related_name='issue_savedissue', on_delete=models.CASCADE)
-    created_date = models.DateTimeField(auto_now_add=True)
+# update the issue.coded_id
+@receiver(post_save, sender=Issue)
+def set_issue_coded_id(sender, instance, created, **kwargs):
+    if created: 
+        instance.coded_id = f'{ instance.project.code }-{ instance.pk }'
+        instance.save()
+
+# update the issue_prefix
+@receiver(pre_save, sender=Issue)
+def set_issue_slug(sender, instance, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
 
 
