@@ -131,7 +131,7 @@ div a {
 }
 .filter-results-panel {
   top: 0;
-  width: 98%;
+  width: 99%;
   padding: 10px;
   overflow:auto;
   resize: vertical;
@@ -139,9 +139,14 @@ div a {
 
 .filter-details-panel {
   bottom: 0;
-  width: 98%;
+  width: 99%;
   padding: 10px;
   overflow-y: auto;
   overflow-x: hidden;
   border-top: 6px solid lightgray;
+}
+
+.choice-no-bullets {
+  list-style: none;
+  margin-left: 20px;
 }

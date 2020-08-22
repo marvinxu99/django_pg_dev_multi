@@ -27,7 +27,8 @@ def project_create(request):
             data['form_is_valid'] = True
             projects = Project.objects.all()
             data['html_project_list'] = render_to_string('itrac/project/partial_project_list.html', {
-                'projects': projects
+                'projects': projects,
+                'user': request.user, 
             })
         else:
             data['form_is_valid'] = False
@@ -56,7 +57,8 @@ def project_edit(request, pk):
             data['form_is_valid'] = True
             projects = Project.objects.all()
             data['html_project_list'] = render_to_string('itrac/project/partial_project_list.html', {
-                'projects': projects
+                'projects': projects,
+                'user': request.user, 
             })
         else:
             data['form_is_valid'] = False
@@ -79,7 +81,8 @@ def project_delete(request, pk):
         data['form_is_valid'] = True  # This is just to play along with the existing code
         projects = Project.objects.all()
         data['html_project_list'] = render_to_string('itrac/project/partial_project_list.html', {
-            'projects': projects
+            'projects': projects,
+            'user': request.user, 
         })
     else:
         context = {'project': project}

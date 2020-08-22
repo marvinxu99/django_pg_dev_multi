@@ -21,7 +21,7 @@ from ..filters import IssueFilter
 
 def do_search(request):
     """
-    Create a view for searching all issues by keyword search on Issue_coded_id first, then Issue.Title to return a list
+    search issues by keyword search on Issue_coded_id first, then Issue.Title to return a list
     of matching Issues and render them to the 'issues.html' template
     """
     # Search Issue.coded_id first. If no hit, then searc issue title
@@ -51,6 +51,16 @@ def do_search(request):
     return render(request, "itrac/issues.html", context)
 
 
+@login_required()
+def search_issues(request):
+    issue_list = Issue.objects.all()
+    issue_filter = IssueFilter(request.GET, queryset=issue_list)
+    context = {
+        'filter': issue_filter,
+    }
+    return render(request, 'itrac/search_issues.html', context)
+
+
 def do_search_my(request):
     """
     Create a view for searching my issues by keyword search on Issue.Title to return a list
@@ -61,12 +71,32 @@ def do_search_my(request):
     return render(request, "itrac/myissues.html", {"issues": issues})
 
 
+def generic_search(request):
+    keywords=''
 
-@login_required()
-def search(request):
-    issue_list = Issue.objects.all()
-    issue_filter = IssueFilter(request.GET, queryset=issue_list)
-    context = {
-        'filter': issue_filter,
-    }
-    return render(request, 'itrac/search_issues.html', context)
+    if request.method=='POST': # form was submitted
+
+        keywords = request.POST.get("keywords", "") # <input type="text" name="keywords">
+        all_queries = None
+        search_fields = ('title','description','coded_id') # change accordingly
+        for keyword in keywords.split(' '): # keywords are splitted into words (eg: john science library)
+            keyword_query = None
+            for field in search_fields:
+                each_query = Q(**{field + '__icontains': keyword})
+                if not keyword_query:
+                    keyword_query = each_query
+                else:
+                    keyword_query = keyword_query | each_query
+                    if not all_queries:
+                        all_queries = keyword_query
+                    else:
+                        all_queries = all_queries & keyword_query
+
+        articles = Issue.objects.filter(all_queries).distinct()
+        context = {'articles':articles}
+        return render(request, 'search.html', context)
+
+    else: # no data submitted
+
+        context = {}
+        return render(request, 'index.html', context) 
