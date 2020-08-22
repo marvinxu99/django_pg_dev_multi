@@ -23,7 +23,7 @@ DISPLAY_CHOICES = (
 class TagEditForm(forms.ModelForm):
     title = forms.CharField(
         max_length=40,
-        help_text='The max length is 40.'
+        help_text='max length is 40.'
     )
     is_active = forms.ChoiceField(
         widget=forms.RadioSelect(attrs={'class': 'choice-no-bullets'}), 
@@ -36,7 +36,3 @@ class TagEditForm(forms.ModelForm):
     class Meta:
         model = Tag
         fields = ('title','is_active')
-        # widgets = {'is_active': forms.RadioSelect(choices=[
-        #     (True, 'Yes'),
-        #     (False, 'No'),        
-        # ])}

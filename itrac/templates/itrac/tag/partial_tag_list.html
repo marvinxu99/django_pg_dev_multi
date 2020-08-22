@@ -1,9 +1,10 @@
 {% load humanize %}
+
 {% for tag in tags %}
   <tr>
     <td><a href="{% url 'itrac:issues_with_tag' %}?tag={{ tag.title }}">{{ tag.title }}</a></td>
     <td>{{ tag.is_active|yesno:"Yes,No" }}</td>
-    <td>{{ tag.get_issues_count }}</td>
+    <td class="">{{ tag.get_issues_count }}</td>
     <td title="{{ tag.created_date }}">{{ tag.created_date|naturaltime }}</td>
     <td>{{ tag.created_by }}</td>
     <td title="{{ tag.updated_date }}">{{ tag.updated_date|naturaltime }}</td>

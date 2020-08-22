@@ -2,12 +2,13 @@
 {% load static %}
 {% block subcontent %}
   <h1 class="page-header">Tags</h1>
-  <p>
+  <div class="d-flex justify-content-between mt-3">
+    <input type="text" placeholder="Search tags" id="tagInput">
     <button type="button" class="btn btn-primary js-create-tag" data-url="{% url 'itrac:tag_create' %}">
       <i class="fa fa-plus-circle" aria-hidden="true"></i> New tag
     </button>
-  </p>
-  <table class="table" id="tag-table">
+  </div>
+  <table class="table table-striped mt-1" id="tag-table">
     <thead>
       <tr>
         <th>Tag Name</th>
