@@ -99,22 +99,49 @@ div a {
     background-color: #7386D5;
 }
 
-#search-results-list,
-#issue-details {
+/* For left/right panels */
+.panel_container {
+  position:absolute; 
+  width: 100%; 
+  height:75%; 
+  border-bottom: 2px solid lightgrey;
+}
+.search-results-panel {
   top: 0;
+  width: 25%;
   height: 100%;
   position: absolute;
   padding: 10px;
-  color: black;
-}
-
-#search-results-list {
-  width: 25%;
   left: 0;
   border-right: 6px solid lightgray;
 }
-
-#issue-details {
+.issue-details-panel {
+  top: 0;
   width: 75%;
+  height: 100%;
+  position: absolute;
+  padding: 10px;
   right: 0;
+}
+
+/* Used on search_issues.html - for top/bottom panels  */
+.filter-panel-container {
+  height:90vh; 
+  display:grid;
+}
+.filter-results-panel {
+  top: 0;
+  width: 98%;
+  padding: 10px;
+  overflow:auto;
+  resize: vertical;
+}
+
+.filter-details-panel {
+  bottom: 0;
+  width: 98%;
+  padding: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-top: 6px solid lightgray;
 }
