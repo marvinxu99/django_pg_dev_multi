@@ -1,0 +1,9 @@
+<div class="collapse js-collapse-details ml-3" id="collapse_feature">
+    <form method="post" action="#">
+        {% csrf_token %}
+        <div class="input-group w-25">
+            <input class="form-control" name='quantity' type="number" min="1" max="99" placeholder="Quantity">
+            <button class="btn btn-sm btn-outline-secondary" type="submit" name="action">Add to Cart</button>
+        </div>
+    </form>
+</div>

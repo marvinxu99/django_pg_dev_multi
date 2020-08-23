@@ -53,7 +53,7 @@
     <a class="js-collapse-toggle" data-toggle="collapse" href="#collapse_details">
       <i class="fa fa-minus-circle" style="font-size:12px;color:gray"></i>
     </a>
-    <strong>Details</strong>
+    <span class="ml-1 font-weight-bold">Details</span>
   </div>
   <div class="collapse js-collapse-details ml-3" id="collapse_details">
     <div class="row">
@@ -61,8 +61,6 @@
       <div class="col-md-4">{{ issue.get_issue_type_display }}</div>
       <div class="col-md-2 text-muted">Status:</div>
       <div class="col-md-4" id="issue_status_display">{{ issue.get_status_display }}</div>
-      <div class="w-100"></div>
-
       <div class="col-md-2 text-muted">Created:</div>
       <div class="col-md-4" title="{{ issue.created_date }}">{{ issue.created_date|naturaltime }}</div>
       <div class="col-md-2 text-muted">Assignee:</div>
@@ -72,24 +70,24 @@
             title="Click to edit assignee."><i class="fa fa-edit"></i>
         </button>
       </div>
-      <div class="w-100"></div>
-
       <div class="col-md-2 text-muted">Updated:</div>
       <div class="col-md-4" title="{{ issue.updated_date }}">{{ issue.updated_date|naturaltime }}</div>
       <div class="col-md-2 text-muted">Reported by:</div>
       <div class="col-md-4">{{ issue.author }}</div>
-      <div class="w-100"></div>
-
       <div class="col-md-2 text-muted">Resolved:</div>
       <div class="col-md-4">{{ issue.is_resolved|yesno:"Yes,No" }}</div>
       <div class="col-md-2 text-muted">Upvotes:</div>
-      <div class="col-md-4">{{ issue.upvotes }}
-          {% if issue.issue_type == "BUG" %}
-            <a class="btn" href="{% url 'itrac:upvote' issue.id %}">[thumb_up]</a>
+      <div class="col-md-4">
+        <div class="d-flex align-items-baseline">
+          <span title="votes purhcase by you: xxx">{{ issue.upvotes }}</span>
+          {% if issue.issue_type == "01" %}   {# '01': "FEATURE " #}
+            <a class="btn ml-3" href="{% url 'itrac:upvote' issue.id %}"><i class="far fa-thumbs-up"></i></a>
           {% endif %}
+          {% if issue.issue_type == "02" %}   {# '02': "FEATURE " #}
+            <a class="btn btn-sm btn-outline-secondary ml-5" href="#"><i class="far fa-thumbs-up"></i>Purcahse votes</a>
+          {% endif %}
+        </div>
       </div>
-      <div class="w-100"></div>
-            
       <div class="col-md-2 text-muted">Resolved Date:</div>
       <div class="col-md-4" title="{{ issue.resolved_date|default_if_none:'' }}">{{ issue.resolved_date|default_if_none:""|naturalday }}</div>
       <div class="col-md-2"></div>
@@ -103,7 +101,7 @@
     <a class="js-collapse-toggle" data-toggle="collapse" href="#collapse_description">
       <i class="fa fa-minus-circle" style="font-size:12px;color:gray"></i>
     </a>
-    <strong>Description</strong>
+    <span class="ml-1 font-weight-bold">Description</span>
     <button type="button" class="btn btn-sm js-update-description" 
       markdown-url="{% url 'itrac:description_raw_markdown' issue.id %}"
       save-url="{% url 'itrac:edit_description' issue.id %}"
@@ -115,32 +113,27 @@
     {{ issue.get_description_as_markdown }}
   </div>
 </div>
-<div>
-  {% if issue.image %}
-    <img class="materialboxed" src="{{ MEDIA_URL }}{{ issue.image }}" alt="Issue Image" style="width:100%;height:450px;">
-  {% endif %}
+<div class="mt-3">
+  <div class="d-flex align-items-baseline">
+    <a class="js-collapse-toggle" data-toggle="collapse" href="#collapse_attachments">
+      <i class="fa fa-minus-circle" style="font-size:12px;color:gray"></i>
+    </a>
+    <span class="ml-1 font-weight-bold">Attachments</span>
+  </div>  
+  <div class="collapse js-collapse-details ml-3" id="collapse_attachments">
+    <div class="border w-75 p-5">attachements</div>
+    {% if issue.image %}
+      <img class="materialboxed" src="{{ MEDIA_URL }}{{ issue.image }}" alt="Issue Image" style="width:100%;height:450px;">
+    {% endif %}
+  </div>
 </div>
-
-{% if issue.issue_type == "FEATURE" %}
-<div>
-  <h5>Purchase Feature Upvotes</h5>
-  <form method="post" action="{% url 'add_to_cart' issue.id %}">
-      {% csrf_token %}
-      <div class="input-group">
-          <input name='quantity' type="number" min="1" max="99" class="form-control" placeholder="Quantity">
-          <button class="btn waves-effect waves-light" type="submit" name="action" onclick="M.toast({html: 'Added to Cart!'})">Add to Cart
-              </button>
-      </div>
-  </form>
-</div>
-{% endif %}
 
 <div class="mt-3">
   <div class="d-flex align-items-baseline">
     <a class="js-collapse-toggle" data-toggle="collapse" href="#collapse_comments">
       <i class="fa fa-minus-circle" style="font-size:12px;color:gray"></i>
     </a>
-    <strong>Comments</strong>
+    <span class="ml-1 font-weight-bold">Comments</span>
   </div>
   <div class="collapse js-collapse-details js_comment_list ml-3" id="collapse_comments">
     <ul class="list-group list-group-flush comment-list" id="partial_comment_list">
@@ -151,7 +144,7 @@
               <i class="fa fa-minus-circle" style="font-size:12px;color:gray"></i>
           </div>
           <div>
-              <strong>{{ comment.author }}</strong> 
+            <span class="ml-1 font-weight-bold">{{ comment.author }}</span> 
               added a comment - <span title="{{comment.created_date}}">{{ comment.created_date|naturaltime }}</span> 
               {% if comment.updated_date != comment.created_date %} 
                 <span title="{{comment.updated_date}}">(edited at {{ comment.updated_date|naturaltime }})</span> 
