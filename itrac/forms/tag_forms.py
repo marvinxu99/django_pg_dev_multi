@@ -1,6 +1,5 @@
 from django import forms
-from django.utils.translation import ugettext_lazy as _
-
+from django.utils.html import mark_safe
 
 from ..models import Tag
 
@@ -15,18 +14,14 @@ class TagCreateForm(forms.ModelForm):
         model = Tag
         fields = ('title',)
 
-DISPLAY_CHOICES = (
-    ("locationbox", "Display Location"),
-    ("displaybox", "Display Direction")
-)
 
 class TagEditForm(forms.ModelForm):
     title = forms.CharField(
         max_length=40,
-        help_text='max length is 40.'
+        help_text='(maximum length is 40)'
     )
     is_active = forms.ChoiceField(
-        widget=forms.RadioSelect(attrs={'class': 'choice-no-bullets'}), 
+        widget=forms.RadioSelect(attrs={ 'class': 'choice-no-bullets' }), 
         choices=[
             (True, 'Yes'),
             (False, 'No'),

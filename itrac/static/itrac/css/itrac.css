@@ -146,7 +146,14 @@ div a {
   border-top: 6px solid lightgray;
 }
 
-.choice-no-bullets {
+/* CSS for tag.is_active radio buttons */
+ul.choice-no-bullets {
   list-style: none;
-  margin-left: 20px;
+  margin: 0;
+  padding: 10px;
 }
+ul.choice-no-bullets li {
+  display: inline-block;
+  display: inline;
+  margin-right: 10px;
+} 
