@@ -16,7 +16,8 @@ import json
 
 
 from ..models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS
-from ..filters import IssueFilter
+from ..filters import IssueFilter, IssueFilter_superuser
+from .project import DEFAULT_CURRENT_PROJECT
 
 
 def do_search(request):
@@ -25,7 +26,7 @@ def do_search(request):
     of matching Issues and render them to the 'issues.html' template
     """
     # Search Issue.coded_id first. If no hit, then searc issue title
-    current_project = request.session.get('current_project', { 'project': 'WINN', 'id': 0 })
+    current_project = request.session.get('current_project', DEFAULT_CURRENT_PROJECT)
     issues = Issue.objects.filter(
             coded_id__iexact=request.GET['q'],
             project__pk = current_project['id'],
@@ -53,11 +54,21 @@ def do_search(request):
 
 @login_required()
 def search_issues(request):
-    issue_list = Issue.objects.all()
-    issue_filter = IssueFilter(request.GET, queryset=issue_list)
+    ''' Super users can see all projects while ordinary users can only view current select project.
+    '''
+    user = request.user
+    if user.is_superuser:
+        issue_list = Issue.objects.all().order_by('-created_date')
+        issue_filter = IssueFilter_superuser(request.GET, queryset=issue_list)
+    else:
+        current_project = request.session.get('current_project', DEFAULT_CURRENT_PROJECT)
+        issue_list = Issue.objects.filter(project__pk = current_project['id']).order_by('-created_date')
+        issue_filter = IssueFilter(request.GET, queryset=issue_list)
+
     context = {
         'filter': issue_filter,
     }
+
     return render(request, 'itrac/search_issues.html', context)
 
 

@@ -16,7 +16,6 @@ import json
 
 from ..models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS
 from ..forms import IssueEditForm, IssueCreateForm, CommentForm, IssueEditDescriptionForm
-from ..filters import IssueFilter
 
 
 @login_required
@@ -26,7 +25,6 @@ def my_in_progress_issues(request):
     of Issues assigned to the current user.
     """
     issue_count_total = Issue.objects.count()
-
 
     current_project = request.session.get('current_project', { 'project': 'WINN', 'id': 0 })
     issues = Issue.objects.filter(

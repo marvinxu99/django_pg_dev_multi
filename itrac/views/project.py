@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import login_required
 from ..models import Project
 from ..forms import ProjectForm
 
+
+DEFAULT_CURRENT_PROJECT = { 'project': 'WINN', 'id': 0 }
+
 @login_required
 def project_list(request):
     projects = Project.objects.all()
@@ -94,6 +97,10 @@ def project_delete(request, pk):
 @login_required
 def set_current_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
+
+    prev_current = request.session.get('current_projects', None)
+    prev_recent = request.session.get('recent_projects', None)
+
 
     request.session['current_project'] = { 
         'title': project.title, 

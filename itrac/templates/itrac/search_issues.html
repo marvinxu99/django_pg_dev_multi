@@ -10,7 +10,7 @@
       <form class="p-3" method="get">
         {% for field in filter.form %}
           <div class="form-group d-flex">
-            <div style="width: 35%;">{{ field.label_tag }}</div>
+            <div style="width: 50%;">{{ field.label_tag }}</div>
             {% render_field field class+="form-control" %}
           </div>
         {% endfor %}
