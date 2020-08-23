@@ -53,5 +53,23 @@ $(function () {
     // Delete book
     $("#tag-table").on("click", ".js-delete-tag", loadForm);
     $("#modal-tag").on("submit", ".js-tag-delete-form", saveForm);
+
+    // Set up the filter for tag list 
+    $("#tagInput").on("keyup", () => {
+        const input = document.getElementById("tagInput");
+        const filter = input.value.toUpperCase();
+
+        const tags = document.getElementsByClassName("tags-item-tag");
+        for (let i = 0; i < tags.length; i++) {
+          let tag_item = tags.item(i);
+          let tag_title = tags.item(i).firstElementChild;
+          const txtValue = tag_title.textContent || tag_title.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tag_item.style.display = "";
+          } else {
+            tag_item.style.display = "none";
+          }
+        }
+    })
     
 });
