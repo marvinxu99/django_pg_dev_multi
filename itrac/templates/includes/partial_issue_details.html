@@ -64,11 +64,13 @@
       <div class="col-md-2 text-muted">Created:</div>
       <div class="col-md-4" title="{{ issue.created_date }}">{{ issue.created_date|naturaltime }}</div>
       <div class="col-md-2 text-muted">Assignee:</div>
-      <div class="col-md-4 align-items-center" id="div_issue_assignee">
-        <span id="id_issue_assignee">{{ issue.assignee|default_if_none:"Unassigned" }}</span>
-        <button type="button" class="btn btn-sm js_update_assignee" id="btn_change_assignee_2"
-            title="Click to edit assignee."><i class="fa fa-edit"></i>
-        </button>
+      <div class="col-md-4" id="div_issue_assignee">
+        <div class="d-flex align-items-baseline">
+          <span id="id_issue_assignee">{{ issue.assignee|default_if_none:"Unassigned" }}</span>
+          <button type="button" class="btn btn-sm badge js_update_assignee" id="btn_change_assignee_2"
+              title="Click to edit assignee."><i class="fa fa-edit"></i>
+          </button>
+        </div>
       </div>
       <div class="col-md-2 text-muted">Updated:</div>
       <div class="col-md-4" title="{{ issue.updated_date }}">{{ issue.updated_date|naturaltime }}</div>
@@ -76,18 +78,24 @@
       <div class="col-md-4">{{ issue.author }}</div>
       <div class="col-md-2 text-muted">Resolved:</div>
       <div class="col-md-4">{{ issue.is_resolved|yesno:"Yes,No" }}</div>
-      <div class="col-md-2 text-muted">Upvotes:</div>
-      <div class="col-md-4">
-        <div class="d-flex align-items-baseline">
-          <span title="votes purhcase by you: xxx">{{ issue.upvotes }}</span>
-          {% if issue.issue_type == "01" %}   {# '01': "FEATURE " #}
-            <a class="btn ml-3" href="{% url 'itrac:upvote' issue.id %}"><i class="far fa-thumbs-up"></i></a>
-          {% endif %}
-          {% if issue.issue_type == "02" %}   {# '02': "FEATURE " #}
-            <a class="btn btn-sm btn-outline-secondary ml-5" href="#"><i class="far fa-thumbs-up"></i>Purcahse votes</a>
-          {% endif %}
+      {% if issue.issue_type == '01' or issue.issue_type == '02'  %} 
+        <div class="col-md-2 text-muted">Upvotes:</div>
+        <div class="col-md-4">
+          <div class="d-flex align-items-baseline">
+            <span title="votes purhcase by you: xxx">{{ issue.upvotes }}</span>
+            {% if issue.issue_type == "01" %}   {# '01': "Break/Fix " #}
+              <a class="btn ml-3" href="{% url 'itrac:upvote' issue.id %}"><i class="far fa-thumbs-up"></i></a>
+            {% endif %}
+            {% if issue.issue_type == "02" %}   {# '02': "FEATURE " #}
+              <span title="votes purhcase by you: xxx">{{ issue.upvotes }}</span>
+              <a class="badge badge-secondary ml-3" href="#"><i class="far fa-thumbs-up"></i> Purcahse votes</a>
+            {% endif %}
+          </div>
         </div>
-      </div>
+      {% else %}
+        <div class="col-md-2"></div>
+        <div class="col-md-4"></div>
+      {% endif %}
       <div class="col-md-2 text-muted">Resolved Date:</div>
       <div class="col-md-4" title="{{ issue.resolved_date|default_if_none:'' }}">{{ issue.resolved_date|default_if_none:""|naturalday }}</div>
       <div class="col-md-2"></div>
