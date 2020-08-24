@@ -24,8 +24,10 @@ urlpatterns = [
     path('issue/<int:pk>/assingee/users', views.change_assignee_users, name='change_assignee_users'), 
     path('issue/<int:pk>/assingee/change/<int:user_pk>', views.change_assignee_change, name='change_assignee_change'),
 
-    path('issue/<int:pk>/upvote/', views.upvote, name='upvote'),
     path('issue/<int:pk>/save_issue/', views.save_issue_favourite, name='save_issue_favourite'),
+
+    path('issue/<int:pk>/upvote/', views.upvote, name='upvote'),
+    path('issue/<int:pk>/purchasevote/', views.purchase_vote, name='purchase_vote'),
 
     path('issue/tag/', views.issues_with_tag, name='issues_with_tag'),
     

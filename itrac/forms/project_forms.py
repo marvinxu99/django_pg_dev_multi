@@ -6,15 +6,15 @@ from ..models import Project
 
 
 class ProjectForm(forms.ModelForm):
-    code = forms.CharField(
-        max_length=20,
-        help_text='The max length is 20.'
-    )
     title = forms.CharField(
         max_length=150,
         help_text='The max length is 150.'
     )
+    code = forms.CharField(
+        max_length=20,
+        help_text='The max length is 20.'
+    )
 
     class Meta:
         model = Project
-        fields = ('code', 'title', )
+        fields = ('title', 'code',)

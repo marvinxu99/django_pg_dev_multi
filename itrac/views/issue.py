@@ -213,6 +213,19 @@ def issue_detail_partial(request, pk):
 
 @login_required()
 def upvote(request, pk):
+    data = dict()
+    issue = Issue.objects.get(pk=pk)
+    issue.upvotes += 1
+    issue.save()
+    # notify.send(request.user, recipient=issue.author, verb="upvoted your Issue: " + issue.title)
+    # messages.success(request, 'Issue upvoted!')
+    data['upvotes'] = issue.upvotes
+    data['status'] = 'S'
+    return JsonResponse(data)
+
+
+@login_required()
+def purchase_vote(request, pk):
     issue = Issue.objects.get(pk=pk)
     issue.upvotes += 1
     issue.save()

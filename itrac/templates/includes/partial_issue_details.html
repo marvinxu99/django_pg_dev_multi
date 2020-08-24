@@ -82,13 +82,17 @@
         <div class="col-md-2 text-muted">Upvotes:</div>
         <div class="col-md-4">
           <div class="d-flex align-items-baseline">
-            <span title="votes purhcase by you: xxx">{{ issue.upvotes }}</span>
+            <span id="upvote-score">{{ issue.upvotes }}</span>
             {% if issue.issue_type == "01" %}   {# '01': "Break/Fix " #}
-              <a class="btn ml-3" href="{% url 'itrac:upvote' issue.id %}"><i class="far fa-thumbs-up"></i></a>
+              <button type="button" class="btn btn-sm badge ml-3 js-update-upvote" data-url="{% url 'itrac:upvote' issue.id %}">
+                <i class="far fa-thumbs-up"></i>
+              </button>
             {% endif %}
             {% if issue.issue_type == "02" %}   {# '02': "FEATURE " #}
               <span title="votes purhcase by you: xxx">{{ issue.upvotes }}</span>
-              <a class="badge badge-secondary ml-3" href="#"><i class="far fa-thumbs-up"></i> Purcahse votes</a>
+              <button class="btn btn-sm badge ml-3 js_purchase_vote" data-url="{% url 'itrac:purchase_vote' issue.id %}">
+                (Purchase <i class="far fa-thumbs-up"></i> votes)
+              </button>
             {% endif %}
           </div>
         </div>
@@ -277,9 +281,6 @@ $(function () {
           'new_status': status
         },
         headers: {'X-CSRFToken': '{{ csrf_token }}'},
-        // beforeSend: function(xhr, settings) {
-        //       xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        // },
         success: function (data) {
           if (data.status === "S") {
             $('#issue_status_display').html(data.issue_status);
@@ -548,6 +549,21 @@ $(function () {
     });
   });
 
+  // Handle upvote button
+  $('.js-update-upvote').click(function(event) {
+      const url = $(this).attr('data-url');
+      const csrftoken = getCookie('csrftoken');
+      $.ajax({
+        type: "POST",
+        url: url,
+        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+        success: function (data) {
+          if (data.status === "S") {
+            $('#upvote-score').html(data.upvotes);
+          }
+        }
+      });
+  });
 
 });
 

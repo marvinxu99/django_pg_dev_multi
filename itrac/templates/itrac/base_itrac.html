@@ -48,14 +48,17 @@
         <i class="fas fa-project-diagram"></i> Projects
       </a>
       <div class="dropdown-menu dropdown-menu-left" aria-labelledby="projectsMenu">
-        <div class="text-muted ml-1">CURRENT:</div>
+        <div class="text-muted ml-1"><small>CURRENT PROJECT:</small></div>
         <a class="dropdown-item" href="{% url 'itrac:filtered_issues_open' %}">{{ request.session.current_project.title }}</a>
         <div class="dropdown-divider"></div>
-        <div class="text-muted ml-1">RECENT:</div>
-        <a class="dropdown-item" href="#">Recent #1</a>
-        <a class="dropdown-item" href="#">Recent #2</a>
-        <a class="dropdown-item" href="#">Recent #3</a>
-        <a class="dropdown-item" href="#">Recent #4</a>
+        <div class="text-muted ml-1"><small>RECENT PROJECTS:</small></div>
+        {% for project in request.session.recent_projects %}
+        <a class="dropdown-item" href="{% url 'itrac:set_current_project' project.id %}">
+          {{ project.title }}
+        </a>
+        {% empty %}
+          No recent projects
+        {% endfor %}
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="{% url 'itrac:project_list' %}"><i class="fas fa-layer-group"></i> View all projects</a>
         <div class="dropdown-divider"></div>
