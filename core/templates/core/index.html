@@ -2,16 +2,28 @@
 {% load static %}
 {% block title %}Winter Winn{% endblock %}
 {% block content %}
-<div class="winn-heading text-center">
+<div class="winn-heading text-center container">
   <h1 class="display-4 zone-we">Welcome</h1>
   <p class="lead text-muted">
     The following apps are developed by <a href="{% url 'winter_univer' %}" target="_blank">Winter Winn</a>. 
     Please feel free to <a href="{% url 'polls:contact' %}">send a message</a> to let her know how you like them.
   </p> 
   <hr class="mt-4">
+  <div class="mt-1">
+    <img src="{% static 'img/winter_friends.jpg' %}" alt="winter and friends">
+  </div>
 </div>
-<div class="container">
+<div class="container mt-3">
   <div class="card-deck mb-3 text-center">
+    <div class="card bg-light mb-4 shadow-lg zone">
+      <div class="card-body">
+        <h1 class="card-title">Issue Tracker</h1>
+        <p class="card-text"> A bug and issue tracker, but can also be used to manage development process/workflows</p>
+      </div>
+      <div class="card-footer text-center">
+        <a href="itrac/" role="button" class="btn btn-lg btn-block btn-outline-primary">Check it out</a>
+      </div>
+    </div>
     <div class="card bg-light mb-4 shadow-lg zone">
       <div class="card-header">
         <h4 class="my-0 font-weight-normal">Winter Winn</h4>
@@ -22,18 +34,6 @@
       </div>
       <div class="card-footer text-center">
         <a href="boards/" role="button" class="btn btn-lg btn-block btn-outline-primary">Check it out</a>
-      </div>
-    </div>
-    <div class="card bg-light mb-4 shadow-lg zone">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Winter Winn</h4>
-      </div>
-      <div class="card-body">
-        <h1 class="card-title">Insta Posts</h1>
-        <p class="card-text">This basic Instagram clone shows how to implement file and image uploading with Django. </p>
-      </div>
-      <div class="card-footer text-center">
-        <a href="posts/" role="button" class="btn btn-lg btn-block btn-outline-primary">Check it out</a>
       </div>
     </div>
     <div class="card bg-light mb-4 shadow-lg zone">
@@ -78,9 +78,6 @@
       </div>
     </div>
   </div>
-</div>
-<div class="mt-5">
-  <img src="{% static 'img/winter_friends.jpg' %}" alt="winter and friends">
 </div>
 
 {% endblock %}
