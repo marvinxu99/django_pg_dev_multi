@@ -45,7 +45,7 @@ class Issue(models.Model):
     # coded_id = project.code + Issue.pk
     coded_id = models.CharField(max_length=40, null=True)
 
-    project = models.ForeignKey(Project, related_name='Issues', null=True, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, related_name='issues', null=True, on_delete=models.CASCADE)
     issue_type = models.CharField(max_length=2, choices=ISSUE_TYPE.choices, default=ISSUE_TYPE.BREAK_FIX)
     status = models.CharField(max_length=2, choices=ISSUE_STATUS.choices, default=ISSUE_STATUS.OPEN)
     priority = models.CharField(max_length=1, choices=ISSUE_PRIORITY.choices, null=True)

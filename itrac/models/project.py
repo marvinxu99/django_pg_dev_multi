@@ -41,3 +41,11 @@ class Project(models.Model):
         indexes = [
             models.Index(fields=['title']),
         ]
+
+    @property
+    def get_issues_count(self):
+        return self.issues.count()
+
+    @property
+    def get_issues_count_unresolved(self):
+        return self.issues.filter(is_resolved=False).count()
