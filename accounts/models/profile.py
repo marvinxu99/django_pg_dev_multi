@@ -66,25 +66,13 @@ class Profile(models.Model):
         ('CHN', _('Chinese')),
     )
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     first_name = models.CharField(
         max_length=100, verbose_name=_("First Name in English")
     )
     last_name = models.CharField(
         max_length=100, verbose_name=_("Last Name in English")
-    )
-    first_name_rus = models.CharField(
-        max_length=100, default="", verbose_name=_("First Name in Russian",),
-        blank=True,
-    )
-    middle_name_rus = models.CharField(
-        max_length=100, default="", verbose_name=_("Middle Name in Russian"),
-        blank = True,
-    )
-    last_name_rus = models.CharField(
-        max_length=100, default="", verbose_name=_("Last Name in Russian"),
-        blank=True,
     )
     country = CountryField(null=True, verbose_name=_("Country"))
     city = models.CharField(max_length=100, verbose_name=_("City in English"))

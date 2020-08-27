@@ -1,0 +1,17 @@
+<div>
+    <div class="p-1" style="border: 2px solid lightgray">
+        {% for tag in issue.tags.all %}
+          <span class="mr-1">{{ tag.title }}
+            <sup class="badge badge-secondary badge-pill js-tag-item-delete" tag-id={{ tag.id }}>x</sup>
+          </span>
+        {% endfor %}
+        <form action="#">
+          <!-- {% csrf_token %} -->
+          <input class="issue-tag-input" type="text" placeholder="enter a tag" name="newtag" style="border: none">
+        </form>        
+    </div>
+    <button type="submit" class="btn btn-sm btn-secondary btn-tag-edit-ok">Ok</button>
+    <button type="cancel" class="btn btn-sm btn-secondary btn-tag-edit-cancel" 
+        data-url="{% url 'itrac:partial_issue_tags_list' issue.id %}">Cancel
+    </button>
+</div>

@@ -1,0 +1,3 @@
+{% for tag in issue.tags.all %}
+  <button class="btn btn-sm" href="{% url 'itrac:issues_with_tag' %}?tag={{ tag }}"> {{ tag.title }}</button>
+{% endfor %}
