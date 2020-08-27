@@ -74,3 +74,18 @@ class CommentForm(forms.ModelForm):
         if not comment:
             raise forms.ValidationError(_('This field should not be empty.'), code='invalid')
         return comment
+
+
+class IssueEditTags(forms.ModelForm):
+    '''
+    Edit issue tags
+    '''
+    description = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 4, 'id':'id_description_edit'}), 
+        max_length=4000,
+        help_text='The max length of the text is 4000.'
+    )
+
+    class Meta:
+        model = Issue
+        fields = ('tags', )

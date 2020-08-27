@@ -30,6 +30,7 @@ urlpatterns = [
     path('issue/<int:pk>/purchasevote/', views.purchase_vote, name='purchase_vote'),
 
     path('issue/tag/', views.issues_with_tag, name='issues_with_tag'),
+    path('issue/<int:pk>/edit-tags', views.edit_issue_tags, name='edit_issue_tags'),
     
     path('comment/<int:issue_pk>/save_new/', views.save_new_comment, name='save_new_comment'),
     path('comment/<int:issue_pk>/<int:pk>/edit/', views.edit_comment, name='edit_comment'),
