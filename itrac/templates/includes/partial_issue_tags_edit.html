@@ -10,7 +10,7 @@
       </span>
     {% endfor %}
     <form action="#" autocomplete="off">
-      <input class="issue-tag-input" id="issue-tag-input" type="text" placeholder="enter a tag" name="newtag" style="border: none">
+      <input class="issue-tag-input" id="issue-tag-input" type="text" placeholder="tag name" name="newtag" style="border: none">
     </form>
     <div>
       <div class="bg-secondary w-100" id="tag-suggestions" style="display:none;">Suggestions:</div>
@@ -27,16 +27,15 @@
     </div>
   </div>
   <div class="d-flex justify-content-end">
-    <button type="submit" class="btn btn-sm btn-secondary btn-tag-edit-ok m-1">Ok</button>
     <button type="cancel" class="btn btn-sm btn-secondary btn-tag-edit-cancel m-1" 
-        data-url="{% url 'itrac:partial_issue_tags_list' issue.id %}">Cancel
+        data-url="{% url 'itrac:partial_issue_tags_list' issue.id %}">Close
     </button>
   </div>
 </div>
 {% load static %}
 <script src="{% static 'js/winn_utils.js' %}"></script>
 <script>
-  // Check if the tag is already used on the issue
+  // Check if the tag is already in the issue's tag list
   function check_existing_issue_tag(tag_str){
       const issue_tags = document.getElementsByClassName("issue-existing-tag");
       for (let i = 0; i < issue_tags.length; i++) {
@@ -49,7 +48,7 @@
       return false;
   };
       
-  // Set up the filter for tag list 
+  // Set up the filter for the list of tags 
   $("#issue-tag-input").on("keyup", () => {
       const input = document.getElementById("issue-tag-input");
       const filter = input.value.toUpperCase();
@@ -82,6 +81,7 @@
         existing_issue_tag = check_existing_issue_tag(input.value);
       }
 
+      // if the tag is net new
       if (!existing_tag && !existing_issue_tag && filter.length >= 1) {
         const new_tag_suggest = `
                 <button class="btn btn-sm js-issue-tag-add_net_new" 
@@ -91,7 +91,7 @@
                 </button>`
 
         $('#netnew-tag-suggest').html(new_tag_suggest); 
-        $('#tag-suggestions').show();
+        $('#tag-suggestions').hide();
 
         setupIssueAddNetNewTagListener();
 
