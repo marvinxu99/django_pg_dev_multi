@@ -1,3 +1,8 @@
+<style>
+  #issue-tag-input:focus {outline: 3px solid #ddd;}
+  .tags-item-tag button:hover {background-color: #ddd;}
+  #netnew-tag-suggest:hover {background-color: #ddd;}
+</style>
 <div>
   <div class="p-1" style="border: 2px solid lightgray">
     {% for tag in issue.tags.all %}
@@ -13,7 +18,7 @@
       <input class="issue-tag-input" id="issue-tag-input" type="text" placeholder="tag name" name="newtag" style="border: none">
     </form>
     <div>
-      <div class="bg-secondary w-100" id="tag-suggestions" style="display:none;">Suggestions:</div>
+      <div class="bg-secondary w-100 mt-1" id="tag-suggestions" style="display:none;">Suggestions:</div>
       <div id="netnew-tag-suggest"></div>
       <div style="max-height:150px; overflow-y:auto;">
           {% for tag in tags %}
