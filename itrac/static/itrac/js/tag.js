@@ -42,15 +42,15 @@ $(function () {
         return false;
     };
 
-    // Create book
+    // Create tag
     $(".js-create-tag").click(loadForm);
     $("#modal-tag").on("submit", ".js-tag-create-form", saveForm);
 
-    // Update book
+    // Update tage
     $("#tag-table").on("click", ".js-edit-tag", loadForm);
     $("#modal-tag").on("submit", ".js-tag-edit-form", saveForm);
 
-    // Delete book
+    // Delete tag
     $("#tag-table").on("click", ".js-delete-tag", loadForm);
     $("#modal-tag").on("submit", ".js-tag-delete-form", saveForm);
 
