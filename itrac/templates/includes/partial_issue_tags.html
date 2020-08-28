@@ -43,6 +43,7 @@ $(function(){
         setupTagEditCancelListener();
         setupTagEditOkListener();
         setupTagDeleteListener();
+        setupIssueTagAddListener()
       })
   });
 
@@ -81,6 +82,22 @@ $(function(){
      
     })
   }
+
+  function setupIssueTagAddListener() {
+    $('.js-issue-tag-add').click(function(){
+      const url = $(this).attr('data-url');
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data['status'] === 'S'){
+            $('.js-issue-edit-tags').click();
+          }
+        })
+     
+    })
+  }
+
+
 
 })
 </script>

@@ -29,10 +29,14 @@ urlpatterns = [
     path('issue/<int:pk>/upvote/', views.upvote, name='upvote'),
     path('issue/<int:pk>/purchasevote/', views.purchase_vote, name='purchase_vote'),
 
+    # example url: /itrac/issue/tag/?tag=test%20test
     path('issue/tag/', views.issues_with_tag, name='issues_with_tag'),
-    path('issue/<int:pk>/edit-tags', views.edit_issue_tags, name='edit_issue_tags'),
-    path('issue/<int:pk>/tag-list', views.partial_issue_tags_list, name='partial_issue_tags_list'),
+
+    path('issue/<int:pk>/tags/edit', views.edit_issue_tags, name='edit_issue_tags'),
+    path('issue/<int:pk>/tags/list', views.partial_issue_tags_list, name='partial_issue_tags_list'),
     path('issue/<int:pk>/tag/<int:tag_pk>/delete', views.issue_delete_tag, name='issue_delete_tag'),
+    path('issue/<int:pk>/tag/<int:tag_pk>/add', views.issue_add_tag, name='issue_add_tag'),
+    path('issue/<int:pk>/tag/add_new', views.issue_add_net_new_tag, name='issue_add_net_new_tag'),
     
     path('comment/<int:issue_pk>/save_new/', views.save_new_comment, name='save_new_comment'),
     path('comment/<int:issue_pk>/<int:pk>/edit/', views.edit_comment, name='edit_comment'),

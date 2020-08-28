@@ -1,56 +1,129 @@
 <div>
-    <div class="p-1" style="border: 2px solid lightgray">
-        {% for tag in issue.tags.all %}
-          <span class="mr-1">{{ tag.title }}
-            <sup>
-              <button class="badge badge-primary badge-pill js-tag-item-delete" 
-                data-url="{% url 'itrac:issue_delete_tag' issue.pk tag.pk %}">X
+  <div class="p-1" style="border: 2px solid lightgray">
+    {% for tag in issue.tags.all %}
+      <span class="mr-2"><span class="issue-existing-tag">{{ tag.title }}</span> 
+        <sup>
+          <button class="badge badge-primary badge-pill js-tag-item-delete" 
+            data-url="{% url 'itrac:issue_delete_tag' issue.pk tag.pk %}">X
+          </button>
+        </sup>
+      </span>
+    {% endfor %}
+    <form action="#" autocomplete="off">
+      <input class="issue-tag-input" id="issue-tag-input" type="text" placeholder="enter a tag" name="newtag" style="border: none">
+    </form>
+    <div>
+      <div class="bg-secondary w-100" id="tag-suggestions" style="display:none;">Suggestions:</div>
+      <div id="netnew-tag-suggest"></div>
+      <div style="max-height:150px; overflow-y:auto;">
+          {% for tag in tags %}
+            <div class="tags-item-tag" style="display:none;">
+              <button class="btn btn-sm js-issue-tag-add" data-url="{% url 'itrac:issue_add_tag' issue.pk tag.pk %}">
+                {{ tag.title }}
               </button>
-            </sup>
-          </span>
-        {% endfor %}
-        <form action="#">
-          <input class="issue-tag-input" id="issue-tag-input" type="text" placeholder="enter a tag" name="newtag" style="border: none">
-        </form>
-        suggestions:     
-        <table>
-          <tbody>
-            {% for tag in tags %}
-              <tr class="tags-item-tag" style="display:none;">
-                <td><button class="btn, btn-sm" data-url="#">{{ tag.title }}</button></td>
-              </tr>
-            {% endfor %}
-          </tbody>              
-        </table>
+            </div>
+          {% endfor %}
+      </div>
     </div>
-    <button type="submit" class="btn btn-sm btn-secondary btn-tag-edit-ok">Ok</button>
-    <button type="cancel" class="btn btn-sm btn-secondary btn-tag-edit-cancel" 
+  </div>
+  <div class="d-flex justify-content-end">
+    <button type="submit" class="btn btn-sm btn-secondary btn-tag-edit-ok m-1">Ok</button>
+    <button type="cancel" class="btn btn-sm btn-secondary btn-tag-edit-cancel m-1" 
         data-url="{% url 'itrac:partial_issue_tags_list' issue.id %}">Cancel
     </button>
+  </div>
 </div>
+{% load static %}
+<script src="{% static 'js/winn_utils.js' %}"></script>
 <script>
-    // Set up the filter for tag list 
-    $("#issue-tag-input").on("keyup", () => {
-        const input = document.getElementById("issue-tag-input");
-        const filter = input.value.toUpperCase();
-
-        const tags = document.getElementsByClassName("tags-item-tag");
-        if (filter.length < 1) {
-          for (let i = 0; i < tags.length; i++) {
-            tags.item(i).style.display = "none";
+  // Check if the tag is already used on the issue
+  function check_existing_issue_tag(tag_str){
+      const issue_tags = document.getElementsByClassName("issue-existing-tag");
+      for (let i = 0; i < issue_tags.length; i++) {
+          let tag_item = issue_tags.item(i);
+          let tag_title = tag_item.textContent || tag_item.innerText; 
+          if (tag_title === tag_str) {
+            return true;
           }
-        } else {
-          for (let i = 0; i < tags.length; i++) {
-            let tag_item = tags.item(i);
-            let tag_title = tags.item(i).firstElementChild;
-            const txtValue = tag_title.textContent || tag_title.innerText;
-            if (txtValue.toUpperCase().startsWith(filter)) {
-              tag_item.style.display = "";
-            } else {
-              tag_item.style.display = "none";
-            }
+      }
+      return false;
+  };
+      
+  // Set up the filter for tag list 
+  $("#issue-tag-input").on("keyup", () => {
+      const input = document.getElementById("issue-tag-input");
+      const filter = input.value.toUpperCase();
+              
+      let existing_tag = false;
+      let existing_issue_tag = false;
+
+      const tags = document.getElementsByClassName("tags-item-tag");
+      if (filter.length < 1) {
+        for (let i = 0; i < tags.length; i++) {
+          tags.item(i).style.display = "none";
+        }
+        $('#tag-suggestions').hide();
+      } else {
+        for (let i = 0; i < tags.length; i++) {
+          let tag_item = tags.item(i);
+          let tag_title = tags.item(i).firstElementChild;
+
+          // Remove leading and trailing spaces
+          const txtValue = (tag_title.textContent || tag_title.innerText).trim();
+
+          if (txtValue.toUpperCase().startsWith(filter)) {
+            tag_item.style.display = "";
+            existing_tag = true;
+            $('#tag-suggestions').show();
+          } else {
+            tag_item.style.display = "none";
           }
         }
+        existing_issue_tag = check_existing_issue_tag(input.value);
+      }
+
+      if (!existing_tag && !existing_issue_tag && filter.length >= 1) {
+        const new_tag_suggest = `
+                <button class="btn btn-sm js-issue-tag-add_net_new" 
+                        new-tag="${input.value}" 
+                        data-url="{% url 'itrac:issue_add_net_new_tag' issue.pk %}">
+                    <strong>${input.value}</strong> (new tag)
+                </button>`
+
+        $('#netnew-tag-suggest').html(new_tag_suggest); 
+        $('#tag-suggestions').show();
+
+        setupIssueAddNetNewTagListener();
+
+      } else {
+        $('#netnew-tag-suggest').html(''); 
+      }
+  })
+
+  function setupIssueAddNetNewTagListener() {
+    let csrftoken = getCookie('csrftoken');
+
+    $('.js-issue-tag-add_net_new').click(function() {
+      const url = $(this).attr('data-url');
+      const new_tag = $(this).attr('new-tag');
+      const tag_data = { new_tag: new_tag };
+      fetch(url, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(tag_data),
+          headers: { "X-CSRFToken": csrftoken },
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data['status'] === 'S'){
+          $('.js-issue-edit-tags').click();
+        }
+      })
+     
     })
+  }
 
 </script>
