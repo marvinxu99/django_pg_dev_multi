@@ -14,7 +14,7 @@
         </sup>
       </span>
     {% endfor %}
-    <form action="#" autocomplete="off">
+    <form action="#" autocomplete="off" onkeypress="return event.keyCode != 13;">
       <input class="issue-tag-input" id="issue-tag-input" type="text" placeholder="tag name" name="newtag" style="border: none">
     </form>
     <div>
