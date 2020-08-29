@@ -100,10 +100,12 @@
         <div class="col-md-2"></div>
         <div class="col-md-4"></div>
       {% endif %}
+      {% if issue.is_resolved %}
       <div class="col-md-2 text-muted">Resolved Date:</div>
       <div class="col-md-4" title="{{ issue.resolved_date|default_if_none:'' }}">{{ issue.resolved_date|default_if_none:""|naturalday }}</div>
-      <div class="col-md-2"></div>
-      <div class="col-md-4"></div>
+      <div class="col-md-2 text-muted">Resolution Details:</div>
+      <div class="col-md-4">{{ issue.resolution_details }}</div>
+      {% endif %}
     </div>    
     {% include "includes/partial_issue_tags.html" with issue=issue %}  
   </div>

@@ -56,6 +56,8 @@ class Issue(models.Model):
     
     is_resolved = models.BooleanField(default=False)
     resolved_date = models.DateField(blank=True, null=True)
+    resolution_details = models.CharField(max_length=250, blank=True, null=True)
+    
     upvotes = models.IntegerField('likes', default=0)
     
     tags = models.ManyToManyField(Tag, related_name='issues', blank=True)

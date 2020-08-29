@@ -41,7 +41,7 @@ class IssueEditForm(forms.ModelForm):
 
     class Meta:
         model = Issue
-        fields = ('title', 'issue_type', 'is_resolved', 'resolved_date', 'description', 'image', 'tags', )
+        fields = ('title', 'issue_type', 'is_resolved', 'resolved_date', 'resolution_details', 'description', 'image', 'tags', )
         widgets = {
             'is_resolved': forms.Select(choices=TRUE_FALSE_CHOICES, attrs={'style':'width:150px;'}),
             'resolved_date': forms.DateInput(attrs={'type': 'date', 'style':'width:200px;'}),
