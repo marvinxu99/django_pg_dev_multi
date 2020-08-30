@@ -1,0 +1,46 @@
+<div class="d-flex">
+    <a class="btn btn-sm btn-outline-info" href="{% url 'itrac:edit_issue' issue.id %}"><i class="fa fa-edit"></i> Edit Issue</a>
+    <div class="dropdown ml-1">
+      <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="dropdownMoreButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <i class="far fa-edit"></i> More: <span class="caret"></span>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMoreButton">
+        <a class="dropdown-item" url="#" value="LINK">Link</a>
+        <a class="dropdown-item" url="#" value="CLONE">Clone</a>
+      </div>
+    </div>
+    <a class="btn btn-sm btn-outline-info mx-3" id="add_new_comment_btn_2" href="#" role="button"><i class="far fa-comment-alt"></i> Comment</a>
+    {% if favorite %}
+    <button class="btn btn-sm btn-outline-info mr-3 js_update_favourite" type="button" favourite-action="remove"
+        reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
+        data-url="{% url 'itrac:save_issue_favourite' issue.id %}"><i class="far fa-star"></i> Unfavour
+    </button>
+    {% else %}
+    <button class="btn btn-sm btn-outline-info mr-3 js_update_favourite" type="button" favourite-action="add"
+        reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
+        data-url="{% url 'itrac:save_issue_favourite' issue.id %}"><i class="fa fa-star" style="color:red"></i> Favour
+    </button>
+    {% endif %}
+    <button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#modalChangeAssignee" 
+        data-url="{% url 'itrac:change_assignee_users' issue.id %}"
+        reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
+        id="btn_change_assignee_main"><i class="fa fa-user" aria-hidden="true"></i> Assign
+    </button>
+    <div class="dropdown ml-1">
+      <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="dropdownStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <i class="fa fa-history" aria-hidden="true"></i> Status: <span class="caret"></span>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownStatus">
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="OPEN">Open</a>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="INVESTIGATE">Investigate</a>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="TRIAGE">Await approval</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="BUILD_IN_PROGRESS">Build in progress</a>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="VALIDATING">Validate in progress</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="COMPLETE">Complete</a>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="CLOSED">Closed</a>
+      </div>
+    </div>
+  </div>
+  

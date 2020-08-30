@@ -16,51 +16,7 @@
     {% endif %}
   </div>
 </div>
-<div class="d-flex">
-  <a class="btn btn-sm btn-outline-info" href="{% url 'itrac:edit_issue' issue.id %}"><i class="fa fa-edit"></i> Edit Issue</a>
-  <div class="dropdown ml-1">
-    <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="dropdownMoreButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-      <i class="far fa-edit"></i> More: <span class="caret"></span>
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMoreButton">
-      <a class="dropdown-item" url="#" value="LINK">Link</a>
-      <a class="dropdown-item" url="#" value="CLONE">Clone</a>
-    </div>
-  </div>
-  <a class="btn btn-sm btn-outline-info mx-3" id="add_new_comment_btn_2" href="#" role="button"><i class="far fa-comment-alt"></i> Comment</a>
-  {% if favorite %}
-  <button class="btn btn-sm btn-outline-info mr-3 js_update_favourite" type="button" favourite-action="remove"
-      reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
-      data-url="{% url 'itrac:save_issue_favourite' issue.id %}"><i class="far fa-star"></i> Unfavour
-  </button>
-  {% else %}
-  <button class="btn btn-sm btn-outline-info mr-3 js_update_favourite" type="button" favourite-action="add"
-      reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
-      data-url="{% url 'itrac:save_issue_favourite' issue.id %}"><i class="fa fa-star" style="color:red"></i> Favour
-  </button>
-  {% endif %}
-  <button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#modalChangeAssignee" 
-      data-url="{% url 'itrac:change_assignee_users' issue.id %}"
-      reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
-      id="btn_change_assignee_main"><i class="fa fa-user" aria-hidden="true"></i> Assign
-  </button>
-  <div class="dropdown ml-1">
-    <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="dropdownStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-      <i class="fa fa-history" aria-hidden="true"></i> Status: <span class="caret"></span>
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownStatus">
-      <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="OPEN">Open</a>
-      <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="INVESTIGATE">Investigate</a>
-      <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="TRIAGE">Await approval</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="BUILD_IN_PROGRESS">Build in progress</a>
-      <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="VALIDATING">Validate in progress</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="COMPLETE">Complete</a>
-      <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="CLOSED">Closed</a>
-    </div>
-  </div>
-</div>
+{% include "includes/partial_issue_details_buttons.html" %}
 <div class="mt-3">
   <div class="d-flex align-items-baseline">
     <a class="js-collapse-toggle" data-toggle="collapse" href="#collapse_details">
@@ -69,64 +25,8 @@
     <span class="ml-1 font-weight-bold">Details</span>
   </div>
   <div class="collapse js-collapse-details ml-3" id="collapse_details">
-    <div class="row">
-      <div class="col-md-2 text-muted">Type:</div>
-      <div class="col-md-4">{{ issue.get_issue_type_display }}</div>
-      <div class="col-md-2 text-muted">Status:</div>
-      <div class="col-md-4" id="issue_status_display">{{ issue.get_status_display }}</div>
-      <div class="col-md-2 text-muted">Created:</div>
-      <div class="col-md-4" title="{{ issue.created_date }}">{{ issue.created_date|naturaltime }}</div>
-      <div class="col-md-2 text-muted">Assignee:</div>
-      <div class="col-md-4" id="div_issue_assignee">
-        <div class="d-flex align-items-baseline">
-          <span id="id_issue_assignee">{{ issue.assignee|default_if_none:"Unassigned" }}</span>
-          <button type="button" class="btn btn-sm badge js_update_assignee" id="btn_change_assignee_2"
-              title="Click to edit assignee."><i class="fa fa-edit"></i>
-          </button>
-        </div>
-      </div>
-      <div class="col-md-2 text-muted">Updated:</div>
-      <div class="col-md-4" title="{{ issue.updated_date }}">{{ issue.updated_date|naturaltime }}</div>
-      <div class="col-md-2 text-muted">Reported by:</div>
-      <div class="col-md-4">{{ issue.author }}</div>
-      <div class="col-md-2 text-muted">Resolved:</div>
-      <div class="col-md-4">{{ issue.is_resolved|yesno:"Yes,No" }}</div>
-      {% if issue.issue_type == '01' or issue.issue_type == '02'  %} 
-        <div class="col-md-2 text-muted">Upvotes:</div>
-        <div class="col-md-4">
-          <div class="d-flex align-items-baseline">
-            <span id="upvote-score">{{ issue.upvotes }}</span>
-            {% if issue.issue_type == "01" %}   {# '01': "Break/Fix " #}
-              <button type="button" class="badge badge-primary badge-pill ml-3 js-update-upvote" data-url="{% url 'itrac:upvote' issue.id %}">
-                <i class="far fa-thumbs-up"></i>
-              </button>
-            {% endif %}
-            {% if issue.issue_type == "02" %}   {# '02': "FEATURE " #}
-              <span title="votes purhcase by you: xxx">{{ issue.upvotes }}</span>
-              <button class="badge badge-primary badge-pill ml-3 js_purchase_vote" data-url="{% url 'itrac:purchase_vote' issue.id %}">
-                (Purchase <i class="far fa-thumbs-up"></i> votes)
-              </button>
-            {% endif %}
-          </div>
-        </div>
-      {% else %}
-        <div class="col-md-2"></div>
-        <div class="col-md-4"></div>
-      {% endif %}
-      {% if issue.is_resolved %}
-      <div class="col-md-2 text-muted">Resolved Date:</div>
-      <div class="col-md-4" title="{{ issue.resolved_date|default_if_none:'' }}">{{ issue.resolved_date|default_if_none:""|naturalday }}</div>
-      <div class="col-md-2"></div>
-      <div class="col-md-4"></div>
-      <div class="col-md-2 text-muted">Resolution Details:</div>
-      <div class="col-md-4">{{ issue.resolution_details|default_if_none:"" }}</div>
-      <div class="col-md-6"></div>
-      {% endif %}
-      <div class="col-md-2 text-muted">Priority:</div>
-      <div class="col-md-4">{{ issue.priority|default_if_none:"" }}</div>
-      <div class="col-md-6"></div>
-    </div>    
-    {% include "includes/partial_issue_tags.html" with issue=issue %}  
+    {% include "includes/partial_issue_details_details.html" %} 
+    {% include "includes/partial_issue_details_tags.html" with issue=issue %}  
   </div>
 </div>
 <div class="mt-3">

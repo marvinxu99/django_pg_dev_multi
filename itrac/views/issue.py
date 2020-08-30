@@ -389,7 +389,7 @@ def change_assignee_users(request, pk):
         'users': users,
     }
 
-    data['html_user_list'] = render_to_string('includes/partial_user_list.html', context, request=request)
+    data['html_user_list'] = render_to_string('includes/partial_issue_details_user_list.html', context, request=request)
     data['status'] = 'S'
 
     # TO ADD status change tracking later

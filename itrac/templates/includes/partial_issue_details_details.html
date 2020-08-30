@@ -1,0 +1,58 @@
+{% load humanize %}
+<div class="row">
+    <div class="col-md-2 text-muted">Type:</div>
+    <div class="col-md-4">{{ issue.get_issue_type_display }}</div>
+    <div class="col-md-2 text-muted">Status:</div>
+    <div class="col-md-4" id="issue_status_display">{{ issue.get_status_display }}</div>
+    <div class="col-md-2 text-muted">Created:</div>
+    <div class="col-md-4" title="{{ issue.created_date }}">{{ issue.created_date|naturaltime }}</div>
+    <div class="col-md-2 text-muted">Assignee:</div>
+    <div class="col-md-4" id="div_issue_assignee">
+      <div class="d-flex align-items-baseline">
+        <span id="id_issue_assignee">{{ issue.assignee|default_if_none:"Unassigned" }}</span>
+        <button type="button" class="btn btn-sm badge js_update_assignee" id="btn_change_assignee_2"
+            title="Click to edit assignee."><i class="fa fa-edit"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-2 text-muted">Updated:</div>
+    <div class="col-md-4" title="{{ issue.updated_date }}">{{ issue.updated_date|naturaltime }}</div>
+    <div class="col-md-2 text-muted">Reported by:</div>
+    <div class="col-md-4">{{ issue.author }}</div>
+    <div class="col-md-2 text-muted">Resolved:</div>
+    <div class="col-md-4">{{ issue.is_resolved|yesno:"Yes,No" }}</div>
+    {% if issue.issue_type == '01' or issue.issue_type == '02'  %} 
+      <div class="col-md-2 text-muted">Upvotes:</div>
+      <div class="col-md-4">
+        <div class="d-flex align-items-baseline">
+          <span id="upvote-score">{{ issue.upvotes }}</span>
+          {% if issue.issue_type == "01" %}   {# '01': "Break/Fix " #}
+            <button type="button" class="badge badge-primary badge-pill ml-3 js-update-upvote" data-url="{% url 'itrac:upvote' issue.id %}">
+              <i class="far fa-thumbs-up"></i>
+            </button>
+          {% endif %}
+          {% if issue.issue_type == "02" %}   {# '02': "FEATURE " #}
+            <span title="votes purhcase by you: xxx">{{ issue.upvotes }}</span>
+            <button class="badge badge-primary badge-pill ml-3 js_purchase_vote" data-url="{% url 'itrac:purchase_vote' issue.id %}">
+              (Purchase <i class="far fa-thumbs-up"></i> votes)
+            </button>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <div class="col-md-2"></div>
+      <div class="col-md-4"></div>
+    {% endif %}
+    {% if issue.is_resolved %}
+    <div class="col-md-2 text-muted">Resolved Date:</div>
+    <div class="col-md-4" title="{{ issue.resolved_date|default_if_none:'' }}">{{ issue.resolved_date|default_if_none:""|naturalday }}</div>
+    <div class="col-md-2"></div>
+    <div class="col-md-4"></div>
+    <div class="col-md-2 text-muted">Resolution Details:</div>
+    <div class="col-md-4">{{ issue.resolution_details|default_if_none:"" }}</div>
+    <div class="col-md-6"></div>
+    {% endif %}
+    <div class="col-md-2 text-muted">Priority:</div>
+    <div class="col-md-4">{{ issue.priority|default_if_none:"" }}</div>
+    <div class="col-md-6"></div>
+  </div>    
