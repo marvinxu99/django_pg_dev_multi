@@ -84,13 +84,13 @@
           <div class="d-flex align-items-baseline">
             <span id="upvote-score">{{ issue.upvotes }}</span>
             {% if issue.issue_type == "01" %}   {# '01': "Break/Fix " #}
-              <button type="button" class="btn btn-sm badge ml-3 js-update-upvote" data-url="{% url 'itrac:upvote' issue.id %}">
+              <button type="button" class="badge badge-primary badge-pill ml-3 js-update-upvote" data-url="{% url 'itrac:upvote' issue.id %}">
                 <i class="far fa-thumbs-up"></i>
               </button>
             {% endif %}
             {% if issue.issue_type == "02" %}   {# '02': "FEATURE " #}
               <span title="votes purhcase by you: xxx">{{ issue.upvotes }}</span>
-              <button class="btn btn-sm badge ml-3 js_purchase_vote" data-url="{% url 'itrac:purchase_vote' issue.id %}">
+              <button class="badge badge-primary badge-pill ml-3 js_purchase_vote" data-url="{% url 'itrac:purchase_vote' issue.id %}">
                 (Purchase <i class="far fa-thumbs-up"></i> votes)
               </button>
             {% endif %}
@@ -103,8 +103,12 @@
       {% if issue.is_resolved %}
       <div class="col-md-2 text-muted">Resolved Date:</div>
       <div class="col-md-4" title="{{ issue.resolved_date|default_if_none:'' }}">{{ issue.resolved_date|default_if_none:""|naturalday }}</div>
+      <div class="col-md-2"></div>
+      <div class="col-md-4"></div>
       <div class="col-md-2 text-muted">Resolution Details:</div>
-      <div class="col-md-4">{{ issue.resolution_details }}</div>
+      <div class="col-md-4">{{ issue.resolution_details|default_if_none:"" }}</div>
+      <div class="col-md-2"></div>
+      <div class="col-md-4"></div>
       {% endif %}
     </div>    
     {% include "includes/partial_issue_tags.html" with issue=issue %}  

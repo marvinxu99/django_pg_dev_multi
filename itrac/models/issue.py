@@ -19,6 +19,7 @@ class ISSUE_TYPE(models.TextChoices):
     BREAK_FIX =     '01', _('Break/fix')
     FEATURE =       '02', _('New feature')
     OPTIMIZATION =  '03', _('Optimization')
+    TASK =          '04', _('Task')
 
 
 class ISSUE_STATUS(models.TextChoices):
