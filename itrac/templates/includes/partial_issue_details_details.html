@@ -53,6 +53,6 @@
     <div class="col-md-6"></div>
     {% endif %}
     <div class="col-md-2 text-muted">Priority:</div>
-    <div class="col-md-4">{{ issue.priority|default_if_none:"" }}</div>
+    <div class="col-md-4">{{ issue.get_priority_display|default_if_none:"" }}</div>
     <div class="col-md-6"></div>
   </div>    

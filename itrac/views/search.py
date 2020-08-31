@@ -103,8 +103,8 @@ def generic_search(request):
                     else:
                         all_queries = all_queries & keyword_query
 
-        articles = Issue.objects.filter(all_queries).distinct()
-        context = {'articles':articles}
+        issues = Issue.objects.filter(all_queries).distinct()
+        context = {'issues':issues}
         return render(request, 'search.html', context)
 
     else: # no data submitted
