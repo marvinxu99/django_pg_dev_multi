@@ -1,7 +1,7 @@
 import uuid
 import pytz
 from django.db import models
-from ..constants import ENTRY_MODE, TRANSACTION_TYPE, RESULT_STATUS
+from ...constants import ENTRY_MODE, TRANSACTION_TYPE, RESULT_STATUS
 from datetime import datetime
 
 

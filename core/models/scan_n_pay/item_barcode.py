@@ -1,6 +1,6 @@
 from django.db import models
 from .item import Item
-from ..constants import ITEM_BARCODE_TYPE
+from ...constants import ITEM_BARCODE_TYPE
 
 # Item Identifier
 class ItemBarcode(models.Model):

@@ -1,5 +1,5 @@
 from django.db import models
-from ..constants import TRANS_COMMENT_TYPE
+from ...constants import TRANS_COMMENT_TYPE
 from .trans_event import TransEvent
 
 # Item Identifier

@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from .item import Item
 from .item_price import ItemPrice
-from ..constants import ACTIVE_STATUS, ITEM_PRICE_TYPE
+from ...constants import ACTIVE_STATUS, ITEM_PRICE_TYPE
 
 
 # Item price history

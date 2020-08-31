@@ -2,7 +2,7 @@ import uuid
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
-from ..constants import ACTIVE_STATUS, UOM_TEMP, UOM_SHELF_LIFE, ITEM_TYPE
+from ...constants import ACTIVE_STATUS, UOM_TEMP, UOM_SHELF_LIFE, ITEM_TYPE
 
 class Item(models.Model):
     """ Parent table for all items

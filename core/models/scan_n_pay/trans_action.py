@@ -1,5 +1,5 @@
 from django.db import models
-from ..constants import ACTION_TYPE, RESULT_STATUS, TRANSACTION_TYPE
+from ...constants import ACTION_TYPE, RESULT_STATUS, TRANSACTION_TYPE
 from .trans_event import TransEvent
 
 # Item Identifier
