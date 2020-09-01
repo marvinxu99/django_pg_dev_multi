@@ -6,13 +6,8 @@ from django.views.decorators.http import require_POST
 from django.utils import timezone
 import json
 
-from ..models import Issue, ISSUE_LINK_TYPE
+from ..models import Issue, ISSUE_LINK_TYPE, IssueToIssueLink
 from ..forms import IssueToIssueLinkForm
-
-
-def get_link_to_type(link_from_type):
-
-    return ISSUE_LINK_TYPE.RELATES_TO
 
 
 @login_required
@@ -29,7 +24,6 @@ def issue_links_add_issue(request, pk):
             issue_to_issue_link.linked_from_issue = issue
             issue_to_issue_link.updated_date = timezone.now()
             issue_to_issue_link.updated_by = request.user
-            issue_to_issue_link.link_to_type = get_link_to_type(issue_to_issue_link.link_from_type)
             issue_to_issue_link.save()
 
             data['form_is_valid'] = True
@@ -59,11 +53,21 @@ def issue_links_add_issue(request, pk):
 
 @login_required
 def issue_links_delete_issue(request, pk, linked_pk):
-    '''Return all existing tags (each surfixed with a remove button)
+    '''Delete an issue link
     '''
     data = dict()
+
     issue = get_object_or_404(Issue, pk=pk)
-    data['html_issue_tags_list'] = render_to_string('includes/partial_issue_details_tags_list.html', 
+
+    try:
+        issue_issue_link = IssueToIssueLink.objects.filter(linked_from_issue_id=pk, linked_to_issue_id=linked_pk)
+        issue_issue_link[0].delete()
+    except:
+        pass
+    
+    data['status'] = 'S'
+    data['html_links_list'] = render_to_string(
+        'includes/partial_issue_details_links/partial_issue_details_links_list.html',
         { 'issue': issue }
     )
     return JsonResponse(data)
