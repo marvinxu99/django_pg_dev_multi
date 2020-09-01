@@ -17,9 +17,9 @@ class ISSUE_LINK_TYPE(models.TextChoices):
 
 class IssueToIssueLink(models.Model):
     linked_from_issue = models.ForeignKey('Issue', related_name='linked_to_issues', on_delete=models.CASCADE)
-    link_type_from = models.CharField(max_length=2, choices=ISSUE_LINK_TYPE.choices, default=ISSUE_LINK_TYPE.RELATES_TO)
+    link_from_type = models.CharField(max_length=2, choices=ISSUE_LINK_TYPE.choices, default=ISSUE_LINK_TYPE.RELATES_TO)
     linked_to_issue = models.ForeignKey('Issue', related_name='linked_from_issues', on_delete=models.CASCADE)
-    link_type_to = models.CharField(max_length=2, choices=ISSUE_LINK_TYPE.choices, default=ISSUE_LINK_TYPE.RELATES_TO)
+    link_to_type = models.CharField(max_length=2, choices=ISSUE_LINK_TYPE.choices, default=ISSUE_LINK_TYPE.RELATES_TO)
     
     updated_date = models.DateTimeField(auto_now=True)
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='+', on_delete=models.CASCADE, blank=True)

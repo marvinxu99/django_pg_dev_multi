@@ -42,7 +42,6 @@ $(function(){
         $('.js-issue-edit-tags').css('display', 'none');
 
         setupTagEditCancelListener();
-        setupTagEditOkListener();
         setupTagDeleteListener();
         setupIssueTagAddListener()
       })
@@ -59,14 +58,6 @@ $(function(){
         .then(data => {
           $("#issue_all_tags").html(data['html_issue_tags_list']);
         })
-    });
-  }
-
-  function setupTagEditOkListener() {
-    $('.btn-tag-edit-ok').click(function(){
-      // TODO: for now
-      $('.btn-tag-edit-cancel').click();
-      tag_editing = false;
     });
   }
 

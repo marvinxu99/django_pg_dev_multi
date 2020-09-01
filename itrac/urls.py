@@ -37,7 +37,10 @@ urlpatterns = [
     path('issue/<int:pk>/tag/<int:tag_pk>/delete', views.issue_delete_tag, name='issue_delete_tag'),
     path('issue/<int:pk>/tag/<int:tag_pk>/add', views.issue_add_tag, name='issue_add_tag'),
     path('issue/<int:pk>/tag/add_new', views.issue_add_net_new_tag, name='issue_add_net_new_tag'),
-    
+
+    path('issue/<int:pk>/link/add', views.issue_links_add_issue, name='issue_links_add_issue'),
+    path('issue/<int:pk>/link/<int:linked_pk>/delete', views.issue_links_delete_issue, name='issue_links_delete_issue'),
+
     path('comment/<int:issue_pk>/save_new/', views.save_new_comment, name='save_new_comment'),
     path('comment/<int:issue_pk>/<int:pk>/edit/', views.edit_comment, name='edit_comment'),
     path('comment/<int:issue_pk>/<int:pk>/delete/', views.delete_comment, name='delete_comment'),

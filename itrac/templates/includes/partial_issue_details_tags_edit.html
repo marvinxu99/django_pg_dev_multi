@@ -89,7 +89,7 @@
       // if the tag is net new
       if (!existing_tag && !existing_issue_tag && filter.length >= 1) {
         const new_tag_suggest = `
-                <button class="btn btn-sm js-issue-tag-add_net_new" 
+                <button class="btn btn-sm js-issue-tag-add-net-new" 
                         new-tag="${input.value}" 
                         data-url="{% url 'itrac:issue_add_net_new_tag' issue.pk %}">
                     <strong>${input.value}</strong> (new tag)
@@ -108,7 +108,7 @@
   function setupIssueAddNetNewTagListener() {
     let csrftoken = getCookie('csrftoken');
 
-    $('.js-issue-tag-add_net_new').click(function() {
+    $('.js-issue-tag-add-net-new').click(function() {
       const url = $(this).attr('data-url');
       const new_tag = $(this).attr('new-tag');
       const tag_data = { new_tag: new_tag };

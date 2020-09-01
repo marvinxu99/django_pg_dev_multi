@@ -82,11 +82,8 @@ class Issue(models.Model):
             models.Index(fields=['coded_id',]),            
         ]
 
-    def __unicode__(self):
-        return self.title
-
     def __str__(self):
-        return self.title
+        return f'{self.coded_id} {self.title}'
 
     # @property
     # def issue_id(self):
