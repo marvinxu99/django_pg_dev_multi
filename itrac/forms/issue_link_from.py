@@ -6,9 +6,9 @@ from ..models import IssueToIssueLink, Issue
 
 
 class IssueToIssueLinkForm(forms.ModelForm):
-    def __init__(self, project_id,*args,**kwargs):
+    def __init__(self, project_id, exclude_pks, *args,**kwargs):
         super (IssueToIssueLinkForm, self ).__init__(*args,**kwargs) # populates the post
-        self.fields['linked_to_issue'].queryset = Issue.objects.filter(project__pk=project_id)
+        self.fields['linked_to_issue'].queryset = Issue.objects.filter(project__pk=project_id).exclude(pk__in=exclude_pks)
 
     class Meta:
         model = IssueToIssueLink
