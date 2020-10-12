@@ -1,3 +1,9 @@
+body {
+  background: url(../img/whitey.png) repeat 0 0;
+  color: black;
+  height: 100%;
+}    
+
 /* Settings for Fixed table head */
 .scan-container {
   width: 100%;

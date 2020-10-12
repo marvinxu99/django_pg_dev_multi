@@ -28,7 +28,7 @@
 }
 
 body {
-    background: url("../img/leaves.png");
+    background-image: url(../img/whitey.png);
     background-repeat:  no-repeat;
     background-size: cover;
     color: black;

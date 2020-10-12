@@ -2,8 +2,9 @@
   background-color: lightslategray;
   font-size: 1em;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-/*  color: white; */
-  padding: 8px 5px 8px 5px;
+ /*  color: whitec; */
+ /* padding: 8px 5px 8px 5px; */
+  padding: 8px 0px 8px 0px;
 }
 
 .navbar a {
