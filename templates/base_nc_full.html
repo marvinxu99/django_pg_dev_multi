@@ -15,7 +15,11 @@
   </head>
   <body>
     {% block body %}
-      {% include "winn_nav.html" %} 
+      <div class="bg-primary">
+        <div class="container">
+          {% include "winn_nav.html" %}
+        </div>
+      </div>
       <div class="container bg-white">
         {% block content %}
         {% endblock %}

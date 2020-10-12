@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="{% static 'posts/css/posts.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="mt-5 mb-5">
+    <div class="py-3">
         <a href="{% url 'posts:all_posts' %}" class="btn btn btn-outline-primary" role="button">All Posts</a>
         <a href="{% url 'posts:all_posts_carousel' %}" class="btn btn btn-outline-primary" role="button">All Posts(Carousel View)</a> 
         <a href="{% url 'posts:all_posts_user' %}" class="btn btn btn-outline-primary" role="button">Posts by Me</a> 
