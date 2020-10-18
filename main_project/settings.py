@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'budget.apps.BudgetConfig',
     'scan_n_pay.apps.ScannPayConfig',
     'books.apps.BooksConfig',
+    'shop.apps.ShopConfig',
 
     'widget_tweaks',
 ]

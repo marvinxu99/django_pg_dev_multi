@@ -1,16 +1,28 @@
 from django.db import models
 from django.urls import reverse
 
-from .core.models. 
+from core.models.code_value import CodeValue 
+
 
 class Product(models.Model):
-    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, db_index=True)
+    # Use code set: 2 - Product Category
+    category_cd = models.ForeignKey(CodeValue, 
+                                related_name='+',     # '+': Do not create backwards relation to this model 
+                                on_delete=models.CASCADE,
+                                limit_choices_to={'code_set': 2}
+                            )
+    
     slug = models.SlugField(max_length=100, db_index=True)
-    description = models.TextField(blank=True)
+    display = display = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, db_index=True)
+    description = models.CharField(max_length=250)
+
+    active_ind = models.BooleanField("Active", default=True)
+
     price = models.DecimalField(max_digits=10, decimal_places=2)
     available = models.BooleanField(default=True)
     stock = models.PositiveIntegerField()
+    
     image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
 
     create_dt_tm = models.DateTimeField(auto_now_add=True)
@@ -22,9 +34,13 @@ class Product(models.Model):
     class Meta:
         ordering = ('name', )
         index_together = (('id', 'slug'),)
+        indexes = [
+            models.Index(fields=['name'], name='p_name_idx'),
+            models.Index(fields=['display'], name='p_display_idx'),
+        ]
 
     def __str__(self):
-        return self.name
+        return self.display
 
-    def get_absolute_url(self):
-        return reverse('shop:product_detail', args=[self.id, self.slug])
+    # def get_absolute_url(self):
+    #     return reverse('shop:product_detail', args=[self.id, self.slug])
