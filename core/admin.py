@@ -1,7 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Item, ItemIdentifier, ItemBarcode, ItemPrice, ItemPriceHist
+from .models import (Item, ItemIdentifier, ItemBarcode, ItemPrice, ItemPriceHist, 
+                    CodeValueSet, CodeValue)
 
 
 class ItemIdentifierInline(admin.TabularInline):
@@ -35,4 +36,53 @@ class ItemAdmin(admin.ModelAdmin):
     ]
 
     inlines = [ItemIdentifierInline, ItemBarcodeInline, ItemPriceInline]
+
+
+@admin.register(CodeValueSet)
+class CodeSetValueAdmin(admin.ModelAdmin):
+    list_display = ('code_set', 'display', 'description', 'definition', 'active_ind', 'cache_ind', 
+                'change_access_ind', 'create_dt_tm', 'create_id', 'updt_cnt', 'updt_dt_tm', 'updt_id')
+    fields = [ 
+        ('display'), 
+        ('description'), 
+        ('definition'), 
+        ('active_ind', 'cache_ind', 'change_access_ind',)
+    ]
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            # the object is being created, so set the user
+            obj.created_id = request.user.user_id
+        else:
+            obj.updt_id = request.user.user_id
+            obj.updt_cnt = obj.updt_cnt + 1 
+        obj.save()
+
+
+@admin.register(CodeValue)
+class CodeSetValueAdmin(admin.ModelAdmin):
+    list_display = ('display', 'description', 'definition', 'code_set', 'active_ind', 
+                'display_sequence', 'begin_effective_dt_tm', 'end_effective_dt_tm',
+                'wki', 'concept_wki',
+                'create_dt_tm', 'create_id', 'updt_cnt', 'updt_dt_tm', 'updt_id')
+    fields = [ 
+        ('code_set'),
+        ('display'), 
+        ('description'), 
+        ('definition'), 
+        ('active_ind'),
+        ('begin_effective_dt_tm', 'end_effective_dt_tm'),
+        ('wki', 'concept_wki'),
+        ('display_sequence')
+    ]
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            # the object is being created, so set the user
+            obj.created_id = request.user.user_id
+        else:
+            obj.updt_id = request.user.user_id
+            obj.updt_cnt = obj.updt_cnt + 1 
+        obj.save()
+
 

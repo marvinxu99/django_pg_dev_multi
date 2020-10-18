@@ -55,7 +55,7 @@ class CustomUserAdmin(UserAdmin):
     # form = CustomUserChangeForm
     model = CustomUser
     # list_display = ('username', 'last_name', 'first_name', 'is_staff', 'is_active',)
-    list_display = ('username', 'get_full_name', 'is_staff', 'is_active',)
+    list_display = ('username', 'user_id', 'get_full_name', 'is_staff', 'is_active',)
     list_filter = ('is_staff', 'is_active',)
     # fieldsets = (
     #     (None, {'fields': ('username', 'password')}),
