@@ -9,7 +9,7 @@ class Product(models.Model):
     category_cd = models.ForeignKey(CodeValue, 
                                 related_name='+',     # '+': Do not create backwards relation to this model 
                                 on_delete=models.CASCADE,
-                                limit_choices_to={'code_set': 2},
+                                limit_choices_to={'code_set': 2, 'active_ind': 1},
                                 verbose_name="Category"
                             )
     
