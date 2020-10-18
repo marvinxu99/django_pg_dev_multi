@@ -29,13 +29,22 @@ class ItemPriceInline(admin.TabularInline):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('description', 'item_type_cd', 'create_dt_tm', 'active_status_cd', 'active_status_dt_tm')
+    list_display = ('description', 'item_type_cd', 'active_status_cd', 'active_status_dt_tm',
+                'create_dt_tm', 'create_id', 'updt_cnt', 'updt_dt_tm', 'updt_id')
     fields = [ 
         ('item_type_cd', 'description'), 
         ('active_status_cd', 'active_status_dt_tm')
     ]
-
     inlines = [ItemIdentifierInline, ItemBarcodeInline, ItemPriceInline]
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            # the object is being created, so set the user
+            obj.created_id = request.user.user_id
+        else:
+            obj.updt_id = request.user.user_id
+            obj.updt_cnt = obj.updt_cnt + 1 
+        obj.save()
 
 
 @admin.register(CodeValueSet)

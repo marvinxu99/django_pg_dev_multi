@@ -11,7 +11,7 @@ class Item(models.Model):
     item_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     active_ind = models.BooleanField("Active", default=True)
-    active_status_cd = models.CharField(max_length=2, 
+    active_status_cd = models.CharField("Active Status", max_length=2, 
                                         choices=ACTIVE_STATUS.choices, 
                                         default=ACTIVE_STATUS.ACTIVE
                                         )

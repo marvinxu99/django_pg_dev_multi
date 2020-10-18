@@ -39,5 +39,5 @@ class CodeValue(models.Model):
         ]
 
     def __str__(self):
-        return self.definition
+        return self.display
 
