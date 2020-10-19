@@ -11,9 +11,9 @@
   -->
   <div>
     <div class="row">
-      <div class="col-sm-2">
+      <div class="col-sm-2 col-md-2">
       {% block sidebar %}
-      <nav id="sidebar" class='winn-sidebar'>
+      <nav id="sidebar">
         <div class="sidebar-header"><h3>Menu</h3></div>
         <ul class="list-unstyled components">
           <li><a href="{% url 'catalog:index' %}">Home</a></li>
@@ -38,7 +38,9 @@
       </nav>
       {% endblock %}
       </div>
-      <div class="col-sm-10 ">{% block libcontent %}{% endblock %}</div>
+      <div class="col-sm-10 col-md-10">
+        {% block libcontent %}{% endblock %}
+      </div>
     </div>
   </div>
 {% endblock %}

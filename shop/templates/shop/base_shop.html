@@ -1,10 +1,9 @@
-{% extends 'base_wide_nav.html' %}
+{% extends 'base_side_nav.html' %}
 {% load static %}
-{% block title %}Polls{% endblock %}
+{% block title %}Online Shop{% endblock %}
 {% block stylesheet %}
   <link rel="stylesheet" href="{% static 'shop/css/shop.css' %}">
 {% endblock %}
-{% block breadcrumb %}
+{% block sidebar %}
+  {% include "includes/partial_nav_sidebar.html" %}
 {% endblock %}  
-{% block content %}
-{% endblock %}

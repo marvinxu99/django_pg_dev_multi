@@ -1,0 +1,83 @@
+.body-content {
+    padding: 5px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+}
+
+li a {
+    font-size: medium;
+    color: black;
+}
+
+ul li a {
+    text-decoration: none;
+    margin: 10px, 10px;
+}
+
+.sibling-site {
+    text-decoration: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+div a {
+    font-size: large;
+    color: black;
+}
+
+.warning {
+    color: red;
+}
+
+.footer {
+    padding: 5pt;
+    /* background-color: rgba(0, 150, 0, .8); */
+    position: sticky;
+    bottom: 0;
+}
+
+#sidebar {
+    min-width: 150px;
+    max-width: 200px;
+    color: black;
+    transition: all 0.3s;
+  }
+
+#sidebar .sidebar-header {
+    padding: 10px;
+  }
+  
+#sidebar ul.components {
+    padding: 10px 0;
+    border-bottom: 1px solid lightgray;
+  }
+  
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+  }
+  
+#sidebar ul li a {
+    padding-left: 15px;
+    font-size: 0.9em;
+    font-weight: 400;
+    color: black;
+    display: block;
+  }
+  
+#sidebar ul li a:hover {
+    color: #7386D5;
+    background: lightgray;
+    text-decoration: none;
+  }
+  
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    
+    #sidebar.active {
+        margin-left: 0;
+    }
+  }
+  

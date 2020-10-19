@@ -1,5 +1,17 @@
 {% extends 'shop/base_shop.html'%}
 {% block content %}
-<h1>SHOP PAGE</h1>
+<h3>Products</h3>
+
+    {% for product in products %}
+    <li  class="list-group-item js_issue_item">
+       
+        {{ product.display }} - {{product.price}}
+        <p><img src="{{ product.product_img_url }}" /></p>
+    </li>
+    {% empty %}
+        Not found.
+    {% endfor %}
+
+
 {% endblock %}
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
 
 from core.models.code_value import CodeValue 
 
@@ -42,6 +43,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.display
+
+    def product_img_url(self):
+        return f'{ settings.MEDIA_URL }/{ self.image }'
 
     # def get_absolute_url(self):
     #     return reverse('shop:product_detail', args=[self.id, self.slug])
