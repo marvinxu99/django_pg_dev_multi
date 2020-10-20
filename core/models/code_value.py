@@ -24,6 +24,7 @@ class CodeValue(models.Model):
     # Winn Knowledge Index(WKI)
     wki = models.CharField("WKI", max_length=255, blank=True, null=True)
     concept_wki = models.CharField("Concept WKI", max_length=255, blank=True, null=True)
+    wdf_meaning = models.CharField("Meaning", max_length=16, blank=True, null=True)
 
     create_dt_tm = models.DateTimeField(auto_now_add=True)
     create_id = models.BigIntegerField(default=0)
