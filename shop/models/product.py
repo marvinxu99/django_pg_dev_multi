@@ -40,6 +40,10 @@ class Product(models.Model):
             models.Index(fields=['name'], name='p_name_idx'),
             models.Index(fields=['display'], name='p_display_idx'),
         ]
+        permissions = (
+            ("can_load_shop_data", "can load shop data"),
+        )
+
 
     def __str__(self):
         return self.display
