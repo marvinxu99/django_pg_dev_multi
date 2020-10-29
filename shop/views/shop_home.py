@@ -3,6 +3,7 @@ from django.shortcuts import render
 from ..models import Product
 from core.models import CodeValue
 
+
 def shop_home(request):
     """ Shop home
     """

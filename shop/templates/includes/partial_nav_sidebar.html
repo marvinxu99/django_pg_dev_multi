@@ -1,7 +1,7 @@
 <nav id="sidebar">
   <div class="sidebar-header"><h5>Show results for</h5></div>
   <ul class="list-unstyled components">
-    <li><a href="{% url 'catalog:index' %}">All products</a></li>
+    <li><a href="{% url 'shop:shop_home' %}">All products</a></li>
     <li><div class="border-top my-3"></div></li>
     {% for category in categories %}
     <li><a href="#">{{ category.display }}</a></li>
@@ -9,17 +9,17 @@
     <li><div class="border-top my-3"></div></li>
     {% if user.is_authenticated %}
       <li><span class='ml-1'>USER: {{ user.get_username }}</span></li>
-      <li><a href="{% url 'catalog:my-borrowed' %}">My Borrowed</a></li>
+      <li><a href="#">My Borrowed</a></li>
       <li><a href="{% url 'accounts:logout' %}?next={{request.path}}">Logout</a></li>   
     {% else %}
       <li><a href="{% url 'accounts:login' %}?next={{request.path}}">Login</a></li>   
     {% endif %}         
     {% if user.is_staff %}
       <li><span class='ml-1'>STAFF:</span></li>
-      <li><a href="{% url 'catalog:all-borrowed' %}">All Borrowed</a></li>
+      <li><a href="#">All Borrowed</a></li>
     {% endif %}
     <li><div class="border-top my-3"></div></li>
-    <li><a href="{% url 'catalog:contact' %}">Contact us</a></li>
+    <li><a href="#">Contact us</a></li>
     <li><a href="{% url 'winter_univer' %}">About Winter</a></li>
   </ul>
 </nav>
