@@ -4,10 +4,16 @@
 
 <div class="d-flex flex-wrap">
   {% for product in products %}
-    <div>    
-      {{ product.display }} - {{product.price}}
-      <img src="{{ product.product_img_url }}" />
+    <div class="collection-item m-3">
+      <img class="image" src="{{ product.product_img_url }}" />
+      <div class="d-flex justify-content-between">
+        <div class="name">{{ product.display }}</div><div class="price ml-5">{{product.price}}</div>
+      </div>
+      <div class="custom-button">
+        <button>ADD TO CART</button>
+      </div>
     </div>
+    
   {% empty %}
       Not found.
   {% endfor %}
