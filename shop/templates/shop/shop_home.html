@@ -2,16 +2,16 @@
 {% block content %}
 <h3>Products</h3>
 
-    {% for product in products %}
-    <li  class="list-group-item js_issue_item">
-       
-        {{ product.display }} - {{product.price}}
-        <p><img src="{{ product.product_img_url }}" /></p>
-    </li>
-    {% empty %}
-        Not found.
-    {% endfor %}
-
+<div class="d-flex flex-wrap">
+  {% for product in products %}
+    <div>    
+      {{ product.display }} - {{product.price}}
+      <img src="{{ product.product_img_url }}" />
+    </div>
+  {% empty %}
+      Not found.
+  {% endfor %}
+</div>
 
 {% endblock %}
 
