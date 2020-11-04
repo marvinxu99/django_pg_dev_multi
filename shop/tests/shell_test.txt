@@ -1,0 +1,7 @@
+- python manage.py shell
+>>> from django.db.models import Q
+>>> from core.models import CodeValue
+>>> from shop.models import Product
+>>> cv = CodeValue.objects.filter(Q(code_set_id=2) & Q(active_ind=1) & Q(display=prod_cat))
+>>> products = cv[0].products.all()
+>>> products
