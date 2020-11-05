@@ -1,23 +1,19 @@
 {% extends 'shop/base_shop.html'%}
 {% block content %}
 <h3>{{ page_title }}</h3>
-
 <div class="d-flex flex-wrap">
   {% for product in products %}
-    <div class="collection-item m-3">
+    <div class="collection-item">
       <img class="image" src="{{ product.product_img_url }}" />
-      <div class="d-flex justify-content-between">
-        <div class="name">{{ product.display }}</div><div class="price ml-5">{{product.price}}</div>
+      <div class="collection-footer">
+        <span class="name">{{ product.display }}</span>
+        <span class="price">${{product.price}}</span>
       </div>
-      <div class="custom-button">
-        <button>ADD TO CART</button>
-      </div>
-    </div>
-    
+      <button class="custom-button">ADD TO CART</button>
+    </div>    
   {% empty %}
-      Not found.
+    Not found.
   {% endfor %}
 </div>
-
 {% endblock %}
 

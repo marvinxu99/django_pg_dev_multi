@@ -31,6 +31,7 @@
     height: 350px;
     align-items: center;
     position: relative;
+    margin: 15px;
 }
 
 .collection-item .image {
@@ -68,12 +69,14 @@
 }
 
 .collection-item .collection-footer .name {
-    width: 90%;
+    width: 75%;
     margin-bottom: 15px;
 }
 
 .collection-item .collection-footer .price {
     width: 10%;
+    margin-bottom: 15px;
+    margin-right: auto ;
 }
 
 .collection-preview {
