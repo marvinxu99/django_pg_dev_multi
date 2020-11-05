@@ -1,4 +1,5 @@
 {% extends 'shop/base_shop.html'%}
+{% load static %}
 {% block content %}
 <h3>{{ page_title }}</h3>
 <div class="d-flex flex-wrap">
@@ -9,11 +10,37 @@
         <span class="name">{{ product.display }}</span>
         <span class="price">${{ product.price }}</span>
       </div>
-      <button class="custom-button">ADD TO CART</button>
+      <button class="custom-button js_add_to_cart" action-url="{% url 'shop:add_to_cart' product.id %}">ADD TO CART</button>
     </div>    
   {% empty %}
     Not found.
   {% endfor %}
 </div>
 {% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/winn_utils.js' %}"></script>
+<script>
+  
+  $('.js_add_to_cart').click(function(event){
+    const btn = $(this);
+    const action_url = btn.attr('action-url')
+
+    const csrftoken = getCookie('csrftoken');
+
+    $.ajax({
+      type: "POST",
+      url: action_url,
+      headers: {'X-CSRFToken': '{{ csrf_token }}'},
+      success: function (data) {
+        if (data.status === "S") {
+          alert("received data");
+        }
+      }
+    });
+  });
+
+</script>
+{% endblock %}
+
 
