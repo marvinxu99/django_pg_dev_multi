@@ -34,7 +34,7 @@
       headers: {'X-CSRFToken': '{{ csrf_token }}'},
       success: function (data) {
         if (data.status === "S") {
-          alert("received data");
+          $('#cart-icon').html(data.item_count);
         }
       }
     });

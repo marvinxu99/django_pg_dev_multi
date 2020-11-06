@@ -29,4 +29,4 @@ class Cart(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return f"{self.owner}'s shopping cart" 
+        return f"{ self.owner }'s { self.description.lower() }" 
