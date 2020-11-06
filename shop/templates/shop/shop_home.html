@@ -10,7 +10,7 @@
         <span class="name">{{ product.display }}</span>
         <span class="price">${{ product.price }}</span>
       </div>
-      <button class="custom-button js_add_to_cart" action-url="{% url 'shop:add_to_cart' product.id %}">ADD TO CART</button>
+      <button class="custom-button js_add_to_cart" action-url="{% url 'shop:cart_add_item' product.id %}">ADD TO CART</button>
     </div>    
   {% empty %}
     Not found.
@@ -21,6 +21,20 @@
 {% block javascript %}
 <script src="{% static 'js/winn_utils.js' %}"></script>
 <script>
+  $(function(){
+    const csrftoken = getCookie('csrftoken');
+
+    $.ajax({
+      type: "GET",
+      url: "/shop/cart/item_count",
+      headers: {'X-CSRFToken': '{{ csrf_token }}'},
+      success: function (data) {
+        if (data.status === "S") {
+          $('#cart-icon').html(data.item_count);
+        }
+      }
+    });
+  });  
   
   $('.js_add_to_cart').click(function(event){
     const btn = $(this);

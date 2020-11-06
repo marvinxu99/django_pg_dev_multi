@@ -9,7 +9,7 @@ from shop.models import Cart, CartItem
 
 # @login_required(login_url='/accounts/login/')
 @require_POST
-def add_to_cart(request, pk):
+def cart_add_item(request, pk):
     """ Add product to Cart
     """
     data = dict()
@@ -43,4 +43,29 @@ def add_to_cart(request, pk):
     return JsonResponse(data)
 
 
+@login_required
+def cart_item_count(request):
+    """ Add product to Cart
+    """
+    data = dict()
 
+    if request.user == AnonymousUser():
+        print(request.user)
+        data['status'] = 'F'
+    else:
+        cart, created = Cart.objects.get_or_create(owner=request.user) 
+        if created:
+            cart.description = "SHOPPING_CART"
+            cart.create_id = request.user.user_id
+            cart.save()
+
+        d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('quantity'))
+
+        if d_result['quantity__sum']:
+            data['item_count'] = d_result['quantity__sum']
+        else:  
+            data["item_count"] = 0
+
+        data['status'] = 'S'
+
+    return JsonResponse(data)
