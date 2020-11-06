@@ -9,7 +9,7 @@ class Cart(models.Model):
     cart_id = models.BigAutoField(primary_key=True, editable=False)
     active_ind = models.BooleanField("Active", default=True)
 
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=200, blank=True, null=True)
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                             related_name='cart', 
