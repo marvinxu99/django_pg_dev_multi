@@ -3,11 +3,12 @@ from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Sum
+from django.db.models import Q
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 
 
-from shop.models import Cart, CartItem
+from shop.models import Cart, CartItem, Product
 from core.models import CodeValue
 
 
@@ -17,7 +18,10 @@ def cart_add_item(request, pk):
     """ Add product to Cart
     """
     data = dict()
-    data["item_count"] = 0
+    data["cart_count"] = 0
+    data["cart_total"] = 0 
+    data["item_count"] = 0 
+    data["item_price"] = 0 
 
     if request.user == AnonymousUser():
         print(request.user)
@@ -28,20 +32,61 @@ def cart_add_item(request, pk):
             cart.description = "SHOPPING_CART"
             cart.create_id = request.user.user_id
             cart.save()
-        print(cart) 
 
-        cart_item, created = CartItem.objects.get_or_create(cart_id=cart.cart_id, item_id=pk)
+        # product = get_object_or_404(Product, pk=pk)
+        cart_item, created = CartItem.objects.get_or_create(cart_id=cart.cart_id, product_id=pk)
         if created:
             cart_item.create_id = request.user.user_id
+            cart_item.price = cart_item.product.price
             cart_item.save()            
         else:
             cart_item.quantity += 1
+            cart_item.price = cart_item.product.price * cart_item.quantity
             cart_item.updt_id = request.user.user_id
             cart_item.save()
 
-        d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('quantity'))
+        d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('quantity'), Sum('price'))
 
-        data['item_count'] = d_result['quantity__sum']  
+        data['cart_count'] = d_result['quantity__sum']  
+        data['cart_total'] = d_result['price__sum']  
+        data["item_count"] = cart_item.quantity
+        data["item_price"] = cart_item.price
+        data['status'] = 'S'
+
+    return JsonResponse(data)
+
+
+# @login_required(login_url='/accounts/login/')
+@require_POST
+def cart_remove_item(request, pk):
+    """ Add product to Cart
+    """
+    data = dict()
+    data['cart_count'] = 0
+    data['item_count'] = 0
+
+    if request.user == AnonymousUser():
+        print(request.user)
+        data['status'] = 'F'
+    else:
+        cart = get_object_or_404(Cart, owner=request.user) 
+
+        cart_item = get_object_or_404(CartItem, Q(cart_id=cart.cart_id) & Q(product_id=pk))
+        if cart_item:
+            if cart_item.quantity > 1: 
+                cart_item.quantity = cart_item.quantity - 1
+                cart_item.price = cart_item.product.price * cart_item.quantity
+                cart_item.updt_id = request.user.user_id
+                cart_item.save()
+                data['item_count'] = cart_item.quantity
+                data['item_price'] = cart_item.price
+            else:
+                cart_item.delete()
+
+        d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('quantity'), Sum('price'))
+
+        data['cart_count'] = d_result['quantity__sum']  
+        data['cart_total'] = d_result['price__sum']  
         data['status'] = 'S'
 
     return JsonResponse(data)
@@ -83,12 +128,15 @@ def cart_view_items(request):
 
     cart = get_object_or_404(Cart, owner=request.user) 
     items = CartItem.objects.filter(cart=cart)
-   
+
+    d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('price'))
+    cart_total = d_result['price__sum'] 
 
     context = {
         'items': items,
         'categories': categories,
-        'page_title': "Shopping Cart"
+        'page_title': "Shopping Cart",
+        'cart_total': cart_total,
     }
 
     return render(request, "shop/shop_cart.html", context)

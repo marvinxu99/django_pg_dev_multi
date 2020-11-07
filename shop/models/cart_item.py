@@ -13,7 +13,9 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='cart_items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='+', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
-        
+
+    price = models.IntegerField(default=0)
+
     comment =  models.CharField(max_length=255, blank=True)
 
     create_dt_tm = models.DateTimeField(auto_now_add=True)
@@ -24,6 +26,8 @@ class CartItem(models.Model):
 
     class Meta:
         db_table = 'shop_cart_item'
+        ordering = ('product', )
+
 
     def __str__(self):
         """String for representing the Model object."""
