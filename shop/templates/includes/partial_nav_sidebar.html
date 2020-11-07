@@ -4,7 +4,7 @@
     <li><a href="{% url 'shop:shop_home' %}">All products</a></li>
     <li><div class="border-top my-3"></div></li>
     {% for category in categories %}
-    <li><a href="{% url 'shop:product_by_category' category %}">{{ category.display }}</a></li>
+    <li><a href="{% url 'shop:product_by_category' category %}">{{ category.display|title }}</a></li>
     {% endfor %}
     <li><div class="border-top my-3"></div></li>
     {% if user.is_authenticated %}

@@ -1,0 +1,54 @@
+{% extends 'shop/base_shop.html'%}
+{% load static %}
+
+{% block content %}
+<h3>{{ page_title }}</h3>
+
+<div class='checkout-page'>
+  <div class='checkout-header'>
+    <div class='header-block'>
+      <span>Product</span>
+    </div>
+    <div class='header-block'>
+      <span>Description</span>
+    </div>
+    <div class='header-block'>
+      <span>Quantity</span>
+    </div>
+    <div class='header-block'>
+      <span>Price</span>
+    </div>
+    <div class='header-block'>
+      <span>Remove</span>
+    </div>
+  </div>
+  <div class='checkout-items'>
+    {% for item in items %}
+      <div class='checkout-item'>
+        <div class='image-container'>
+          <img src="{{ item.product.product_img_url }}" alt='item1' />
+        </div>
+        <div class='name'>{{ item.product.display }}</div>
+        <div class='quantity'>
+          <div class='arrow'>&#10094;</div>
+          <span class='value'>{{ item.quantity }}</span>
+          <span class='arrow'>&#10095;</span>
+        </div>
+        <div class='price'>${{ item.product.price }}</div>
+        <div class='remove-button'>&#10005; </div>
+      </div>
+    {% empty %}
+      Not found.
+    {% endfor %}
+  </div>
+  <div class='total'>TOTAL: ${total}</div>
+  <div class='test-warning'>
+    *Please use the following test credit card for payments* 
+    <br />
+    4242 4242 4242 4242 - Exp: 01/22 - CVV: 123
+  </div>
+  <StripeCheckoutButton price={ total } />
+</div>
+
+{% endblock %}
+

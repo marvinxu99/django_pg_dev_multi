@@ -11,7 +11,7 @@ class CartItem(models.Model):
     cart_item_id = models.BigAutoField(primary_key=True, editable=False)
 
     cart = models.ForeignKey(Cart, related_name='cart_items', on_delete=models.CASCADE)
-    item = models.ForeignKey(Product, related_name='+', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='+', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
         
     comment =  models.CharField(max_length=255, blank=True)

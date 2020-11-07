@@ -3,8 +3,12 @@ from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Sum
+from django.shortcuts import render
+from django.shortcuts import get_object_or_404
+
 
 from shop.models import Cart, CartItem
+from core.models import CodeValue
 
 
 # @login_required(login_url='/accounts/login/')
@@ -69,3 +73,22 @@ def cart_item_count(request):
         data['status'] = 'S'
 
     return JsonResponse(data)
+
+
+@login_required
+def cart_view_items(request):
+
+    # codeset 2(2) is Product Category
+    categories = CodeValue.objects.filter(code_set_id=2).order_by('display_sequence')
+
+    cart = get_object_or_404(Cart, owner=request.user) 
+    items = CartItem.objects.filter(cart=cart)
+   
+
+    context = {
+        'items': items,
+        'categories': categories,
+        'page_title': "Shopping Cart"
+    }
+
+    return render(request, "shop/shop_cart.html", context)
