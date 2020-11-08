@@ -18,18 +18,18 @@
         <div class='image-container'><img src="{{ item.product.product_img_url }}" alt='item1' /></div>
         <div class='name'>{{ item.product.display }}</div>
         <div class='quantity'>
-          <div class='arrow js_count_decrease' action-url="{% url 'shop:cart_remove_item' item.product_id %}">&#10094;</div>
+          <span class='arrow js_count_decrease' action-url="{% url 'shop:cart_deduct_item' item.product_id %}">&#10094;</span>
           <span class='value'>{{ item.quantity }}</span>
           <span class='arrow js_count_increase' action-url="{% url 'shop:cart_add_item' item.product_id %}">&#10095;</span>
         </div>
         <div class='price'>${{ item.price }}</div>
-        <div class='remove-button js_item_delete'>&#10005; </div>
+        <div class='remove-button js_item_remove' action-url="{% url 'shop:cart_remove_item' item.product_id %}">&#10005; </div>
       </div>
     {% empty %}
       Not found.
     {% endfor %}
   </div>
-  <div class='total'>TOTAL: ${{ cart_total }}</div>
+  <div class='total' id="cart_total">TOTAL: ${{ cart_total }}</div>
   <div class='test-warning'>
     *Please use the following test credit card for payments* 
     <br />
@@ -51,25 +51,41 @@
     const action_url = btn.attr('action-url');
     const csrftoken = getCookie('csrftoken');
 
+    const item_quantity_value = btn.closest('.quantity').find('.value')
+    const checkout_item = btn.closest('.checkout-item')
+    const item_price = checkout_item.find('.price')
+
     $.ajax({
       type: "POST",
       url: action_url,
       headers: {'X-CSRFToken': '{{ csrf_token }}'},
       success: function (data) {
         if (data.status === "S") {
-          $('#cart-icon').html(data.cart_count);
-
-          $('#cart-icon').html(data.cart_count);
+          $('#cart-icon').text(data.cart_count);
+          $('#cart_total').text(data.cart_total);
+          if (data.item_count === 0) {
+            checkout_item.remove();
+          } else {
+            item_quantity_value.text(data.item_count);
+            item_price.text(data.item_price);
+          }
         }
       }
     });
   };
 
   $('.js_count_increase').click(function(event){
-    const btn = $(this);
+    const btn = $(this);     
+    //const val = $(event.target).closest('.quantity').find('.value');
+    //const val = btn.closest('.quantity').find('.value');
+    //alert(val.text());
     op_count_action(btn);
   });
   $('.js_count_decrease').click(function(event){
+    const btn = $(this);
+    op_count_action(btn);
+  });
+  $('.js_item_remove').click(function(event){
     const btn = $(this);
     op_count_action(btn);
   });

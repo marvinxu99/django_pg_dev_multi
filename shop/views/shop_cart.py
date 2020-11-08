@@ -15,7 +15,7 @@ from core.models import CodeValue
 # @login_required(login_url='/accounts/login/')
 @require_POST
 def cart_add_item(request, pk):
-    """ Add product to Cart
+    """ Add a product item to Cart
     """
     data = dict()
     data["cart_count"] = 0
@@ -58,12 +58,14 @@ def cart_add_item(request, pk):
 
 # @login_required(login_url='/accounts/login/')
 @require_POST
-def cart_remove_item(request, pk):
-    """ Add product to Cart
+def cart_deduct_item(request, pk):
+    """ Deduct a product item from Cart
     """
     data = dict()
-    data['cart_count'] = 0
-    data['item_count'] = 0
+    data["cart_count"] = 0
+    data["cart_total"] = 0 
+    data["item_count"] = 0 
+    data["item_price"] = 0 
 
     if request.user == AnonymousUser():
         print(request.user)
@@ -91,6 +93,35 @@ def cart_remove_item(request, pk):
 
     return JsonResponse(data)
 
+
+# @login_required(login_url='/accounts/login/')
+@require_POST
+def cart_remove_item(request, pk):
+    """ Remove a product (all items for this product) from the cart
+    """
+    data = dict()
+    data["cart_count"] = 0
+    data["cart_total"] = 0 
+    data["item_count"] = 0 
+    data["item_price"] = 0 
+
+    if request.user == AnonymousUser():
+        print(request.user)
+        data['status'] = 'F'
+    else:
+        cart = get_object_or_404(Cart, owner=request.user) 
+
+        cart_item = get_object_or_404(CartItem, Q(cart_id=cart.cart_id) & Q(product_id=pk))
+        if cart_item:
+            cart_item.delete()
+
+        d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('quantity'), Sum('price'))
+
+        data['cart_count'] = d_result['quantity__sum']  
+        data['cart_total'] = d_result['price__sum']  
+        data['status'] = 'S'
+
+    return JsonResponse(data)
 
 @login_required
 def cart_item_count(request):
