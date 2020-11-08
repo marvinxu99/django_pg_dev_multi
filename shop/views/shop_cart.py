@@ -12,7 +12,7 @@ from shop.models import Cart, CartItem, Product
 from core.models import CodeValue
 
 
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 @require_POST
 def cart_add_item(request, pk):
     """ Add a product item to Cart
@@ -56,7 +56,7 @@ def cart_add_item(request, pk):
     return JsonResponse(data)
 
 
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 @require_POST
 def cart_deduct_item(request, pk):
     """ Deduct a product item from Cart
@@ -94,7 +94,7 @@ def cart_deduct_item(request, pk):
     return JsonResponse(data)
 
 
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 @require_POST
 def cart_remove_item(request, pk):
     """ Remove a product (all items for this product) from the cart
@@ -122,6 +122,7 @@ def cart_remove_item(request, pk):
         data['status'] = 'S'
 
     return JsonResponse(data)
+
 
 @login_required
 def cart_item_count(request):

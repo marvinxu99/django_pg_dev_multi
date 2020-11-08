@@ -1,7 +1,7 @@
 {% extends 'shop/base_shop.html'%}
 {% load static %}
 {% block content %}
-<h3>{{ page_title }}</h3>
+<h3>{{ page_title|title }}</h3>
 <div class="d-flex flex-wrap">
   {% for product in products %}
     <div class="collection-item">
@@ -18,18 +18,12 @@
 </div>
 {% endblock %}
 
-{% block javascript %}
-<script src="{% static 'js/winn_utils.js' %}"></script>
-<script src="{% static 'shop/js/shop_utils.js' %}"></script>
+{% block js_shop %}
 <script>
-  $(function(){
-    get_cart_count();
-  });  
   
   $('.js_add_to_cart').click(function(event){
     const btn = $(this);
     const action_url = btn.attr('action-url')
-
     const csrftoken = getCookie('csrftoken');
 
     $.ajax({

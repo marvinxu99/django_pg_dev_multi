@@ -8,8 +8,9 @@
   <div class='checkout-header'>
     <div class='header-block'><span>Product</span></div>
     <div class='header-block'><span>Description</span></div>
-    <div class='header-block'><span>Quantity</span></div>
     <div class='header-block'><span>Price</span></div>
+    <div class='header-block'><span>Quantity</span></div>
+    <div class='header-block'><span>Subtotal</span></div>
     <div class='header-block'><span>Remove</span></div>
   </div>
   <div class='checkout-items'>
@@ -17,12 +18,13 @@
       <div class='checkout-item'>
         <div class='image-container'><img src="{{ item.product.product_img_url }}" alt='item1' /></div>
         <div class='name'>{{ item.product.display }}</div>
+        <div class='price'>${{ item.product.price }}</div>
         <div class='quantity'>
           <span class='arrow js_count_decrease' action-url="{% url 'shop:cart_deduct_item' item.product_id %}">&#10094;</span>
           <span class='value'>{{ item.quantity }}</span>
           <span class='arrow js_count_increase' action-url="{% url 'shop:cart_add_item' item.product_id %}">&#10095;</span>
         </div>
-        <div class='price'>${{ item.price|floatformat:2  }}</div>
+        <div class='subtotal'>${{ item.price|floatformat:2  }}</div>
         <div class='remove-button js_item_remove' action-url="{% url 'shop:cart_remove_item' item.product_id %}">&#10005; </div>
       </div>
     {% empty %}
@@ -30,22 +32,19 @@
     {% endfor %}
   </div>
   <div class='total'>TOTAL: $<span id="cart_total">{{ cart_total|floatformat:2 }}</span></div>
+  <button class="btn btn-primary" id="btn-pay-now"><i class="fa fa-credit-card" aria-hidden="true"></i> Pay Now</button>
   <div class='test-warning'>
     *Please use the following test credit card for payments* 
     <br />
     4242 4242 4242 4242 - Exp: 01/22 - CVV: 123
   </div>
-  <button class="btn btn-primary" id="btn-pay-now"><i class="fa fa-credit-card" aria-hidden="true"></i> Pay Now</button>
 </div>
 
 {% endblock %}
-{% block javascript %}
-<script src="{% static 'js/winn_utils.js' %}"></script>
-<script src="{% static 'shop/js/shop_utils.js' %}"></script>
+{% block js_shop %}
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'shop/js/stripe_pay.js' %}"></script>
 <script>
-  $(function(){
-    get_cart_count();
-  });  
   
   function op_count_action(btn) {
     const action_url = btn.attr('action-url');
@@ -53,7 +52,7 @@
 
     const item_quantity_value = btn.closest('.quantity').find('.value')
     const checkout_item = btn.closest('.checkout-item')
-    const item_price = checkout_item.find('.price')
+    const item_subtotal = checkout_item.find('.subtotal')
 
     $.ajax({
       type: "POST",
@@ -67,7 +66,7 @@
             checkout_item.remove();
           } else {
             item_quantity_value.text(data.item_count);
-            item_price.text(`$${ data.item_price }`);
+            item_subtotal.text(`$${ data.item_price }`);
           }
         }
       }

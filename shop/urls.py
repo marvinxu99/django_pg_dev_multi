@@ -16,4 +16,9 @@ urlpatterns = [
     path('cart/item_count/', views.cart_item_count, name='cart_item_count'), 
     path('cart/items/', views.cart_view_items, name='cart_view_items'), 
 
+    path('stripe/config/', views.stripe_config, name='stripe_config'), 
+    path('stripe/checkout/', views.create_checkout_session, name='stripe_checkout'),
+    path('stripe/success/', views.SuccessView.as_view(),  name='stripe_success'),
+    path('stripe/cancelled/', views.CancelledView.as_view(), name='stripe_cancelled'), 
+
 ]

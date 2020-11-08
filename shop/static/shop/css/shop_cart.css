@@ -13,15 +13,15 @@
    }
 }
 .checkout-item .image-container {
-    width: 23%;
+    width: 16%;
     padding-right: 15px;
 }
 .checkout-item .image-container img {
     width: 100%;
     height: 100%;
 }
-.checkout-item .name, .checkout-item .quantity, .checkout-item .price {
-    width: 23%;
+.checkout-item .name, .checkout-item .price, .checkout-item .quantity, .checkout-item .subtotal {
+    width: 19%;
 }
 .checkout-item .quantity {
     display: flex;
@@ -38,7 +38,7 @@
 }
 
 .checkout-page {
-    width: 60%;
+    width: 80%;
     min-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -59,7 +59,7 @@
 }
 .checkout-page .checkout-header .header-block {
     text-transform: capitalize;
-    width: 23%;
+    width: 20%;
 }
 @media screen and (max-width: 800px) {
     .checkout-page .checkout-header .header-block {

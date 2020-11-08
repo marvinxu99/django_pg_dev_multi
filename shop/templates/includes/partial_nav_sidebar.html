@@ -9,14 +9,14 @@
     <li><div class="border-top my-3"></div></li>
     {% if user.is_authenticated %}
       <li><span class='ml-1'>USER: {{ user.get_username }}</span></li>
-      <li><a href="#">My Borrowed</a></li>
+      <li><a href="#">Future Use</a></li>
       <li><a href="{% url 'accounts:logout' %}?next={{request.path}}">Logout</a></li>   
     {% else %}
       <li><a href="{% url 'accounts:login' %}?next={{request.path}}">Login</a></li>   
     {% endif %}         
     {% if user.is_staff %}
       <li><span class='ml-1'>STAFF:</span></li>
-      <li><a href="#">All Borrowed</a></li>
+      <li><a href="#">Future Use</a></li>
     {% endif %}
     <li><div class="border-top my-3"></div></li>
     <li><a href="#">Contact us</a></li>
