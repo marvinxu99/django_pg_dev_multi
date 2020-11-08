@@ -48,7 +48,7 @@ def cart_add_item(request, pk):
         d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('quantity'), Sum('price'))
 
         data['cart_count'] = d_result['quantity__sum']  
-        data['cart_total'] = d_result['price__sum']  
+        data['cart_total'] = d_result['price__sum'] if d_result['price__sum'] else 0
         data["item_count"] = cart_item.quantity
         data["item_price"] = cart_item.price
         data['status'] = 'S'
@@ -88,7 +88,7 @@ def cart_deduct_item(request, pk):
         d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('quantity'), Sum('price'))
 
         data['cart_count'] = d_result['quantity__sum']  
-        data['cart_total'] = d_result['price__sum']  
+        data['cart_total'] = d_result['price__sum'] if d_result['price__sum'] else 0
         data['status'] = 'S'
 
     return JsonResponse(data)
@@ -117,8 +117,8 @@ def cart_remove_item(request, pk):
 
         d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('quantity'), Sum('price'))
 
-        data['cart_count'] = d_result['quantity__sum']  
-        data['cart_total'] = d_result['price__sum']  
+        data['cart_count'] = d_result['quantity__sum']
+        data['cart_total'] = d_result['price__sum'] if d_result['price__sum'] else 0
         data['status'] = 'S'
 
     return JsonResponse(data)
@@ -161,7 +161,7 @@ def cart_view_items(request):
     items = CartItem.objects.filter(cart=cart)
 
     d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('price'))
-    cart_total = d_result['price__sum'] 
+    cart_total = d_result['price__sum'] if d_result['price__sum'] else 0 
 
     context = {
         'items': items,

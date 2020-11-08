@@ -22,20 +22,20 @@
           <span class='value'>{{ item.quantity }}</span>
           <span class='arrow js_count_increase' action-url="{% url 'shop:cart_add_item' item.product_id %}">&#10095;</span>
         </div>
-        <div class='price'>${{ item.price }}</div>
+        <div class='price'>${{ item.price|floatformat:2  }}</div>
         <div class='remove-button js_item_remove' action-url="{% url 'shop:cart_remove_item' item.product_id %}">&#10005; </div>
       </div>
     {% empty %}
-      Not found.
+      <div>**Your shopping cart is empty.**</div>
     {% endfor %}
   </div>
-  <div class='total' id="cart_total">TOTAL: ${{ cart_total }}</div>
+  <div class='total'>TOTAL: $<span id="cart_total">{{ cart_total|floatformat:2 }}</span></div>
   <div class='test-warning'>
     *Please use the following test credit card for payments* 
     <br />
     4242 4242 4242 4242 - Exp: 01/22 - CVV: 123
   </div>
-  <button class="btn btn-primary">Pay Now </button>
+  <button class="btn btn-primary" id="btn-pay-now"><i class="fa fa-credit-card" aria-hidden="true"></i> Pay Now</button>
 </div>
 
 {% endblock %}
@@ -67,7 +67,7 @@
             checkout_item.remove();
           } else {
             item_quantity_value.text(data.item_count);
-            item_price.text(data.item_price);
+            item_price.text(`$${ data.item_price }`);
           }
         }
       }
