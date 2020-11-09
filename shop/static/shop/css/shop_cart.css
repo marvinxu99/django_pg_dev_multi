@@ -20,6 +20,7 @@
     width: 100%;
     height: 100%;
 }
+
 .checkout-item .name, .checkout-item .price, .checkout-item .quantity, .checkout-item .subtotal {
     width: 19%;
 }
@@ -88,3 +89,76 @@
     margin: 24px 24px;
 }
 
+/* order page */
+.order-item {
+    width: 100%;
+    display: flex;
+    min-height: 100%;
+    border-bottom: 1px solid darkgrey;
+    padding: 15px 0;
+    font-size: 20px;
+    align-items: center;
+}
+@media screen and (max-width: 800px) {
+    .order-item {
+        font-size: 18px;
+   }
+}
+.order-item .image-container_sm {
+    width: 16%;
+    padding-right: 15px;
+}
+.order-item .image-container_sm img {
+    width: 100%;
+    height: 100%;
+}
+
+.order-item .name, .order-item .price, .order-item .quantity, .order-item .subtotal {
+    width: 19%;
+}
+.order-item .quantity {
+    display: flex;
+}
+.order-item .quantity .value {
+    margin: 0 5px;
+}
+.order-page {
+    width: 80%;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 20px;
+}
+@media screen and (max-width: 800px) {
+    .order-page {
+        width: 90%;
+   }
+}
+.order-page .order-header {
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid darkgrey;
+}
+.order-page .order-header .header-block {
+    text-transform: capitalize;
+    width: 20%;
+}
+@media screen and (max-width: 800px) {
+    .order-page .order-header .header-block {
+        width: 22%;
+   }
+}
+.order-page .order-header .header-block:last-child {
+    width: 8%;
+}
+.order-page .order-items {
+    width: 100%;
+}
+.order-page .total {
+    margin-top: 30px;
+    margin-left: auto;
+    font-size: 36px;
+}
