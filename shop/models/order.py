@@ -10,7 +10,7 @@ class Order(models.Model):
     ."""
     order_id = models.BigAutoField(primary_key=True, editable=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
-                            related_name='cart', 
+                            related_name='order', 
                             on_delete=models.SET_NULL, 
                             null=True, blank=True)
 

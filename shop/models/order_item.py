@@ -1,6 +1,6 @@
 from django.db import models
 
-from shop.models import Cart
+from shop.models import Order
 from shop.models import Product
 
 
@@ -10,8 +10,8 @@ class OrderItem(models.Model):
     ."""
     order_item_id = models.BigAutoField(primary_key=True, editable=False)
 
-    order = models.ForeignKey(Cart, related_name='order_items', on_delete=models.CASCADE)
-    
+    order = models.ForeignKey(Order, related_name='order_items', on_delete=models.CASCADE)
+
     product = models.ForeignKey(Product, related_name='+', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  # price = item_price * quantity

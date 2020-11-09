@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.db import transaction
 
 
-from shop.models import Cart, CartItem, Product, Payment, order
+from shop.models import Cart, CartItem, Product, Payment, Order, OrderItem
 from core.models import CodeValue
 
 
@@ -28,15 +28,15 @@ def cart_pay_success(request):
     # Create a payment record
     payment = Payment.objects.create(
         description = "Credit payment", 
-        amount = d_result['price__sum'],
+        amount = d_result['price__sum'] if d_result['price__sum'] else 0,
         comment = "stripe payment"
     )
 
     # Create an order
     order = Order(owner=request.user)
     order.description = "Online purchase"
-    order.quantity = d_result['quantity__sum']
-    order.total = d_result['price__sum']
+    order.quantity = d_result['quantity__sum'] if d_result['quantity__sum'] else 0
+    order.total = d_result['price__sum'] if d_result['price__sum'] else 0
     order.payment = payment
     order.comment = "paid by stripe"
     order.save()
@@ -44,8 +44,8 @@ def cart_pay_success(request):
     # Populate order items to OrderItem table (?? using map())
     for item in cart_items:
         OrderItem.objects.create(
-            order = order,
-            product = item.product,
+            order_id = order.order_id,
+            product_id = item.product.id,
             quantity = item.quantity,
             price = item.price
         )
@@ -58,11 +58,13 @@ def cart_pay_success(request):
     categories = CodeValue.objects.filter(code_set_id=2).order_by('display_sequence')
 
     items = OrderItem.objects.filter(order=order)
-
+    o_result = OrderItem.objects.filter(order=order).aggregate(Sum('price'))
+    
     context = {
         'items': items,
         'categories': categories,
         'page_title': "Successfull Payment",
+        'order_total': o_result['price__sum'] if o_result['price__sum'] else 0,
     }
 
     return render(request, "shop/cart_pay_success.html", context)

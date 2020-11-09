@@ -2,9 +2,7 @@
 {% block title %}Successful Payment {% endblock %}
 {% block content %}
 <h3>{{ page_title }}</h3>
-<div class="mt-5 mb-5">
-    <p>You have sucessfully paid the following items:</p>
-</div>
+<p>You have sucessfully paid the following items:</p>
 <div class='checkout-page'>
   <div class='checkout-header'>
     <div class='header-block'><span>Product</span></div>
@@ -12,6 +10,7 @@
     <div class='header-block'><span>Price</span></div>
     <div class='header-block'><span>Quantity</span></div>
     <div class='header-block'><span>Subtotal</span></div>
+    <div class='header-block'><span>Remark</span></div>
   </div>
   <div class='checkout-items'>
     {% for item in items %}
@@ -30,6 +29,6 @@
       <div>**Your shopping cart is empty.**</div>
     {% endfor %}
   </div>
-  <div class='total'>TOTAL: $<span id="cart_total">{{ cart_total|floatformat:2 }}</span></div>
+  <div class='total'>TOTAL: $<span id="cart_total">{{ order_total|floatformat:2 }}</span></div>
 
 {% endblock %}
