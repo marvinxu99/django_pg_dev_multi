@@ -16,8 +16,8 @@ def stripe_config(request):
 
 def create_checkout_session(request):
     if request.method == 'GET':
-        successful_url = request.build_absolute_uri(reverse('shop:stripe_success'))
-        cancelled_url = request.build_absolute_uri(reverse('shop:stripe_cancelled'))
+        successful_url = request.build_absolute_uri(reverse('shop:stripe_pay_success'))
+        cancelled_url = request.build_absolute_uri(reverse('shop:stripe_pay_cancelled'))
         stripe.api_key = settings.STRIPE_SECRET_KEY
 
         amount = request.GET.get('amount')

@@ -6,6 +6,7 @@ class Payment(models.Model):
     """ Stores items in shopping care
     ."""
     payment_id = models.BigAutoField(primary_key=True, editable=False)
+    
     description = models.CharField(max_length=200)       
     amount = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
 
@@ -20,7 +21,6 @@ class Payment(models.Model):
     class Meta:
         indexes = [
             models.Index(fields=['description',]),
-            models.Index(fields=['item_id',]),
         ]
         db_table = 'shop_payment'
         ordering = ('-create_dt_tm', )

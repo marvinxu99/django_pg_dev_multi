@@ -25,7 +25,6 @@
         <div class='quantity'>
           <span class='arrow js_count_decrease' action-url="{% url 'shop:cart_deduct_item' item.product_id %}">&#10094;</span>
           <span class='value'>{{ item.quantity }}</span>
-
           <span class='arrow js_count_increase' action-url="{% url 'shop:cart_add_item' item.product_id %}">&#10095;</span>
         </div>
         <div class='subtotal'>${{ item.price|floatformat:2  }}</div>

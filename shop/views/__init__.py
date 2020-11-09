@@ -4,4 +4,4 @@ from .shop_cart import (cart_add_item, cart_deduct_item, cart_remove_item,
                         cart_item_count, cart_view_items,
                         cart_remove_all_items)
 from .stripe_pay import stripe_config, create_checkout_session, SuccessView, CancelledView
-from .cart_pay_success import cart_pay_success
+from .cart_payment import cart_pay_success, cart_pay_cancelled
