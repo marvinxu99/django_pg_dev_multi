@@ -126,7 +126,7 @@ def cart_remove_item(request, pk):
 
 @login_required
 def cart_item_count(request):
-    """ Add product to Cart
+    """ Return how many items are there in the cart.
     """
     data = dict()
 
@@ -169,6 +169,25 @@ def cart_view_items(request):
         'categories': categories,
         'page_title': "Shopping Cart",
         'cart_total': cart_total,
+    }
+
+    return render(request, "shop/shop_cart.html", context)
+
+
+@login_required
+def cart_remove_all_items(request):
+
+    # codeset 2(2) is Product Category
+    categories = CodeValue.objects.filter(code_set_id=2).order_by('display_sequence')
+
+    cart = get_object_or_404(Cart, owner=request.user) 
+    CartItem.objects.filter(cart=cart).delete()
+
+    context = {
+        'items': None,
+        'categories': categories,
+        'page_title': "Shopping Cart",
+        'cart_total': 0,
     }
 
     return render(request, "shop/shop_cart.html", context)

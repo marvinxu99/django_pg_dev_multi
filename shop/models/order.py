@@ -1,8 +1,8 @@
 from django.db import models
 
-
-# Shopping Care
-class Cart(models.Model):
+from shop
+# Order
+class Order(models.Model):
     """ Stores items in shopping care
     ."""
     order_id = models.BigAutoField(primary_key=True, editable=False)
@@ -10,11 +10,16 @@ class Cart(models.Model):
     description = models.CharField(max_length=200)
     quantity = models.IntegerField(default=0)
         
-    price = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
-    discountAmount = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
-    price_final = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
+    total = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
 
     comment =  models.CharField(max_length=255, blank=True)
+
+    payment_id = models.ForeignKey(Payment, 
+                                related_name='products',     # '+': Do not create backwards relation to this model 
+                                on_delete=models.CASCADE,
+                                limit_choices_to={'code_set': 2, 'active_ind': 1},
+                                verbose_name="Category"
+                            )
 
     create_dt_tm = models.DateTimeField(auto_now_add=True)
     create_id = models.BigIntegerField(default=0)

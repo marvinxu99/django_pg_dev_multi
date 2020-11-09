@@ -3,7 +3,38 @@
 {% block stylesheet %}
 {% endblock %}
 {% block content %}
-  <div class="mt-5 mb-5">
+<h3>{{ page_title }}</h3>
+<div class="mt-5 mb-5">
     <p>You have sucessfully paid the following items:</p>
 </div>
+<div class='checkout-page'>
+  <div class='checkout-header'>
+    <div class='header-block'><span>Product</span></div>
+    <div class='header-block'><span>Description</span></div>
+    <div class='header-block'><span>Price</span></div>
+    <div class='header-block'><span>Quantity</span></div>
+    <div class='header-block'><span>Subtotal</span></div>
+    <div class='header-block'><span>Remove</span></div>
+  </div>
+  <div class='checkout-items'>
+    {% for item in items %}
+      <div class='checkout-item'>
+        <div class='image-container'><img src="{{ item.product.product_img_url }}" alt='item1' /></div>
+        <div class='name'>{{ item.product.display }}</div>
+        <div class='price'>${{ item.product.price }}</div>
+        <div class='quantity'>
+          <span class='arrow js_count_decrease' action-url="{% url 'shop:cart_deduct_item' item.product_id %}">&#10094;</span>
+          <span class='value'>{{ item.quantity }}</span>
+
+          <span class='arrow js_count_increase' action-url="{% url 'shop:cart_add_item' item.product_id %}">&#10095;</span>
+        </div>
+        <div class='subtotal'>${{ item.price|floatformat:2  }}</div>
+        <div class='remove-button js_item_remove' action-url="{% url 'shop:cart_remove_item' item.product_id %}">&#10005; </div>
+      </div>
+    {% empty %}
+      <div>**Your shopping cart is empty.**</div>
+    {% endfor %}
+  </div>
+  <div class='total'>TOTAL: $<span id="cart_total">{{ cart_total|floatformat:2 }}</span></div>
+
 {% endblock %}

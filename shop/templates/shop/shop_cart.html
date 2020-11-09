@@ -3,6 +3,9 @@
 
 {% block content %}
 <h3>{{ page_title }}</h3>
+{% if items %}
+  <a class="btn btn-outline-primary" href="{% url 'shop:cart_remove_all_items' %}" role="button">Remove All Items</a>
+{% endif %}
 
 <div class='checkout-page'>
   <div class='checkout-header'>
@@ -22,6 +25,7 @@
         <div class='quantity'>
           <span class='arrow js_count_decrease' action-url="{% url 'shop:cart_deduct_item' item.product_id %}">&#10094;</span>
           <span class='value'>{{ item.quantity }}</span>
+
           <span class='arrow js_count_increase' action-url="{% url 'shop:cart_add_item' item.product_id %}">&#10095;</span>
         </div>
         <div class='subtotal'>${{ item.price|floatformat:2  }}</div>
@@ -32,12 +36,14 @@
     {% endfor %}
   </div>
   <div class='total'>TOTAL: $<span id="cart_total">{{ cart_total|floatformat:2 }}</span></div>
-  <button class="btn btn-primary" id="btn-pay-now"><i class="fa fa-credit-card" aria-hidden="true"></i> Pay Now</button>
-  <div class='test-warning'>
-    *Please use the following test credit card for payments* 
-    <br />
-    4242 4242 4242 4242 - Exp: 01/22 - CVV: 123
-  </div>
+  {% if items %}
+    <div class='test-warning'>
+      *Please use the following test credit card for payments* 
+      <br />
+      4242 4242 4242 4242 - Exp: 01/22 - CVV: 123
+    </div>
+    <button class="btn btn-primary" id="btn-pay-now"><i class="fa fa-credit-card" aria-hidden="true"></i> Pay Now</button>
+  {% endif %}
 </div>
 
 {% endblock %}
