@@ -10,11 +10,13 @@
     {% if user.is_authenticated %}
       <li><span class='ml-1'>USER: {{ user.get_username }}</span></li>
       <li><a href="#">Future Use</a></li>
+      <li><a href="{% url 'shop:view_orders' %}">View orders</a></li>   
       <li><a href="{% url 'accounts:logout' %}?next={{request.path}}">Logout</a></li>   
     {% else %}
       <li><a href="{% url 'accounts:login' %}?next={{request.path}}">Login</a></li>   
     {% endif %}         
     {% if user.is_staff %}
+      <li><div class="border-top my-1"></div></li>
       <li><span class='ml-1'>STAFF:</span></li>
       <li><a href="#">Future Use</a></li>
     {% endif %}

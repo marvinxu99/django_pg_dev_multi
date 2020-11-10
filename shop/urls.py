@@ -19,6 +19,8 @@ urlpatterns = [
     path('cart/pay/success/', views.cart_pay_success,  name='stripe_pay_success'),
     path('cart/pay/cancelled/', views.cart_pay_cancelled,  name='stripe_pay_cancelled'),
 
+    path('orders/view/', views.view_orders,  name='view_orders'),
+
     path('stripe/config/', views.stripe_config, name='stripe_config'), 
     path('stripe/checkout/', views.create_checkout_session, name='stripe_checkout'),
     path('stripe/success/', views.SuccessView.as_view(),  name='stripe_success'),
