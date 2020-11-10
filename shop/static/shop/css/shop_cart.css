@@ -109,8 +109,8 @@
     padding-right: 15px;
 }
 .order-item .image-container_sm img {
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
 }
 
 .order-item .name, .order-item .price, .order-item .quantity, .order-item .subtotal {
