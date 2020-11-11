@@ -1,0 +1,11 @@
+In DEV (using CSV format):
+(1) export core.code_value_set table to d:\temp\exports 
+(2) export core.code_value table to d:\temp\exports 
+
+In Heroku:
+(3) import code_value_set
+(4) import code_value  
+
+Load the shop data:
+(5) Ensure the user has the shop.product.can load shop data permission 
+(6) router /shop/shop_data/load.  IMPORTANT - it will display shop home page after loading is completed.

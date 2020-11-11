@@ -3,9 +3,10 @@ from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Sum
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.db import transaction
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 from shop.models import Cart, CartItem, Product, Payment, Order, OrderItem
@@ -22,6 +23,10 @@ def cart_pay_success(request):
     cart = get_object_or_404(Cart, owner=request.user) 
     cart_items = CartItem.objects.filter(cart=cart)
     d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('quantity'), Sum('price'))
+
+    # This is also to prevent resubmit when user refreshes the payment sucessful page
+    if (not d_result['quantity__sum']) or (not d_result['price__sum']):
+        return HttpResponseRedirect(reverse("shop:shop_home"))
 
     #with transaction.Atomic():
      
@@ -63,7 +68,7 @@ def cart_pay_success(request):
     context = {
         'items': items,
         'categories': categories,
-        'page_title': "Successfull Payment",
+        'page_title': "Payment Successful",
         'order_total': o_result['price__sum'] if o_result['price__sum'] else 0,
     }
 
