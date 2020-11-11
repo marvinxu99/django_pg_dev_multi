@@ -80,3 +80,7 @@ div a {
         margin-left: 0;
     }
   }
+
+.js-single-order:hover {
+  cursor: pointer;
+}

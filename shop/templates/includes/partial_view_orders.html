@@ -1,13 +1,17 @@
 {% for order in orders %}
 <div class="d-flex mt-3">
-  <a class="js-collapse-toggle" data-toggle="collapse" href="#collapse_order{{order.order_id}}" role="button">
-    <i class="fa fa-minus-circle" style="font-size:12px;color:gray"></i>
-  </a>
+  <div class="js-collapse-toggle" data-toggle="collapse" href="#collapse_order{{order.order_id}}">
+    {% if forloop.first %}  
+      <i class="fa fa-plus-circle mr-1" style="font-size:12px;color:gray"></i>
+    {% else %}
+      <i class="fa fa-minus-circle mr-1" style="font-size:12px;color:gray"></i>
+    {% endif %}   
+  </div>
   <div>
-    <div class="text-primary js-single-order" orderid="{{ order.order_id }}">{{ order }}</div>
+    <div class="text-primary js-single-order" orderid="{{ order.order_id }}"> {{ order }}</div>
   </div>
 </div>
-<div class="collapse js-collapse-orders" id="collapse_order{{order.order_id}}">
+<div class="collapse js-collapse-orders ml-3" id="collapse_order{{order.order_id}}">
   <div class='order-header'>
     <div class='header-block'><span>Product</span></div>
     <div class='header-block'><span>Description</span></div>
