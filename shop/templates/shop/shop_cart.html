@@ -37,11 +37,10 @@
   <div class='total'>TOTAL: $<span id="cart_total">{{ cart_total|floatformat:2 }}</span></div>
   {% if items %}
     <div class='test-warning'>
-      *Please use the following test credit card for payments* 
-      <br />
+      *Please use the following test credit card for payments* <br />
       4242 4242 4242 4242 - Exp: 01/22 - CVV: 123
     </div>
-    <button class="btn btn-primary" id="btn-pay-now"><i class="fa fa-credit-card" aria-hidden="true"></i> Pay Now</button>
+    <button class="btn btn-primary mb-5" id="btn-pay-now"><i class="fa fa-credit-card" aria-hidden="true"></i> Pay Now</button>
   {% endif %}
 </div>
 

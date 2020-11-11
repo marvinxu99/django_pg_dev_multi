@@ -19,7 +19,7 @@ def view_orders(request):
 
     # Get the last order
     order = Order.objects.filter(owner=request.user).order_by('-create_dt_tm').first()
-    orders = [order]
+    orders = [order] if order else None
 
     context = {
         'orders': orders,
@@ -42,11 +42,11 @@ def view_orders_filter(request):
     orders_all = Order.objects.filter(owner=request.user).order_by('-create_dt_tm')
 
     if filter == 'my-last-order':
-        orders = [ orders_all[0] ]
+        orders = [ orders_all[0] ] if orders_all else None
         filter_name = 'My Last Order'
     elif filter == 'my-last-3-orders':
         orders = orders_all[:3]
-        filter_name = 'My Last 3 Order'
+        filter_name = 'My Last 3 Orders'
     else:
         orders = orders_all
         filter_name = 'All My Orders'
