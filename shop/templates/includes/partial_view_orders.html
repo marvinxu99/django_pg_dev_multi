@@ -1,5 +1,5 @@
 {% for order in orders %}
-<h5 class="mt-5">{{ order }}</h5>
+<h5 class="mt-5 text-primary js-single-order" orderid="{{ order.order_id }}">{{ order }}</h5>
 <div class='order-header'>
   <div class='header-block'><span>Product</span></div>
   <div class='header-block'><span>Description</span></div>

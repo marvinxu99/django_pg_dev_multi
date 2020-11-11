@@ -39,4 +39,4 @@ class Order(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return f'Order placed on { self.create_dt_tm.strftime("%B %d, %Y") }, ${ self.total }'
+        return f'Order placed on { self.create_dt_tm.strftime("%d-%b-%Y") }, ${ self.total }'

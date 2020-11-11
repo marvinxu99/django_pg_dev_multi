@@ -20,7 +20,8 @@ urlpatterns = [
     path('cart/pay/cancelled/', views.cart_pay_cancelled,  name='stripe_pay_cancelled'),
 
     path('orders/view/', views.view_orders,  name='view_orders'),
-    path('orders/filter/', views.view_orders_filter,  name='view_orders_filter'),
+    path('orders/view/filter/', views.view_orders_filter,  name='view_orders_filter'),
+    path('orders/view/orderid/<int:orderid>/', views.view_orders_orderid,  name='view_orders_orderid'),
 
     path('stripe/config/', views.stripe_config, name='stripe_config'), 
     path('stripe/checkout/', views.create_checkout_session, name='stripe_checkout'),

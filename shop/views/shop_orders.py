@@ -4,9 +4,7 @@ from django.http import JsonResponse
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Sum
 from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.db import transaction
-
+from django.template.loader import render_to_string
 
 from shop.models import Product, Payment, Order, OrderItem
 from core.models import CodeValue
@@ -16,51 +14,66 @@ from core.models import CodeValue
 def view_orders(request):
     '''Logics after a successful payment was made
     '''
-    items = []
-
     # codeset 2 is Product Category
     categories = CodeValue.objects.filter(code_set_id=2).order_by('display_sequence')
 
-    # Create an order
-    orders = Order.objects.filter(owner=request.user).order_by('-create_dt_tm')
+    # Get the last order
+    order = Order.objects.filter(owner=request.user).order_by('-create_dt_tm').first()
+    orders = [order]
 
-    items = OrderItem.objects.filter(order=orders[0])
-    o_result = OrderItem.objects.filter(order=orders[0]).aggregate(Sum('price'))
-    
     context = {
         'orders': orders,
-        'items': items,
         'page_title': "Your orders",
-        'order_total': o_result['price__sum'] if o_result['price__sum'] else 0,
         'categories': categories,
         'filter_name': 'My Last Order'
     }
 
     return render(request, "shop/shop_orders.html", context)
+
 
 @login_required
 def view_orders_filter(request):
-    '''Logics after a successful payment was made
-    '''
-    items = []
 
-    # codeset 2 is Product Category
-    categories = CodeValue.objects.filter(code_set_id=2).order_by('display_sequence')
+    data = dict()
+    filter_name = ''
 
-    # Create an order
-    orders = Order.objects.filter(owner=request.user).order_by('-create_dt_tm')
-
-    items = OrderItem.objects.filter(order=orders[0])
-    o_result = OrderItem.objects.filter(order=orders[0]).aggregate(Sum('price'))
+    filter = request.GET['filter']
     
-    context = {
-        'orders': orders,
-        'items': items,
-        'page_title': "Your orders",
-        'order_total': o_result['price__sum'] if o_result['price__sum'] else 0,
-        'categories': categories,
-        'filter_name': 'My Last Order'
-    }
+    orders_all = Order.objects.filter(owner=request.user).order_by('-create_dt_tm')
 
-    return render(request, "shop/shop_orders.html", context)
+    if filter == 'my-last-order':
+        orders = [ orders_all[0] ]
+        filter_name = 'My Last Order'
+    elif filter == 'my-last-3-orders':
+        orders = orders_all[:3]
+        filter_name = 'My Last 3 Order'
+    else:
+        orders = orders_all
+        filter_name = 'All My Orders'
 
+    data['html_view_orders'] = render_to_string(
+                'includes/partial_view_orders.html', 
+                { 'orders': orders }
+            )
+    data['filter_name'] = filter_name
+
+    return JsonResponse(data)
+
+
+@login_required
+def view_orders_orderid(request, orderid):
+    data = dict()
+    filter_name = ''
+
+    order = Order.objects.get(order_id=orderid)
+
+    orders = [order, ]
+    filter_name = "Order placed on " + order.create_dt_tm.strftime("%d-%b-%Y")
+
+    data['html_view_orders'] = render_to_string(
+                'includes/partial_view_orders.html', 
+                { 'orders': orders }
+            )
+    data['filter_name'] = filter_name
+
+    return JsonResponse(data)
