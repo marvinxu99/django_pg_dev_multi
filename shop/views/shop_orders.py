@@ -33,8 +33,34 @@ def view_orders(request):
         'page_title': "Your orders",
         'order_total': o_result['price__sum'] if o_result['price__sum'] else 0,
         'categories': categories,
+        'filter_name': 'My Last Order'
     }
 
     return render(request, "shop/shop_orders.html", context)
 
+@login_required
+def view_orders_filter(request):
+    '''Logics after a successful payment was made
+    '''
+    items = []
+
+    # codeset 2 is Product Category
+    categories = CodeValue.objects.filter(code_set_id=2).order_by('display_sequence')
+
+    # Create an order
+    orders = Order.objects.filter(owner=request.user).order_by('-create_dt_tm')
+
+    items = OrderItem.objects.filter(order=orders[0])
+    o_result = OrderItem.objects.filter(order=orders[0]).aggregate(Sum('price'))
+    
+    context = {
+        'orders': orders,
+        'items': items,
+        'page_title': "Your orders",
+        'order_total': o_result['price__sum'] if o_result['price__sum'] else 0,
+        'categories': categories,
+        'filter_name': 'My Last Order'
+    }
+
+    return render(request, "shop/shop_orders.html", context)
 

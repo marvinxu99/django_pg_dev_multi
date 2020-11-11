@@ -4,34 +4,91 @@
 {% block content %}
 <h3>{{ page_title }}</h3>
 
-<p class="mt-3">Your latest order: {{ orders|index:0 }}</p>
+<div class="dropdown d-flex align-items-center mt-3">
+  <span class="h5 mr-1">{{ filter_name|title }}</span> 
+  <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    (switch filter) <span class="caret"></span>
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <button class="dropdown-item js-order-filter" type="button" filter="my-last-order">My Last Order</button>
+    <button class="dropdown-item js-order-filter" type="button" filter="my-last-3-order">My Last 3 Orders</button>
+    <button class="dropdown-item js-order-filter" type="button" filter="all-my-orders">All My Orders</button>
+  </div>
+</div>
 
 <div class='order-page'>
-  {% for order in orders %}
-  <h5 class="mt-5">{{ order }}</h5>
-  <div class='order-header'>
-    <div class='header-block'><span>Product</span></div>
-    <div class='header-block'><span>Description</span></div>
-    <div class='header-block'><span>Price</span></div>
-    <div class='header-block'><span>Quantity</span></div>
-    <div class='header-block'><span>Subtotal</span></div>
-    <div class='header-block'><span>Remark</span></div>
-  </div>
-  <div class='order-items'>
-    {% for item in order.order_items.all %}
-      <div class='order-item'>
-        <div class='image-container_sm'><img src="{{ item.product.product_img_url }}" alt='item1' /></div>
-        <div class='name'>{{ item.product.display }}</div>
-        <div class='price'>${{ item.product.price }}</div>
-        <div class='quantity'>
-          <span class='value'>{{ item.quantity }}</span>
-        </div>
-        <div class='subtotal'>${{ item.price|floatformat:2  }}</div>
-      </div>
-    {% empty %}
-      <div>**no orders.**</div>
-    {% endfor %}
-  </div>
-  {% endfor %}
+{% include "includes/partial_view_orders.html" %}
 </div>
 {% endblock %}
+{% block js_shop %}
+<script>
+  $(function() {
+    $('.js-order-filter').click(function(event){
+      const filter = $(this).attr('filter');
+      const url = 'orders/filter/?filter=' + filter;
+      
+      alert(url);
+    });
+  });
+
+  $('.js-issue-edit-tags').click(function() {
+      const url = $(this).attr('data-url');
+
+      tag_editing = true;
+
+      fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        $("#issue_all_tags").html(data['html_tags_edit_list']);
+        $('.issue-tag-input').focus();
+
+        $('.js-issue-edit-tags').css('display', 'none');
+
+        setupTagEditCancelListener();
+        setupTagDeleteListener();
+        setupIssueTagAddListener()
+      })
+  });
+
+
+
+  function op_count_action(btn) {
+    const action_url = btn.attr('action-url');
+    const csrftoken = getCookie('csrftoken');
+
+    const item_quantity_value = btn.closest('.quantity').find('.value')
+    const checkout_item = btn.closest('.checkout-item')
+    const item_subtotal = checkout_item.find('.subtotal')
+
+    $.ajax({
+      type: "GET",
+      url: action_url,
+      headers: {'X-CSRFToken': '{{ csrf_token }}'},
+      success: function (data) {
+        if (data.status === "S") {
+          $('#cart-icon').text(data.cart_count);
+          $('#cart_total').text(data.cart_total);
+          if (data.item_count === 0) {
+            checkout_item.remove();
+          } else {
+            item_quantity_value.text(data.item_count);
+            item_subtotal.text(`$${ data.item_price }`);
+          }
+        }
+      }
+    });
+  };
+
+  $('.js_count_decrease').click(function(event){
+    const btn = $(this);
+    op_count_action(btn);
+  });
+  $('.js_item_remove').click(function(event){
+    const btn = $(this);
+    op_count_action(btn);
+  });
+
+</script>
+
+{% endblock js_shop %}
+
