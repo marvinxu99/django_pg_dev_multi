@@ -5,8 +5,6 @@ from . import views
 app_name = 'shop'
 urlpatterns = [
     path('', views.shop_home, name='shop_home'), 
-    path('shop_data/load', views.load_shop_data, name='load_shop_data'), 
-
     path('product/<str:prod_cat>/', views.get_product_by_category, name='product_by_category'), 
 
     path('cartitem/<int:pk>/add/', views.cart_add_item, name='cart_add_item'), 
@@ -27,5 +25,9 @@ urlpatterns = [
     path('stripe/checkout/', views.create_checkout_session, name='stripe_checkout'),
     path('stripe/success/', views.SuccessView.as_view(),  name='stripe_success'),
     path('stripe/cancelled/', views.CancelledView.as_view(), name='stripe_cancelled'), 
+
+    # Shop load fixtures (shop_data)
+    path('shop_data/load', views.load_shop_data, name='load_shop_data'), 
+    path('shop_data/manager', views.shop_data_manager, name='shop_data_manager'), 
 
 ]

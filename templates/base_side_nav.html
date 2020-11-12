@@ -6,6 +6,7 @@
     <title>{% block title %}Winter Winn{% endblock %}</title>
     {% load static %}
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}"/>
+    <link href="https://fonts.googleapis.com/css?family=Peralta" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" 
         integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
@@ -15,7 +16,7 @@
   <body>
     {% block body %} 
       <div class="bg-primary">
-          {% include "winn_nav.html" with app_cart="true" %}
+          {% include "winn_nav.html" with app_name="Online Shop" %}
       </div>
       <div class="row">
         <div class="col-sm-2 col-md-2">

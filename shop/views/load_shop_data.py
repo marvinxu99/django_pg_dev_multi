@@ -7,11 +7,13 @@ from urllib.request import urlretrieve
 from urllib.parse import urlparse
 from django.core.files import File
 from django.contrib.auth.decorators import permission_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 from ..models import Product
 from core.models import CodeValue
 
 
+@staff_member_required(redirect_field_name='next')
 @permission_required('product.can_load_shop_data')
 def load_shop_data(request):
     ''' Load json data from shop/fixtures/shop_data.json

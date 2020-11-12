@@ -21,7 +21,7 @@
     </ul>
     <a class="navbar-brand" href="{% url 'home' %}">
       <img src="{% static 'img/winter-logo-sm-blue.png' %}" class="d-inline-block align-top winter-sm-logo" alt="">
-      Winter Winn
+      {% if app_name %} {{ app_name }} {% else %} Winter Winn {% endif %}
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" 
                 aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
