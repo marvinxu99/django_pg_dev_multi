@@ -1,7 +1,8 @@
 from django.db import models
 
+from shop.models import Order
 
-# Order
+
 class Payment(models.Model):
     """ Stores items in shopping care
     ."""
@@ -11,6 +12,8 @@ class Payment(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
 
     comment =  models.CharField(max_length=255, blank=True)
+
+    order = models.ForeignKey(Order, related_name='payments', on_delete=models.CASCADE)
 
     create_dt_tm = models.DateTimeField(auto_now_add=True)
     create_id = models.BigIntegerField(default=0)
@@ -28,4 +31,4 @@ class Payment(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return f'{self.description}, ${self.price_final}'
+        return f'{self.description}, ${self.amount}'

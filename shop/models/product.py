@@ -2,7 +2,8 @@ from django.db import models
 from django.urls import reverse
 from django.conf import settings
 
-from core.models.code_value import CodeValue 
+from core.models import CodeValue 
+from core.constants import CODE_SET
 
 
 class Product(models.Model):
@@ -10,7 +11,7 @@ class Product(models.Model):
     category_cd = models.ForeignKey(CodeValue, 
                                 related_name='products',     # '+': Do not create backwards relation to this model 
                                 on_delete=models.CASCADE,
-                                limit_choices_to={'code_set': 2, 'active_ind': 1},
+                                limit_choices_to={'code_set': CODE_SET.PRODUCT_CATEGORY, 'active_ind': 1},
                                 verbose_name="Category"
                             )
     

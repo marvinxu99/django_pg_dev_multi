@@ -2,38 +2,21 @@
 {% block title %}Shop Data Manager{% endblock %}
 
 {% block sidebar %}
-  {% include "shop/data_manager/partial_sdm_sidebar_nav.html" %}
+  {% include "shop/data_manager/partial_sdm_sidenav.html" %}
 {% endblock %}
 
 {% block content %}
-<!-- https://getbootstrap.com/docs/4.5/components/navs/ -->
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" href="#">Orders</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Produts</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-  </li>
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">More</a>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">Products</a>
-      <a class="dropdown-item" href="#">Orders</a>
-      <a class="dropdown-item" href="#">Something else here</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Separated link</a>
-    </div>
-  </li>
-</ul>
-
-
+<div>
+  {% include "shop/data_manager/partial_sdm_topnav.html" %}
+</div>
+<div id="sdm-content-pane mt-3">
+  host details
+</div>
 
 {% endblock %}
 
 {% block js_shop %}
+
 
 {% endblock %}
 

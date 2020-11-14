@@ -15,6 +15,8 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, related_name='+', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  # price = item_price * quantity
+    discount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  # price = item_price * quantity
+    subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     comment =  models.CharField(max_length=255, blank=True)
 

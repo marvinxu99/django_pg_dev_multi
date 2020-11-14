@@ -1,8 +1,8 @@
 from django.db import models
 from django.conf import settings
 
-from shop.models import Payment
-
+from core.constants import CODE_SET
+from core.models import CodeValue
 
 # Order
 class Order(models.Model):
@@ -17,13 +17,17 @@ class Order(models.Model):
     description = models.CharField(max_length=200)
     quantity = models.IntegerField(default=0)       
     total = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
-    payment = models.ForeignKey(Payment, 
-                                related_name='order', 
-                                on_delete=models.CASCADE,
-                                verbose_name="Order"
-                            )
 
     comment =  models.CharField(max_length=255, blank=True)
+
+    active_ind = models.BooleanField("Active", default=True)
+    ordert_status = models.ForeignKey(CodeValue, 
+                            related_name='+',     # '+': Do not create backwards relation to this model 
+                            on_delete=models.CASCADE,
+                            limit_choices_to={'code_set': CODE_SET.ORDER_STATUS, 'active_ind': 1},
+                            verbose_name="Order Status"
+                        )
+ 
 
     create_dt_tm = models.DateTimeField(auto_now_add=True)
     create_id = models.BigIntegerField(default=0)
@@ -33,7 +37,7 @@ class Order(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=['payment',]),
+            models.Index(fields=['description',]),
         ]
         db_table = 'shop_order'
 
