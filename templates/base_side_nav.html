@@ -15,9 +15,7 @@
   </head>
   <body>
     {% block body %} 
-      <div class="bg-primary">
-          {% include "winn_nav.html" with app_name="Online Shop" %}
-      </div>
+      {% include "winn_nav.html" with app_name="Online Shop" %}
       <div class="row">
         <div class="col-sm-2 col-md-2">
           {% block sidebar %}

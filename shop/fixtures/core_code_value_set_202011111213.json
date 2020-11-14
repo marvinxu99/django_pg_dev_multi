@@ -1,0 +1,45 @@
+{
+"core_code_value_set": [
+	{
+		"code_set" : 1,
+		"display" : "Winter",
+		"description" : "Winter",
+		"definition" : "Winter",
+		"active_ind" : true,
+		"cache_ind" : false,
+		"change_access_ind" : true,
+		"create_dt_tm" : "2020-10-18T16:55:30.364Z",
+		"create_id" : 0,
+		"updt_cnt" : 2,
+		"updt_dt_tm" : "2020-10-18T17:13:54.693Z",
+		"updt_id" : 2
+	},
+	{
+		"code_set" : 2,
+		"display" : "Product Category",
+		"description" : "Product Category",
+		"definition" : "Product Category",
+		"active_ind" : true,
+		"cache_ind" : false,
+		"change_access_ind" : true,
+		"create_dt_tm" : "2020-10-18T17:59:54.137Z",
+		"create_id" : 0,
+		"updt_cnt" : 0,
+		"updt_dt_tm" : "2020-10-18T17:59:54.137Z",
+		"updt_id" : 0
+	},
+	{
+		"code_set" : 3,
+		"display" : "Event Code",
+		"description" : "Event Code",
+		"definition" : "Event Code",
+		"active_ind" : true,
+		"cache_ind" : false,
+		"change_access_ind" : true,
+		"create_dt_tm" : "2020-10-18T18:40:23.962Z",
+		"create_id" : 0,
+		"updt_cnt" : 0,
+		"updt_dt_tm" : "2020-10-18T18:40:23.962Z",
+		"updt_id" : 0
+	}
+]}

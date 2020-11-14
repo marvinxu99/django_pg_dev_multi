@@ -1,0 +1,6 @@
+"code_value","definition","description","display","code_set_id","active_ind","active_dt_tm","begin_effective_dt_tm","end_effective_dt_tm","inactivate_dt_tm","display_sequence","wki","concept_wki","create_dt_tm","create_id","updt_cnt","updt_dt_tm","updt_id","wdf_meaning"
+1,hats,hats,hats,2,true,,2020-10-18 11:08:28,2120-10-18 12:08:30,,3,,,2020-10-18 11:04:41,0,1,2020-10-18 11:08:43,2,
+2,sneakers,sneakers,sneakers,2,true,,,,,4,,,2020-10-18 11:30:37,0,0,2020-10-18 11:30:37,0,
+3,jackets,jackets,jackets,2,true,,,,,1,,,2020-10-18 12:38:44,0,0,2020-10-18 12:38:44,0,
+4,womens,womens,womens,2,true,,,,,2,,,2020-10-18 12:45:27,0,0,2020-10-18 12:45:27,0,
+5,mens,mens,mens,2,true,,,,,5,,,2020-10-18 12:45:27,0,0,2020-10-18 12:45:27,0,
