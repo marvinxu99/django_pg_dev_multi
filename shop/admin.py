@@ -5,8 +5,9 @@ from .models import Product, Order, OrderItem, Payment
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    can_delete = False
     list_display = ('name', 'display', 'description', 'category_cd', 'active_ind', 
-                'price', 'available', 'stock', 'image',
+                'price', 'available', 'stock',
                 'create_dt_tm', 'create_id', 'updt_cnt', 'updt_dt_tm', 'updt_id')
 
     list_editable = ('category_cd', 'active_ind', 
@@ -21,6 +22,7 @@ class ProductAdmin(admin.ModelAdmin):
         ('available', 'stock'), 
         ('image')
     ]
+    list_filter = ('available', 'active_ind', 'create_dt_tm')
 
     def save_model(self, request, obj, form, change):
         if not change:
@@ -34,7 +36,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 class PaymentInline(admin.StackedInline):   
     model = Payment
-    can_delete = False
+    can_delete = True
     verbose_name_plural = 'payments'
     fieldsets = (
         (None, {
@@ -85,15 +87,18 @@ class OrderItemInLine(admin.StackedInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('total', 'quantity', 'description', 'owner', 'comment', 
+    list_display = ('order_id', 'description', 'total', 'quantity', 'order_status', 'owner', 'comment',
                 'create_dt_tm', 'create_id', 'updt_cnt', 'updt_dt_tm', 'updt_id')
     fields = [
+        ('description'), 
         ('total'), 
         ('quantity'), 
-        ('description'), 
+        ('order_status'), 
         ('owner'), 
         ('comment')
     ]
+    list_editable = ('order_status', )
+    list_filter = ('create_dt_tm', 'owner')
     inlines = [ OrderItemInLine, PaymentInline ]
     ordering = ['-create_dt_tm', 'owner']
 

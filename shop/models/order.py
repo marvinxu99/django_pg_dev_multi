@@ -21,7 +21,7 @@ class Order(models.Model):
     comment =  models.CharField(max_length=255, blank=True)
 
     active_ind = models.BooleanField("Active", default=True)
-    ordert_status = models.ForeignKey(CodeValue, 
+    order_status = models.ForeignKey(CodeValue, 
                             related_name='+',     # '+': Do not create backwards relation to this model 
                             on_delete=models.CASCADE,
                             limit_choices_to={'code_set': CODE_SET.ORDER_STATUS, 'active_ind': 1},

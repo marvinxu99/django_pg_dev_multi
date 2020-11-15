@@ -37,7 +37,7 @@ def cart_pay_success(request):
     order.quantity = d_result['quantity__sum'] if d_result['quantity__sum'] else 0
     order.total = d_result['price__sum'] if d_result['price__sum'] else 0
     order.comment = "paid by stripe"
-    order.ordert_status = get_object_or_404(
+    order.order_status = get_object_or_404(
                     CodeValue, 
                     Q(code_set=CODE_SET.ORDER_STATUS) & Q(definition="Ordered"))
     order.save()

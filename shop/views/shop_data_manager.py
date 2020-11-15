@@ -21,11 +21,10 @@ def shop_data_manager(request):
     ''' Shop data manager - default to view today's orders
     '''
     orders_today = Order.objects.filter(create_dt_tm__date=datetime.date.today()).order_by('-create_dt_tm')
-    orders_all = Order.objects.all().order_by('-create_dt_tm')
 
     context = {
-        'orders': orders_all,
-        'page_title': f'Orders, today\'s ({orders_all.count()} orders)',
+        'orders': orders_today,
+        'page_title': f'Orders, today\'s ({orders_today.count()} orders)',
     }
 
     return render(request, "shop/data_manager/shop_data_manager.html", context)
@@ -46,8 +45,8 @@ def sdm_manage_orders(request):
         'page_title': page_title
     }
 
-    data['html_sdm_view_orders'] = render_to_string('shop/data_manager/partial_sdm_view_orders.html', context) 
-    data['html_sdm_sidenav_orders'] = render_to_string('shop/data_manager/partial_sdm_sidenav_orders.html') 
+    data['html_sdm_content_pane'] = render_to_string('shop/data_manager/partial_sdm_view_orders.html', context) 
+    data['html_sdm_sidebar_nav_1'] = render_to_string('shop/data_manager/partial_sdm_sidenav_orders.html') 
     data['status'] = 'S'
 
     return JsonResponse(data)
@@ -67,15 +66,15 @@ def sdm_manage_orders_filter(request):
         orders = Order.objects.filter(create_dt_tm__date=datetime.date.today()).order_by('-create_dt_tm')
         page_title = f'Orders, today\'s ({ orders.count() } orders)'
     elif timeframe == 'last2days':
-        last2days = datetime.date.tody() - datetime.timedelta(days=2)
+        last2days = datetime.date.today() - datetime.timedelta(days=2)
         orders = Order.objects.filter(Q(create_dt_tm__gte=last2days)).order_by('-create_dt_tm')
         page_title = f'Orders, last 2 days ({ orders.count() } orders)'
     elif timeframe == 'last3days':
-        last3days = datetime.date.tody() - datetime.timedelta(days=3)
+        last3days = datetime.date.today() - datetime.timedelta(days=3)
         orders = Order.objects.filter(Q(create_dt_tm__gte=last3days)).order_by('-create_dt_tm')
         page_title = f'Orders, last 3 days ({ orders.count() } orders)'
     elif timeframe == 'last7days':
-        last7days = datetime.date.tody() - datetime.timedelta(days=7)
+        last7days = datetime.date.today() - datetime.timedelta(days=7)
         orders = Order.objects.filter(Q(create_dt_tm__gte=last7days)).order_by('-create_dt_tm')
         page_title = f'Orders, last 7 days ({ orders.count() } orders)'
 
@@ -84,7 +83,7 @@ def sdm_manage_orders_filter(request):
         'page_title': page_title
     }
 
-    data['html_sdm_view_orders'] = render_to_string('shop/data_manager/partial_sdm_view_orders.html', context) 
+    data['html_sdm_content_pane'] = render_to_string('shop/data_manager/partial_sdm_view_orders.html', context) 
     data['status'] = 'S'
 
     return JsonResponse(data)
@@ -102,8 +101,8 @@ def sdm_manage_products(request):
         'page_title': page_title
     }
 
-    data['html_sdm_view_products'] = render_to_string('shop/data_manager/partial_sdm_view_products.html', context) 
-    data['html_sdm_sidenav_products'] = render_to_string('shop/data_manager/partial_sdm_sidenav_products.html') 
+    data['html_sdm_content_pane'] = render_to_string('shop/data_manager/partial_sdm_view_products.html', context) 
+    data['html_sdm_sidebar_nav_1'] = render_to_string('shop/data_manager/partial_sdm_sidenav_products.html') 
     data['status'] = 'S'
 
     return JsonResponse(data)
