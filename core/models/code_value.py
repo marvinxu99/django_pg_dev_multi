@@ -35,7 +35,7 @@ class CodeValue(models.Model):
     class Meta:
         db_table = "core_code_value"
         indexes = [
-            models.Index(fields=['code_set'], name='cv_code_set_idx'),
+            models.Index(fields=['code_set', 'definition'], name='cv_code_set_idx'),
             models.Index(fields=['display'], name='cv_display_idx'),
         ]
 

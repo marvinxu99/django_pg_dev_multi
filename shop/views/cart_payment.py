@@ -1,16 +1,16 @@
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.models import AnonymousUser
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.shortcuts import render, get_object_or_404
 from django.db import transaction
-from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 
 from shop.models import Cart, CartItem, Product, Payment, Order, OrderItem
 from core.models import CodeValue
+from core.constants import CODE_SET
 
 
 @login_required
@@ -30,21 +30,25 @@ def cart_pay_success(request):
 
     #with transaction.Atomic():
      
-    # Create a payment record
-    payment = Payment.objects.create(
-        description = "Credit payment", 
-        amount = d_result['price__sum'] if d_result['price__sum'] else 0,
-        comment = "stripe payment"
-    )
 
     # Create an order
     order = Order(owner=request.user)
     order.description = "Online purchase"
     order.quantity = d_result['quantity__sum'] if d_result['quantity__sum'] else 0
     order.total = d_result['price__sum'] if d_result['price__sum'] else 0
-    order.payment = payment
     order.comment = "paid by stripe"
+    order.ordert_status = get_object_or_404(
+                    CodeValue, 
+                    Q(code_set=CODE_SET.ORDER_STATUS) & Q(definition="Ordered"))
     order.save()
+
+    # Create a payment record
+    payment = Payment.objects.create(
+        description = "Credit payment", 
+        amount = d_result['price__sum'] if d_result['price__sum'] else 0,
+        comment = "stripe payment",
+        order = order
+    )
 
     # Populate order items to OrderItem table (?? using map())
     for item in cart_items:

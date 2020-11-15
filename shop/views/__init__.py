@@ -6,4 +6,4 @@ from .shop_cart import (cart_add_item, cart_deduct_item, cart_remove_item,
 from .stripe_pay import stripe_config, create_checkout_session, SuccessView, CancelledView
 from .cart_payment import cart_pay_success, cart_pay_cancelled
 from .shop_orders import view_orders, view_orders_filter, view_orders_orderid
-from .shop_data_manager import shop_data_manager
+from .shop_data_manager import shop_data_manager, sdm_manage_orders, sdm_manage_products

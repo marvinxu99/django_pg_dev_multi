@@ -27,8 +27,10 @@ urlpatterns = [
     path('stripe/success/', views.SuccessView.as_view(),  name='stripe_success'),
     path('stripe/cancelled/', views.CancelledView.as_view(), name='stripe_cancelled'), 
 
-    # Shop load fixtures (shop_data)
-    path('shop_data/load', views.load_shop_data, name='load_shop_data'), 
-    path('shop_data/manager', views.shop_data_manager, name='shop_data_manager'), 
+    # Shop Data Manager(SDM) - Shop load fixtures (shop_data)
+    path('sdm/products/load', views.load_shop_data, name='load_shop_data'), 
+    path('sdm/manager', views.shop_data_manager, name='shop_data_manager'), 
+    path('sdm/manager/orders', views.sdm_manage_orders, name='sdm_manage_orders'), 
+    path('sdm/manager/products', views.sdm_manage_products, name='sdm_manage_products'), 
 
 ]

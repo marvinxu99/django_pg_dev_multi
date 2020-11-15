@@ -8,6 +8,9 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'display', 'description', 'category_cd', 'active_ind', 
                 'price', 'available', 'stock', 'image',
                 'create_dt_tm', 'create_id', 'updt_cnt', 'updt_dt_tm', 'updt_id')
+
+    list_editable = ('category_cd', 'active_ind', 
+                'price', 'available', 'stock',)
     fields = [
         ('name'), 
         ('display'), 

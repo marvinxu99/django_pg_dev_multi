@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render
 from django.conf import settings
 import json
@@ -7,48 +8,102 @@ from urllib.request import urlretrieve
 from urllib.parse import urlparse
 from django.core.files import File
 from django.contrib.auth.decorators import permission_required
+from django.template.loader import render_to_string
+from django.http import JsonResponse
+from django.db.models import Q
 
-from ..models import Product
+from ..models import Product, Order
 from core.models import CodeValue
 
 
 @permission_required('product.can_load_shop_data')
 def shop_data_manager(request):
-    ''' Shop data manager
+    ''' Shop data manager - default to view today's orders
     '''
-    # f_path = os.path.join(settings.BASE_DIR, 'shop', 'fixtures')
-    # f_name = "shop_data"
-    # json_file = os.path.join(f_path, f_name + '.json')
-    # with open(json_file) as f:
-    #     data = json.load(f)
+    orders_today = Order.objects.filter(create_dt_tm__date=datetime.date.today()).order_by('-create_dt_tm')
+    orders_all = Order.objects.all().order_by('-create_dt_tm')
 
-    # for key in data:
-    #     category_id = data[key]['id']
-    #     for i in range(len(data[key]['items'])):
-    #         product = Product()
-    #         product.category_cd_id = category_id
-    #         product.display = data[key]['items'][i]['name']
-    #         product.name = data[key]['items'][i]['name']
-    #         product.description = data[key]['items'][i]['name']
-    #         product.price = data[key]['items'][i]['price']
-    #         product.available = True
-    #         product.stock = 20
-    #         product.save()
+    context = {
+        'orders': orders_all,
+        'page_title': f'Orders, today\'s ({orders_all.count()} orders)',
+    }
 
-    #         # get the images, e.g., 'https://i.ibb.co/xJS0T3Y/camo-vest.png'
-    #         img_url = data[key]['items'][i]['imageUrl']
-    #         f_name = urlparse(img_url).path.split('/')[-1]
-    #         content = urlretrieve(img_url)
-    #         product.image.save(f_name, File(open(content[0], mode='rb')), save=True)
-           
-    # products = Product.objects.all()
+    return render(request, "shop/data_manager/shop_data_manager.html", context)
 
-    # # code set 2 is Product Category
-    # categories = CodeValue.objects.filter(code_set_id=2).order_by('display_sequence')
 
-    # context = {
-    #     'products': products,
-    #     'categories': categories,
-    # }
+@permission_required('product.can_load_shop_data')
+def sdm_manage_orders(request):
+    ''' Shop data manager - Manage orders
+    '''
+    data = dict()
+    page_title = ''
+    orders = []
+    
+    orders = Order.objects.filter(create_dt_tm__date=datetime.date.today()).order_by('-create_dt_tm')
+    page_title = f'Orders, today\'s ({ orders.count() } orders)'
+    context = {
+        'orders': orders,
+        'page_title': page_title
+    }
 
-    return render(request, "shop/data_manager/shop_data_manager.html")
+    data['html_sdm_view_orders'] = render_to_string('shop/data_manager/partial_sdm_view_orders.html', context) 
+    data['html_sdm_sidenav_orders'] = render_to_string('shop/data_manager/partial_sdm_sidenav_orders.html') 
+    data['status'] = 'S'
+
+    return JsonResponse(data)
+
+
+@permission_required('product.can_load_shop_data')
+def sdm_manage_orders_filter(request):
+    ''' Shop data manager - Manage orders
+    '''
+    data = dict()
+    page_title = ''
+    orders = []
+    
+    timeframe = request.GET['timeframe']
+
+    if timeframe == 'today':
+        orders = Order.objects.filter(create_dt_tm__date=datetime.date.today()).order_by('-create_dt_tm')
+        page_title = f'Orders, today\'s ({ orders.count() } orders)'
+    elif timeframe == 'last2days':
+        last2days = datetime.date.tody() - datetime.timedelta(days=2)
+        orders = Order.objects.filter(Q(create_dt_tm__gte=last2days)).order_by('-create_dt_tm')
+        page_title = f'Orders, last 2 days ({ orders.count() } orders)'
+    elif timeframe == 'last3days':
+        last3days = datetime.date.tody() - datetime.timedelta(days=3)
+        orders = Order.objects.filter(Q(create_dt_tm__gte=last3days)).order_by('-create_dt_tm')
+        page_title = f'Orders, last 3 days ({ orders.count() } orders)'
+    elif timeframe == 'last7days':
+        last7days = datetime.date.tody() - datetime.timedelta(days=7)
+        orders = Order.objects.filter(Q(create_dt_tm__gte=last7days)).order_by('-create_dt_tm')
+        page_title = f'Orders, last 7 days ({ orders.count() } orders)'
+
+    context = {
+        'orders': orders,
+        'page_title': page_title
+    }
+
+    data['html_sdm_view_orders'] = render_to_string('shop/data_manager/partial_sdm_view_orders.html', context) 
+    data['status'] = 'S'
+
+    return JsonResponse(data)
+
+
+@permission_required('product.can_load_shop_data')
+def sdm_manage_products(request):
+    ''' Shop data manager - Manage products
+    '''
+    data = dict()
+
+    page_title = 'Products Page'
+
+    context = {
+        'page_title': page_title
+    }
+
+    data['html_sdm_view_products'] = render_to_string('shop/data_manager/partial_sdm_view_products.html', context) 
+    data['html_sdm_sidenav_products'] = render_to_string('shop/data_manager/partial_sdm_sidenav_products.html') 
+    data['status'] = 'S'
+
+    return JsonResponse(data)

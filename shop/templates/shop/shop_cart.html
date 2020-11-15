@@ -49,7 +49,7 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script src="{% static 'shop/js/stripe_pay.js' %}"></script>
 <script>
-  
+$(function() {
   function op_count_action(btn) {
     const action_url = btn.attr('action-url');
     const csrftoken = getCookie('csrftoken');
@@ -93,7 +93,7 @@
     op_count_action(btn);
   });
 
-
+})  
 </script>
 {% endblock %}
 

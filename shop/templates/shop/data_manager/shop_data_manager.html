@@ -6,18 +6,49 @@
 {% endblock %}
 
 {% block content %}
-<div>
-  {% include "shop/data_manager/partial_sdm_topnav.html" %}
-</div>
-<div id="sdm-content-pane mt-3">
-  host details
-</div>
-
+  <div class="mt-3" id="js-sdm-top-nav">
+    {% include "shop/data_manager/partial_sdm_topnav.html" %}
+  </div>
+  <div id="sdm-content-pane">
+    {% include "shop/data_manager/partial_sdm_view_orders.html" %}
+  </div>
 {% endblock %}
 
 {% block js_shop %}
+<script>
+$(function() {
+  $('#js-sdm-top-nav').click(function(){
+    
+    $('#js-sdm-top-nav').find('.nav-link').removeClass('active');
+    $(event.target).addClass('active');
+    
+    const tab_name = $(event.target).attr('tab-name');
+    switch(tab_name) {
+      case 'Orders':
+          const url_o = 'manager/orders';
+          fetch(url_o)
+            .then(response => response.json())
+            .then(data => {
+              $("#sdm-sidebar-nav-1").html(data['html_sdm_sidenav_orders']);
+              $('#sdm-content-pane').html(data['html_sdm_view_orders']);
+            });
+          break;
 
+      case "Products":
+          const url_p = 'manager/products';
+          fetch(url_p)
+            .then(response => response.json())
+            .then(data => {
+              $("#sdm-sidebar-nav-1").html(data['html_sdm_sidenav_products']);
+              $('#sdm-content-pane').html(data['html_sdm_view_products']);
+            });
+          break;
 
+    };
+
+  });
+})
+</script>
 {% endblock %}
 
 

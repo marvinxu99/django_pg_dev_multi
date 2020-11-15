@@ -2,10 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.contrib.auth.models import AnonymousUser
-from django.db.models import Sum
-from django.db.models import Q
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
+from django.db.models import Sum, Q
+from django.shortcuts import render, get_object_or_404
 
 
 from shop.models import Cart, CartItem, Product
