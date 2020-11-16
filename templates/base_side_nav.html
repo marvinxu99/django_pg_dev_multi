@@ -16,6 +16,8 @@
   <body>
     {% block body %} 
       {% include "winn_nav.html" with app_name="Online Shop" %}
+      {% block subnavbar %}
+      {% endblock %}
       <div class="row">
         <div class="col-sm-2 col-md-2">
           {% block sidebar %}

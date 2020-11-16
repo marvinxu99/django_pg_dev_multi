@@ -6,9 +6,14 @@
   <link rel="stylesheet" href="{% static 'shop/css/collection-item.css' %}">
   <link rel="stylesheet" href="{% static 'shop/css/shop_cart.css' %}">
 {% endblock %}
+{% block subnavbar %}
+{% include "includes/partial_nav_shopnav.html" %}
+{% endblock %}
 {% block sidebar %}
   {% include "includes/partial_nav_sidebar.html" %}
 {% endblock %} 
+{% block content %}
+{% endblock %}
 {% block javascript %}
   <script src="{% static 'js/winn_utils.js' %}"></script>
   <script src="{% static 'shop/js/shop_utils.js' %}"></script>
