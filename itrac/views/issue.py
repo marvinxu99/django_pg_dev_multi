@@ -26,11 +26,18 @@ def my_in_progress_issues(request):
     """
     issue_count_total = Issue.objects.count()
 
-    current_project = request.session.get('current_project', { 'project': 'WINN', 'id': 0 })
+    if not request.session.get('current_project', False):
+            request.session['current_project'] = { 'title': 'WINN', 'id': 1 } 
+
+    current_project = request.session.get('current_project', { 'title': 'WINN', 'id': 1 })
+
     issues = Issue.objects.filter(
             assignee=request.user, 
             project__pk=current_project['id'],
-            status__in = (ISSUE_STATUS.OPEN, ISSUE_STATUS.INVESTIGATE,  ISSUE_STATUS.TRIAGE, ISSUE_STATUS.BUILD_IN_PROGRESS)
+            status__in = (ISSUE_STATUS.OPEN, 
+                            ISSUE_STATUS.INVESTIGATE, 
+                            ISSUE_STATUS.TRIAGE, 
+                            ISSUE_STATUS.BUILD_IN_PROGRESS)
         ).order_by('-created_date')
 
     issue_count_filter = issues.count()
@@ -54,7 +61,7 @@ def issues_reported_by_me(request):
     """
     issue_count_total = Issue.objects.count()
 
-    current_project = request.session.get('current_project', { 'project': 'WINN', 'id': 0 })
+    current_project = request.session.get('current_project', { 'project': 'WINN', 'id': 1 })
     issues = Issue.objects.filter(
             author = request.user, 
             project__pk = current_project['id'],
