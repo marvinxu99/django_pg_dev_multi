@@ -31,8 +31,8 @@ def run_fast_scandir(dir, ext):    # dir: str, ext: list
         if f.is_dir() and (f.path not in sdirs_to_exclude):
             subfolders.append(f.path)
         if f.is_file():
-            #if os.path.splitext(f.name)[1].lower() in ext:
-            if (time.time() - os.stat(f).st_mtime) < LOOKBACK_TIME:
+            if (os.path.splitext(f.name)[1].lower() in ext 
+                    and (time.time() - os.stat(f).st_mtime) < LOOKBACK_TIME):
                 files.append(f.path)
 
     for dir in list(subfolders):
@@ -42,11 +42,14 @@ def run_fast_scandir(dir, ext):    # dir: str, ext: list
 
     return subfolders, files
 
-source_folders, source_files = run_fast_scandir(PATH_SOURCE, [".txt"])
+source_folders, source_files = run_fast_scandir(PATH_SOURCE, [".py"])
 
-print(list(source_files))
+print("Files to be exported:")
+for i in range(len(source_files)):
+    print(source_files[i])
 # print(sdirs_to_exclude)
 # print(PATH_TARGET1)
 # print(PATH_TARGET2)
+
 
 
