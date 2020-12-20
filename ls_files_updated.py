@@ -6,7 +6,7 @@ from pathlib import Path
 LOOKBACK_TIME = 3600    # 60 mins
 
 # Define the folders to be excluded
-DIRS_TO_EXCLUDE = ['venv']
+DIRS_TO_EXCLUDE = ['venv', '.git']
 
 PATH_SOURCE = os.getcwd()
 PATH_TARGET1 = Path(PATH_SOURCE).parent.joinpath('django_pg_heroku')
@@ -28,7 +28,7 @@ def run_fast_scandir(dir, ext):    # dir: str, ext: list
     subfolders, files = [], []
 
     for f in os.scandir(dir):
-        if f.is_dir() and (f not in sdirs_to_exclude):
+        if f.is_dir() and (f.path not in sdirs_to_exclude):
             subfolders.append(f.path)
         if f.is_file():
             #if os.path.splitext(f.name)[1].lower() in ext:
@@ -45,7 +45,8 @@ def run_fast_scandir(dir, ext):    # dir: str, ext: list
 source_folders, source_files = run_fast_scandir(PATH_SOURCE, [".txt"])
 
 print(list(source_files))
+# print(sdirs_to_exclude)
+# print(PATH_TARGET1)
+# print(PATH_TARGET2)
 
-print(sdirs_to_exclude)
-print(PATH_TARGET1)
-print(PATH_TARGET2)
+
