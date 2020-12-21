@@ -50,7 +50,7 @@ class Product(models.Model):
         return self.display
 
     def product_img_url(self):
-        return f'{ settings.MEDIA_URL }/{ self.image }'
+        return f'{ settings.MEDIA_URL }{ self.image }'
 
     # def get_absolute_url(self):
     #     return reverse('shop:product_detail', args=[self.id, self.slug])

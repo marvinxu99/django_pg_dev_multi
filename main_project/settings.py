@@ -195,8 +195,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "generated_codes"),
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'http://192.168.0.57/media/'
+MEDIA_ROOT = 'http://192.168.0.57/media/'
 
 FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, 'uploaded_files_temp')
 GENERATED_BARCODE__DIR = os.path.join(BASE_DIR, 'generated_codes')
