@@ -176,6 +176,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+LANGUAGES = [
+    ('en','English'),
+    ('zh-cn', u'简体中文'),
+    ('zh-tw', u'繁體中文'), 
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
