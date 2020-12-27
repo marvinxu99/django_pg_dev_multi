@@ -4,17 +4,17 @@
 {% block content %}
 <h3>{{ page_title }}</h3>
 {% if items %}
-  <a class="btn btn-outline-primary" href="{% url 'shop:cart_remove_all_items' %}" role="button">{% trans "Remove All Items" %}</a>
+  <a class="btn btn-outline-primary" href="{% url 'shop:cart_remove_all_items' %}" role="button">{% translate "Remove All Items" %}</a>
 {% endif %}
 
 <div class='checkout-page'>
   <div class='checkout-header'>
-    <div class='header-block'><span>{% trans "Product" %}</span></div>
-    <div class='header-block'><span>{% trans "Description" %}</span></div>
-    <div class='header-block'><span>{% trans "Price" %}</span></div>
-    <div class='header-block'><span>{% trans "Quantity" %}</span></div>
-    <div class='header-block'><span>{% trans "Subtotal" %}</span></div>
-    <div class='header-block'><span>{% trans "Remove" %}</span></div>
+    <div class='header-block'><span>{% translate "Product" %}</span></div>
+    <div class='header-block'><span>{% translate "Description" %}</span></div>
+    <div class='header-block'><span>{% translate "Price" %}</span></div>
+    <div class='header-block'><span>{% translate "Quantity" %}</span></div>
+    <div class='header-block'><span>{% translate "Subtotal" %}</span></div>
+    <div class='header-block'><span>{% translate "Remove" %}</span></div>
   </div>
   <div class='checkout-items'>
     {% for item in items %}
@@ -31,7 +31,7 @@
         <div class='remove-button js_item_remove' action-url="{% url 'shop:cart_remove_item' item.product_id %}">&#10005; </div>
       </div>
     {% empty %}
-      <div>**{% trans "Your shopping cart is empty" %}.**</div>
+      <div>**{% translate "Your shopping cart is empty" %}.**</div>
     {% endfor %}
   </div>
   <div class='total'>TOTAL: $<span id="cart_total">{{ cart_total|floatformat:2 }}</span></div>

@@ -1,0 +1,41 @@
+Installed on my computer 27-Dec-2020 following the steps below:
+===============================================================
+1- Go to this link : https://mlocati.github.io/articles/gettext-iconv-windows.html
+
+2- Download 32 or 64 bit shared and static windows installation files
+
+3-Install
+
+4-Restart your computer
+
+
+
+
+
+Linux & Unix-like:
+==================
+
+Installing gettext package on Linux is as easy as running the following command on terminal:
+
+apt-get update
+apt-get install gettext
+
+Windows
+
+Download the following zip files from the GNOME servers http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/ or from one of its mirrors;
+X is the version number, we are requiring 0.19.8.1 or higher.
+
+https://download.gnome.org/binaries/win64/dependencies/
+
+gettext-runtime-X.zip
+gettext-tools-X.zip
+Extract the contents of the bin\ directories in both files to the same folder on your system (i.e. C:\Program Files\gettext-utils)
+
+Update the system PATH:
+
+Control Panel > System > Advanced > Environment Variables.
+In the System variables list, click Path, click Edit.
+Add ;C:\Program Files\gettext-utils\bin at the end of the Variable value field.
+You may also use gettext binaries you have obtained elsewhere, so long as the following command works properly: 
+
+xgettext --version

@@ -1,25 +1,25 @@
 {% extends 'shop/base_shop.html' %}
 {% load i18n %}
-{% block title %}{% trans "Successful Payment" %}{% endblock %}
+{% block title %}{% translate "Successful Payment" %}{% endblock %}
 {% block content %}
 <div class="d-flex justify-content-between w-75">
   <div>
     <h3>{{ page_title }}</h3>
-    <p>{% trans "You have sucessfully paid the following items" %}:</p>
+    <p>{% translate "You have sucessfully paid the following items" %}:</p>
   </div>
   <div>
-    <button>{% trans "Email receipt" %}</button>
-    <button>{% trans "Download receipt" %}</button>
+    <button>{% translate "Email receipt" %}</button>
+    <button>{% translate "Download receipt" %}</button>
   </div>
 </div>
 <div class='order-page'>
   <div class='order-header'>
-    <div class='header-block'><span>{% trans "Product" %}</span></div>
-    <div class='header-block'><span>{% trans "Description" %}</span></div>
-    <div class='header-block'><span>{% trans "Price" %}</span></div>
-    <div class='header-block'><span>{% trans "Quantity" %}</span></div>
-    <div class='header-block'><span>{% trans "Subtotal" %}</span></div>
-    <div class='header-block'><span>{% trans "Remark" %}</span></div>
+    <div class='header-block'><span>{% translate "Product" %}</span></div>
+    <div class='header-block'><span>{% translate "Description" %}</span></div>
+    <div class='header-block'><span>{% translate "Price" %}</span></div>
+    <div class='header-block'><span>{% translate "Quantity" %}</span></div>
+    <div class='header-block'><span>{% translate "Subtotal" %}</span></div>
+    <div class='header-block'><span>{% translate "Remark" %}</span></div>
   </div>
   <div class='order-items'>
     {% for item in items %}
@@ -33,9 +33,9 @@
         <div class='subtotal'>${{ item.price|floatformat:2  }}</div>
       </div>
     {% empty %}
-      <div>**{% trans "no orders" %}.**</div>
+      <div>**{% translate "no orders" %}.**</div>
     {% endfor %}
   </div>
-  <div class='total'>{% trans "TOTAL" %}: ${{ order_total|floatformat:2 }}</div>
+  <div class='total'>{% translate "TOTAL" %}: ${{ order_total|floatformat:2 }}</div>
 
 {% endblock %}
