@@ -1,0 +1,8 @@
+(1) ensure gettext is installed. 
+    for ubuntu:  sudo apt install gettext
+
+
+(2) python manage.py makemessages -l <desired_language> 
+
+
+

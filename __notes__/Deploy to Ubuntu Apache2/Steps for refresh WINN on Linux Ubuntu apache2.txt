@@ -1,0 +1,2 @@
+(1) Ensure py_dajngo_pg_winn is up to date
+(2) log into 
