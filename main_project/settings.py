@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from decouple import config, Csv
 import django_heroku
+from django.utils.translation import ugettext_lazy as _
 
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -174,7 +175,7 @@ USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = [
-    ('en','English'),
+    ('en-us',_('English')),
     ('zh-cn', u'简体中文'),
     ('zh-tw', u'繁體中文'), 
 ]
