@@ -179,7 +179,9 @@ LANGUAGES = [
     ('zh-cn', u'简体中文'),
     ('zh-tw', u'繁體中文'), 
 ]
-
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
