@@ -1,8 +1,16 @@
 {% extends 'shop/base_shop.html' %}
 {% block title %}Successful Payment {% endblock %}
 {% block content %}
-<h3>{{ page_title }}</h3>
-<p>You have sucessfully paid the following items:</p>
+<div class="d-flex justify-content-between w-75">
+  <div>
+    <h3>{{ page_title }}</h3>
+    <p>You have sucessfully paid the following items:</p>
+  </div>
+  <div>
+    <button>Email receipt</button>
+    <button>Download receipt</button>
+  </div>
+</div>
 <div class='order-page'>
   <div class='order-header'>
     <div class='header-block'><span>Product</span></div>
