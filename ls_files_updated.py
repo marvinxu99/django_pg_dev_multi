@@ -4,18 +4,19 @@ import shutil
 
 
 # Define look back time
-#LOOKBACK_TIME = 300    # 5 mins
-LOOKBACK_TIME = 3600    # 60 mins
+LOOKBACK_TIME = 60 * 15    # 15 mins
+#LOOKBACK_TIME = 60 * 60    # 60 mins
+#LOOKBACK_TIME = 60 * 60 * 2    # 2 hours
 
 # Define the subfolders to be excluded
 DIRS_TO_EXCLUDE = ['venv', '.git']
 # Define the folders to be excluded
 FILES_TO_EXCLUDE = ['settings.py', 'test_temp.py']
 # Define file extension/type to be included
-EXT_TO_INCLUDE = ['.py', '.txt']
+TYPES_TO_INCLUDE = ['.py', '.txt', ".html", ".po", ".mo"]
 
 PATH_SOURCE = os.getcwd()
-#PATH_TARGET1 = Path(PATH_SOURCE).parent.joinpath('django_pg_heroku')
+#PATH_TARGET1 = Path(PATH_SOURCE).parent.joinpath('django_pg_heroku')x
 PATH_TARGET1 = os.path.join(Path(PATH_SOURCE).parent, 'django_pg_heroku')
 PATH_TARGET2 = os.path.join(Path(PATH_SOURCE).parent, 'django_pg_winn')
 
@@ -69,7 +70,7 @@ def run_fast_scandir(dir, ext):    # dir: str, ext: list
 if __name__ == "__main__":
     source_files = []
 
-    _, source_files = run_fast_scandir(PATH_SOURCE, EXT_TO_INCLUDE)
+    _, source_files = run_fast_scandir(PATH_SOURCE, TYPES_TO_INCLUDE)
 
     print_info("Files to be exported:")
     for i in range(len(source_files)):

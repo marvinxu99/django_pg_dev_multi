@@ -186,7 +186,7 @@ class UOM_TEMP(models.TextChoices):
     DEGC = 'C', _("degree Celsius")
     DEGF = 'F', _("degree Fahrenheit")
 
-# Unit of Measure(UOM) - temperature
+# Code Set
 class CODE_SET:
     WINTER              = 1
     PRODUCT_CATEGORY    = 2

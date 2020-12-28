@@ -1,0 +1,82 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-27 19:20-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\templates\shop\base_shop.html:4
+msgid "Online Shop"
+msgstr "網上商店"
+
+#: .\templates\shop\cart_pay_success.html:3
+msgid "Successful Payment"
+msgstr "支付成功"
+
+#: .\templates\shop\cart_pay_success.html:8
+msgid "You have sucessfully paid the following items"
+msgstr "您已支付如下物品"
+
+#: .\templates\shop\cart_pay_success.html:11
+msgid "Email receipt"
+msgstr "電郵收據"
+
+#: .\templates\shop\cart_pay_success.html:12
+msgid "Download receipt"
+msgstr "下載收據"
+
+#: .\templates\shop\cart_pay_success.html:17 .\templates\shop\shop_cart.html:12
+msgid "Product"
+msgstr "商品"
+
+#: .\templates\shop\cart_pay_success.html:18 .\templates\shop\shop_cart.html:13
+msgid "Description"
+msgstr "描述"
+
+#: .\templates\shop\cart_pay_success.html:19 .\templates\shop\shop_cart.html:14
+msgid "Price"
+msgstr "價格"
+
+#: .\templates\shop\cart_pay_success.html:20 .\templates\shop\shop_cart.html:15
+msgid "Quantity"
+msgstr "數量"
+
+#: .\templates\shop\cart_pay_success.html:21 .\templates\shop\shop_cart.html:16
+msgid "Subtotal"
+msgstr "小計"
+
+#: .\templates\shop\cart_pay_success.html:22
+msgid "Remark"
+msgstr "備注"
+
+#: .\templates\shop\cart_pay_success.html:36
+msgid "no orders"
+msgstr "沒有訂單"
+
+#: .\templates\shop\cart_pay_success.html:39
+msgid "TOTAL"
+msgstr "總計"
+
+#: .\templates\shop\shop_cart.html:7
+msgid "Remove All Items"
+msgstr "清除所有物品"
+
+#: .\templates\shop\shop_cart.html:17
+msgid "Remove"
+msgstr "清除"
+
+#: .\templates\shop\shop_cart.html:34
+msgid "Your shopping cart is empty"
+msgstr "您的購物車是空的"

@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 from core.models import CodeValue 
 from core.constants import CODE_SET
@@ -12,7 +13,7 @@ class Product(models.Model):
                                 related_name='products',     # '+': Do not create backwards relation to this model 
                                 on_delete=models.CASCADE,
                                 limit_choices_to={'code_set': CODE_SET.PRODUCT_CATEGORY, 'active_ind': 1},
-                                verbose_name="Category"
+                                verbose_name=_('category')
                             )
     
     slug = models.SlugField(max_length=100, db_index=True)
