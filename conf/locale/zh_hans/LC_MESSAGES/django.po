@@ -34,3 +34,12 @@ msgstr "女装"
 
 msgid "mens"
 msgstr "男装"
+
+msgid "Brown Cowboy"
+msgstr "棕色牛仔帽"
+
+msgid "Blue Jean Jacket"
+msgstr "蓝色牛仔夹克"
+
+msgid "Black Jean Shearling"
+msgstr "黑色牛仔毛外套"

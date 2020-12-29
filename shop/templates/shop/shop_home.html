@@ -1,5 +1,6 @@
 {% extends 'shop/base_shop.html'%}
 {% load static %}
+{% load i18n %}
 {% block content %}
 <h3>{{ page_title|title }}</h3>
 <div class="d-flex flex-wrap">
@@ -7,10 +8,12 @@
     <div class="collection-item">
       <img class="image" src="{{ product.product_img_url }}" />
       <div class="collection-footer">
-        <span class="name">{{ product.display }}</span>
+        <span class="name">{% translate product.display %}</span>
         <span class="price">${{ product.price }}</span>
       </div>
-      <button class="custom-button js_add_to_cart" action-url="{% url 'shop:cart_add_item' product.id %}">ADD TO CART</button>
+      <button class="custom-button js_add_to_cart" action-url="{% url 'shop:cart_add_item' product.id %}">
+        {% translate "ADD TO CART" %}
+      </button>
     </div>    
   {% empty %}
     Not found.
