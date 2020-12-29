@@ -5,7 +5,7 @@
     {% if categories %}
       <div class='ml-1 text-info'>{% translate "CATEGORIES" %}:</div>
       {% for category in categories %}
-      <a class="nav-link" href="{% url 'shop:product_by_category' category %}">{{ category.display|title }}</a>
+      <a class="nav-link" href="{% url 'shop:product_by_category' category %}">{% translate category.display|title %}</a>
       {% endfor %}
       <div class="border-top my-1"></div>
     {% endif %}

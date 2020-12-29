@@ -1,0 +1,67 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-28 15:13-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\catalog\forms\change_book_status_form.py:30
+msgid "Status"
+msgstr ""
+
+#: .\catalog\forms\change_book_status_form.py:31
+msgid "Change the status of the book instance."
+msgstr ""
+
+#: .\catalog\forms\renew_form.py:17 .\catalog\forms\renew_form.py:43
+#: .\catalog\forms\test_checkout_form.py:30
+msgid "Invalid date - renewal in past"
+msgstr ""
+
+#: .\catalog\forms\renew_form.py:21 .\catalog\forms\renew_form.py:47
+msgid "Invalid date - renewal more than 4 weeks ahead"
+msgstr ""
+
+#: .\catalog\forms\renew_form.py:35
+msgid "Renewal date"
+msgstr ""
+
+#: .\catalog\forms\renew_form.py:36 .\catalog\forms\test_checkout_form.py:19
+msgid "Enter a date between now and 4 weeks (default 3)."
+msgstr ""
+
+#: .\catalog\forms\test_checkout_form.py:18
+msgid "Return date"
+msgstr ""
+
+#: .\catalog\forms\test_checkout_form.py:34
+msgid "Invalid date - return date more than 4 weeks ahead"
+msgstr ""
+
+#: .\catalog\models.py:93
+msgid "Available"
+msgstr ""
+
+#: .\catalog\models.py:94
+msgid "Maintenance"
+msgstr ""
+
+#: .\catalog\models.py:95
+msgid "On loan"
+msgstr ""
+
+#: .\catalog\models.py:96
+msgid "Reserved"
+msgstr ""

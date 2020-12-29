@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Q
+from django.utils.translation import gettext_lazy as _
 
 from ..models import Product
 from core.models import CodeValue
@@ -16,7 +17,7 @@ def shop_home(request):
     context = {
         'products': products,
         'categories': categories,
-        'page_title': "All Products"
+        'page_title': _("All Products"),
     }
 
     return render(request, "shop/shop_home.html", context)

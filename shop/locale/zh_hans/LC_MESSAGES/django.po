@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-28 08:42-0800\n"
+"POT-Creation-Date: 2020-12-28 15:13-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,66 +17,129 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\templates\shop\base_shop.html:4
+#: .\shop\models\product.py:16
+msgid "category"
+msgstr "商品类别"
+
+#: .\shop\templates\includes\partial_nav_sidebar.html:6
+msgid "CATEGORIES"
+msgstr "商品类别"
+
+#: .\shop\templates\includes\partial_nav_sidebar.html:14
+msgid "View cart"
+msgstr "查看购物车"
+
+#: .\shop\templates\includes\partial_nav_sidebar.html:15
+msgid "View orders"
+msgstr "查看订单"
+
+#: .\shop\templates\includes\partial_nav_sidebar.html:20
+msgid "Data Manager"
+msgstr "管理数据"
+
+#: .\shop\templates\includes\partial_nav_sidebar.html:24
+msgid "Logout"
+msgstr "退出"
+
+#: .\shop\templates\includes\partial_nav_sidebar.html:26
+msgid "Login"
+msgstr "登录"
+
+#: .\shop\templates\shop\base_shop.html:4
 msgid "Online Shop"
 msgstr "网上商店"
 
-#: .\templates\shop\cart_pay_success.html:3
+#: .\shop\templates\shop\cart_pay_success.html:3
 msgid "Successful Payment"
 msgstr "付款成功"
 
-#: .\templates\shop\cart_pay_success.html:8
+#: .\shop\templates\shop\cart_pay_success.html:8
 msgid "You have sucessfully paid the following items"
 msgstr "你已成功支付了以下物品"
 
-#: .\templates\shop\cart_pay_success.html:11
+#: .\shop\templates\shop\cart_pay_success.html:11
 msgid "Email receipt"
 msgstr "电子邮件收据"
 
-#: .\templates\shop\cart_pay_success.html:12
+#: .\shop\templates\shop\cart_pay_success.html:12
 msgid "Download receipt"
 msgstr "下载收据"
 
-#: .\templates\shop\cart_pay_success.html:17 .\templates\shop\shop_cart.html:12
+#: .\shop\templates\shop\cart_pay_success.html:17
+#: .\shop\templates\shop\shop_cart.html:12
 msgid "Product"
 msgstr "物品"
 
-#: .\templates\shop\cart_pay_success.html:18 .\templates\shop\shop_cart.html:13
+#: .\shop\templates\shop\cart_pay_success.html:18
+#: .\shop\templates\shop\shop_cart.html:13
 msgid "Description"
 msgstr "描述"
 
-#: .\templates\shop\cart_pay_success.html:19 .\templates\shop\shop_cart.html:14
+#: .\shop\templates\shop\cart_pay_success.html:19
+#: .\shop\templates\shop\shop_cart.html:14
 msgid "Price"
 msgstr "单价"
 
-#: .\templates\shop\cart_pay_success.html:20 .\templates\shop\shop_cart.html:15
+#: .\shop\templates\shop\cart_pay_success.html:20
+#: .\shop\templates\shop\shop_cart.html:15
 msgid "Quantity"
 msgstr "数量"
 
-#: .\templates\shop\cart_pay_success.html:21 .\templates\shop\shop_cart.html:16
+#: .\shop\templates\shop\cart_pay_success.html:21
+#: .\shop\templates\shop\shop_cart.html:16
 msgid "Subtotal"
 msgstr "小计"
 
-#: .\templates\shop\cart_pay_success.html:22
+#: .\shop\templates\shop\cart_pay_success.html:22
 msgid "Remark"
 msgstr "备注"
 
-#: .\templates\shop\cart_pay_success.html:36
+#: .\shop\templates\shop\cart_pay_success.html:36
 msgid "no orders"
 msgstr "没有订单"
 
-#: .\templates\shop\cart_pay_success.html:39
+#: .\shop\templates\shop\cart_pay_success.html:39
 msgid "TOTAL"
 msgstr "总计"
 
-#: .\templates\shop\shop_cart.html:7
+#: .\shop\templates\shop\shop_cart.html:7
 msgid "Remove All Items"
 msgstr "清除所有物品"
 
-#: .\templates\shop\shop_cart.html:17
+#: .\shop\templates\shop\shop_cart.html:17
 msgid "Remove"
 msgstr "清除"
 
-#: .\templates\shop\shop_cart.html:34
+#: .\shop\templates\shop\shop_cart.html:34
 msgid "Your shopping cart is empty"
 msgstr "你的购物车是空的"
+
+#: .\shop\views\shop_cart.py:168 .\shop\views\shop_cart.py:187
+msgid "Shopping Cart"
+msgstr "购物车"
+
+#: .\shop\views\shop_home.py:20
+#, fuzzy
+#| msgid "Product"
+msgid "All Products"
+msgstr "所有物品"
+
+#: .\shop\views\shop_orders.py:27
+msgid "Your orders"
+msgstr "您的订单"
+
+#: .\shop\views\shop_orders.py:29 .\shop\views\shop_orders.py:47
+msgid "My Last Order"
+msgstr "我的最后的订单"
+
+#: .\shop\views\shop_orders.py:50
+msgid "My Last 3 Orders"
+msgstr "我的最后三次订单"
+
+#: .\shop\views\shop_orders.py:53
+msgid "All My Orders"
+msgstr "我的所有订单"
+
+#: .\shop\views\shop_orders.py:72
+msgid "Order placed on"
+msgstr "订单 - 订购日期:"

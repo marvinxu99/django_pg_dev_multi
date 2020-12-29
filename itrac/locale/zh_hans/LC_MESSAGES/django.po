@@ -1,0 +1,122 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-28 15:13-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\itrac\forms\issue_forms.py:31 .\itrac\forms\issue_forms.py:75
+msgid "This field should not be empty."
+msgstr ""
+
+#: .\itrac\models\issue.py:19
+msgid "Break/fix"
+msgstr ""
+
+#: .\itrac\models\issue.py:20
+msgid "New feature"
+msgstr ""
+
+#: .\itrac\models\issue.py:21
+msgid "Optimization"
+msgstr ""
+
+#: .\itrac\models\issue.py:22
+msgid "Task"
+msgstr ""
+
+#: .\itrac\models\issue.py:26
+msgid "Open"
+msgstr ""
+
+#: .\itrac\models\issue.py:27
+msgid "Investigate"
+msgstr ""
+
+#: .\itrac\models\issue.py:28
+msgid "Await approval"
+msgstr ""
+
+#: .\itrac\models\issue.py:29
+msgid "Build in progress"
+msgstr ""
+
+#: .\itrac\models\issue.py:30
+msgid "Validate in progress"
+msgstr ""
+
+#: .\itrac\models\issue.py:31
+msgid "Complete"
+msgstr ""
+
+#: .\itrac\models\issue.py:32
+msgid "Closed"
+msgstr ""
+
+#: .\itrac\models\issue.py:35
+msgid "1 - highest"
+msgstr ""
+
+#: .\itrac\models\issue.py:36
+msgid "2"
+msgstr ""
+
+#: .\itrac\models\issue.py:37
+msgid "3"
+msgstr ""
+
+#: .\itrac\models\issue.py:38
+msgid "4"
+msgstr ""
+
+#: .\itrac\models\issue.py:39
+msgid "5 - lowest"
+msgstr ""
+
+#: .\itrac\models\issue_issue_link.py:9
+msgid "relates to"
+msgstr ""
+
+#: .\itrac\models\issue_issue_link.py:10
+msgid "blocks"
+msgstr ""
+
+#: .\itrac\models\issue_issue_link.py:11
+msgid "is blocked by"
+msgstr ""
+
+#: .\itrac\models\issue_issue_link.py:12
+msgid "causes"
+msgstr ""
+
+#: .\itrac\models\issue_issue_link.py:13
+msgid "is caused by"
+msgstr ""
+
+#: .\itrac\models\issue_issue_link.py:14
+msgid "clones"
+msgstr ""
+
+#: .\itrac\models\issue_issue_link.py:15
+msgid "is cloned by"
+msgstr ""
+
+#: .\itrac\models\issue_issue_link.py:16
+msgid "duplicates"
+msgstr ""
+
+#: .\itrac\models\issue_issue_link.py:17
+msgid "is duplicated by"
+msgstr ""

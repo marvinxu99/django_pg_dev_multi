@@ -4,9 +4,9 @@ import shutil
 
 
 # Define look back time
-LOOKBACK_TIME = 60 * 15    # 15 mins
+#LOOKBACK_TIME = 60 * 15    # 15 mins
 #LOOKBACK_TIME = 60 * 60    # 60 mins
-#LOOKBACK_TIME = 60 * 60 * 2    # 2 hours
+LOOKBACK_TIME = 60 * 60 * 3    # 3 hours
 
 # Define the subfolders to be excluded
 DIRS_TO_EXCLUDE = ['venv', '.git']

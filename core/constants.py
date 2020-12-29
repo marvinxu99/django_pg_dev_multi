@@ -192,3 +192,11 @@ class CODE_SET:
     PRODUCT_CATEGORY    = 2
     EVENT_CODE          = 3
     ORDER_STATUS        = 4   
+
+# Product category
+class PRODUCT_CATEGORY:
+    COMMENT_STAFF = '01', _('Staff Comment')		
+    COMMENT_CLIENT = '02', _('Client Comment')
+    COMMENT_AUDIT = '03', _('Audit Comment')
+    COMMENT_SYSTEM = '04', _('System Comment')
+    COMMENT_VOID = '05', _('Void Reason')

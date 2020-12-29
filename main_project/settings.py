@@ -178,6 +178,7 @@ USE_TZ = True
 
 LANGUAGES = [
     ('en', _('English')),
+    ('fr', _('French')),
     ('zh-hans', u'简体中文'),
     ('zh-hant', u'繁體中文'), 
 ]

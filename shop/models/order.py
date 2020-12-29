@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 from core.constants import CODE_SET
 from core.models import CodeValue
@@ -43,4 +44,4 @@ class Order(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return f'Order placed on { self.create_dt_tm.strftime("%d-%b-%Y") }, ${ self.total }'
+        return _('Order placed on') + ' ' + f'{ self.create_dt_tm.strftime("%d-%b-%Y") }, ${ self.total }'

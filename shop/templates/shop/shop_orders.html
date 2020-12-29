@@ -1,17 +1,17 @@
 {% extends 'shop/base_shop.html' %}
 {% block title %}{{ page_title }} {% endblock %}
-{% load index %}
+{% load i18n %}
 {% block content %}
   <h3>{{ page_title }}</h3>
   <div class="dropdown d-flex align-items-center mt-3">
     <span class="h5 mr-1" id="filter-name">{{ filter_name|title }}</span> 
     <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-      (switch filter) <span class="caret"></span>
+      (filter) <span class="caret"></span>
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-      <button class="dropdown-item js-order-filter" type="button" filter="my-last-order">My Last Order</button>
-      <button class="dropdown-item js-order-filter" type="button" filter="my-last-3-orders">My Last 3 Orders</button>
-      <button class="dropdown-item js-order-filter" type="button" filter="all-my-orders">All My Orders</button>
+      <button class="dropdown-item js-order-filter" type="button" filter="my-last-order">{% translate "My Last Order" %}</button>
+      <button class="dropdown-item js-order-filter" type="button" filter="my-last-3-orders">{% translate "My Last 3 Orders" %}</button>
+      <button class="dropdown-item js-order-filter" type="button" filter="all-my-orders">{% translate "All My Orders" %}</button>
     </div>
   </div>
   <div class="order-page" id="order-page">

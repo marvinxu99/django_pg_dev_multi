@@ -2,7 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-<h3>{{ page_title }}</h3>
+<h3>{% translate page_title %}</h3>
 {% if items %}
   <a class="btn btn-outline-primary" href="{% url 'shop:cart_remove_all_items' %}" role="button">{% translate "Remove All Items" %}</a>
 {% endif %}
