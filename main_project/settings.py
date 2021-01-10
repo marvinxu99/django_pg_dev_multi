@@ -26,7 +26,7 @@ LOGOUT_REDIRECT_URL = reverse_lazy('home')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-PROD_DEPLOY = config('PROD_DEPLOY', default=False)
+PROD_DEPLOY = config('PROD_DEPLOY', default=False, cast=bool)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -214,7 +214,10 @@ STATICFILES_DIRS = [
 # defines the single folder you want to collect all your static files into.
 # While DEBUG=True, STATIC_ROOT does nothing. You even don't need to set it. Django looks for static
 # files inside each app's directory (myProject/appName/static) and serves them automatically.
-if DEBUG:
+if PROD_DEPLOY:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_URL = '/static/'
+else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATIC_URL = '/static/'
 
