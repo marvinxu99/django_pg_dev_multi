@@ -18,7 +18,7 @@ TYPES_TO_INCLUDE = ['.py', '.txt', ".html", ".po", ".mo"]
 PATH_SOURCE = os.getcwd()
 #PATH_TARGET1 = Path(PATH_SOURCE).parent.joinpath('django_pg_heroku')x
 PATH_TARGET1 = os.path.join(Path(PATH_SOURCE).parent, 'django_pg_heroku')
-PATH_TARGET2 = os.path.join(Path(PATH_SOURCE).parent, 'django_pg_winn')
+PATH_TARGET2 = os.path.join(Path(PATH_SOURCE).parent, '2_django_pg_winn')
 
 SDIRS_TO_EXCLUDE = list(map(lambda dir: os.path.join(PATH_SOURCE, dir), DIRS_TO_EXCLUDE))
 
