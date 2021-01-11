@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from decouple import config, Csv
-import django_heroku
+# import django_heroku
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse_lazy
 
@@ -209,7 +209,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-
 # STATIC_ROOT 
 # defines the single folder you want to collect all your static files into.
 # While DEBUG=True, STATIC_ROOT does nothing. You even don't need to set it. Django looks for static
@@ -248,4 +247,4 @@ OXFORD_APP_KEY = config('OXFORD_APP_KEY', default='')
 
 
 # Configure Django App for Heroku. 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
