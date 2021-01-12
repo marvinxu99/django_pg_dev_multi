@@ -107,9 +107,9 @@ def view_file_tree(request):
     f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
     f_list = [p for p in pathlib.Path(f_path).iterdir() if p.is_file()]
 
-    # list the files in the FILE_UPLOAD_TEMP_DIR 
+    # list the files in the FILE_UPLOAD_DIR 
     f_uploaded_list = []
-    f_uploaded_path = settings.FILE_UPLOAD_TEMP_DIR
+    f_uploaded_path = settings.FILE_UPLOAD_DIR
     # for root, d_names, f_names in os.walk(f_path):
     #     print(root, d_names, f_names)
     for (_, _, filenames) in os.walk(f_uploaded_path):

@@ -235,8 +235,8 @@ if DEBUG:
 else:
     MEDIA_ROOT = 'http://192.168.0.57/media/'   
 
-FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, 'uploaded_files_temp')
-GENERATED_BARCODE__DIR = os.path.join(BASE_DIR, 'generated_codes')
+FILE_UPLOAD_DIR = os.path.join(BASE_DIR, 'uploaded_files')
+GENERATED_BARCODE_DIR = os.path.join(BASE_DIR, 'generated_codes')
 
 STRIPE_PUBLISHABLE_KEY = 'pk_test_LBnp367Zb5XklDLhtXFg1cgr00SIM9ArGv'
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
