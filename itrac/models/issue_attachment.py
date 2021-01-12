@@ -8,6 +8,9 @@ from django.utils.html import mark_safe
 
 from .issue import Issue
 
+def get_directory_path(instance, filename):
+    return f'itrac/{instance.issue.id}/{filename}'
+
 class IssueAttachment(models.Model):
     """
     A single attachment
@@ -20,6 +23,7 @@ class IssueAttachment(models.Model):
     uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='att_uploader', on_delete=models.CASCADE)
 
     class Meta:
+        db_table = "itrac_issue_attachment"
         verbose_name = "issue_attachment"
         verbose_name_plural = "issue_attachments"
         ordering = ['description']
@@ -30,5 +34,3 @@ class IssueAttachment(models.Model):
     def __str__(self):
         return self.description
 
-    def get_directory_path(self):
-        return f'itrac/{self.issue.project.code}/{self.issue.id}/'
