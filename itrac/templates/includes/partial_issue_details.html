@@ -46,20 +46,7 @@
     {{ issue.get_description_as_markdown }}
   </div>
 </div>
-<div class="mt-3">
-  <div class="d-flex align-items-baseline">
-    <a class="js-collapse-toggle" data-toggle="collapse" href="#collapse_attachments">
-      <i class="fa fa-minus-circle" style="font-size:12px;color:gray"></i>
-    </a>
-    <span class="ml-1 font-weight-bold">Attachments</span>
-  </div>  
-  <div class="collapse js-collapse-details ml-3" id="collapse_attachments">
-    <div class="border w-75 p-5">attachements</div>
-    {% if issue.image %}
-      <img class="materialboxed" src="{{ MEDIA_URL }}{{ issue.image }}" alt="Issue Image" style="width:100%;height:450px;">
-    {% endif %}
-  </div>
-</div>
+{% include "includes/partial_issue_details_attachments/partial_issue_details_attachments.html" %}
 {% include "includes/partial_issue_details_links/partial_issue_details_linked_issues.html" %}
 <div class="mt-3">
   <div class="d-flex align-items-baseline">
