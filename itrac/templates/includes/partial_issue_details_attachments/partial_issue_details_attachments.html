@@ -5,7 +5,7 @@
     </a>
     <span class="ml-1 font-weight-bold">Attachments</span>
     <button type="button" class="btn btn-sm js-add-attachment" style="display:none" 
-        data-url = "{% url 'itrac:issue_links_add_issue' issue.id %}" title="Click to add an attachment">
+        data-url = "{% url 'itrac:issue_attachment_add' issue.id %}" title="Click to add an attachment">
         <i class="fas fa-plus"></i> Add
     </button>
   </div>  
@@ -18,7 +18,7 @@
   </div>
 </div>
 <!-- THE MODAL for adding a new issue link -->
-<div class="modal fade" id="modal-issue-link">
+<div class="modal fade" id="modal-attachment">
   <div class="modal-dialog">
     <div class="modal-content">
     </div>
@@ -39,32 +39,34 @@
        
     const loadForm = function () {
         const url = $(this).attr("data-url");          
-        $("#modal-issue-link").modal("show");          
+        $("#modal-attachment").modal("show");          
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            $("#modal-issue-link .modal-content").html(data.html_form);
+            $("#modal-attachment .modal-content").html(data.html_form);
           })
     };
 
     const saveForm = function () {
-        // In this context, this refers to the element with class .js-issue_attachment_add. 
+        // In this context, this refers to the element with class .js-issue-attachment-add. 
         // Which is the element that fired the submit event. So when we select $(this) we are selecting the actual form.
         const form = $(this);
         const url = form.attr("action") 
         
+        //https://stackoverflow.com/questions/2320069/jquery-ajax-file-upload 
         $.ajax({
             url: url,
-            data: form.serialize(),
             type: form.attr("method"),
-            dataType: 'json',
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
             success: function (data) {
                 if (data.form_is_valid) {
-                    $("#attachments-table tbody").html(data.html_links_list);  // <-- Replace the table body
-                    $("#modal-issue-link").modal("hide"); 
+                    $("#attachments-table tbody").html(data.html_list);  // <-- Replace the table body
+                    $("#modal-attachment").modal("hide"); 
                 }
                 else {
-                    $("#modal-tag .modal-content").html(data.html_form);
+                    $("#modal-attachment .modal-content").html(data.html_form);
                 }
             }
         });
@@ -78,15 +80,15 @@
     // Adding a new issue link
     $('.js-add-attachment').click(loadForm)
     // Save the new issue link
-    $("#modal-issue-link").on("submit", ".js-issue_attachment_add", saveForm);
+    $("#modal-attachment").on("submit", ".js-issue-attachment-add", saveForm);
 
     // Remove an issue link
-    $('#attachments-table').on('click', '.js-issue-links-delete-issue', function(){
+    $('#attachments-table').on('click', '.js-attachment-delete', function(){
         const url = $(this).attr('data-url');
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            $("#attachments-table tbody").html(data.html_links_list); 
+            $("#attachments-table tbody").html(data.html_list); 
         })      
     })
 

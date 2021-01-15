@@ -19,39 +19,32 @@ def issue_attachment_add(request, pk):
 
     issue = get_object_or_404(Issue, pk=pk)
     
-    # Exclude itself and already linked issues
-    exclude_pks.append(issue.pk)
-    for linked in issue.linked_to_issues.all():
-        exclude_pks.append(linked.linked_to_issue.pk)
-    for linked in issue.linked_from_issues.all():
-        exclude_pks.append(linked.linked_from_issue.pk)
-
     if request.method == 'POST':
-        form = IssueToIssueLinkForm(current_project['id'], exclude_pks, request.POST)
+        form = AttachmentAddForm(request.POST, request.FILES)
         if form.is_valid():
-            issue_to_issue_link = form.save(commit=False)
-            issue_to_issue_link.linked_from_issue = issue
-            issue_to_issue_link.updated_date = timezone.now()
-            issue_to_issue_link.updated_by = request.user
-            issue_to_issue_link.save()
+            issue_attachment = form.save(commit=False)
+            issue_attachment.issue = issue
+            issue_attachment.uploaded_at = timezone.now()
+            issue_attachment.uploaded_by = request.user
+            issue_attachment.save()
 
             data['form_is_valid'] = True
-            data['html_links_list'] = render_to_string(
-                'includes/partial_issue_details_links/partial_issue_details_links_list.html', 
+            data['html_list'] = render_to_string(
+                'includes/partial_issue_details_attachments/partial_issue_details_attachments_list.html', 
                 { 'issue': issue }
             )
             return JsonResponse(data)
         else:
             data['form_is_valid'] = False
     else:
-        form = IssueToIssueLinkForm(current_project['id'], exclude_pks)
+        form = AttachmentAddForm()
     
     context = { 
         'form': form,
         'issue': issue,
     }
     data['html_form'] = render_to_string(
-        'includes/partial_issue_details_links/partial_issue_details_links_add_link_form.html',
+        'includes/partial_issue_details_attachments/partial_issue_details_attachment_add_form.html',
         context, 
         request=request
     )
@@ -74,8 +67,8 @@ def issue_attachment_delete(request, pk, linked_pk):
         pass
     
     data['status'] = 'S'
-    data['html_links_list'] = render_to_string(
-        'includes/partial_issue_details_links/partial_issue_details_links_list.html',
+    data['html_list'] = render_to_string(
+        'includes/partial_issue_details_attachments/partial_issue_details_attachments_list.html',
         { 'issue': issue }
     )
     return JsonResponse(data)
