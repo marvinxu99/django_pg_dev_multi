@@ -1,16 +1,16 @@
-<div class="mt-3" id="js_linked_issues">
+<div class="mt-3" id="js_attachments">
   <div class="d-flex align-items-baseline">
     <a class="js-collapse-toggle" data-toggle="collapse" href="#collapse_attachments">
       <i class="fa fa-minus-circle" style="font-size:12px;color:gray"></i>
     </a>
     <span class="ml-1 font-weight-bold">Attachments</span>
-    <button type="button" class="btn btn-sm js-issue-add-links" style="display:none" 
+    <button type="button" class="btn btn-sm js-add-attachment" style="display:none" 
         data-url = "{% url 'itrac:issue_links_add_issue' issue.id %}" title="Click to add an attachment">
         <i class="fas fa-plus"></i> Add
     </button>
   </div>  
   <div class="collapse js-collapse-details ml-3" id="collapse_attachments">
-    <table id="linked-issue-table">
+    <table id="attachments-table">
       <tbody>
         {% include "includes/partial_issue_details_attachments/partial_issue_details_attachments_list.html" %}
       </tbody>
@@ -30,10 +30,10 @@
 <script>
   $(function(){
     // Display the add (+) buttin when hovering over
-    $('#js_linked_issues').hover(function() {
-          $('.js-issue-add-links').css('display', 'inline')
+    $('#js_attachments').hover(function() {
+          $('.js-add-attachment').css('display', 'inline')
       }, function() {
-          $('.js-issue-add-links').css('display', 'none') 
+          $('.js-add-attachment').css('display', 'none') 
       }
     );
        
@@ -48,7 +48,7 @@
     };
 
     const saveForm = function () {
-        // In this context, this refers to the element with class .js-issue-link-add-link. 
+        // In this context, this refers to the element with class .js-issue_attachment_add. 
         // Which is the element that fired the submit event. So when we select $(this) we are selecting the actual form.
         const form = $(this);
         const url = form.attr("action") 
@@ -60,7 +60,7 @@
             dataType: 'json',
             success: function (data) {
                 if (data.form_is_valid) {
-                    $("#linked-issue-table tbody").html(data.html_links_list);  // <-- Replace the table body
+                    $("#attachments-table tbody").html(data.html_links_list);  // <-- Replace the table body
                     $("#modal-issue-link").modal("hide"); 
                 }
                 else {
@@ -76,17 +76,17 @@
     };
 
     // Adding a new issue link
-    $('.js-issue-add-links').click(loadForm)
+    $('.js-add-attachment').click(loadForm)
     // Save the new issue link
-    $("#modal-issue-link").on("submit", ".js-issue-link-add-link", saveForm);
+    $("#modal-issue-link").on("submit", ".js-issue_attachment_add", saveForm);
 
     // Remove an issue link
-    $('#linked-issue-table').on('click', '.js-issue-links-delete-issue', function(){
+    $('#attachments-table').on('click', '.js-issue-links-delete-issue', function(){
         const url = $(this).attr('data-url');
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            $("#linked-issue-table tbody").html(data.html_links_list); 
+            $("#attachments-table tbody").html(data.html_links_list); 
         })      
     })
 

@@ -1,4 +1,4 @@
-<form method="post" action="{% url 'itrac:issue_links_add_issue' issue.pk %}" class="js-issue-link-add-link">
+<form method="post" action="{% url 'itrac:issue_attachment_add' issue.pk %}" class="js-issue_attachment_add">
   {% csrf_token %}
   <div class="modal-header">
     <h4 class="modal-title">Add a new attachment</h4>
