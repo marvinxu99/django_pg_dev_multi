@@ -14,7 +14,8 @@ def edit_issue_tags(request, pk):
     issue = get_object_or_404(Issue, pk=pk)
     tags_to_exclude = [tag.title for tag in issue.tags.all()] 
     tags = Tag.objects.exclude(title__in=tags_to_exclude)
-    data['html_tags_edit_list'] = render_to_string('includes/partial_issue_details_tags_edit.html', 
+    data['html_tags_edit_list'] = render_to_string(
+        'includes/partial_issue_details_tags/partial_issue_details_tags_edit.html', 
         { 'issue': issue, 'tags': tags }
     )
     return JsonResponse(data)
@@ -26,7 +27,8 @@ def partial_issue_tags_list(request, pk):
     '''
     data = dict()
     issue = get_object_or_404(Issue, pk=pk)
-    data['html_issue_tags_list'] = render_to_string('includes/partial_issue_details_tags_list.html', 
+    data['html_issue_tags_list'] = render_to_string(
+        'includes/partial_issue_details_tags/partial_issue_details_tags_list.html', 
         { 'issue': issue }
     )
     return JsonResponse(data)
