@@ -1,0 +1,7 @@
+python manage.py shell
+
+from itrac.models import IssueAttachment
+
+att = IssueAttachment.object.all()
+
+att[0]

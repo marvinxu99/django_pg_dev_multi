@@ -17,7 +17,7 @@ class IssueAttachment(models.Model):
     """
     description = models.CharField(max_length=255, blank=True)
     attachment = models.FileField(upload_to='itrac/')
-    issue = models.ForeignKey(Issue, related_name='attachment_issue', on_delete=models.CASCADE)
+    issue = models.ForeignKey(Issue, related_name='attachments', on_delete=models.CASCADE)
 
     uploaded_at = models.DateTimeField(auto_now_add=True)
     uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='attachment_uploader', on_delete=models.CASCADE)
