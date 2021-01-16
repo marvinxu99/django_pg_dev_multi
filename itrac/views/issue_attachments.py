@@ -13,7 +13,6 @@ from ..forms import AttachmentAddForm
 @login_required
 def issue_attachment_add(request, pk):
     data = dict()
-    exclude_pks = []
 
     current_project = request.session.get('current_project', { 'project': 'WINN', 'id': 0 })
 

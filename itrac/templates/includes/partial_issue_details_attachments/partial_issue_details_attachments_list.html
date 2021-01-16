@@ -1,17 +1,17 @@
-{% for l_issue in issue.linked_to_issues.all %}
+{% for attachment in issue.attachments.all %}
 <tr class="ml-1 js-attachment-item">
-  <td><span class="text-muted">{{ l_issue.get_link_from_type_display }}</span></td>
+  <td><span class="text-muted"></span></td>
   <td class="px-3">
-    <a href="{% url 'itrac:issue_detail' l_issue.linked_to_issue.id %}">
-      <span class="text-primary">{{ l_issue.linked_to_issue.coded_id }}</span> 
-      {{ l_issue.linked_to_issue.title|truncatechars:50 }}
+    <a href={{ attachment.attachment.url }} 
+      class="text-primary" 
+      title="Uploaded by {{attachment.uploaded_by }} on {{attachment.uploaded_at}}">
+      {{ attachment.description }}
     </a>
   </td>
-  <td class="px-3"><span class="bg-light px-1">{{ l_issue.linked_to_issue.get_status_display }}</span></td>    
   <td>
     <button class="btn btn-sm js-attachment-delete" style="display:none;" 
-        data-url="{% url 'itrac:issue_attachment_delete' issue.pk l_issue.linked_to_issue.pk %}"
-        title="Click to remove link">X
+        data-url="{% url 'itrac:issue_attachment_delete' issue.pk attachment.pk %}"
+        title="Click to remove attachment">X
     </button>
   </td>    
 </tr> 
@@ -19,9 +19,11 @@
 <script>
 $(function() {
   // Display removal button when hovering over
-  $('.js-attachment-item').hover(function() {        
+  $('.js-attachment-item').hover(function() {
+      $(this).css("background-color", "lightblue")        
       $(this).find("button").css('display', 'inline')
     }, function() {
+      $(this).css("background-color", "")        
       $(this).find("button").css('display', 'none') 
     }
   );

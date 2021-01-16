@@ -226,13 +226,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 
-# MEDIA_URL = '/media/'
-MEDIA_URL = 'http://192.168.0.57/media/'
-
 # MEDIA_ROOT is the folder where files uploaded using FileField will go.
 if DEBUG:
+    MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
+    MEDIA_URL = 'http://192.168.0.57/media/'
     MEDIA_ROOT = 'http://192.168.0.57/media/'   
 
 FILE_UPLOAD_DIR = os.path.join(BASE_DIR, 'uploaded_files')
