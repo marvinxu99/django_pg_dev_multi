@@ -22,11 +22,12 @@ def issue_attachment_add(request, pk):
     if request.method == 'POST':
         form = AttachmentAddForm(request.POST, request.FILES)
         if form.is_valid():
-            issue_attachment = form.save(commit=False)
-            issue_attachment.issue = issue
-            issue_attachment.uploaded_at = timezone.now()
-            issue_attachment.uploaded_by = request.user
-            issue_attachment.save()
+            attachment = form.save(commit=False)
+            attachment.issue = issue
+            attachment.uploaded_at = timezone.now()
+            attachment.uploaded_by = request.user
+            attachment.description = attachment.attachment.name
+            attachment.save()
 
             data['form_is_valid'] = True
             data['html_list'] = render_to_string(
