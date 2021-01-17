@@ -22,7 +22,7 @@ class IssueCreateForm(forms.ModelForm):
 
     class Meta:
         model = Issue
-        fields = ('project', 'issue_type', 'title', 'priority', 'description', 'image', 'tags', )
+        fields = ('project', 'issue_type', 'title', 'priority', 'description', 'tags', )
 
     def clean_description(self):
         '''Ensure field is not empty'''
@@ -41,7 +41,7 @@ class IssueEditForm(forms.ModelForm):
 
     class Meta:
         model = Issue
-        fields = ('title', 'issue_type', 'priority', 'is_resolved', 'resolved_date', 'resolution_details', 'description', 'image', 'tags', )
+        fields = ('title', 'issue_type', 'priority', 'is_resolved', 'resolved_date', 'resolution_details', 'description', 'tags', )
         widgets = {
             'is_resolved': forms.Select(choices=TRUE_FALSE_CHOICES, attrs={'style':'width:150px;'}),
             'resolved_date': forms.DateInput(attrs={'type': 'date', 'style':'width:200px;'}),

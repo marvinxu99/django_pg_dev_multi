@@ -63,7 +63,7 @@ class Issue(models.Model):
     
     tags = models.ManyToManyField(Tag, related_name='issues', blank=True)
     
-    image = models.ImageField(upload_to='img', blank=True, null=True)
+    # image = models.ImageField(upload_to='img', blank=True, null=True)
 
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
