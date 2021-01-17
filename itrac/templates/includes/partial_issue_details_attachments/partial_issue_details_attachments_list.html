@@ -1,18 +1,20 @@
 {% for attachment in issue.attachments.all %}
 <tr class="ml-1 js-attachment-item">
-  <td><span class="text-muted"></span></td>
   <td class="px-3">
     <a href={{ attachment.attachment.url }} 
       class="text-primary" 
-      title="Uploaded by {{attachment.uploaded_by }} on {{attachment.uploaded_at}}">
-      {{ attachment.description }}
+      title="{{ attachment.description }}">
+      {{ attachment.description|truncatechars:40 }}
     </a>
   </td>
+  <td><span class="text-muted">uploaded {{ attachment.uploaded_at }} by {{attachment.uploaded_by }}</span></td>
   <td>
-    <button class="btn btn-sm js-attachment-delete" style="display:none;" 
-        data-url="{% url 'itrac:issue_attachment_delete' issue.pk attachment.pk %}"
-        title="Click to remove attachment">X
-    </button>
+    {% if attachment.uploaded_by == user  %}
+      <button class="btn btn-sm js-attachment-delete" style="display:none;" 
+          data-url="{% url 'itrac:issue_attachment_delete' issue.pk attachment.pk %}"
+          title="Click to remove attachment">X
+      </button>
+    {% endif %}
   </td>    
 </tr> 
 {% endfor %}

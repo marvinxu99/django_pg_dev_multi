@@ -31,7 +31,10 @@ def issue_attachment_add(request, pk):
             data['form_is_valid'] = True
             data['html_list'] = render_to_string(
                 'includes/partial_issue_details_attachments/partial_issue_details_attachments_list.html', 
-                { 'issue': issue }
+                { 
+                    'issue': issue,
+                    'user': request.user 
+                }
             )
             return JsonResponse(data)
         else:
@@ -53,22 +56,27 @@ def issue_attachment_add(request, pk):
 
 
 @login_required
-def issue_attachment_delete(request, pk, linked_pk):
-    '''Delete an issue link
+def issue_attachment_delete(request, pk, att_pk):
+    '''Delete an attachment
     '''
     data = dict()
 
     issue = get_object_or_404(Issue, pk=pk)
 
     try:
-        issue_issue_link = IssueToIssueLink.objects.filter(linked_from_issue_id=pk, linked_to_issue_id=linked_pk)
-        issue_issue_link[0].delete()
+        attachment = IssueAttachment.objects.filter(issue=issue, pk=att_pk)
+        attachment[0].delete()
+        
     except:
         pass
     
     data['status'] = 'S'
     data['html_list'] = render_to_string(
         'includes/partial_issue_details_attachments/partial_issue_details_attachments_list.html',
-        { 'issue': issue }
+        { 
+            'issue': issue,
+            'user': request.user 
+        },
+        
     )
     return JsonResponse(data)
