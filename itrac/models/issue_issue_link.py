@@ -47,7 +47,7 @@ LINK_TO_TYPE_MAP = {
 
 # update 
 @receiver(post_save, sender=IssueToIssueLink)
-def set_issue_coded_id(sender, instance, created, **kwargs):
+def set_issue_link_to_type(sender, instance, created, **kwargs):
     if created: 
         instance.link_to_type = LINK_TO_TYPE_MAP[instance.link_from_type]
         instance.save()

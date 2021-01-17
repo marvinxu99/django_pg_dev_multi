@@ -16,6 +16,7 @@ urlpatterns = [
     path('issue/<int:pk>/', views.issue_detail, name='issue_detail'),
     path('issue/<int:pk>/partial', views.issue_detail_partial, name='issue_detail_partial'),
     path('issue/new/', views.create_issue, name='new_issue'),
+    path('issue/<int:pk>/clone/', views.clone_issue, name='clone_issue'),
     path('issue/<int:pk>/edit/', views.edit_issue, name='edit_issue'),
     path('issue/<int:pk>/desc_markdown/', views.description_raw_markdown, name='description_raw_markdown'),
     path('issue/<int:pk>/desc_html/', views.description_as_html, name='description_as_html'),

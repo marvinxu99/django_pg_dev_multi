@@ -14,7 +14,7 @@ from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth import get_user_model
 import json
 
-from ..models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS
+from ..models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS, IssueAttachment, IssueToIssueLink
 from ..forms import IssueEditForm, IssueCreateForm, CommentForm, IssueEditDescriptionForm
 
 
@@ -186,6 +186,56 @@ def issue_detail(request, pk):
 
     return render(request, "itrac/issue_detail.html", context)
 
+
+@login_required()
+def clone_issue(request, pk):
+    """
+    Clone an issue
+    """
+    issue = get_object_or_404(Issue, pk=pk)
+    
+    cloned_issue = get_object_or_404(Issue, pk=pk)
+    cloned_issue.pk = None    # set to None to get auto generated key
+    cloned_issue.title = "CLONE: " + issue.title
+    cloned_issue.author = request.user
+    cloned_issue.status = ISSUE_STATUS.OPEN
+    cloned_issue.save(False)
+
+    # Tags
+    cloned_issue.tags.set(issue.tags.all())
+
+    cloned_issue.save()
+
+    # Clone the associated Tags if any
+    for att in IssueAttachment.objects.filter(issue=issue):
+        att.pk = None
+        att.issue = cloned_issue
+        att.save()
+
+    # Handle the linked issues  
+    for iss_link in IssueToIssueLink.object.filter(linked_from_issue=issue):
+        iss_link.pk = None
+        iss_link.linked_from_issue = cloned_issue
+        iss_link.save()
+
+    for iss_link in IssueToIssueLink.object.filter(linked_to_issue=issue):
+        iss_link.pk = None
+        iss_link.linked_to_issue = cloned_issue
+        iss_link.save()
+
+    new_iss_link = IssueToIssueLink(
+                linked_from_issue = cloned_issue,
+                linked_from_type = ISSUE_LINK_TYPE.CLONES,
+                linked_to_issue = issue
+            )
+    new_iss_link.save()
+
+    context = {
+        'issue': cloned_issue, 
+        'btn_expand_disabled': True,   # disable the expand button as it is fullscreen already 
+    }
+
+    return render(request, "itrac/issue_detail.html", context)
 
 @login_required()
 def issue_detail_partial(request, pk):
