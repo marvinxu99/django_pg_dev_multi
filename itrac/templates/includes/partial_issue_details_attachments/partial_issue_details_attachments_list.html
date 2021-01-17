@@ -7,7 +7,7 @@
       {{ attachment.description|truncatechars:40 }}
     </a>
   </td>
-  <td><span class="text-muted">uploaded {{ attachment.uploaded_at }} by {{attachment.uploaded_by }}</span></td>
+  <td><span class="text-muted">uploaded {{ attachment.uploaded_at|date:"d/m/Y G:i" }} by {{attachment.uploaded_by }}</span></td>
   <td>
     {% if attachment.uploaded_by == user  %}
       <button class="btn btn-sm js-attachment-delete" style="display:none;" 

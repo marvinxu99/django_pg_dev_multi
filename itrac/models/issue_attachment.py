@@ -41,7 +41,7 @@ class IssueAttachment(models.Model):
         db_table = "itrac_issue_attachment"
         verbose_name = "issue_attachment"
         verbose_name_plural = "issue_attachments"
-        ordering = ['description']
+        ordering = ['-uploaded_at']
         indexes = [
             models.Index(fields=['description']),
         ]

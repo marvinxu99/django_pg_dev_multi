@@ -4,9 +4,9 @@
       <i class="fa fa-minus-circle" style="font-size:12px;color:gray"></i>
     </a>
     <span class="ml-1 font-weight-bold">Attachments</span>
-    <button type="button" class="btn btn-sm js-add-attachment" style="display:none" 
+    <button type="button" class="btn btn-sm btn-secondary js-add-attachment ml-1" style="display:none" 
         data-url = "{% url 'itrac:issue_attachment_add' issue.id %}" title="Click to add an attachment">
-        <i class="fas fa-plus"></i> Add
+        <i class="fas fa-plus"></i> Add New
     </button>
   </div>  
   <div class="collapse js-collapse-details ml-3" id="collapse_attachments">
