@@ -117,6 +117,7 @@
           <div class="dropdown-divider"></div>
           {% if user.is_staff %}
           <a class="dropdown-item" href="/admin/">Manage site</a>
+          <a class="dropdown-item" href="{% url 'core:domain_info' %}"><i class="fas fa-server"></i> Domain Info</a>
           <div class="dropdown-divider"></div>
           {% endif %}
           <a class="dropdown-item" href="{% url 'accounts:logout' %}">Log out</a>
