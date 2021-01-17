@@ -14,7 +14,8 @@ from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth import get_user_model
 import json
 
-from ..models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS, IssueAttachment, IssueToIssueLink
+from ..models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS, \
+    IssueAttachment, IssueToIssueLink, ISSUE_LINK_TYPE
 from ..forms import IssueEditForm, IssueCreateForm, CommentForm, IssueEditDescriptionForm
 
 
@@ -210,32 +211,30 @@ def clone_issue(request, pk):
     for att in IssueAttachment.objects.filter(issue=issue):
         att.pk = None
         att.issue = cloned_issue
+        att.uploaded_by = request.user
         att.save()
 
     # Handle the linked issues  
-    for iss_link in IssueToIssueLink.object.filter(linked_from_issue=issue):
+    for iss_link in IssueToIssueLink.objects.filter(linked_from_issue=issue):
         iss_link.pk = None
         iss_link.linked_from_issue = cloned_issue
         iss_link.save()
 
-    for iss_link in IssueToIssueLink.object.filter(linked_to_issue=issue):
+    for iss_link in IssueToIssueLink.objects.filter(linked_to_issue=issue):
         iss_link.pk = None
         iss_link.linked_to_issue = cloned_issue
         iss_link.save()
 
-    new_iss_link = IssueToIssueLink(
+    new_issue_link = IssueToIssueLink(
                 linked_from_issue = cloned_issue,
-                linked_from_type = ISSUE_LINK_TYPE.CLONES,
-                linked_to_issue = issue
+                link_from_type = ISSUE_LINK_TYPE.CLONES,
+                linked_to_issue = issue,
+                updated_by = request.user
             )
-    new_iss_link.save()
+    new_issue_link.save()
 
-    context = {
-        'issue': cloned_issue, 
-        'btn_expand_disabled': True,   # disable the expand button as it is fullscreen already 
-    }
+    return redirect('itrac:issue_detail', cloned_issue.pk)
 
-    return render(request, "itrac/issue_detail.html", context)
 
 @login_required()
 def issue_detail_partial(request, pk):
