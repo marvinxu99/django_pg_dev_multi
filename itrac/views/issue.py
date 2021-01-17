@@ -46,7 +46,7 @@ def my_in_progress_issues(request):
             'issue_count_total': issue_count_total,
             'issue_count_filter': issue_count_filter,
             'issues': issues,
-            'filter_name': "My in progress issues",
+            'filter_name': "My in Progress Issues",
             'refresh_url': reverse('itrac:my_in_progress_issues'),
         }
 
@@ -118,12 +118,12 @@ def filtered_issues(request, filter):
     current_project = request.session.get('current_project', { 'project': 'WINN', 'id': 0 })
 
     if filter == "all":
-        filter_name = 'All issues'
+        filter_name = 'All Issues'
         issues = Issue.objects.filter(project__pk=current_project['id']).order_by('-created_date')
         refresh_url = 'itrac:filtered_issues_all'
 
     elif filter == "open":
-        filter_name = 'All open issues'
+        filter_name = 'All Open Issues'
         issues = Issue.objects.filter(
                     status__in=(ISSUE_STATUS.OPEN,), 
                     project__pk=current_project['id']

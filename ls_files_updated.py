@@ -4,12 +4,12 @@ import shutil
 
 
 # Define look back time
-#LOOKBACK_TIME = 60 * 15    # 15 mins
+LOOKBACK_TIME = 60 * 15    # 15 mins
 #LOOKBACK_TIME = 60 * 60    # 60 mins
-LOOKBACK_TIME = 60 * 60 * 3    # 3 hours
+#LOOKBACK_TIME = 60 * 60 * 3    # 3 hours
 
 # Define the subfolders to be excluded
-DIRS_TO_EXCLUDE = ['venv', '.git']
+DIRS_TO_EXCLUDE = ['venv', '.git', 'itrac/migrations']
 # Define the folders to be excluded
 FILES_TO_EXCLUDE = ['settings.py', 'test_temp.py']
 # Define file extension/type to be included

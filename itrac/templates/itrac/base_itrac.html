@@ -25,6 +25,7 @@
       </a>
       <div class="dropdown-menu dropdown-menu-left" aria-labelledby="appsMenu">
         <a class="dropdown-item" href="{% url 'itrac:my_in_progress_issues' %}"><i class="fas fa-clipboard-check"></i> Issue Tracker</a>
+        <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="{% url 'boards:boards_home' %}"><i class="fas fa-clipboard-list"></i> Boards</a>
         <a class="dropdown-item" href="{% url 'posts:all_posts' %}"><i class="fa fa-camera" aria-hidden="true"></i> Insta Posts</a>
         <a class="dropdown-item" href="{% url 'catalog:index' %}"><i class="fas fa-book-reader"></i> Mini Library</a>
@@ -93,8 +94,8 @@
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link btn btn-sm btn-outline-secondary" href="{% url 'itrac:new_issue' %}">
-        <i class="fa fa-plus" aria-hidden="true"></i> New Issue
+      <a class="nav-link btn btn-sm btn-outline-secondary font-weight-bold" href="{% url 'itrac:new_issue' %}">
+        <i class="fa fa-plus" aria-hidden="true"></i> Create Issue
       </a>
     </li>
   </ul>

@@ -32,19 +32,19 @@
           (switch filter) <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li><a class="dropdown-item" href="{% url 'itrac:my_in_progress_issues' %}">My Open Issues</a></li>
+          <li><a class="dropdown-item" href="{% url 'itrac:my_in_progress_issues' %}">My in Progress Issues</a></li>
           <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me' %}">Reported by me</a></li>
           <li><a class="dropdown-item" href="{% url 'itrac:my_saved_issues' %}">My Favorite Issues</a></li>
           <div class="dropdown-divider"></div>
-          <li><a class="dropdown-item" href="{% url 'itrac:filtered_issues_open' %}">All Open issues</a></li>
-          <li><a class="dropdown-item" href="{% url 'itrac:filtered_issues_all' %}">All issues</a></li>
+          <li><a class="dropdown-item" href="{% url 'itrac:filtered_issues_open' %}">All Open Issues</a></li>
+          <li><a class="dropdown-item" href="{% url 'itrac:filtered_issues_all' %}">All Issues</a></li>
           <div class="dropdown-divider"></div>
           <li><a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me2' %}">Reported by me2(TEST)</a></li>
         </ul>
       </div>
     </div>
     <div class="col-md-4 text-right">
-      <a class="btn btn-sm btn-outline-secondary" role="button" href="{% url 'itrac:search' %}">Advanced filters</a>
+      <a class="btn btn-sm btn-outline-secondary" role="button" href="{% url 'itrac:search' %}">Advanced Filters</a>
     </div>
   </div>
   <div class="row panel_container" id="panel_container">
