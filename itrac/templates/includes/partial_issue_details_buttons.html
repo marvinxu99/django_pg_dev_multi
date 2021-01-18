@@ -7,7 +7,8 @@
       <div class="dropdown-menu" aria-labelledby="dropdownMoreButton">
         <a class="dropdown-item" id="btn_more_link" url="#" value="LINK"><i class="fas fa-link"></i> Add Issue Link</a>
         <a class="dropdown-item" id="btn_add_attachment" url="#" value="ATTACHMENT"><i class="fa fa-plus" aria-hidden="true"></i> Add Attachment</a>
-        <a class="nav-link" href="{% url 'itrac:clone_issue' issue.id %}" value="CLONE"><i class="far fa-clone"></i> Clone</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="{% url 'itrac:clone_issue' issue.id %}" value="CLONE"><i class="far fa-clone"></i> Clone</a>
       </div>
     </div>
     <a class="btn btn-sm btn-outline-info mx-3" id="add_new_comment_btn_2" href="#" role="button"><i class="far fa-comment-alt"></i> Comment</a>
@@ -29,7 +30,7 @@
     </button>
     <div class="dropdown ml-1">
       <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="dropdownStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        <i class="fa fa-history" aria-hidden="true"></i> Status... <span class="caret"></span>
+        <i class="fa fa-history" aria-hidden="true"></i> Change Status... <span class="caret"></span>
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownStatus">
         <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="OPEN">Open</a>

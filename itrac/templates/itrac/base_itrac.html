@@ -60,12 +60,10 @@
           {{ project.title }}
         </a>
         {% empty %}
-          No recent projects
+          <span class="ml-3 text-muted">No recent projects</span>
         {% endfor %}
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="{% url 'itrac:project_list' %}"><i class="fas fa-layer-group"></i> View all projects</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="{% url 'itrac:tag_list' %}"><i class="fas fa-tags"></i> View all tags</a>          
       </div>
     </li>
     <li class="nav-item dropdown">
@@ -73,14 +71,22 @@
         <i class="fas fa-list-alt"></i> Issues
       </a>
       <div class="dropdown-menu dropdown-menu-left" aria-labelledby="issuesMenu">
-        <a class="dropdown-item" href="{% url 'itrac:my_in_progress_issues' %}"><i class="fa fa-list" aria-hidden="true"></i> My in progress issues</a>
+        <a class="dropdown-item" href="{% url 'itrac:my_in_progress_issues' %}"><i class="fa fa-list" aria-hidden="true"></i> My in Progress Issues</a>
         <a class="dropdown-item" href="{% url 'itrac:issues_reported_by_me' %}"><i class="fa fa-list-alt" aria-hidden="true"></i> Reported by me</a>
-        <a class="dropdown-item" href="{% url 'itrac:my_saved_issues' %}"><i class="fa fa-star" aria-hidden="true"></i> My favorite Issues</a>
+        <a class="dropdown-item" href="{% url 'itrac:my_saved_issues' %}"><i class="fa fa-star" aria-hidden="true"></i> My Favorite Issues</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="{% url 'itrac:search' %}"><i class="fa fa-filter" aria-hidden="true"></i> Search/filter issues</a>
+        <a class="dropdown-item" href="{% url 'itrac:search' %}"><i class="fa fa-filter" aria-hidden="true"></i> Search/Filter Issues</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="{% url 'itrac:filtered_issues_open' %}"><i class="far fa-folder-open"></i> All open issues</a>
-        <a class="dropdown-item" href="{% url 'itrac:filtered_issues_all' %}"><i class="far fa-list-alt"></i> All issues</a>
+        <a class="dropdown-item" href="{% url 'itrac:filtered_issues_open' %}"><i class="far fa-folder-open"></i> All Open Issues</a>
+        <a class="dropdown-item" href="{% url 'itrac:filtered_issues_all' %}"><i class="far fa-list-alt"></i> All Issues</a>
+      </div>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="tagsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-tags"></i> Tags
+      </a>
+      <div class="dropdown-menu dropdown-menu-left" aria-labelledby="tagsMenu">
+        <a class="dropdown-item" href="{% url 'itrac:tag_list' %}"><i class="fas fa-tags"></i> View All Tags</a>          
       </div>
     </li>
     <li class="nav-item dropdown">
