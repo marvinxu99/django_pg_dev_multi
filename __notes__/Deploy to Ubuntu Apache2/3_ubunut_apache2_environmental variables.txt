@@ -1,0 +1,8 @@
+DB_NAME, 
+DB_USER,
+DB_HOST etc are set in the two places:
+
+(1) /etc/environment  - globally
+
+(2) also at /etc/apache2/envvars   
+    - the ones defined here will overwrite thosed defined in /etc/environment
