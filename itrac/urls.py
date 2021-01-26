@@ -30,6 +30,9 @@ urlpatterns = [
     path('issue/<int:pk>/upvote/', views.upvote, name='upvote'),
     path('issue/<int:pk>/purchasevote/', views.purchase_vote, name='purchase_vote'),
 
+    path('issue/<int:pk>/start_watch/', views.issue_start_watch, name='issue_start_watch'),
+    path('issue/<int:pk>/stop_watch/', views.issue_stop_watching, name='issue_stop_watching'),
+
     # example url: /itrac/issue/tag/?tag=test%20test
     path('issue/tag/', views.issues_with_tag, name='issues_with_tag'),
 
