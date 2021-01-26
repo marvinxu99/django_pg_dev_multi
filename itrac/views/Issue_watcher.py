@@ -16,6 +16,11 @@ def issue_start_watch(request, pk):
 
     issue = get_object_or_404(Issue, pk=pk)
 
+    watcher = IssueWatcher.objects.update_or_create(
+        issue = issue,
+        watcher = request.user
+    )
+
     data['status'] = 'S'
     data['html_list'] = render_to_string(
         'includes/partial_issue_watcher_button/partial_issue_watcher_button_stop.html',
@@ -30,6 +35,8 @@ def issue_stop_watching(request, pk):
 
     issue = get_object_or_404(Issue, pk=pk)
 
+    IssueWatcher.objects.filter(issue=issue, watcher=request.user).delete()
+
     data['status'] = 'S'
     data['html_list'] = render_to_string(
         'includes/partial_issue_watcher_button/partial_issue_watcher_button_start.html',
@@ -40,19 +47,14 @@ def issue_stop_watching(request, pk):
 
 @login_required
 def issue_add_watcher(request, pk, user_id):
-    '''Delete an attachment
-    '''
     data = dict()
 
     issue = get_object_or_404(Issue, pk=pk)
+    watcher = IssueWatcher.objects.update_or_create(
+        issue = issue,
+        watcher = request.user
+    )
 
-    try:
-        attachment = IssueAttachment.objects.filter(issue=issue, pk=att_pk)
-        attachment[0].delete()
-        
-    except:
-        pass
-    
     data['status'] = 'S'
     data['html_list'] = render_to_string(
         'includes/partial_issue_details_attachments/partial_issue_details_attachments_list.html',

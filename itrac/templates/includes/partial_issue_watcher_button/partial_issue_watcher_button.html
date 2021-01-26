@@ -1,4 +1,6 @@
-{% if user in issue.watchers.all %}
+{% load is_watcher %}
+{% is_watcher user issue as watching %}
+{%if watching %}
 <button class="btn btn-sm btn-outline-info js_update_watcher" type="button"
     title="click to start or stop watching this issue"
     data-url="{% url 'itrac:issue_stop_watching' issue.id %}"><i class="fas fa-eye"></i> Stop
