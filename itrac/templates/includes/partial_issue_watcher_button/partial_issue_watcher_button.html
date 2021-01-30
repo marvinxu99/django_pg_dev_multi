@@ -1,13 +1,14 @@
 {% load is_watcher %}
 {% is_watcher user issue as watching %}
+<button class="badge badge-primary badge-pill ml-1">{{ issue.watchers.all.count }}</button>
 {%if watching %}
-<button class="btn btn-sm btn-outline-info js_update_watcher" type="button"
-    title="click to start or stop watching this issue"
-    data-url="{% url 'itrac:issue_stop_watching' issue.id %}"><i class="fas fa-eye"></i> Stop
+<button class="btn btn-sm js_update_watcher"
+    title="click to stop watching this issue"
+    data-url="{% url 'itrac:issue_stop_watching' issue.id %}">Stop watching
 </button>
 {% else %}
-<button class="btn btn-sm btn-outline-info js_update_watcher" type="button"
-    title="click to start or stop watching this issue"
-    data-url="{% url 'itrac:issue_start_watch' issue.id %}"><i class="fas fa-eye"></i> Start
+<button class="btn btn-sm js_update_watcher"
+    title="click to start watching this issue"
+    data-url="{% url 'itrac:issue_start_watch' issue.id %}">Start watching
 </button>
 {% endif %}
