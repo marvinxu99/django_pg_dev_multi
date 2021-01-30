@@ -14,9 +14,10 @@ from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth import get_user_model
 import json
 
-from ..models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS, \
+from itrac.models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS, \
     IssueAttachment, IssueToIssueLink, ISSUE_LINK_TYPE
-from ..forms import IssueEditForm, IssueCreateForm, CommentForm, IssueEditDescriptionForm
+from itrac.forms import IssueEditForm, IssueCreateForm, CommentForm, IssueEditDescriptionForm
+from core.constants import ACTIVE_STATUS
 
 
 @login_required
@@ -177,7 +178,7 @@ def issue_detail(request, pk):
     not found
     """
     issue = get_object_or_404(Issue, pk=pk)
-    comments = Comment.objects.filter(issue=pk)
+    comments = Comment.objects.filter(issue=pk, active_ind=True, active_status_cd=ACTIVE_STATUS.ACTIVE)
 
     context = {
         'issue': issue, 

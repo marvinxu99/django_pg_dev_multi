@@ -7,8 +7,9 @@ from django.http.response import JsonResponse
 from django.template.loader import render_to_string
 import json
 
-from ..models import Issue, Comment
-from ..forms import CommentForm
+from itrac.models import Issue, Comment
+from itrac.forms import CommentForm
+from core.constants import ACTIVE_STATUS
 
 
 # @login_required()
@@ -106,8 +107,13 @@ def comment_markdown(request, issue_pk, pk):
 
 @login_required()
 def delete_comment(request, issue_pk, pk):
+    '''
+    Mark the comment as "deleted"
+    '''
     comment = get_object_or_404(Comment, pk=pk)
-    comment.delete()
+    comment.active_ind = False
+    comment.active_status_cd = ACTIVE_STATUS.DELETED
+    comment.save()
     return redirect('itrac:issue_detail', issue_pk)
 
 

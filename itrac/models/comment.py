@@ -6,17 +6,26 @@ from django.urls import reverse
 from markdown import markdown
 from django.utils.html import mark_safe
 
-from .issue import Issue
+from itrac.models import Issue
+from core.constants import ACTIVE_STATUS 
 
 class Comment(models.Model):
     """
     A single Comment
     """
+    active_ind = models.BooleanField("Active", default=True)
+    active_status_cd = models.CharField(max_length=2, 
+                                        choices=ACTIVE_STATUS.choices, 
+                                        default=ACTIVE_STATUS.ACTIVE
+                                        )
+    active_status_dt_tm = models.DateTimeField(null=True, blank=True)
+    active_status_prsnl_id = models.BigIntegerField(default=0, blank=True)
     comment = models.CharField(max_length=200)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
+    updt_cnt = models.IntegerField(default=0)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='comment_author', on_delete=models.CASCADE)
-    issue = models.ForeignKey(Issue, related_name='comment_issue', on_delete=models.CASCADE)
+    issue = models.ForeignKey(Issue, related_name='comments', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.comment

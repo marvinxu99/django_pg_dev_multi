@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+{% load domain_url %}
+{% get_domain_url as domain_url %}
+<html>
+<body>
+<p><a href="{{ domain_url }}/{{ comment.issue.get_absolute_url }}">{{ comment.issue.coded_id }} {{ comment.issue.title }}</a></p>
+<p>Comment has been deleted by {{ user }}:</p>
+
+{{ comment.comment}}
+</body>
+</html>

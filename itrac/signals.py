@@ -34,11 +34,11 @@ def notification_new_issue_comment(sender, instance, created, **kwargs):
     else:
         subject = f'''iTrac: { instance.issue.coded_id} {instance.issue.title}'''
         text_message = (render_to_string(
-                'itrac/email_notification/message_comment_created.txt',
+                'itrac/email_notification/message_comment_updated.txt',
                 { 'comment': instance }
             )) 
         html_message = (render_to_string(
-                'itrac/email_notification/message_comment_created.html',
+                'itrac/email_notification/message_comment_updated.html',
                 { 'comment': instance }
             )) 
         send_email_update(subject, text_message, recipients, html_message)
@@ -47,9 +47,9 @@ def notification_new_issue_comment(sender, instance, created, **kwargs):
 @receiver(pre_save, sender=Issue)
 def notification_if_issue_changed(sender, instance, **kwargs):
     try:
-        obj = sender.objects.get(pk=instance.pk)
+        issue = sender.objects.get(pk=instance.pk)
     except sender.DoesNotExist:
         pass # Object is new, so field hasn't technically changed, but you may want to do something else here.
     else:
-        if not obj.some_field == instance.some_field: # Field has changed
+        if issue.some_field == instance.some_field: # Field has changed
             pass # do something
