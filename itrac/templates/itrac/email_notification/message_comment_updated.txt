@@ -1,0 +1,4 @@
+{{ comment.issue.coded_id }} {{ comment.issue.title }} (link: http://24.80.60.154/{{ comment.issue.get_absolute_url }})
+Comment has been updated by {{ comment.author }}:
+
+{{ comment.comment}}

@@ -24,7 +24,7 @@ def unique_slug_generator(instance, new_slug = None):
     return slug 
 
 
-def send_email_update(subject, message, recipients):
+def send_email_update(subject, message, recipients, html_message):
     email_from = settings.EMAIL_HOST_USER
-    send_mail(subject, message, email_from, recipients)
-    return True
+    send_mail(subject, message, email_from, recipients, html_message=html_message)
+    return

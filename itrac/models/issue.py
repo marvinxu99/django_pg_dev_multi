@@ -90,7 +90,7 @@ class Issue(models.Model):
     #     return f"{self.project.code}-{self.id}"
 
     def get_absolute_url(self):
-        return reverse('itrac:issue_detail', args=(self.slug,))
+        return reverse('itrac:issue_detail', args=(self.pk,))
 
     def get_description_as_markdown(self):
         return mark_safe(markdown(self.description, safe_mode='escape'))
