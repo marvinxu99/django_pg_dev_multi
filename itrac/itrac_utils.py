@@ -1,3 +1,5 @@
+from django.core.mail import send_mail
+from django.conf import settings
 import string 
 from django.utils.text import slugify 
 import random
@@ -20,3 +22,9 @@ def unique_slug_generator(instance, new_slug = None):
               
         return unique_slug_generator(instance, new_slug = new_slug) 
     return slug 
+
+
+def send_email_update(subject, message, recipients):
+    email_from = settings.EMAIL_HOST_USER
+    send_mail(subject, message, email_from, recipients)
+    return True

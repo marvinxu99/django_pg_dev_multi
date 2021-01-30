@@ -3,6 +3,7 @@ from django.dispatch import receiver
 
 # from .models import Issue
 # from .views.itrac_utils import unique_slug_generator
+from itrac.models import Issue, Comment
 
 
 # update the issue.coded_id
@@ -17,3 +18,13 @@ from django.dispatch import receiver
 # def set_issue_slug(sender, instance, **kwargs):
 #     if not instance.slug:
 #         instance.slug = unique_slug_generator(instance)
+
+# Send a notification when a comment is created or updated
+@receiver(post_save, sender=Comment)
+def notification_new_issue_comment(sender, instance, created, **kwargs):
+    if created: 
+        # instance.coded_id = f'{ instance.project.code }-{ instance.pk }'
+        # instance.save()
+        print('new comment created.')
+    else:
+        print('comment updated.')
