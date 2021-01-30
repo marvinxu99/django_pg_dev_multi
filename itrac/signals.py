@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
-from itrac.models import Comment
+from itrac.models import Comment, Issue
 from .itrac_utils import send_email_update
 
 
@@ -42,3 +42,14 @@ def notification_new_issue_comment(sender, instance, created, **kwargs):
                 { 'comment': instance }
             )) 
         send_email_update(subject, text_message, recipients, html_message)
+
+
+@receiver(pre_save, sender=Issue)
+def notification_if_issue_changed(sender, instance, **kwargs):
+    try:
+        obj = sender.objects.get(pk=instance.pk)
+    except sender.DoesNotExist:
+        pass # Object is new, so field hasn't technically changed, but you may want to do something else here.
+    else:
+        if not obj.some_field == instance.some_field: # Field has changed
+            pass # do something
