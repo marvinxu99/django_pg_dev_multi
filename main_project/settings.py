@@ -46,6 +46,7 @@ if PROD_DEPLOY:
 else:
     DOMAIN = config('DOMAIN', default='DEV')
 
+DOMAIN_URL = config('DOMAIN_URL', default='http://localhost:8000')
 
 #ALLOWED_HOSTS = ['winn.herokuapp.com', '127.0.0.1']
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
