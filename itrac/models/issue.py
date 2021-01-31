@@ -23,13 +23,25 @@ class ISSUE_TYPE(models.TextChoices):
 
 
 class ISSUE_STATUS(models.TextChoices):
-    OPEN =          '01', _('Open')
-    INVESTIGATE =   '02', _('Investigate')
-    TRIAGE =        '03', _('Await approval')
-    BUILD_IN_PROGRESS = '04', _('Build in progress')
-    VALIDATING =    '05', _('Validate in progress')
-    COMPLETE =      '06', _('Complete')
-    CLOSED =        '07', _('Closed')
+    OPEN =              '01', _('Open')
+    INVESTIGATE =       '02', _('Investigate')
+    TRIAGE =            '03', _('Await Approval')
+    
+    BUILD_IN_PROGRESS = '10', _('Build in DEV')
+    VALIDATING_DEV =    '11', _('Validating in DEV')
+    READY_FOR_STAGE =   '19', _('Ready for STAGING')
+    
+    BUILD_IN_STAGE =    '20', _('Build in STAGING')
+    VALIDATING_STAGE =  '21', _('Validating in STAGING')
+    READY_FOR_PROD =    '29', _('Ready for PROD')
+    
+    BUILD_IN_PROD =     '30', _('Build in PROD')
+    VALIDATING_PROD =   '31', _('Validating in PROD')
+    VALIDATED_PROD =    '32', _('Validated in PROD')
+    
+    COMPLETE =          '80', _('Complete')
+    CLOSED =            '90', _('Closed')
+
 
 class ISSUE_PRIORITY(models.TextChoices):
     PRIORITY_1 =  '1', _('1 - highest')

@@ -37,8 +37,17 @@
         <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="INVESTIGATE">Investigate</a>
         <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="TRIAGE">Await approval</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="BUILD_IN_PROGRESS">Build in progress</a>
-        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="VALIDATING">Validate in progress</a>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="BUILD_IN_PROGRESS">Build in DEV</a>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="VALIDATING_DEV">Validating in DEV</a>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="READY_FOR_STAGE">Ready for STAGING</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="BUILD_IN_STAGE">Build in STAGING</a>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="VALIDATING_STAGE">Validating in STAGING</a>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="READY_FOR_PROD">Ready for PROD</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="BUILD_IN_PROD">Build in PROD</a>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="VALIDATING_PROD">Validating in PROD</a>
+        <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="VALIDATED_PROD">Validated in PROD</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="COMPLETE">Complete</a>
         <a class="dropdown-item js_issue_status" url="{% url 'itrac:change_status' issue.id %}" value="CLOSED">Closed</a>
@@ -51,4 +60,3 @@
     </div>
     </div>
 </div>
-  
