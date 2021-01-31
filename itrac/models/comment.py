@@ -17,7 +17,7 @@ class Comment(models.Model):
     active_status_cd = models.CharField(max_length=2, 
                                         choices=ACTIVE_STATUS.choices, 
                                         default=ACTIVE_STATUS.ACTIVE
-                                        )
+                                    )
     active_status_dt_tm = models.DateTimeField(null=True, blank=True)
     active_status_prsnl_id = models.BigIntegerField(default=0, blank=True)
     comment = models.CharField(max_length=200)

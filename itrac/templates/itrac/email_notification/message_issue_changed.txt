@@ -1,0 +1,8 @@
+{% load domain_url %}
+{% get_domain_url as domain_url %}
+{{ issue.coded_id }} {{ issue.title }} (<a href="{{ domaim_url }}/{{ issue.get_absolute_url }}"></a>)
+The issue has been updated by {{ issue.updated_by }}:
+
+{% for change in changes %}
+{{ change }}
+{% endfor %}

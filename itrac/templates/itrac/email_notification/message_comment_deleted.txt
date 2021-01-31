@@ -1,4 +1,6 @@
-{{ comment.issue.coded_id }} {{ comment.issue.title }} (link: http://24.80.60.154/{{ comment.issue.get_absolute_url }})
-Comment has been updated by {{ user }}:
+{% load domain_url %}
+{% get_domain_url as domain_url %}
+{{ comment.issue.coded_id }} {{ comment.issue.title }} (<a href="{{ domaim_url }}/{{ comment.issue.get_absolute_url }}"></a>)
+Comment has been updated by {{ comment.author }}:
 
 {{ comment.comment}}
