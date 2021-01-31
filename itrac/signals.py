@@ -66,6 +66,10 @@ def notification_issue_changed(sender, instance, **kwargs):
             changes_txt.append(f'Issue Type was changed from { issue.get_issue_type_display() } to { instance.get_issue_type_display() }')        
             changes_html.append(mark_safe(f'Issue Type was changed from { issue.get_issue_type_display() } to <b>{ instance.get_issue_type_display() }</b>'))        
 
+        if issue.description != instance.description:
+            changes_txt.append(f'Issue description was changed from { issue.get_description_as_markdown() } to { instance.get_description_as_markdown() }')        
+            changes_html.append(mark_safe(f'Issue description was changed from { issue.get_description_as_markdown() } to <b>{ instance.get_description_as_markdown() }</b>'))        
+
     if len(changes_html):
         recipients = []
         watchers = issue.watchers.all()
@@ -84,4 +88,4 @@ def notification_issue_changed(sender, instance, **kwargs):
                 'itrac/email_notification/message_issue_changed.html',
                 { 'issue': instance, 'changes': changes_html }
             ) 
-    send_email_update(subject, text_message, recipients, html_message)
+        send_email_update(subject, text_message, recipients, html_message)
