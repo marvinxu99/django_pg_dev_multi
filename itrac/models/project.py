@@ -30,10 +30,6 @@ class Project(models.Model):
     avatar = models.ImageField(upload_to=get_avatar_full_path, blank=True)
     avatar_version = models.IntegerField(default=0, blank=True, editable=False)
 
-
-    def __str__(self):
-        return self.title
-    
     class Meta:
         verbose_name = "project"
         verbose_name_plural = "projects"
@@ -41,6 +37,9 @@ class Project(models.Model):
         indexes = [
             models.Index(fields=['title']),
         ]
+
+    def __str__(self):
+        return self.title   
 
     @property
     def get_issues_count(self):
