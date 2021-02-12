@@ -13,7 +13,7 @@ TRUE_FALSE_CHOICES = (
 
 class IssueCreateForm(forms.ModelForm):
     description = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 4, 'id':'id_description_edit'}), 
+        widget=forms.Textarea(attrs={'rows': 4, 'id':'id_description_edit'}),
         max_length=4000,
         required=False,
         help_text='The max length of the text is 4000.'
@@ -34,7 +34,7 @@ class IssueCreateForm(forms.ModelForm):
 
 class IssueEditForm(forms.ModelForm):
     description = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 4, 'id':'id_description_edit'}), 
+        widget=forms.Textarea(attrs={'rows': 4, 'id':'id_description_edit'}),
         max_length=4000,
         help_text='The max length of the text is 4000.'
     )
@@ -53,7 +53,7 @@ class IssueEditDescriptionForm(forms.ModelForm):
     It is used for data validation purpose
     '''
     description = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 4, 'id':'id_description_edit'}), 
+        widget=forms.Textarea(attrs={'rows': 4, 'id':'id_description_edit'}),
         max_length=4000,
         help_text='The max length of the text is 4000.'
     )
@@ -67,7 +67,7 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('comment',)
-    
+
     def clean_comment(self):
         '''Ensure the field is not empty'''
         comment = self.cleaned_data.get('comment')
@@ -81,7 +81,7 @@ class IssueEditTags(forms.ModelForm):
     Edit issue tags
     '''
     description = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 4, 'id':'id_description_edit'}), 
+        widget=forms.Textarea(attrs={'rows': 4, 'id':'id_description_edit'}),
         max_length=4000,
         help_text='The max length of the text is 4000.'
     )

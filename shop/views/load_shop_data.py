@@ -42,7 +42,7 @@ def load_shop_data(request):
             f_name = urlparse(img_url).path.split('/')[-1]
             content = urlretrieve(img_url)
             product.image.save(f_name, File(open(content[0], mode='rb')), save=True)
-           
+
     products = Product.objects.all()
 
     # code set 2 is Product Category

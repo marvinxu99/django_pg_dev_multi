@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
-from django.utils.translation import gettext_lazy as _ 
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from markdown import markdown
 from django.utils.html import mark_safe
@@ -12,10 +12,10 @@ from itrac.models import Issue, Comment
 
 class CommentHistory(models.Model):
     """
-    Comment History (only stores history of changes. 
+    Comment History (only stores history of changes.
     (if a row is delete, it is should still be in Comment table marked a "deleted")
     """
-    parent_comment = models.ForeignKey(Comment, related_name='comment_hist', on_delete=models.CASCADE) 
+    parent_comment = models.ForeignKey(Comment, related_name='comment_hist', on_delete=models.CASCADE)
     comment = models.CharField(max_length=200)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)

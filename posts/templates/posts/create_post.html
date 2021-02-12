@@ -5,8 +5,8 @@
 <div class='card w-50 mt-5 borderless'>
   <div class='card-body'>
     <h1>Create Post Page</h1>
-    <form method="post" enctype="multipart/form-data">      
-      {% csrf_token %}  
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
       {% include 'includes/form.html' %}
       <button class="btn btn-sm btn-primary mt-3" type="submit">Submit New Post</button>
       <a class="btn btn-sm btn-outline-primary mt-3" href="{% url 'posts:all_posts' %}" role="button">Cancel</a>

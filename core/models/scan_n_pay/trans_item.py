@@ -16,7 +16,7 @@ class TransItem(models.Model):
 
     description = models.CharField(max_length=200)
     quantity = models.IntegerField(default=0)
-        
+
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
     discountAmount = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
     price_final = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
@@ -24,7 +24,7 @@ class TransItem(models.Model):
     comment =  models.CharField(max_length=255, blank=True)
 
     updt_cnt = models.IntegerField(default=0)
-    updt_dt_tm = models.DateTimeField(auto_now=True)  
+    updt_dt_tm = models.DateTimeField(auto_now=True)
     updt_id = models.BigIntegerField(default=0)
     updt_task = models.BigIntegerField(default=0)
     updt_applabel = models.CharField(max_length=20, default='0')

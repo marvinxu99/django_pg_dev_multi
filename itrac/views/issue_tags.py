@@ -12,10 +12,10 @@ from ..models import Issue, Tag
 def edit_issue_tags(request, pk):
     data = dict()
     issue = get_object_or_404(Issue, pk=pk)
-    tags_to_exclude = [tag.title for tag in issue.tags.all()] 
+    tags_to_exclude = [tag.title for tag in issue.tags.all()]
     tags = Tag.objects.exclude(title__in=tags_to_exclude)
     data['html_tags_edit_list'] = render_to_string(
-        'includes/partial_issue_details_tags/partial_issue_details_tags_edit.html', 
+        'includes/partial_issue_details_tags/partial_issue_details_tags_edit.html',
         { 'issue': issue, 'tags': tags }
     )
     return JsonResponse(data)
@@ -28,7 +28,7 @@ def partial_issue_tags_list(request, pk):
     data = dict()
     issue = get_object_or_404(Issue, pk=pk)
     data['html_issue_tags_list'] = render_to_string(
-        'includes/partial_issue_details_tags/partial_issue_details_tags_list.html', 
+        'includes/partial_issue_details_tags/partial_issue_details_tags_list.html',
         { 'issue': issue }
     )
     return JsonResponse(data)
@@ -41,9 +41,9 @@ def issue_delete_tag(request, pk, tag_pk):
     issue = get_object_or_404(Issue, pk=pk)
     tag = get_object_or_404(Tag, pk=tag_pk)
     issue.tags.remove(tag)
-    data['status'] = 'S' 
+    data['status'] = 'S'
     return JsonResponse(data)
-    
+
 @login_required
 def issue_add_tag(request, pk, tag_pk):
     ''' Add a tag to the issue (the tag already exists in the Tag table)
@@ -52,7 +52,7 @@ def issue_add_tag(request, pk, tag_pk):
     issue = get_object_or_404(Issue, pk=pk)
     tag = get_object_or_404(Tag, pk=tag_pk)
     issue.tags.add(tag)
-    data['status'] = 'S' 
+    data['status'] = 'S'
     return JsonResponse(data)
 
 
@@ -73,6 +73,6 @@ def issue_add_net_new_tag(request, pk):
     )
 
     issue.tags.add(tag)
-    data['status'] = 'S' 
+    data['status'] = 'S'
 
     return JsonResponse(data)

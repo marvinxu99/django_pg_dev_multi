@@ -48,12 +48,12 @@ class QuestionView(generic.ListView):
 #         return Question.objects.filter(pub_date__lte=timezone.now())
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id, pub_date__lte=timezone.now())
-    
+
     choices = question.choice_set.all()
-    
+
     # next_q = Question.objects.filter(pub_date__gt=question.pub_date).order_by('pub_date').first()
     # prev_q = Question.objects.filter(pub_date__lt=question.pub_date).order_by('pub_date').first()
-    
+
     try:
         prev_q = question.get_previous_by_pub_date(pub_date__lte=timezone.now())
         prev_id = prev_q.question_id
@@ -65,7 +65,7 @@ def detail(request, question_id):
         next_id = next_q.question_id
     except:
         next_id = 0
-    
+
     context = {
             'question': question,
             'choices': choices,
@@ -73,7 +73,7 @@ def detail(request, question_id):
             'next_id': next_id,
             'domain': settings.DOMAIN,
         }
-    
+
     return render(request, 'polls/detail.html', context)
 
 

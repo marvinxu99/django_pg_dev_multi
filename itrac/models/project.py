@@ -13,7 +13,7 @@ def get_avatar_full_path(instance, filename):
 class Project(models.Model):
     """
     A single project
-    """   
+    """
     title = models.CharField(max_length=150)
     code = models.CharField(max_length=20, default="WINN")
     slug =  models.CharField(max_length=250)
@@ -39,7 +39,7 @@ class Project(models.Model):
         ]
 
     def __str__(self):
-        return self.title   
+        return self.title
 
     @property
     def get_issues_count(self):

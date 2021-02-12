@@ -64,7 +64,7 @@ def save_issue_as_favourite(request, pk):
         savedissue = SavedIssue.objects.get(user=user, issue=issue)
     except SavedIssue.DoesNotExist:
         savedissue = None
-  
+
     if savedissue is None:
         savedissue = SavedIssue(user=user, issue=issue)
         savedissue.save()

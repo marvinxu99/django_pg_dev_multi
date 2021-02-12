@@ -21,7 +21,7 @@
     <div class="col-md-4">{{ issue.author }}</div>
     <div class="col-md-2 text-muted">Resolved:</div>
     <div class="col-md-4">{{ issue.is_resolved|yesno:"Yes,No" }}</div>
-    {% if issue.issue_type == '01' or issue.issue_type == '02'  %} 
+    {% if issue.issue_type == '01' or issue.issue_type == '02'  %}
       <div class="col-md-2 text-muted">Upvotes:</div>
       <div class="col-md-4">
         <div class="d-flex align-items-baseline">
@@ -55,4 +55,4 @@
     <div class="col-md-2 text-muted">Priority:</div>
     <div class="col-md-4">{{ issue.get_priority_display|default_if_none:"" }}</div>
     <div class="col-md-6"></div>
-  </div>    
+  </div>

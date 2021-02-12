@@ -1,4 +1,4 @@
-// The following function are copying from 
+// The following function are copying from
 // https://docs.djangoproject.com/en/dev/ref/csrf/#ajax
 function getCookie(name) {
     var cookieValue = null;

@@ -1,5 +1,5 @@
 // Setup Stripe payments
-function setupStripePayments() { 
+function setupStripePayments() {
     // Get Stripe publishable key
     fetch("/scan_n_pay/stripe/config")
     .then((result) => { return result.json(); })
@@ -17,7 +17,7 @@ function setupStripePayments() {
                 .then((result) => { return result.json(); })
                 .then((data) => {
                     console.log(data);
-                    
+
                     // Redirect to Stripe Checkout
                     return stripe.redirectToCheckout({sessionId: data.sessionId})
                 })
@@ -37,8 +37,8 @@ document.getElementById('post-n-pay').addEventListener('click', postAndPay);
 async function postAndPay() {
 
     // Check data - doing nothing if no transaction data.
-    if (transData.allItems.length === 0) { 
-        return { status: 'F' }; 
+    if (transData.allItems.length === 0) {
+        return { status: 'F' };
     }
 
     // 1. Send transaction data to server
@@ -47,7 +47,7 @@ async function postAndPay() {
 
         // 2. Handl stripe payment...
         // Stripe only accepts acmount in cents.
-        const amount = Math.round(transData.totals.price * 100);    
+        const amount = Math.round(transData.totals.price * 100);
         const res_pay = await processPayment(amount);
 
         if (res_pay.status === 'S')
@@ -55,12 +55,12 @@ async function postAndPay() {
     }
 
     // The post and/or pay didn't succeed
-    // TO DO: to add some warnings 
+    // TO DO: to add some warnings
 
 }
 
-// Post transactionn data to server after payment is done 
-// data: should be an object of (k,v)'s 
+// Post transactionn data to server after payment is done
+// data: should be an object of (k,v)'s
 async function postTransData() {
     const URL_POST = 'transdata/';
     let csrftoken = getCookie('csrftoken');
@@ -90,6 +90,6 @@ async function processPayment(amount) {
     const result = await fetch(URL_PAY);
     const data = await result.json();
     //console.log(data);
-    
+
     return data;
 }

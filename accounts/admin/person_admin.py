@@ -4,8 +4,8 @@ from ..models import Person, Person_Alias
 from ..models import User as CustomUser
 
 
-# class PersonInline(admin.TabularInline):   
-class PersonAliasInline(admin.StackedInline):   
+# class PersonInline(admin.TabularInline):
+class PersonAliasInline(admin.StackedInline):
     model = Person_Alias
     can_delete = False
     verbose_name_plural = 'person alias'

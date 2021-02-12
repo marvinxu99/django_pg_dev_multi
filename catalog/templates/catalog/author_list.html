@@ -30,8 +30,8 @@
       {% for author in author_list %}
       <tr>
         <td><a href="{{ author.get_absolute_url }}">{{ author.first_name }} {{ author.last_name }}</a></td>
-        <td>{{ author.date_of_birth }}</td>             
-        <td>{% if author.date_of_death %}{{ author.date_of_death }} {% else %} - {% endif %}</td> 
+        <td>{{ author.date_of_birth }}</td>
+        <td>{% if author.date_of_death %}{{ author.date_of_death }} {% else %} - {% endif %}</td>
         {% if user.is_staff %}
         <td class="text-right">
           {% if perms.catalog.change_author %}
@@ -40,7 +40,7 @@
           {% if perms.catalog.delete_author %}
           <a href="{% url 'catalog:author-delete' author.pk %}" class="btn-sm btn-secondary mb-1" role="button">Delete</a>
           {% endif %}
-        </td>       
+        </td>
         {% endif %}
       </tr>
       {% endfor %}
@@ -48,6 +48,6 @@
   </table>
   {% else %}
     <p>There are no auhtors in the library.</p>
-  {% endif %}       
+  {% endif %}
   {% include 'include/pagination.html' %}
 {% endblock %}

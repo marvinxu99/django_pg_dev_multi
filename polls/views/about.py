@@ -6,5 +6,5 @@ def about(request):
     context = {
             'domain': settings.DOMAIN,
         }
-    
+
     return render(request, 'polls/about.html', context)

@@ -14,7 +14,7 @@ from core.constants import ITEM_BARCODE_TYPE, ITEM_IDENTIFIER_TYPE, ITEM_PRICE_T
 
 # Home of scan_n_pay app
 @login_required
-def scan_n_pay(request): 
+def scan_n_pay(request):
     # # print("app: " + apps.get_app_config('scan_n_pay').name)
     # for app in apps.get_app_configs():
     #     #print(app.name, app.verbose_name, app.label, app.path)
@@ -23,7 +23,7 @@ def scan_n_pay(request):
     query = request.GET.get('q')
     if query:
         print("q= " + query)
-        
+
     # if query:
     #     author_list = self.model.objects.filter(
     #         Q(first_name__icontains=query) | Q(last_name__icontains=query)
@@ -38,12 +38,12 @@ def scan_n_pay(request):
 # Return the item information as per Barcode
 # for urls like "/scan/?barcode=12345"
 @login_required
-def get_item(request): 
+def get_item(request):
 
-    barcode = request.GET.get('barcode') 
+    barcode = request.GET.get('barcode')
     if barcode:
         print('barcode: ' + barcode)
-    
+
     # Default return data if not found.
     data = {
         'validInd': 1,
@@ -57,7 +57,7 @@ def get_item(request):
     try:
         # Query the item_id from ITEM_BARCODE table
         item_id = ItemBarcode.objects.filter(
-                    active_ind = True, 
+                    active_ind = True,
                     item_barcode_type_cd = ITEM_BARCODE_TYPE.BARCODE,
                     value = barcode
                 )[0].item.pk
@@ -65,17 +65,17 @@ def get_item(request):
 
         # Query the item description from the ITEM_IDENTIFIER table
         item_ident = ItemIdentifier.objects.filter(
-                    active_ind = True, 
+                    active_ind = True,
                     item_identifier_type_cd = ITEM_IDENTIFIER_TYPE.DESCRIPTION,
                     item_id = item_id
                     )[0]
         data['description'] = item_ident.value
         data['itemIdentId'] = item_ident.item_identifier_id
-        
+
         # Query the item price from the ITEM_PRICE table
         item_price = ItemPrice.objects.filter(
-                    active_ind = True, 
-                    price_type_cd = ITEM_PRICE_TYPE.QUOTE,  
+                    active_ind = True,
+                    price_type_cd = ITEM_PRICE_TYPE.QUOTE,
                     item_id = item_id
                     )[0]
         data['price'] = item_price.price_float()
@@ -94,4 +94,3 @@ def get_item(request):
 
 def pay_successful(request):
     return render(request, 'scan_n_pay/pay_successful.html')
-

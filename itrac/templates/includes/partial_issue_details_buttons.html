@@ -23,7 +23,7 @@
         data-url="{% url 'itrac:save_issue_favourite' issue.id %}"><i class="fa fa-star" style="color:red"></i> Favour
     </button>
     {% endif %}
-    <button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#modalChangeAssignee" 
+    <button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#modalChangeAssignee"
         data-url="{% url 'itrac:change_assignee_users' issue.id %}"
         reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
         id="btn_change_assignee_main"><i class="fa fa-user" aria-hidden="true"></i> Assign

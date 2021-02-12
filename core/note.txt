@@ -1,8 +1,8 @@
-We usually have quite a few project-specific apps per project here, 
+We usually have quite a few project-specific apps per project here,
 and to try and keep dependencies reasonably clean we usually have two more apps:
 
-- "core" in which we put things shared by other apps (any app can depend on "core",   
+- "core" in which we put things shared by other apps (any app can depend on "core",
   "core" doesn't depend on any app),
 
-- and "main" in which tie things together ("main" can depend on any app, 
+- and "main" in which tie things together ("main" can depend on any app,
   no app is allowed to depend on "main").

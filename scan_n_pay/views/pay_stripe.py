@@ -21,7 +21,7 @@ def create_checkout_session(request):
         stripe.api_key = settings.STRIPE_SECRET_KEY
 
         amount = request.GET.get('amount')
-      
+
         try:
             # Create new Checkout Session for the order
             # Other optional params include:

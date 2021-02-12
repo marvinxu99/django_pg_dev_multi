@@ -37,7 +37,7 @@ def sdm_manage_orders(request):
     data = dict()
     page_title = ''
     orders = []
-    
+
     orders = Order.objects.filter(create_dt_tm__date=datetime.date.today()).order_by('-create_dt_tm')
     page_title = f'Orders, today\'s ({ orders.count() } orders)'
     context = {
@@ -45,8 +45,8 @@ def sdm_manage_orders(request):
         'page_title': page_title
     }
 
-    data['html_sdm_content_pane'] = render_to_string('shop/data_manager/partial_sdm_view_orders.html', context) 
-    data['html_sdm_sidebar_nav_1'] = render_to_string('shop/data_manager/partial_sdm_sidenav_orders.html') 
+    data['html_sdm_content_pane'] = render_to_string('shop/data_manager/partial_sdm_view_orders.html', context)
+    data['html_sdm_sidebar_nav_1'] = render_to_string('shop/data_manager/partial_sdm_sidenav_orders.html')
     data['status'] = 'S'
 
     return JsonResponse(data)
@@ -59,7 +59,7 @@ def sdm_manage_orders_filter(request):
     data = dict()
     page_title = ''
     orders = []
-    
+
     timeframe = request.GET['timeframe']
 
     if timeframe == 'today':
@@ -83,7 +83,7 @@ def sdm_manage_orders_filter(request):
         'page_title': page_title
     }
 
-    data['html_sdm_content_pane'] = render_to_string('shop/data_manager/partial_sdm_view_orders.html', context) 
+    data['html_sdm_content_pane'] = render_to_string('shop/data_manager/partial_sdm_view_orders.html', context)
     data['status'] = 'S'
 
     return JsonResponse(data)
@@ -101,8 +101,8 @@ def sdm_manage_products(request):
         'page_title': page_title
     }
 
-    data['html_sdm_content_pane'] = render_to_string('shop/data_manager/partial_sdm_view_products.html', context) 
-    data['html_sdm_sidebar_nav_1'] = render_to_string('shop/data_manager/partial_sdm_sidenav_products.html') 
+    data['html_sdm_content_pane'] = render_to_string('shop/data_manager/partial_sdm_view_products.html', context)
+    data['html_sdm_sidebar_nav_1'] = render_to_string('shop/data_manager/partial_sdm_sidenav_products.html')
     data['status'] = 'S'
 
     return JsonResponse(data)

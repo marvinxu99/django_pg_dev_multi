@@ -31,22 +31,22 @@
             <li><a href="?page={{ issues.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
         {% else %}
             <li class="disabled"><i class="material-icons">chevron_left</i></li>
-        {% endif %} 
-        
-        {% for i in issues.paginator.page_range %} 
+        {% endif %}
+
+        {% for i in issues.paginator.page_range %}
             {% if issues.number == i %}
                 <li class="active"><a>{{ i }}</a></li>
             {% else %}
             <li><a href="?page={{ i }}">{{ i }}</a></li>
-            {% endif %} 
-        {% endfor %} 
-        
+            {% endif %}
+        {% endfor %}
+
         {% if issues.has_next %}
             <li><a href="?page={{ issues.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
         {% else %}
             <li class="disabled"><i class="material-icons">chevron_right</i></li>
         {% endif %}
     </ul>
-    {% endif %} 
+    {% endif %}
 </div>
 {% endblock %}

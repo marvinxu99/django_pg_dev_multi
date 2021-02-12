@@ -9,7 +9,7 @@ from .forms import BookForm
 
 # List all the books created.
 def book_list(request):
-    books = Book.objects.all()    
+    books = Book.objects.all()
     return render(request, 'books/book_list.html', {'books': books})
 
 
@@ -25,7 +25,7 @@ def save_book_form(request, form, template_name):
             })
         else:
             data['form_is_valid'] = False
-    
+
     context = {'form': form}
     data['html_form'] = render_to_string(template_name, context, request=request)
 
@@ -39,7 +39,7 @@ def book_create(request):
         form = BookForm(request.POST)
     else:
         form = BookForm(initial={ 'publication_date': datetime.date.today() } )
-    
+
     return save_book_form(request, form, 'books/includes/partial_book_create.html')
 
 

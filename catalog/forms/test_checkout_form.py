@@ -16,15 +16,15 @@ class TestCheckoutModelForm(ModelForm):
         model = BookInstance
         fields = ['due_back']
         labels = {'due_back': _('Return date')}
-        help_texts = {'due_back': _('Enter a date between now and 4 weeks (default 3).')} 
+        help_texts = {'due_back': _('Enter a date between now and 4 weeks (default 3).')}
         widgets = {
             'due_back': forms.DateInput(attrs={'class': 'input-sm-field req-field', 'id': 'input_datepicker'})
         }
 
-        
+
     def clean_due_back(self):
        data = self.cleaned_data['due_back']
-       
+
        # Check if a date is not in the past.
        if data < datetime.date.today():
            raise ValidationError(_('Invalid date - renewal in past'))
@@ -35,4 +35,3 @@ class TestCheckoutModelForm(ModelForm):
 
        # Remember to always return the cleaned data.
        return data
-

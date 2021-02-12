@@ -16,13 +16,13 @@ class NewTopicTests(TestCase):
         self.board = Board.objects.create(name='Django', description='Django board.')
         self.username = 'john'
         self.password = '123'
-        
+
         user = User.objects.create_user(username=self.username, email='john@doe.com', password=self.password)
         self.client.login(username='john', password='123')
 
         self.topic = Topic.objects.create(subject='Hello, world', board=self.board, starter=user)
         Post.objects.create(message='Lorem ipsum dolor sit amet', topic=self.topic, created_by=user)
-        
+
         self.url = reverse('boards:new_topic', kwargs={'board_pk': 1})
 
 

@@ -4,11 +4,11 @@
 <div class="winn-heading jumbotron">
   <h1 class="display-4">Search Results</h1>
   <p class="lead text-muted">
-    placeholder for search results.  
+    placeholder for search results.
   </p>
   <p class="lead text-muted">Place holder for actions on the results <br>
     <a class="btn btn-outline-secondary btn-sm" href="{% url 'polls:contact' %}" role="button">compose a message</a>
-  </p> 
+  </p>
   <p> The key words are: </p>
   {% if search %}
     {% for item in search %}

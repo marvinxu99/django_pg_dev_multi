@@ -17,11 +17,11 @@ urlpatterns = [
     path('book/<uuid:pk>/renew-user/', views.renew_book_user, name='renew-book-user'),
     path('book/<uuid:pk>/test-checkout/', views.test_checkout, name='test-checkout'),
     path('book/<uuid:pk>/change-book-status-staff/', views.change_book_status_staff, name='change-book-status-staff'),
-    
+
     path('contact/', views.contact_email, name='contact'),
     path('contact_email_sent/', views.contact_email_sent, name='contact_email_sent'),
-    
+
     path('mybooks/', views.BorrowedBooksByUserListView.as_view(), name='my-borrowed'),
     path('allbooks/', views.BorrowedBooksByStaffListView.as_view(), name='all-borrowed'),
 
-] 
+]

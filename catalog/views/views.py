@@ -14,11 +14,11 @@ def index(request):
     # Generate counts of some of the main objects
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
-    
+
     # Available books (status = 'a')
     num_instances_available = BookInstance.objects.filter(status__exact='a').count()
-    
-    # The 'all()' is implied by default.    
+
+    # The 'all()' is implied by default.
     num_authors = Author.objects.count()
     num_genres = Genre.objects.count()
     num_winter_books = Book.objects.filter(title__icontains='winter').count()
@@ -26,7 +26,7 @@ def index(request):
    # Number of visits to this view, as counted in the session variable.
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
-   
+
     context = {
         'num_books': num_books,
         'num_instances': num_instances,
@@ -96,5 +96,5 @@ class AuthorListView(generic.ListView):
 
 @login_required
 def author_detail_view(request, pk):
-    author = get_object_or_404(Author, pk=pk)    
+    author = get_object_or_404(Author, pk=pk)
     return render(request, 'catalog/author_details.html', { 'author': author })

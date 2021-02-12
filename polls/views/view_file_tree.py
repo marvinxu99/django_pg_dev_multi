@@ -1,6 +1,6 @@
 import os
 import pathlib
-from django.shortcuts import render 
+from django.shortcuts import render
 from django.conf import settings
 
 
@@ -102,12 +102,12 @@ def print_dir_tree(path):
 # https://stackoverflow.com/questions/6297068/whats-the-django-way-to-render-a-tree-of-folders-and-files
 #
 def view_file_tree(request):
-    
+
     # List files in "generated_codes"
     f_path = os.path.join(settings.BASE_DIR, 'generated_codes')
     f_list = [p for p in pathlib.Path(f_path).iterdir() if p.is_file()]
 
-    # list the files in the FILE_UPLOAD_DIR 
+    # list the files in the FILE_UPLOAD_DIR
     f_uploaded_list = []
     f_uploaded_path = settings.FILE_UPLOAD_DIR
     # for root, d_names, f_names in os.walk(f_path):
@@ -115,7 +115,7 @@ def view_file_tree(request):
     for (_, _, filenames) in os.walk(f_uploaded_path):
         f_uploaded_list.extend(filenames)
         break
- 
+
     context = {
         'f_path': f_path,
         'f_list': f_list,

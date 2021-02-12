@@ -81,4 +81,3 @@ class TestViews(LoggedInTestCase):
     def test_get_edit_comment_page_for_item_that_does_not_exist(self):
         page = self.client.get("/issues/1/1/edit/")
         self.assertEqual(page.status_code, 404)
-

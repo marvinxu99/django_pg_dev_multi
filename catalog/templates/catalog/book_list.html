@@ -23,13 +23,13 @@
       <tr>
           <td><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></td>
           <td>{{ book.author }}</td>
-          <td>{{ book.display_genre }}</td>        
+          <td>{{ book.display_genre }}</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
   {% else %}
     <p>No books found in the library.</p>
-  {% endif %}       
+  {% endif %}
   {% include 'include/pagination.html' %}
 {% endblock %}

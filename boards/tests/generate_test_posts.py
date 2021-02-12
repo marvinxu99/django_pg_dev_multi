@@ -33,7 +33,7 @@ queryset = Topic.objects.filter(board__name='Django').order_by('-last_updated')
 
 
 '''
-Paginator 
+Paginator
 '''
 from django.core.paginator import Paginator
 

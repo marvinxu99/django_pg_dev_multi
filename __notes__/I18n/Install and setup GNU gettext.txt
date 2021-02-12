@@ -36,6 +36,6 @@ Update the system PATH:
 Control Panel > System > Advanced > Environment Variables.
 In the System variables list, click Path, click Edit.
 Add ;C:\Program Files\gettext-utils\bin at the end of the Variable value field.
-You may also use gettext binaries you have obtained elsewhere, so long as the following command works properly: 
+You may also use gettext binaries you have obtained elsewhere, so long as the following command works properly:
 
 xgettext --version

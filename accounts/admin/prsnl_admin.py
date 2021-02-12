@@ -3,7 +3,7 @@ from django.contrib import admin
 from ..models import Prsnl, Person_Alias, Prsnl_Alias
 
 
-class PrsnlAliasInline(admin.StackedInline):   
+class PrsnlAliasInline(admin.StackedInline):
     model = Prsnl_Alias
     can_delete = False
     verbose_name_plural = 'prsnl alias'

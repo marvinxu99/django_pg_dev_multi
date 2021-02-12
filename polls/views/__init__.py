@@ -1,5 +1,5 @@
 from .emails import email
-from .views import *        
+from .views import *
 from .barcodes import barcode_req, barcode_disp
 from .barcodes_js import barcode_gen_js
 from .contact import *

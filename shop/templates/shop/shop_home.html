@@ -14,7 +14,7 @@
       <button class="custom-button js_add_to_cart" action-url="{% url 'shop:cart_add_item' product.id %}">
         {% translate "ADD TO CART" %}
       </button>
-    </div>    
+    </div>
   {% empty %}
     Not found.
   {% endfor %}
@@ -23,7 +23,7 @@
 
 {% block js_shop %}
 <script>
-  
+
   $('.js_add_to_cart').click(function(event){
     const btn = $(this);
     const action_url = btn.attr('action-url')
@@ -43,5 +43,3 @@
 
 </script>
 {% endblock %}
-
-

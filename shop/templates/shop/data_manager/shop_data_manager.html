@@ -24,7 +24,7 @@ $(function() {
   $('#js-sdm-top-nav').click(function(){
     $('#js-sdm-top-nav').find('.nav-link').removeClass('active');
     $(event.target).addClass('active');
-    
+
     const tab_url = $(event.target).attr('tab-url');
     fetch(tab_url)
       .then(response => response.json())
@@ -35,7 +35,7 @@ $(function() {
   });
 
   $('#js-sdm-sidenav-1').click(function(){
-    const sn_1_url = $(event.target).attr('sn_1_url');   
+    const sn_1_url = $(event.target).attr('sn_1_url');
     fetch(sn_1_url)
       .then(response => response.json())
       .then(data => {
@@ -46,5 +46,3 @@ $(function() {
 })
 </script>
 {% endblock %}
-
-

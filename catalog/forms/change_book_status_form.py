@@ -28,7 +28,7 @@ class ChangeBookStatusStaffModelForm(ModelForm):
         model = BookInstance
         fields = ['status']
         labels = {'status': _('Status')}
-        help_texts = {'Status': _('Change the status of the book instance.')} 
+        help_texts = {'Status': _('Change the status of the book instance.')}
         # widgets = {
         #     'status': forms.Select(attrs={'size': '10'})
         # }
@@ -39,7 +39,7 @@ class ChangeBookStatusStaffModelForm(ModelForm):
 
     def clean_status(self):
        data = self.cleaned_data['status']
-       
+
     #    # Check if a date is not in the past.
     #    if data < datetime.date.today():
     #        raise ValidationError(_('Invalid date - renewal in past'))
@@ -50,4 +50,3 @@ class ChangeBookStatusStaffModelForm(ModelForm):
 
        # Remember to always return the cleaned data.
        return data
-

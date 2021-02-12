@@ -61,20 +61,20 @@ body {
   #sidebar {
       margin-left: -250px;
   }
-  
+
   #sidebar.active {
       margin-left: 0;
   }
 }
 
-.req-field { 
-	background-color: #fcfc93; 
+.req-field {
+	background-color: #fcfc93;
 }
 
-.input-sm-field { 
+.input-sm-field {
   width: 20%;
 }
 
-table.gen-list-view tr:last-child { 
-	border-bottom: 1px solid grey; 
+table.gen-list-view tr:last-child {
+	border-bottom: 1px solid grey;
 }

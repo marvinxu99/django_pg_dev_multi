@@ -65,7 +65,7 @@ div a {
 }
 
 /* for simplemde textarea size */
-.CodeMirror, 
+.CodeMirror,
 .CodeMirror-scroll {
   min-height: 100px;
 }

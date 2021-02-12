@@ -4,7 +4,7 @@ from django.contrib.postgres.search import SearchQuery
 
 
 def search(request):
-    try: 
+    try:
         search = str.split(request.GET['search'])
     except:
         search = ''

@@ -2,11 +2,11 @@
 {% for order in orders %}
 <div class="d-flex mt-3">
   <div class="js-collapse-toggle" data-toggle="collapse" href="#collapse_order{{order.order_id}}">
-    {% if forloop.first %}  
+    {% if forloop.first %}
       <i class="fa fa-plus-circle mr-1" style="font-size:12px;color:gray"></i>
     {% else %}
       <i class="fa fa-minus-circle mr-1" style="font-size:12px;color:gray"></i>
-    {% endif %}   
+    {% endif %}
   </div>
   <div>
     <div class="text-primary js-view-order" orderid="{{ order.order_id }}"> {{ order }}</div>
@@ -35,7 +35,7 @@
     {% empty %}
       <div>**no orders.**</div>
     {% endfor %}
-  </div>  
+  </div>
 </div>
 {% empty %}
 <p>You haven't ordered anything yet.</p>
@@ -47,7 +47,7 @@ $(function() {
   $(".js-collapse-toggle").click(function() {
       $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
   });
-  
+
   // default to expand the latest order items
   $(".js-collapse-orders").first().collapse();
 

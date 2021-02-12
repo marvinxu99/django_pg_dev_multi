@@ -12,4 +12,4 @@ function get_cart_count() {
         }
       }
     });
-};  
+};

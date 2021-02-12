@@ -3,19 +3,19 @@ from django.urls import reverse
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
-from core.models import CodeValue 
+from core.models import CodeValue
 from core.constants import CODE_SET
 
 
 class Product(models.Model):
     # Use code set: 2 - Product Category
-    category_cd = models.ForeignKey(CodeValue, 
-                                related_name='products',     # '+': Do not create backwards relation to this model 
+    category_cd = models.ForeignKey(CodeValue,
+                                related_name='products',     # '+': Do not create backwards relation to this model
                                 on_delete=models.CASCADE,
                                 limit_choices_to={'code_set': CODE_SET.PRODUCT_CATEGORY, 'active_ind': 1},
                                 verbose_name=_('category')
                             )
-    
+
     slug = models.SlugField(max_length=100, db_index=True)
     display = display = models.CharField(max_length=100)
     name = models.CharField(max_length=100, db_index=True)
@@ -26,13 +26,13 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     available = models.BooleanField(default=True)
     stock = models.PositiveIntegerField()
-    
+
     image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
 
     create_dt_tm = models.DateTimeField(auto_now_add=True)
     create_id = models.BigIntegerField(default=0)
     updt_cnt = models.IntegerField(default=0)
-    updt_dt_tm = models.DateTimeField(auto_now=True)  
+    updt_dt_tm = models.DateTimeField(auto_now=True)
     updt_id = models.BigIntegerField(default=0)
 
     class Meta:

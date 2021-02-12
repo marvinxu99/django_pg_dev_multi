@@ -17,15 +17,15 @@ def cart_add_item(request, pk):
     """
     data = dict()
     data["cart_count"] = 0
-    data["cart_total"] = 0 
-    data["item_count"] = 0 
-    data["item_price"] = 0 
+    data["cart_total"] = 0
+    data["item_count"] = 0
+    data["item_price"] = 0
 
     if request.user == AnonymousUser():
         print(request.user)
         data['status'] = 'F'
     else:
-        cart, created = Cart.objects.get_or_create(owner=request.user) 
+        cart, created = Cart.objects.get_or_create(owner=request.user)
         if created:
             cart.description = "SHOPPING_CART"
             cart.create_id = request.user.user_id
@@ -36,7 +36,7 @@ def cart_add_item(request, pk):
         if created:
             cart_item.create_id = request.user.user_id
             cart_item.price = cart_item.product.price
-            cart_item.save()            
+            cart_item.save()
         else:
             cart_item.quantity += 1
             cart_item.price = cart_item.product.price * cart_item.quantity
@@ -45,7 +45,7 @@ def cart_add_item(request, pk):
 
         d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('quantity'), Sum('price'))
 
-        data['cart_count'] = d_result['quantity__sum']  
+        data['cart_count'] = d_result['quantity__sum']
         data['cart_total'] = d_result['price__sum'] if d_result['price__sum'] else 0
         data["item_count"] = cart_item.quantity
         data["item_price"] = cart_item.price
@@ -61,19 +61,19 @@ def cart_deduct_item(request, pk):
     """
     data = dict()
     data["cart_count"] = 0
-    data["cart_total"] = 0 
-    data["item_count"] = 0 
-    data["item_price"] = 0 
+    data["cart_total"] = 0
+    data["item_count"] = 0
+    data["item_price"] = 0
 
     if request.user == AnonymousUser():
         print(request.user)
         data['status'] = 'F'
     else:
-        cart = get_object_or_404(Cart, owner=request.user) 
+        cart = get_object_or_404(Cart, owner=request.user)
 
         cart_item = get_object_or_404(CartItem, Q(cart_id=cart.cart_id) & Q(product_id=pk))
         if cart_item:
-            if cart_item.quantity > 1: 
+            if cart_item.quantity > 1:
                 cart_item.quantity = cart_item.quantity - 1
                 cart_item.price = cart_item.product.price * cart_item.quantity
                 cart_item.updt_id = request.user.user_id
@@ -85,7 +85,7 @@ def cart_deduct_item(request, pk):
 
         d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('quantity'), Sum('price'))
 
-        data['cart_count'] = d_result['quantity__sum']  
+        data['cart_count'] = d_result['quantity__sum']
         data['cart_total'] = d_result['price__sum'] if d_result['price__sum'] else 0
         data['status'] = 'S'
 
@@ -99,15 +99,15 @@ def cart_remove_item(request, pk):
     """
     data = dict()
     data["cart_count"] = 0
-    data["cart_total"] = 0 
-    data["item_count"] = 0 
-    data["item_price"] = 0 
+    data["cart_total"] = 0
+    data["item_count"] = 0
+    data["item_price"] = 0
 
     if request.user == AnonymousUser():
         print(request.user)
         data['status'] = 'F'
     else:
-        cart = get_object_or_404(Cart, owner=request.user) 
+        cart = get_object_or_404(Cart, owner=request.user)
 
         cart_item = get_object_or_404(CartItem, Q(cart_id=cart.cart_id) & Q(product_id=pk))
         if cart_item:
@@ -132,7 +132,7 @@ def cart_item_count(request):
         print(request.user)
         data['status'] = 'F'
     else:
-        cart, created = Cart.objects.get_or_create(owner=request.user) 
+        cart, created = Cart.objects.get_or_create(owner=request.user)
         if created:
             cart.description = "SHOPPING_CART"
             cart.create_id = request.user.user_id
@@ -142,7 +142,7 @@ def cart_item_count(request):
 
         if d_result['quantity__sum']:
             data['item_count'] = d_result['quantity__sum']
-        else:  
+        else:
             data["item_count"] = 0
 
         data['status'] = 'S'
@@ -156,11 +156,11 @@ def cart_view_items(request):
     # codeset 2(2) is Product Category
     categories = CodeValue.objects.filter(code_set_id=2).order_by('display_sequence')
 
-    cart = get_object_or_404(Cart, owner=request.user) 
+    cart = get_object_or_404(Cart, owner=request.user)
     items = CartItem.objects.filter(cart=cart)
 
     d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('price'))
-    cart_total = d_result['price__sum'] if d_result['price__sum'] else 0 
+    cart_total = d_result['price__sum'] if d_result['price__sum'] else 0
 
     context = {
         'items': items,
@@ -178,7 +178,7 @@ def cart_remove_all_items(request):
     # codeset 2(2) is Product Category
     categories = CodeValue.objects.filter(code_set_id=2).order_by('display_sequence')
 
-    cart = get_object_or_404(Cart, owner=request.user) 
+    cart = get_object_or_404(Cart, owner=request.user)
     CartItem.objects.filter(cart=cart).delete()
 
     context = {

@@ -3,14 +3,14 @@
     background-repeat:  no-repeat;
     background-position: center;
     background-size: contain;
- 
-    height: 500px; 
+
+    height: 500px;
 
     margin-bottom: 20px;
 }
 
 .tools-container {
-    /*grid-template-columns: 40px 50px auto 50px 40px; 
+    /*grid-template-columns: 40px 50px auto 50px 40px;
     grid-template-columns: 80px, auto
 /*    grid-template-rows: 25% 100px auto; */
     display: flex;
@@ -30,7 +30,7 @@
     width: 200px;
     height: 30px;
     margin-top: 10px;
-    line-height: 30px; 
+    line-height: 30px;
 
     color: white;
     font-weight: bold;

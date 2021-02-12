@@ -6,20 +6,20 @@ from .models import Product, Order, OrderItem, Payment
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     can_delete = False
-    list_display = ('name', 'display', 'description', 'category_cd', 'active_ind', 
+    list_display = ('name', 'display', 'description', 'category_cd', 'active_ind',
                 'price', 'available', 'stock',
                 'create_dt_tm', 'create_id', 'updt_cnt', 'updt_dt_tm', 'updt_id')
 
-    list_editable = ('category_cd', 'active_ind', 
+    list_editable = ('category_cd', 'active_ind',
                 'price', 'available', 'stock',)
     fields = [
-        ('name'), 
-        ('display'), 
-        ('description'), 
+        ('name'),
+        ('display'),
+        ('description'),
         ('category_cd'),
         ('active_ind'),
         ('price'),
-        ('available', 'stock'), 
+        ('available', 'stock'),
         ('image')
     ]
     list_filter = ('available', 'active_ind', 'create_dt_tm')
@@ -30,11 +30,11 @@ class ProductAdmin(admin.ModelAdmin):
             obj.created_id = request.user.user_id
         else:
             obj.updt_id = request.user.user_id
-            obj.updt_cnt = obj.updt_cnt + 1 
+            obj.updt_cnt = obj.updt_cnt + 1
         obj.save()
 
 
-class PaymentInline(admin.StackedInline):   
+class PaymentInline(admin.StackedInline):
     model = Payment
     can_delete = True
     verbose_name_plural = 'payments'
@@ -55,7 +55,7 @@ class PaymentInline(admin.StackedInline):
             obj.created_id = request.user.user_id
         else:
             obj.updt_id = request.user.user_id
-            obj.updt_cnt = obj.updt_cnt + 1 
+            obj.updt_cnt = obj.updt_cnt + 1
         obj.save()
 
 
@@ -81,7 +81,7 @@ class OrderItemInLine(admin.StackedInline):
         else:
             obj.updt_id = request.user.user_id
             obj.subtotal = obj.price * obj.quantity - obj.discount
-            obj.updt_cnt = obj.updt_cnt + 1 
+            obj.updt_cnt = obj.updt_cnt + 1
         obj.save()
 
 
@@ -90,11 +90,11 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('order_id', 'description', 'total', 'quantity', 'order_status', 'owner', 'comment',
                 'create_dt_tm', 'create_id', 'updt_cnt', 'updt_dt_tm', 'updt_id')
     fields = [
-        ('description'), 
-        ('total'), 
-        ('quantity'), 
-        ('order_status'), 
-        ('owner'), 
+        ('description'),
+        ('total'),
+        ('quantity'),
+        ('order_status'),
+        ('owner'),
         ('comment')
     ]
     list_editable = ('order_status', )
@@ -108,5 +108,5 @@ class OrderAdmin(admin.ModelAdmin):
             obj.created_id = request.user.user_id
         else:
             obj.updt_id = request.user.user_id
-            obj.updt_cnt = obj.updt_cnt + 1 
+            obj.updt_cnt = obj.updt_cnt + 1
         obj.save()

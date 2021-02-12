@@ -3,26 +3,26 @@
 Barcode Generator
 {% endblock %}
 
-{% block breadcrumb %}<strong>Winter' Barcode Generator</strong>{% endblock %}  
+{% block breadcrumb %}<strong>Winter' Barcode Generator</strong>{% endblock %}
 
 {% block content %}
 <div style='padding:20px'>
     <form action="{% url 'polls:barcode_disp' %}" method="post">
         {% csrf_token %}
-        
+
         <h5>1. Select a barcode type:</h5>
         {% for barcode_type in barcode_types %}
         <input type="radio" name="barcode_type" id="barcode_type{{ forloop.counter }}" value="{{ barcode_type.0 }}">
         <label for="barcode_type{{ forloop.counter }}">{{ barcode_type.1 }}</label><br>
         {% endfor %}
-    
+
 
         <h5>2. Type in the text to be included in the barcode:</h5>
         <input type='text' name='barcode_data' id='barcode_data' value="" placeholder="your text">
 
         <h5>3. Click on the button to generate a barcode</h5>
         <input type="submit" value="Generate Barcode"> <br>
-    
+
         {% if img_url %}
         </p>
         {% load static %}

@@ -1,29 +1,29 @@
 .zone {
     transition: all 0.3s linear;
   }
-  
+
   .zone:hover {
     -webkit-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
     -moz-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
     -o-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
     box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
   }
-  
+
   .zone-ww {
     transition: all 0.3s linear;
   }
-  
+
   .zone-ww:hover {
     /* transform: rotate(-5deg); */
     /* transform: scale(1.1, 1.1);*/
     -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);  
+    transform: scaleX(-1);
   }
 
   .zone-we {
     transition: all 0.3s linear;
   }
-  
+
   .zone-we:hover {
     transform: scale(1.2, 1.2);
     color: red;

@@ -7,7 +7,7 @@ from ..forms import CustomUserCreationForm, CustomUserChangeForm
 
 # The following are NOT NEEDED. leave them here for reference.
 #
-class PersonInline(admin.StackedInline):   
+class PersonInline(admin.StackedInline):
     model = Person
     can_delete = False
     verbose_name_plural = 'person'
@@ -24,14 +24,14 @@ class PersonInline(admin.StackedInline):
     extra = 0
 
 
-class PrsnlInline(admin.StackedInline):   
+class PrsnlInline(admin.StackedInline):
     model = Prsnl
     can_delete = False
     verbose_name_plural = 'personnel'
     # fieldsets = (
     #     ('Names', {
     #         'fields': ['name_first', 'name_middle', 'name_last', 'name_full_formatted'],
-    #         'classes': ['wide', 'extrapretty'],   # can be 'collapse', 'wide', 'extrapretty' 
+    #         'classes': ['wide', 'extrapretty'],   # can be 'collapse', 'wide', 'extrapretty'
     #         'description': 'this is needed'
     #     }),
     #     ('Advanced opitons', {

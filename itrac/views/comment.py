@@ -32,7 +32,7 @@ from core.constants import ACTIVE_STATUS
 #             return redirect('itrac:issue_detail', issue_pk)
 #     else:
 #         form = CommentForm()
-        
+
 #     return render(request, 'itrac/comment_create.html', {'form': form})
 
 
@@ -49,13 +49,13 @@ def save_new_comment(request, issue_pk):
         form.instance.author = request.user
         form.instance.issue = issue
         form.save()
-   
+
         resp = {
-            'status': 'S',         # 'S': successful, 'F': Failed 
+            'status': 'S',         # 'S': successful, 'F': Failed
         }
     else:
         resp = {
-            'status': 'F',         # 'S': successful, 'F': Failed 
+            'status': 'F',         # 'S': successful, 'F': Failed
             'error': "error",
         }
 
@@ -78,13 +78,13 @@ def edit_comment(request, issue_pk, pk):
         form.instance.author = request.user
         form.instance.issue = issue
         form.save()
-   
+
         resp = {
-            'status': 'S',         # 'S': successful, 'F': Failed 
+            'status': 'S',         # 'S': successful, 'F': Failed
         }
     else:
         resp = {
-            'status': 'F',         # 'S': successful, 'F': Failed 
+            'status': 'F',         # 'S': successful, 'F': Failed
             'error': "error",
         }
 
@@ -99,7 +99,7 @@ def comment_markdown(request, issue_pk, pk):
     """
     comment = get_object_or_404(Comment, pk=pk)
     data = {
-        'comment': comment.comment,  
+        'comment': comment.comment,
     }
 
     return JsonResponse(data)
@@ -115,5 +115,3 @@ def delete_comment(request, issue_pk, pk):
     comment.active_status_cd = ACTIVE_STATUS.DELETED
     comment.save()
     return redirect('itrac:issue_detail', issue_pk)
-
-

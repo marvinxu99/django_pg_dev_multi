@@ -6,9 +6,9 @@
 <div>
   <div class="p-1" style="border: 2px solid lightgray">
     {% for tag in issue.tags.all %}
-      <span class="mr-2"><span class="issue-existing-tag">{{ tag.title }}</span> 
+      <span class="mr-2"><span class="issue-existing-tag">{{ tag.title }}</span>
         <sup>
-          <button class="badge badge-primary badge-pill js-tag-item-delete" 
+          <button class="badge badge-primary badge-pill js-tag-item-delete"
             data-url="{% url 'itrac:issue_delete_tag' issue.pk tag.pk %}">X
           </button>
         </sup>
@@ -32,7 +32,7 @@
     </div>
   </div>
   <div class="d-flex justify-content-end">
-    <button type="cancel" class="btn btn-sm btn-secondary btn-tag-edit-cancel m-1" 
+    <button type="cancel" class="btn btn-sm btn-secondary btn-tag-edit-cancel m-1"
         data-url="{% url 'itrac:partial_issue_tags_list' issue.id %}">Close
     </button>
   </div>
@@ -45,19 +45,19 @@
       const issue_tags = document.getElementsByClassName("issue-existing-tag");
       for (let i = 0; i < issue_tags.length; i++) {
           let tag_item = issue_tags.item(i);
-          let tag_title = tag_item.textContent || tag_item.innerText; 
+          let tag_title = tag_item.textContent || tag_item.innerText;
           if (tag_title === tag_str) {
             return true;
           }
       }
       return false;
   };
-      
-  // Set up the filter for the list of tags 
+
+  // Set up the filter for the list of tags
   $("#issue-tag-input").on("keyup", () => {
       const input = document.getElementById("issue-tag-input");
       const filter = input.value.toUpperCase();
-              
+
       let existing_tag = false;
       let existing_issue_tag = false;
 
@@ -89,19 +89,19 @@
       // if the tag is net new
       if (!existing_tag && !existing_issue_tag && filter.length >= 1) {
         const new_tag_suggest = `
-                <button class="btn btn-sm js-issue-tag-add-net-new" 
-                        new-tag="${input.value}" 
+                <button class="btn btn-sm js-issue-tag-add-net-new"
+                        new-tag="${input.value}"
                         data-url="{% url 'itrac:issue_add_net_new_tag' issue.pk %}">
                     <strong>${input.value}</strong> (new tag)
                 </button>`
 
-        $('#netnew-tag-suggest').html(new_tag_suggest); 
+        $('#netnew-tag-suggest').html(new_tag_suggest);
         $('#tag-suggestions').hide();
 
         setupIssueAddNetNewTagListener();
 
       } else {
-        $('#netnew-tag-suggest').html(''); 
+        $('#netnew-tag-suggest').html('');
       }
   })
 
@@ -127,7 +127,7 @@
           $('.js-issue-edit-tags').click();
         }
       })
-     
+
     })
   }
 

@@ -21,7 +21,7 @@ class TagEditForm(forms.ModelForm):
         help_text='(maximum length is 40)'
     )
     is_active = forms.ChoiceField(
-        widget=forms.RadioSelect(attrs={ 'class': 'choice-no-bullets' }), 
+        widget=forms.RadioSelect(attrs={ 'class': 'choice-no-bullets' }),
         choices=[
             (True, 'Yes'),
             (False, 'No'),

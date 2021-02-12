@@ -12,8 +12,8 @@ class Cart(models.Model):
     description = models.CharField(max_length=200, blank=True, null=True)
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
-                            related_name='cart', 
-                            on_delete=models.SET_NULL, 
+                            related_name='cart',
+                            on_delete=models.SET_NULL,
                             null=True, blank=True)
 
     comment =  models.CharField(max_length=255, blank=True)
@@ -21,7 +21,7 @@ class Cart(models.Model):
     create_dt_tm = models.DateTimeField(auto_now_add=True)
     create_id = models.BigIntegerField(default=0)
     updt_cnt = models.IntegerField(default=0)
-    updt_dt_tm = models.DateTimeField(auto_now=True)  
+    updt_dt_tm = models.DateTimeField(auto_now=True)
     updt_id = models.BigIntegerField(default=0)
 
     class Meta:
@@ -29,4 +29,4 @@ class Cart(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return f"{ self.owner }'s { self.description.lower() }" 
+        return f"{ self.owner }'s { self.description.lower() }"

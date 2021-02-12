@@ -1,6 +1,6 @@
 https://django-postgres-copy.readthedocs.io/en/latest/
 
-Take advantage of powerful COPY command to load big 
+Take advantage of powerful COPY command to load big
 CSVs into Django faster than ever.
 
 (1) pip install django-postgres-copy

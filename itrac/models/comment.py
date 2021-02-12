@@ -1,21 +1,21 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
-from django.utils.translation import gettext_lazy as _ 
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from markdown import markdown
 from django.utils.html import mark_safe
 
 from itrac.models import Issue
-from core.constants import ACTIVE_STATUS 
+from core.constants import ACTIVE_STATUS
 
 class Comment(models.Model):
     """
     A single Comment
     """
     active_ind = models.BooleanField("Active", default=True)
-    active_status_cd = models.CharField(max_length=2, 
-                                        choices=ACTIVE_STATUS.choices, 
+    active_status_cd = models.CharField(max_length=2,
+                                        choices=ACTIVE_STATUS.choices,
                                         default=ACTIVE_STATUS.ACTIVE
                                     )
     active_status_dt_tm = models.DateTimeField(null=True, blank=True)

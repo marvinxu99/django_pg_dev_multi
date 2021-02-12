@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{% static 'webgl/css/burns.css' %}">
     <style type="text/css">
       canvas { border: 1px solid black; }
-    </style>  
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -15,15 +15,15 @@
     </div>
     <input type="checkbox" id='smoothbtn'> Enable image smooting</input>
     <div>
-    Please pick a colour: 
+    Please pick a colour:
       <input type="radio" id="red" name="colour" value="red"><label for="red" class="ml-1">Red</label>
       <input type="radio" id="yellow" name="colour" value="yellow"><label for="yellow" class="ml-1">Yellow</label>
       <input type="radio" id="green" name="colour" value="green"><label for="green" class="ml-1">Green</label>
       <input type="radio" id="black" name="colour" value="black" checked><label for="black" class="ml-1">Black</label>
     </div>
-    <button onclick="draw(img);">Reset Chart</button>  
-    <button id="clipboard">Copy to Clipboard</button>  
-  </div>    
+    <button onclick="draw(img);">Reset Chart</button>
+    <button id="clipboard">Copy to Clipboard</button>
+  </div>
   <hr>
   <p>Burn chart diagram is downloaded from <a href="" target="_blank">Learning about Electronics</a>
 
@@ -38,7 +38,7 @@
   };
 
   function draw(img) {
-    
+
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
 
@@ -54,7 +54,7 @@
       zoomctx.imageSmoothingEnabled = this.checked;
       zoomctx.mozImageSmoothingEnabled = this.checked;
       zoomctx.webkitImageSmoothingEnabled = this.checked;
-      zoomctx.msImageSmoothingEnabled = this.checked;        
+      zoomctx.msImageSmoothingEnabled = this.checked;
     };
     smoothbtn.addEventListener('change', toggleSmoothing);
 
@@ -67,8 +67,8 @@
                         50, 50,
                         0, 0,
                         200, 200);
-      
-      // Mark where the mouse pointer is 
+
+      // Mark where the mouse pointer is
       zoomctx.strokeStyle = "red";
       zoomctx.rect(95, 95, 10, 10);
       zoomctx.stroke();
@@ -81,13 +81,13 @@
     canvas.addEventListener('mousemove', zoom);
 
     // If the mouse is moving away from the canvas, clear up the zoom canvas
-    canvas.addEventListener('mouseleave', (e) => { 
+    canvas.addEventListener('mouseleave', (e) => {
       zoomctx.clearRect(0, 0, 200, 200);
     });
 
     // colour to draw
     var curr_color = 'black';   // default
-    var draw_ind = false;   
+    var draw_ind = false;
     var start_x = 0;
     var start_y = 0;
 
@@ -95,7 +95,7 @@
       if (e.button == 0) {
         draw_ind = true;
         start_x = e.layerX;
-        start_y = e.layerY; 
+        start_y = e.layerY;
       }
     });
     canvas.addEventListener('mouseup', (e) => {

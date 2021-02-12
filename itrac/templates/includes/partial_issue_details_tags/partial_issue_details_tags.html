@@ -3,9 +3,9 @@
   <div><span class="font-weight-bold mr-1">Tags: </span></div>
   <div class="d-flex">
     <div class="d-flex" id="issue_all_tags">
-      {% include "includes/partial_issue_details_tags/partial_issue_details_tags_list.html" %} 
+      {% include "includes/partial_issue_details_tags/partial_issue_details_tags_list.html" %}
     </div>
-    <button type="button" class="btn btn-sm js-issue-edit-tags" style="display:none" 
+    <button type="button" class="btn btn-sm js-issue-edit-tags" style="display:none"
       data-url = "{% url 'itrac:edit_issue_tags' issue.id %}" title="Click to edit">
       <i class="fa fa-edit"></i>
     </button>
@@ -14,7 +14,7 @@
 
 <script>
 $(function(){
-  
+
   tag_editing = false;
 
   $('#issue_tags').hover(function() {
@@ -23,7 +23,7 @@ $(function(){
       }
     }, function() {
       if(!tag_editing) {
-        $('.js-issue-edit-tags').css('display', 'none') 
+        $('.js-issue-edit-tags').css('display', 'none')
       }
     }
   );
@@ -47,7 +47,7 @@ $(function(){
       })
   });
 
-  function setupTagEditCancelListener() { 
+  function setupTagEditCancelListener() {
     $('.btn-tag-edit-cancel').click(function(){
       const url = $(this).attr('data-url');
 
@@ -71,7 +71,7 @@ $(function(){
             $('.js-issue-edit-tags').click();
           }
         })
-     
+
     })
   }
 
@@ -85,7 +85,7 @@ $(function(){
             $('.js-issue-edit-tags').click();
           }
         })
-     
+
     })
   }
 

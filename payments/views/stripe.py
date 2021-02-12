@@ -20,7 +20,7 @@ def create_checkout_session(request):
         cancelled_url = request.build_absolute_uri(reverse('payments:cancelled'))
 
         stripe.api_key = settings.STRIPE_SECRET_KEY
-        
+
         try:
             # Create new Checkout Session for the order
             # Other optional params include:
@@ -50,4 +50,3 @@ def create_checkout_session(request):
             return JsonResponse({'sessionId': checkout_session['id']})
         except Exception as e:
             return JsonResponse({'error': str(e)})
-

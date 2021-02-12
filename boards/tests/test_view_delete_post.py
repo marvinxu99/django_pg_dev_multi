@@ -64,7 +64,7 @@ class AuthorizedDeletePostTests(DeletePostTestCase):
         '''
         # Before delete
         self.assertEquals(Post.objects.all().count(), 1)
-        
+
         # delete
         self.response = self.client.get(self.url)
         self.assertEquals(self.response.status_code, 302)

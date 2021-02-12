@@ -8,30 +8,30 @@
     <script>
       // Get the WebGL rendering context
       var gl = canvas.getContext('webgl');
-      
+
       // Vertex shader
       var vshader = `
         void main() {
-        
+
           // Set vertex position: vec4(X, Y, Z, 1.0)
           gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
-          
+
           // Point size in pixels: float
           gl_PointSize = 10.0;
         }`;
-      
+
       // Fragment shader
       var fshader = `
         precision mediump float;
         void main() {
-        
+
           // Set fragment color: vec4(r, g, b, alpha)
           //gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
           float d = distance(gl_PointCoord, vec2(0.5, 0.5));
           if(d < .5) { gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); }
           else { discard; }
         }`;
-      
+
       // Compile program
       var program = compile(gl, vshader, fshader);
 
@@ -46,10 +46,10 @@
       // Select the color uniform and set its value
       var color = gl.getUniformLocation(program, "color");
       gl.uniform4f(color, 1, 0, 0, 1);
-      
+
       // Set the clear color (black)
       gl.clearColor(0.0, 0.0, 0.0, 1.0);
-      
+
       // Render
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.drawArrays(gl.POINTS, 0, 1);
@@ -64,6 +64,6 @@
       gl.vertexAttrib1f(size, 10);
       gl.uniform4f(color, 0, 0, 1, 1); // blue
       gl.drawArrays(gl.POINTS, 0, 1);
-    </script>      
+    </script>
   </body>
 </html>

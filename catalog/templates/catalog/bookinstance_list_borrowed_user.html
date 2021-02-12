@@ -23,7 +23,7 @@
         <td>
           {{ bookinst.book.author }}
         </td>
-        <td> 
+        <td>
           <span class="{% if bookinst.is_overdue %}text-danger{% endif %}">{{ bookinst.due_back }}</span>
         </td>
         <td>
@@ -31,11 +31,11 @@
         </td>
       </tr>
       {% endfor %}
-    </table>  
+    </table>
   </div>
   {% else %}
   <p>There are no books borrowed.</p>
-  {% endif %} 
+  {% endif %}
   {% include 'include/pagination.html' %}
 </div>
 {% endblock %}

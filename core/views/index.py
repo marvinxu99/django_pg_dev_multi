@@ -12,4 +12,3 @@ def winter_univer(request):
 
 def face_recognition(request):
     return redirect('http://winter-x-face.herokuapp.com')
-

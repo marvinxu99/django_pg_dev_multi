@@ -22,4 +22,3 @@ fetch("/payments/config")
     });
   });
 });
-

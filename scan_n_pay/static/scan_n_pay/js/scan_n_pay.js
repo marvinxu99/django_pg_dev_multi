@@ -1,11 +1,11 @@
 //console.log("Sanity check!");
 
 // Class to hold basic item data (front-end)
-// iteminfo 
+// iteminfo
 class Item {
     constructor(id, iteminfo, quantity=1, discount=0, discountType=1) {
         this.id = id;
-    
+
         this.itemId = iteminfo.itemId;
         this.itemIdentId = iteminfo.itemIdentId;
         this.itemPriceId = iteminfo.itemPriceId;
@@ -19,12 +19,12 @@ class Item {
         this.priceFinal = 0 ;             // Price customer paying for the item, is equal to (price - discountCalculated)
         this.comment ='';
     }
-    
-    // For now - 
+
+    // For now -
     calcFinalPrice() {
-        if(this.discountType === 1) {         // amount off 
+        if(this.discountType === 1) {         // amount off
             this.discountAmount = Math.round((this.discount * this.quantity + Number.EPSILON) * 100) / 100;
-        } 
+        }
         else if (this.discountType === 2) {     /* percentage off */
             this.discountAmount = Math.round(((this.price * (1 - this.discount/100)) * this.quantity + Number.EPSILON) * 100) / 100;
         }
@@ -32,7 +32,7 @@ class Item {
         this.priceFinal = Math.round(((this.price * this.quantity - this.discountAmount) + Number.EPSILON) *100) / 100;
     }
 }
- 
+
 // Class to hold all transaction data
 class TransactionData {
     constructor() {
@@ -40,7 +40,7 @@ class TransactionData {
         this.totals = {
             quantity: 0,
             originalPrice: 0,
-            discount: 0, 
+            discount: 0,
             price: 0,            // addition of all priceFinal
         }
         this.coupon = {
@@ -49,16 +49,16 @@ class TransactionData {
 
         }
         this.payment_amt = -1;    // this the final amount to pay (total price - coupon amount)
- 
+
         this.terminal_id = 123456;
         this.operator_id = 123456;
- 
+
         this.comment = '';
     }
 
     // add a new item
     addItem(iteminfo, quantity=1, discount=0, discountType=1) {
-        let id, newItem; 
+        let id, newItem;
 
         // Create new ID
         if (this.allItems.length > 0) {
@@ -67,13 +67,13 @@ class TransactionData {
             id = 0;
         }
 
-        newItem = new Item(id, iteminfo, quantity, discount, discountType); 
+        newItem = new Item(id, iteminfo, quantity, discount, discountType);
         newItem.calcFinalPrice();
 
-        this.allItems.push(newItem);  
+        this.allItems.push(newItem);
 
         this.addItemToTotals(newItem);
-        
+
         return newItem;
     }
 
@@ -82,7 +82,7 @@ class TransactionData {
         //data.allItems[id];
         // ids = [1 2 4 6 8]
         //index = 3
-        
+
         let ids = this.allItems.map(item => item.id)
         let index = ids.indexOf(id);
 
@@ -101,17 +101,17 @@ class TransactionData {
         this.totals.originalPrice = 0;
         this.discountAmount = 0;
         this.comment = '';
-    } 
-    
+    }
+
     // Calculate totals: price, quantity
     calculateTotals() {
-        this.totals.price = this.allItems.reduce( (total, item) => 
-            { return total + item.priceFinal; }, 0);   
+        this.totals.price = this.allItems.reduce( (total, item) =>
+            { return total + item.priceFinal; }, 0);
         this.totals.price.toFixed(2);
-    
-        this.totals.quantity = this.allItems.reduce( (total, item) => 
+
+        this.totals.quantity = this.allItems.reduce( (total, item) =>
             { return total + item.quantity; }, 0);
-        
+
         this.totals.discount = this.allItems.reduce( (total, item) =>
             { return total + item.discountAmount; }, 0);
         this.totals.discount.toFixed(2);
@@ -125,16 +125,16 @@ class TransactionData {
     addItemToTotals(item) {
         this.totals.price += item.priceFinal;
         this.totals.price.toFixed(2);
-        
+
         this.totals.originalPrice += item.price;
         this.totals.originalPrice.toFixed(2);
-        
+
         this.totals.quantity += item.quantity;
 
         this.totals.discount += item.discountAmount;
         this.totals.discount.toFixed(2);
     }
-} 
+}
 
 // Class to hold UI data and methods
 class UIController {
@@ -149,8 +149,8 @@ class UIController {
     };
 
     // Add and display the item in the allItems list
-    static addListItem(item, totals) {      
-        // Create HTML string        
+    static addListItem(item, totals) {
+        // Create HTML string
         let html = `<td class="item-name" onmouseover="mouseOverListItem(event);" onmouseleave="mouseLeaveListItem(event);">
                         <button class="btn btn-sm btn-danger" id="btn-${item.id}" style="display:none">x</button>
                         ${item.description}
@@ -159,37 +159,37 @@ class UIController {
                     <td class="item-quantity">${item.quantity}</td>
                     <td class="item-discount">${item.discountAmount.toFixed(2)}</td>
                     <td class="item-price">${item.priceFinal.toFixed(2)}</td>`
-    
+
         // Insert the HTML into the DOM
         const listRef = document.getElementById(this.DOMstrings.itemsList);
         const newRow = listRef.insertRow();   // Insert a row at the end of the table
         newRow.id = "item-" + item.id;
         newRow.className = "transaction-item";
         newRow.innerHTML = html;
-        
+
         // Make the last inserted item to be visible if needed.
         newRow.scrollIntoView(false);
 
         // Update the total price as well
         this.updateTotals(totals);
-    }   
-    
+    }
+
     static formatMoney(number, locale='en-CA', currency='CAD') {
-        return number.toLocaleString(locale, 
+        return number.toLocaleString(locale,
                 { style: 'currency', currency: currency }
             );
     }
 
     static getCurrencySymbol = (locale, currency) => {
-        
+
         // getCurrencySymbol('en-US', 'CNY') // CN¥
-        //getCurrencySymbol('zh-CN', 'CNY') // ￥      
-        
-        return (0).toLocaleString(locale, 
+        //getCurrencySymbol('zh-CN', 'CNY') // ￥
+
+        return (0).toLocaleString(locale,
                     { style: 'currency', currency, minimumFractionDigits: 0, maximumFractionDigits: 0 }
             ).replace(/\d/g, '').trim();
     }
-    
+
     static updateTotals({ quantity, originalPrice, discount, price }) {
         // Update the total price as well
         let html = `<td class="text-right item-name"><strong> Totals:</strong></td>
@@ -210,11 +210,11 @@ class UIController {
     }
 
     // Delete the select item from UI display
-    static deleteListItem(selectorID) {            
+    static deleteListItem(selectorID) {
         const el = document.getElementById(selectorID);
-        el.parentNode.removeChild(el);       
+        el.parentNode.removeChild(el);
     }
-    
+
     // Delelet all list items - empty the list for next transaction.
     static deleteAllListItems() {
         const listRef = document.getElementById(this.DOMstrings.itemsList);
@@ -225,7 +225,7 @@ class UIController {
         this.updateTotals({ quantity: 0, originalPrice: 0, discount: 0, price: 0 });
     }
 
-    // Reset the barcode input field.    
+    // Reset the barcode input field.
     static clearBarcodeField() {
         let el_barcode = document.getElementById(this.DOMstrings.barcodeInput);
         el_barcode.value = '';
@@ -240,13 +240,13 @@ class UIController {
         this.clearBarcodeField();
     }
 
-    // Display warning message in red  
+    // Display warning message in red
     static displayWarningMsg(msg) {
         const msg_div = document.getElementById(this.DOMstrings.warningMessage);
         msg_div.classList.remove('invisible');
         msg_div.innerText = `**${msg}**`
     }
-    
+
     // Hide warning message
     static hideWarningMsg() {
         const msg_div = document.getElementById(this.DOMstrings.warningMessage);
@@ -259,18 +259,18 @@ class UIController {
 // global variable to hol transaction data
 const transData = new TransactionData();
 
-// To retrieve item information 
+// To retrieve item information
 async function getItemInfo(barcode) {
     try {
         const result = await fetch(`get_item/?barcode=${barcode}`);
         const data = await result.json();
         console.log("data=", data);
         if(data.validInd === 1) {
-            
+
             // 1. Add the item data to TransData
             const newItem = transData.addItem(data);
             console.log(newItem);
-            console.log(transData);       
+            console.log(transData);
 
             // 2. add the item to UI display
             UIController.addListItem(newItem, transData.totals);
@@ -295,7 +295,7 @@ function getItemInfoByCode() {
     const barcode = barcode_input.value;
     if (barcode.length > 0) {
         getItemInfo(barcode);
-        
+
         barcode_input.focus();
     }
 }
@@ -306,15 +306,15 @@ const setupEventListeners = () => {
 
     // When a Enter key is pressed in Barcode input box
     const barcode_input = document.getElementById(UIController.DOMstrings.barcodeInput)
-    barcode_input.addEventListener('keypress', function(event) {   
+    barcode_input.addEventListener('keypress', function(event) {
         if((event.keyCode === 13) || (event.which === 13)      /* Enter key */
             || (event.keyCode === 9) || (event.which === 9))   /* or Tab key */
-        {  
+        {
             event.preventDefault();
             getItemInfoByCode();
         }
     })
-    barcode_input.addEventListener('blur', function(event) {   
+    barcode_input.addEventListener('blur', function(event) {
         event.preventDefault();
         getItemInfoByCode();
 
@@ -339,18 +339,18 @@ function startNewTransaction() {
     transData.resetData();
 
     // 2. remove previous items (if any) from UI
-    UIController.resetUI(); 
+    UIController.resetUI();
 }
 
 
 // Send the transData to Server
 function sendTransData() {
-        
+
     const URL_POST = 'transdata/';
-    
+
     // Check data - doing nothing if no transaction data.
-    if (transData.allItems.length === 0) { 
-        return; 
+    if (transData.allItems.length === 0) {
+        return;
     }
     console.log("sending transData...")
 
@@ -362,8 +362,8 @@ function sendTransData() {
     console.log(resp_json)
 }
 
-// Post transactionn data to server after payment is done 
-// data: should be an object of (k,v)'s 
+// Post transactionn data to server after payment is done
+// data: should be an object of (k,v)'s
 async function sendData(url, data) {
 
     let csrftoken = getCookie('csrftoken');
@@ -406,12 +406,12 @@ function deleteItemFromList(event) {
 
     if(btn_id) {
         //btn-1
-        const splitID = btn_id.split('-');  
+        const splitID = btn_id.split('-');
         const ID = parseInt(splitID[1]);
 
         // remove from transData
         transData.deleteItem(ID);
-        
+
         // Remove from UI
         const item_id = "item-" + ID;
         UIController.deleteListItem(item_id);

@@ -55,7 +55,7 @@ div a {
 }
 
 /* for simplemde textarea size */
-.CodeMirror, 
+.CodeMirror,
 .CodeMirror-scroll {
   min-height: 100px;
 }
@@ -70,8 +70,8 @@ div a {
 }
 */
 .winter-sm-logo {
-  width: 32px; 
-	height: 32px; 
+  width: 32px;
+	height: 32px;
 }
 .winter-sm-logo:hover {
   transform: rotate(-20deg);
@@ -101,9 +101,9 @@ div a {
 
 /* For left/right panels */
 .panel_container {
-  position:absolute; 
-  width: 100%; 
-  height:75%; 
+  position:absolute;
+  width: 100%;
+  height:75%;
   border-bottom: 2px solid lightgrey;
 }
 .search-results-panel {
@@ -126,7 +126,7 @@ div a {
 
 /* Used on search_issues.html - for top/bottom panels  */
 .filter-panel-container {
-  height:90vh; 
+  height:90vh;
   display:grid;
 }
 .filter-results-panel {
@@ -156,4 +156,4 @@ ul.choice-no-bullets li {
   display: inline-block;
   display: inline;
   margin-right: 10px;
-} 
+}

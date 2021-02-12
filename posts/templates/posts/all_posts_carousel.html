@@ -6,7 +6,7 @@
     <ol class="carousel-indicators">
       {% for post in object_list %}
       <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
-      {% endfor %}  
+      {% endfor %}
     </ol>
     <div class="carousel-inner">
       {% for post in object_list %}
@@ -30,4 +30,3 @@
   </div>
 </div>
 {% endblock %}
-

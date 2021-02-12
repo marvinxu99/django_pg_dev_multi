@@ -32,11 +32,11 @@
     // Define vertices and colors
     var verticesColors = new Float32Array([
       //x ,  y,    z,    r,    g,    b
-      0.0,   0.5,  0.0,  0.0,  1.0,  0.0, 
-      -0.5,  -0.5,  0.0,  0.0,  0.0,  1.0, 
-      0.5,  -0.5,  0.0,  1.0,  0.0,  0.0, 
+      0.0,   0.5,  0.0,  0.0,  1.0,  0.0,
+      -0.5,  -0.5,  0.0,  0.0,  0.0,  1.0,
+      0.5,  -0.5,  0.0,  1.0,  0.0,  0.0,
     ]);
-      
+
     // Save the number of vertices (3)
     var n = 3;
 
@@ -55,10 +55,10 @@
       gl.FLOAT,   // type
       false,      // normalize
       FSIZE * 6,  // stride (chunk size)
-      0           // offset (position of interleaved data in chunk) 
+      0           // offset (position of interleaved data in chunk)
     );
     gl.enableVertexAttribArray(position);
-      
+
     // Bind the attribute color to the 3rd, 4th and 5th float in every chunk
     var color = gl.getAttribLocation(program, 'color');
     gl.vertexAttribPointer(

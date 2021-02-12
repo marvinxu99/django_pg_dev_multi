@@ -35,8 +35,8 @@ def rpt_resolved_by_days(request):
     print(completed_daily)
 
     context = {
-        'completed_daily': str(completed_daily), 
-        'completed_weekly': str(completed_weekly), 
+        'completed_daily': str(completed_daily),
+        'completed_weekly': str(completed_weekly),
         'completed_monthly': str(completed_monthly)
     }
     return render(request, "itrac/rpt_resolved_by_days.html", context)
@@ -58,8 +58,8 @@ def report(request):
     print(completed_daily)
 
     context = {
-        'completed_daily': str(completed_daily), 
-        'completed_weekly': str(completed_weekly), 
+        'completed_daily': str(completed_daily),
+        'completed_weekly': str(completed_weekly),
         'completed_monthly': str(completed_monthly)
     }
 

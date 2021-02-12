@@ -5,4 +5,3 @@ with open('./shop_data.json') as f:
 
 print(len(data))
 #print(data)
-

@@ -20,7 +20,7 @@ def cart_pay_success(request):
     items = []
     order = None
 
-    cart = get_object_or_404(Cart, owner=request.user) 
+    cart = get_object_or_404(Cart, owner=request.user)
     cart_items = CartItem.objects.filter(cart=cart)
     d_result = CartItem.objects.filter(cart_id=cart.cart_id).aggregate(Sum('quantity'), Sum('price'))
 
@@ -29,7 +29,7 @@ def cart_pay_success(request):
         return HttpResponseRedirect(reverse("shop:shop_home"))
 
     #with transaction.Atomic():
-     
+
 
     # Create an order
     order = Order(owner=request.user)
@@ -38,13 +38,13 @@ def cart_pay_success(request):
     order.total = d_result['price__sum'] if d_result['price__sum'] else 0
     order.comment = "paid by stripe"
     order.order_status = get_object_or_404(
-                    CodeValue, 
+                    CodeValue,
                     Q(code_set=CODE_SET.ORDER_STATUS) & Q(definition="Ordered"))
     order.save()
 
     # Create a payment record
     payment = Payment.objects.create(
-        description = "Credit payment", 
+        description = "Credit payment",
         amount = d_result['price__sum'] if d_result['price__sum'] else 0,
         comment = "stripe payment",
         order = order
@@ -68,7 +68,7 @@ def cart_pay_success(request):
 
     items = OrderItem.objects.filter(order=order)
     o_result = OrderItem.objects.filter(order=order).aggregate(Sum('price'))
-    
+
     context = {
         'items': items,
         'categories': categories,
@@ -83,7 +83,7 @@ def cart_pay_success(request):
 def cart_pay_cancelled(request):
     '''Logics after a successful payment was made
     '''
-    cart = get_object_or_404(Cart, owner=request.user) 
+    cart = get_object_or_404(Cart, owner=request.user)
     items = CartItem.objects.filter(cart=cart)
 
     # Concert cart items to an order - order info to be stored in Order, OrderItem

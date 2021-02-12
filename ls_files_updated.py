@@ -80,7 +80,7 @@ if __name__ == "__main__":
     proceed_ind = input()
     if proceed_ind == "X" or proceed_ind == "x":
         print_info("Aborted. No changes made.")
-    else:       
+    else:
         # Copying to django_pg_heroku
         print_info("Copying to " + PATH_TARGET1 + '...')
         for i in range(len(source_files)):
@@ -93,7 +93,7 @@ if __name__ == "__main__":
                 except PermissionError as exc:
                     os.chmod(f_target1, os.stat.S_IWUSR)
                     os.remove(f_target1)
-            shutil.copy(source_files[i], f_target1)           
+            shutil.copy(source_files[i], f_target1)
 
         # Copying to django_pg_winn
         print_info("Copying to " + PATH_TARGET2 + '...')
@@ -107,7 +107,3 @@ if __name__ == "__main__":
                     os.chmod(f_target2, stat.S_IWUSR)
                     os.remove(f_target2)
             shutil.copy(source_files[i], f_target2)
-
-
-
-

@@ -16,7 +16,7 @@
     </form>
   </div>
   <div class="row mt-3 d-flex align-items-center" style="border: 2px solid lightgray; height: 8vh;">
-    <div class="col-md-8">  
+    <div class="col-md-8">
       <div class="dropdown">
         <h2><span id="issue-filter-title">{{ filter_name }}</span>
           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -43,7 +43,7 @@
         {% for issue in issues %}
           <li  class="list-group-item js_issue_item">
             <a class="js_issue_item_title" href="#issue{{ forloop.counter }}" data-toggle="collapse">{{ issue.coded_id }}: {{ issue.title }}</a>
-            <button class="btn btn-sm btn-outline-info js_issue_partial" data-url="{% url 'itrac:issue_detail_partial' issue.id %}" 
+            <button class="btn btn-sm btn-outline-info js_issue_partial" data-url="{% url 'itrac:issue_detail_partial' issue.id %}"
                 style="display:none" title="Click to view more details">
                 <i class='fas fa-angle-double-right' style='font-size:16px'></i>
             </button>
@@ -85,7 +85,7 @@ $(function () {
           },
           success: function (data) {
               $("#issue-details").html(data.html_issue_detail);
-              
+
               //set up the event istener
               $(".js-collapse-toggle").click(function () {
                   console.log("toggle")
@@ -106,13 +106,13 @@ $(function () {
 
   $(".js_issue_item").on("mouseover", mouseOverListItem);
   $(".js_issue_item").on("mouseleave", mouseLeaveListItem);
-  
+
   $(".js_issue_partial").click(loadIssueDetailPartial);
 
   $(".js-collapse-toggle").click(function () {
     $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
   });
-  
+
 });
 </script>
 {% endblock %}

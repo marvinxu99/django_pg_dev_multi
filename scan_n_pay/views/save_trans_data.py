@@ -19,7 +19,7 @@ from core.models import TransEvent, TransItem
 @require_POST
 @transaction.atomic
 def save_trans_data(request):
-    ''' 
+    '''
     (1) Save transaction event + (2) save the items included in the transaction
     '''
     # # Only accept POST
@@ -39,17 +39,17 @@ def save_trans_data(request):
         save_trans_items(trans_data, trans_event_pk)
 
         resp = {
-            'status': 'S',         # 'S': successful, 'F': Failed 
+            'status': 'S',         # 'S': successful, 'F': Failed
             'item_count': num_trans_items,
         }
     except Exception as e:
         print(e)
         resp = {
-            'status': 'F',         # 'S': successful, 'F': Failed 
+            'status': 'F',         # 'S': successful, 'F': Failed
             'item_count': num_trans_items,
             'error': str(e)
         }
-   
+
     return JsonResponse(resp)
 
 
@@ -93,7 +93,7 @@ def save_trans_event(trans_data):
 
         te_rec.save()
 
-        if not te_rec.event_id:             
+        if not te_rec.event_id:
             te_rec.event_id = te_rec.trans_event_id
             te_rec.save()
             print('save event_id after created')
@@ -107,7 +107,7 @@ def save_trans_event(trans_data):
 # Save the items to the database
 def save_trans_items(trans_data, event_id):
 
-    items = trans_data['allItems']    
+    items = trans_data['allItems']
 
     try:
         trans_items = []

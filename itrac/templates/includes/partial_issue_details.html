@@ -25,8 +25,8 @@
     <span class="ml-1 font-weight-bold">Details</span>
   </div>
   <div class="collapse js-collapse-details ml-3" id="collapse_details">
-    {% include "includes/partial_issue_details_details.html" %} 
-    {% include "includes/partial_issue_details_tags/partial_issue_details_tags.html" with issue=issue %}  
+    {% include "includes/partial_issue_details_details.html" %}
+    {% include "includes/partial_issue_details_tags/partial_issue_details_tags.html" with issue=issue %}
   </div>
 </div>
 <div class="mt-3">
@@ -35,7 +35,7 @@
       <i class="fa fa-minus-circle" style="font-size:12px;color:gray"></i>
     </a>
     <span class="ml-1 font-weight-bold">Description</span>
-    <button type="button" class="btn btn-sm js-update-description" 
+    <button type="button" class="btn btn-sm js-update-description"
       markdown-url="{% url 'itrac:description_raw_markdown' issue.id %}"
       save-url="{% url 'itrac:edit_description' issue.id %}"
       reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
@@ -64,13 +64,13 @@
               <i class="fa fa-minus-circle" style="font-size:12px;color:gray"></i>
           </div>
           <div>
-            <span class="ml-1 font-weight-bold">{{ comment.author }}</span> 
-              added a comment - <span title="{{comment.created_date}}">{{ comment.created_date|naturaltime }}</span> 
-              {% if comment.updated_date != comment.created_date %} 
-                <span title="{{comment.updated_date}}">(edited at {{ comment.updated_date|naturaltime }})</span> 
+            <span class="ml-1 font-weight-bold">{{ comment.author }}</span>
+              added a comment - <span title="{{comment.created_date}}">{{ comment.created_date|naturaltime }}</span>
+              {% if comment.updated_date != comment.created_date %}
+                <span title="{{comment.updated_date}}">(edited at {{ comment.updated_date|naturaltime }})</span>
               {% endif %}
               {% if user == comment.author %}
-              <button type="button" class="btn btn-sm js-update-comment" 
+              <button type="button" class="btn btn-sm js-update-comment"
                   data-url="{% url 'itrac:edit_comment' issue.id comment.id %}"
                   reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
                   comment-div-id="collapse_comment{{comment.id}}"
@@ -92,8 +92,8 @@
     </ul>
   </div>
   <div id="new_comment_btn_div" class="my-3">
-    <button class="btn btn-sm btn-outline-info" 
-        data-url="{% url 'itrac:save_new_comment' issue.id %}" 
+    <button class="btn btn-sm btn-outline-info"
+        data-url="{% url 'itrac:save_new_comment' issue.id %}"
         reload-url="{% url 'itrac:issue_detail_partial' issue.id %}"
         id="add_new_comment_btn_main"><i class="far fa-comment-alt"></i> New Comment
     </button>
@@ -151,7 +151,7 @@ $(function () {
     $("#btn_confirm_delete_comment").attr("href", data);
     $("#comment_to_delete").html(comment);
   });
- 
+
   // Add to or remove from favourites(saved_issue)
   $('.js_update_favourite').click(function(event){
       const status = $(this).attr('value');
@@ -190,7 +190,7 @@ $(function () {
             $('#btn-issue-watcher').html(data.html_list);
           }
       })
-  }) 
+  })
 
   // Change issue status
   $(".js_issue_status").click(function(event) {
@@ -214,7 +214,7 @@ $(function () {
   });
 
   // Insert a comment
-  $("#add_new_comment_btn_2").click(function(event) { $("#add_new_comment_btn_main").click(); });  
+  $("#add_new_comment_btn_2").click(function(event) { $("#add_new_comment_btn_main").click(); });
   $("#add_new_comment_btn_main").click(function(event) {
       const data_url = $(event.target).attr('data-url');
       const reload_url = $(event.target).attr('reload-url');
@@ -231,9 +231,9 @@ $(function () {
 
       $('#partial_comment_list').append(html);
 
-      let simplemde = new SimpleMDE({ 
+      let simplemde = new SimpleMDE({
           element: document.getElementById("comment_editable"),
-          autofocus: true, 
+          autofocus: true,
           //initialValue: "Hello world!",
       });
       $("#smde_cancel").click(function(){
@@ -263,7 +263,7 @@ $(function () {
       });
       return false;
   });
-  
+
   // This is also defined in issue.js
   // TODO: need to consolidate them
   const issue_details_ajax = (url) => {
@@ -277,14 +277,14 @@ $(function () {
         },
         success: function (data) {
             $("#issue-details").html(data.html_issue_detail);
-            
+
             //set up the event istener
             $(".js-collapse-toggle").click(function () {
                 $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
             });
 
             // default to expand
-            $(".js-collapse-details").collapse();                                    
+            $(".js-collapse-details").collapse();
         }
     });
   };
@@ -321,9 +321,9 @@ $(function () {
 
           $(comment_div_id).html(html);
 
-          let simplemde = new SimpleMDE({ 
+          let simplemde = new SimpleMDE({
               element: document.getElementById("comment_edit_markdown"),
-              autofocus: true, 
+              autofocus: true,
               initialValue: raw_markdown,
           });
           $("#smde_cancel").click(function(){
@@ -382,9 +382,9 @@ $(function () {
 
           $('#collapse_description').html(html);
 
-          let simplemde = new SimpleMDE({ 
+          let simplemde = new SimpleMDE({
               element: document.getElementById("description_edit_markdown"),
-              autofocus: true, 
+              autofocus: true,
               initialValue: raw_markdown,
           });
           $("#smde_cancel").click(function(){
@@ -415,7 +415,7 @@ $(function () {
     return false;
   });
 
-  // Change assignee 
+  // Change assignee
   // (there are 2 buttons that can initiate this action)
   $('#btn_change_assignee_2').click(function(){ $('#btn_change_assignee_main').click(); });
   $('#modalChangeAssignee').on('show.bs.modal', function (event) {
@@ -434,7 +434,7 @@ $(function () {
         success: function (data) {
             $("#modal-change-assignee").html(data.html_user_list);
             document.getElementById("assigneeDropdown").classList.toggle("show");
-  
+
             function filterFunction() {
               const input = document.getElementById("assigneeInput");
               const filter = input.value.toUpperCase();
@@ -467,7 +467,7 @@ $(function () {
                     }
                 });
 
-                $("#modalChangeAssignee").modal("hide");   
+                $("#modalChangeAssignee").modal("hide");
             });
         }
     });
@@ -502,4 +502,3 @@ $('#btn_add_attachment').click(function() {
 });
 
 </script>
-    

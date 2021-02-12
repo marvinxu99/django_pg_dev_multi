@@ -1,6 +1,6 @@
 from django.db import models
 import calendar
-from django.utils.translation import gettext_lazy as _ 
+from django.utils.translation import gettext_lazy as _
 
 #from django.apps import apps
 #MyModel1 = apps.get_model('app1', 'MyModel1')
@@ -40,7 +40,7 @@ class ACTION_TYPE(models.TextChoices):
 
 class ACTIVE_STATUS(models.TextChoices):
     ACTIVE = '01', _("Active")
-    COMBINED = '02', _('Combined') 
+    COMBINED = '02', _('Combined')
     COMBINEHIST = '03', _('Historical value - combined')
     DELETED = '04', _('Deleted')
     DRAFT = '05', _('Draft')
@@ -52,13 +52,13 @@ class ACTIVE_STATUS(models.TextChoices):
 
 class ENTRY_MODE(models.TextChoices):
     SCAN_N_PAY = '01', _("Scan-N-Pay")
-    ESI = '02', _('ESI') 
+    ESI = '02', _('ESI')
     DIRECT_ENTRY = '03', _('Direct Entry')
     CASHIER = '04', _('Cashier')
 
 # Item barcodes (one item can have multiple barcodes)
 class ITEM_BARCODE_TYPE(models.TextChoices):
-    BARCODE = '20', _('Barcode')		
+    BARCODE = '20', _('Barcode')
     CHARGE_NBR = '21', _('Charge Number')
     ITEM_NBR_SYS = '22', _('System Assigned Item Number')
     LOT_NBR	= '23', _('Lot Number')
@@ -82,7 +82,7 @@ class ITEM_IDENTIFIER_TYPE(models.TextChoices):
 
 # Price Type
 class ITEM_PRICE_TYPE(models.TextChoices):
-    CONTRACT = '01', _('Contract')		
+    CONTRACT = '01', _('Contract')
     LIST = '02', _('List')
     QUOTE = '03', _('Quote')
 
@@ -159,12 +159,12 @@ class RESULT_STATUS(models.TextChoices):
     UNKNOWN = '16', _('Unknown')
 
 class TRANSACTION_TYPE(models.TextChoices):
-    PURCHASE = '01', _('Purchase')		
+    PURCHASE = '01', _('Purchase')
     REFUND = '02', _('Refund')
     EXCHANGE = '03', _('Exchange')
 
 class TRANS_COMMENT_TYPE(models.TextChoices):
-    COMMENT_STAFF = '01', _('Staff Comment')		
+    COMMENT_STAFF = '01', _('Staff Comment')
     COMMENT_CLIENT = '02', _('Client Comment')
     COMMENT_AUDIT = '03', _('Audit Comment')
     COMMENT_SYSTEM = '04', _('System Comment')
@@ -191,11 +191,11 @@ class CODE_SET:
     WINTER              = 1
     PRODUCT_CATEGORY    = 2
     EVENT_CODE          = 3
-    ORDER_STATUS        = 4   
+    ORDER_STATUS        = 4
 
 # Product category
 class PRODUCT_CATEGORY:
-    COMMENT_STAFF = '01', _('Staff Comment')		
+    COMMENT_STAFF = '01', _('Staff Comment')
     COMMENT_CLIENT = '02', _('Client Comment')
     COMMENT_AUDIT = '03', _('Audit Comment')
     COMMENT_SYSTEM = '04', _('System Comment')

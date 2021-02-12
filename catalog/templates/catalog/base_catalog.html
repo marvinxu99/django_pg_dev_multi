@@ -23,10 +23,10 @@
           {% if user.is_authenticated %}
             <li><span class='ml-1'>USER: {{ user.get_username }}</span></li>
             <li><a href="{% url 'catalog:my-borrowed' %}">My Borrowed</a></li>
-            <li><a href="{% url 'accounts:logout' %}?next={{request.path}}">Logout</a></li>   
+            <li><a href="{% url 'accounts:logout' %}?next={{request.path}}">Logout</a></li>
           {% else %}
-            <li><a href="{% url 'accounts:login' %}?next={{request.path}}">Login</a></li>   
-          {% endif %}         
+            <li><a href="{% url 'accounts:login' %}?next={{request.path}}">Login</a></li>
+          {% endif %}
           {% if user.is_staff %}
             <li><span class='ml-1'>STAFF:</span></li>
             <li><a href="{% url 'catalog:all-borrowed' %}">All Borrowed</a></li>
@@ -44,5 +44,3 @@
     </div>
   </div>
 {% endblock %}
-
-

@@ -5,11 +5,11 @@
     padding-left: 10px;
     text-decoration: none;
     display: block;
-  } 
+  }
   .dropdown a:hover {background-color: #ddd;}
   .show {display: block;}
 </style>
-  
+
 <div class="dropdown">
   <div id="assigneeDropdown" class="dropdown-content">
     <input type="text" placeholder="Search user" id="assigneeInput">
@@ -18,14 +18,14 @@
       <a class="users-item-user" url="{% url 'itrac:change_assignee_change' issue_id usr.user_id %}"
         role="button">
         {{ usr.first_name }}, {{ usr.last_name }} ({{ usr.username }})
-      </a> 
+      </a>
       {% endfor %}
     </div>
     <div>
       <a class="users-item-user" url="{% url 'itrac:change_assignee_change' issue_id user.user_id %}"
-        role="button">Assign to me</a> 
+        role="button">Assign to me</a>
       <a class="users-item-user" url="{% url 'itrac:change_assignee_change' issue_id 0 %}"
-        role="button">Unassign</a> 
+        role="button">Unassign</a>
     </div>
   </div>
 </div>

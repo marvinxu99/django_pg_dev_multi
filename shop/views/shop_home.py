@@ -10,7 +10,7 @@ def shop_home(request):
     """ Shop home
     """
     products = Product.objects.all()
-   
+
     # code set 2(2) is Product Category
     categories = CodeValue.objects.filter(code_set_id=2).order_by('display_sequence')
 
@@ -39,4 +39,3 @@ def get_products_by_category(request, prod_cat):
     }
 
     return render(request, "shop/shop_home.html", context)
-

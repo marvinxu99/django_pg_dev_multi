@@ -9,5 +9,3 @@ class iTracConfig(AppConfig):
 
     def ready(self):
         import itrac.signals
-
-        

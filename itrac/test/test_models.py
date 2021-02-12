@@ -33,5 +33,3 @@ class TestIssueModel(TestCase):
         self.assertEqual(comment.comment, "Test Issue Comment")
         self.assertEqual(comment.author, user)
         self.assertEqual(comment.issue, issue)
-
-

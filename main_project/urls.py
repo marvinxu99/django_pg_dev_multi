@@ -28,14 +28,14 @@ urlpatterns = [
     path('polls/', include('polls.urls')),
     path('boards/', include('boards.urls')),
     path('accounts/', include('accounts.urls')),
-    
+
     path('catalog/', include('catalog.urls')),
     #path('', RedirectView.as_view(url='catalog/', permanent=True)),
 
     path('core/', include('core.urls')),
     path('kbase/', include('kbase.urls')),
     path('posts/', include('posts.urls')),
-    
+
     path('winter_winnpy/', core_views.winter_winnpy, name='winter_winnpy'),
     path('winter_univer/', core_views.winter_univer, name='winter_univer'),
     path('face_recognition/', core_views.face_recognition, name='face_recognition'),
@@ -43,7 +43,7 @@ urlpatterns = [
     path('utils/', include('utils.urls')),
     path('itrac/', include('itrac.urls')),
     path('webgl/', include('webgl.urls')),
-    
+
     path('payments/', include('payments.urls')),
     path('budget/', include('budget.urls')),
     path('scan_n_pay/', include('scan_n_pay.urls')),
@@ -57,5 +57,5 @@ urlpatterns = [
 
 urlpatterns += staticfiles_urlpatterns()
 
-if settings.DEBUG: 
+if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -15,7 +15,7 @@ def get_directory_path(instance, filename):
 # Validate uploaded file size
 def validate_file_size(value):
     filesize= value.size
-    
+
     if filesize > 2097152:   # 2MB = 2097152 Bytes
         raise ValidationError("The maximum file size that can be uploaded is 2MB")
     else:
@@ -28,8 +28,8 @@ class IssueAttachment(models.Model):
     """
     description = models.CharField(max_length=100, blank=True)
     attachment = models.FileField(
-        upload_to=get_directory_path, 
-        verbose_name='Choose a file to upload', 
+        upload_to=get_directory_path,
+        verbose_name='Choose a file to upload',
         validators=[validate_file_size]
     )
     issue = models.ForeignKey(Issue, related_name='attachments', on_delete=models.CASCADE)
@@ -59,7 +59,7 @@ def delete_files_when_row_deleted_from_db(sender, instance, **kwargs):
         if isinstance(field,models.FileField):
             instance_file_field = getattr(instance,field.name)
             delete_file_if_unused(sender,instance,field,instance_file_field)
-            
+
 """ Delete the file if something else get uploaded in its place"""
 @receiver(pre_save)
 def delete_files_when_file_changed(sender,instance, **kwargs):
@@ -80,7 +80,7 @@ def delete_files_when_file_changed(sender,instance, **kwargs):
             if instance_in_db_file_field.name != instance_file_field.name:
                 delete_file_if_unused(sender,instance,field,instance_in_db_file_field)
 
-""" Only delete the file if no other instances of that model are using it"""    
+""" Only delete the file if no other instances of that model are using it"""
 def delete_file_if_unused(model,instance,field,instance_file_field):
     dynamic_field = {}
     dynamic_field[field.name] = instance_file_field.name

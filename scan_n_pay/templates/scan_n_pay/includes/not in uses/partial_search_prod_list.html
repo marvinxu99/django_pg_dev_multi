@@ -8,21 +8,18 @@
       </tr>
     </thead>
     <tbody id="search_item_list">
-      {% for prod in products %}           
+      {% for prod in products %}
         <tr class="prod-item-details">
             <td style="width:50%">{{ prod.description }</td>
             <td class="text-right">{{ prod.price }}</td>
             <td class="text-center" style="width:30%">
               <input type="number" class="prod-quantity_input" style="width:50px;" id="prod-{{ forloop.counter }}" value=0 min="0", max="20" >
-            </td>             
+            </td>
         </tr>
       {% empty %}
         <tr><td colspan="7" class="text-center bg-warning">Products not found. </td></tr>
-      {% endfor %}  
-     
+      {% endfor %}
+
 
     </tbody>
-</table>      
-
-
-
+</table>

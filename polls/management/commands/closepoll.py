@@ -1,7 +1,7 @@
 '''
 Writing custom django-admin commands
 https://docs.djangoproject.com/en/1.11/howto/custom-management-commands/
-The closepoll.py module has only one requirement – it must define a class 
+The closepoll.py module has only one requirement – it must define a class
 Command that extends BaseCommand or one of its subclasses.
 
 > python manage.py <poll_id>

@@ -3,7 +3,7 @@
 {% load humanize %}
 
 {% block title %}
-  {{ block.super }} - {{ board.name }} 
+  {{ block.super }} - {{ board.name }}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -45,7 +45,7 @@
                 {% if topic.has_many_pages %}
                   ... <a href="{{ topic_url }}?page={{ topic.get_page_count }}">Last Page</a>
                 {% endif %}
-              </small>        
+              </small>
             </td>
             <td class="align-middle">{{ topic.starter.username }}</td>
             <td class="align-middle">{{ topic.replies }}</td>
@@ -62,5 +62,5 @@
     </table>
   </div>
 </div>
-{% include 'includes/pagination.html' %} 
+{% include 'includes/pagination.html' %}
 {% endblock %}

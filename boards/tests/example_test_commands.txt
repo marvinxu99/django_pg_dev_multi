@@ -3,5 +3,3 @@ python manage.py test boards.tests.test_view_board_topics.BoardTopicsTests.test_
 python manage.py test boards
 
 python manage.py test boards.tests.test_view_board_topics
-
-

@@ -11,8 +11,8 @@ class ItemPrice(models.Model):
     item_price_id = models.BigAutoField(primary_key=True, editable=False)
 
     active_ind = models.BooleanField("Active", default=True)
-    active_status_cd = models.CharField(max_length=2, 
-                                        choices=ACTIVE_STATUS.choices, 
+    active_status_cd = models.CharField(max_length=2,
+                                        choices=ACTIVE_STATUS.choices,
                                         default=ACTIVE_STATUS.ACTIVE
                                         )
     active_status_dt_tm = models.DateTimeField(default=timezone.now)
@@ -43,12 +43,12 @@ class ItemPrice(models.Model):
     package_type_id = models.BigIntegerField(default=0)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
     price_quote_source = models.CharField(max_length=100, default='none')
-    price_type_cd = models.CharField(max_length=2, 
-                                        choices=ITEM_PRICE_TYPE.choices, 
+    price_type_cd = models.CharField(max_length=2,
+                                        choices=ITEM_PRICE_TYPE.choices,
                                         default=ITEM_PRICE_TYPE.QUOTE)
 
     updt_cnt = models.IntegerField(default=0)
-    updt_dt_tm = models.DateTimeField(auto_now=True)  
+    updt_dt_tm = models.DateTimeField(auto_now=True)
     updt_id = models.BigIntegerField(default=0)
     updt_task = models.BigIntegerField(default=0)
     updt_applabel = models.CharField(max_length=20, default='0')

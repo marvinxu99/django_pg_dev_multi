@@ -4,7 +4,7 @@
 {% load static %}
 
 {% block subcontent %}
-<div class="row">  
+<div class="row">
   <div class="col-md-3" >
     <div class="ml-1" style="border: 2px solid lightgray;">
       <form class="p-3" method="get">
@@ -37,7 +37,7 @@
             </div>
             <div class="collapse" id="issue{{ forloop.counter }}Collapse">
               <div class="pl-3 d-flex" style="border: 2px solid lightgray; width:75%">
-                <div style="width:50%">              
+                <div style="width:50%">
                   <div class="d-flex"><div title="{{ issue.created_date }}" style="width: 30%;"><b>Created: </b></div>{{ issue.created_date|naturaltime }}</div>
                   <div class="d-flex"><div style="width: 30%;"><b>Status: </b></div>{{ issue.get_status_display }}</div>
                   <div class="d-flex"><div style="width: 30%;"><b>Type: </b></div>{{ issue.get_issue_type_display }}</div>
@@ -81,14 +81,14 @@ $(function () {
           },
           success: function (data) {
               $("#issue-details").html(data.html_issue_detail);
-              
+
               //set up the event istener
               $(".js-collapse-toggle").click(function () {
                   $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
               });
 
               // default to expand
-              $(".js-collapse-details").collapse();                                    
+              $(".js-collapse-details").collapse();
           }
       });
   };
@@ -96,7 +96,7 @@ $(function () {
   const loadIssueDetailPartial = function () {
       url = $(this).attr("data-url");
       issue_details_ajax(url);
-  };  
+  };
   $(".js_issue_item_title").click(loadIssueDetailPartial);
 
   $('#filter-issues-list ul li').hover(function(){
@@ -115,4 +115,3 @@ $(function () {
 
 </script>
 {% endblock %}
-

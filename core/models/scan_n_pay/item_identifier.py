@@ -12,11 +12,11 @@ class ItemIdentifier(models.Model):
     active_ind = models.BooleanField("Active", default=True)
 
     item = models.ForeignKey(Item, related_name='Identifiers', on_delete=models.CASCADE)
-    
+
     parent_entity_id = models.IntegerField(default=0)
     parent_entity_name = models.CharField(max_length=100, blank=True)
-    
-    item_identifier_type_cd = models.CharField("Item Identifier Type", max_length=2, 
+
+    item_identifier_type_cd = models.CharField("Item Identifier Type", max_length=2,
                         choices=ITEM_IDENTIFIER_TYPE.choices,
                         default=ITEM_IDENTIFIER_TYPE.DESCRIPTION
                         )
@@ -27,11 +27,11 @@ class ItemIdentifier(models.Model):
     sequence = models.IntegerField(default=0)
 
     updt_cnt = models.IntegerField(default=0)
-    updt_dt_tm = models.DateTimeField(auto_now=True)  
+    updt_dt_tm = models.DateTimeField(auto_now=True)
     updt_id = models.BigIntegerField(default=0)
     updt_task = models.BigIntegerField(default=0)
     updt_applabel = models.CharField(max_length=20, default='0')
-    
+
     value = models.CharField(max_length=200)
     value_key = models.CharField(max_length=200)
 
@@ -40,7 +40,7 @@ class ItemIdentifier(models.Model):
             models.Index(fields=['item',]),
         ]
         db_table = 'core_item_identifier'
-        
+
     def __str__(self):
         """String for representing the Model object."""
         return f'Item: {self.value}'

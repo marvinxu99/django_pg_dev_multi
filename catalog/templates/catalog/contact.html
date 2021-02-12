@@ -14,7 +14,7 @@
         {% for field in form %}
             <div class="fieldWrapper mt-3">
                 {{ field.errors }}
-                <strong>{{ field.label_tag }}</strong><br> 
+                <strong>{{ field.label_tag }}</strong><br>
                 {{ field }}
             </div>
         {% endfor %}
@@ -53,7 +53,7 @@ $(document).ready(function() {
       changeYear: true,
       changeMonth: true,
       dateFormat: 'dd-M-yy',
-      onClose: function(dateTime){ 
+      onClose: function(dateTime){
           if (dateTime != "") {
             $(this).removeClass("req-field");
           } else {
@@ -67,7 +67,7 @@ $(document).ready(function() {
     $passTime.on( "focusout", function() {
      	var time_str = $(this).val();
     	//alert("time_str = " + time_str);
- 
+
        	// Time format: 24-hour format
 //      if( (/^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/.test(time_str)) ||
 //       		(/^(2[0-3]|[01]?[0-9])([0-5]?[0-9])$/.test(time_str)) ) {
@@ -94,13 +94,13 @@ $(document).ready(function() {
         setInputFilter(document.getElementById($(this).attr("id")), function(value) {
            	return /^\d*$/.test(value);   //postive number only
         });
-    }); 
+    });
 
     $('.input-freetext').each( function() {
         setInputFilter(document.getElementById($(this).attr("id")), function(value) {
            	return /^[a-zA-Z0-9 -]*$/.test(value);
         });
-    });    
+    });
 });
 
 /* Restricts input for the given textbox to the given inputFilter. */

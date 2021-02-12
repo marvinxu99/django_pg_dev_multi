@@ -7,9 +7,9 @@
   <h5>{{ book.title }}</h5>
   <p><strong>Author:</strong> <a href="{% url 'catalog:author-detail' book.author.pk %}">{{ book.author }}</a></p> <!-- author detail link not yet defined -->
   <p><strong>Summary:</strong> {{ book.summary }}</p>
-  <p><strong>ISBN:</strong> {{ book.isbn }}</p> 
-  <p><strong>Language:</strong> {{ book.language }}</p>  
-  <p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>  
+  <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+  <p><strong>Language:</strong> {{ book.language }}</p>
+  <p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>
 
   <div class='card borderless'>
     <div class="card-header">Copies</div>
@@ -27,28 +27,28 @@
           <td>
             <div class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
               {{ copy.get_status_display }}
-            </div>      
+            </div>
           </td>
           <td>
-            {% if copy.status != 'a' and copy.due_back %} {{ copy.due_back }} {% endif %}          
+            {% if copy.status != 'a' and copy.due_back %} {{ copy.due_back }} {% endif %}
           </td>
           <td>
             {{ copy.imprint }}
-          </td>        
+          </td>
           <td>
             {{ copy.id }}
-          </td>        
+          </td>
           <td>
             {% if copy.status == 'a' %}
             <a href="{% url 'catalog:test-checkout' copy.id %}" class="btn btn-secondary btn-sm mb-1" >Checkout</a><br>
-            {% endif %} 
+            {% endif %}
             {% if perms.catalog.can_mark_returned %}
             <a href="{% url 'catalog:change-book-status-staff' copy.id %}" class="btn-sm btn-secondary" role="button">Change Status</a>
             {% endif %}
-          </td>        
+          </td>
         </tr>
         {% endfor %}
-      </table>  
+      </table>
     </div>
   </div>
 {% endblock %}

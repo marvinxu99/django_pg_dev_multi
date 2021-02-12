@@ -4,7 +4,7 @@ from . import views
 
 
 app_name = 'posts'
-urlpatterns = [    
+urlpatterns = [
     path('', views.AllPostsListView.as_view(), name='all_posts'),
     path('create/', views.create_post, name='create_post'),
     path('cards/', views.responsive_cards, name='responsive_cards'),

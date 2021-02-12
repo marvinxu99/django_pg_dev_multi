@@ -16,13 +16,13 @@ CONNECTING IN PYTHON:
 
 
 CONEECTING WITH django:
-(1) In addition to pscopg2, also install the dj-database-url package using pip. 
+(1) In addition to pscopg2, also install the dj-database-url package using pip.
     $ pip install dj-database-url
 
     **Be sure to add psycopg2-binary and dj-database-url to your requirements.txt file as well**
 
 (2) Then add the following to the bottom of settings.py:
-    
+
     import dj_database_url
     DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 

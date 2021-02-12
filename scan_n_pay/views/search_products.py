@@ -34,7 +34,7 @@ def search_products(request):
         ITEM_TYPE.PRODUCE,
         ITEM_TYPE.DAIRY,
     ]
-        
+
     # Item
     qs_items = Item.objects.filter(active_ind=True, item_type_cd__in=search_item_types)
     data['itemsCount'] = len(qs_items)
@@ -45,7 +45,7 @@ def search_products(request):
     #         active_ind = True,
     #         item_identifier_type_cd = ITEM_IDENTIFIER_TYPE.DESCRIPTION
     #     )[0]
-    # item_identifier_id = qs_identifier.item_identifier_id 
+    # item_identifier_id = qs_identifier.item_identifier_id
     # print(f'item identifier id = {item_identifier_id}')
 
     # # ItemPrice
@@ -54,17 +54,17 @@ def search_products(request):
     # price = qs_price.price
     # print(f'item_price_id = {item_price_id }, price = {price}')
 
-    for item in qs_items: 
+    for item in qs_items:
         item_details = {}
-        item_details['itemId'] = item.item_id 
+        item_details['itemId'] = item.item_id
 
         # ItemIdentifier
         qs_identifier = item.Identifiers.filter(
                 active_ind = True,
                 item_identifier_type_cd = ITEM_IDENTIFIER_TYPE.DESCRIPTION
             )[0]
-        item_details['itemIdentId'] = qs_identifier.item_identifier_id 
-        item_details['description'] = qs_identifier.value 
+        item_details['itemIdentId'] = qs_identifier.item_identifier_id
+        item_details['description'] = qs_identifier.value
         print(f"item identifier id = {item_details['itemIdentId']}")
 
         # ItemPrice

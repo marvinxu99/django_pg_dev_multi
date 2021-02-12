@@ -18,9 +18,9 @@
     </form>
   </div>
   <div class="row mt-3 d-flex align-items-center" style="border: 2px solid lightgray; height: 8vh;">
-    <div class="col-md-8">  
+    <div class="col-md-8">
       <div class="dropdown d-flex align-items-center">
-        <span class="h3" id="issue-filter-title">{{ filter_name }}</span> 
+        <span class="h3" id="issue-filter-title">{{ filter_name }}</span>
         {% if refresh_url %}
           <a class="badge badge-primary badge-pill ml-1" role="button" href="{{ refresh_url }}">
             {{ issue_count_filter }} issues <i class="fas fa-sync"></i>
@@ -81,4 +81,3 @@ $( function() {
 });
 </script>
 {% endblock %}
-

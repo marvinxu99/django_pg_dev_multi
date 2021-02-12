@@ -14,14 +14,14 @@
         {% for book in author.book_set.all %}
         <li class="list-group-item border-1">
           <a href="{% url 'catalog:book-detail' book.pk %}"><strong>{{ book.title }}</strong></a><br>
-          {{ book.summary }}          
+          {{ book.summary }}
         </li>
         {% empty %}
         <li class="list-group-item border-1">
           No book found
         </li>
         {% endfor %}
-      </ul>  
+      </ul>
     </div>
   </div>
 {% endblock %}

@@ -6,5 +6,5 @@ app_name = 'budget'
 
 urlpatterns = [
     path('', views.budget_home, name='budget_home'),
-    
+
 ]

@@ -12,13 +12,13 @@ class Person(models.Model):
     person_id = models.BigAutoField(primary_key=True, editable=False)
 
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, 
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         limit_choices_to={'is_staff': False},
         verbose_name='username',
         help_text='Each person must have a username which is used to login to the system',
     )
-   
+
     name_first = models.CharField("Fist Name", max_length=128, default='John')
     name_middle = models.CharField("Middle Name", max_length=128, blank=True, null=True)
     name_last = models.CharField("Last Name", max_length=128, default='Doe')
@@ -27,7 +27,7 @@ class Person(models.Model):
     active_status_cd = models.IntegerField("Active Status", default=1)
     active_status_dt_tm = models.DateTimeField("Active Status Date", auto_now_add=True)
     person_type_cd = models.IntegerField('User Type', default=1)
-    
+
     created_dt_tm = models.DateTimeField("Date Created", null=True, blank=True)
     create_id = models.BigIntegerField('Created by', null=True, blank=True)
 

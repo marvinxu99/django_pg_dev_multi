@@ -8,11 +8,11 @@ class Category(models.Model):
     slug = models.SlugField(max_length=150, unique=True)
 
     active_ind = models.BooleanField("Active", default=True)
-    
+
     create_dt_tm = models.DateTimeField(auto_now_add=True)
     create_id = models.BigIntegerField(default=0)
     updt_cnt = models.IntegerField(default=0)
-    updt_dt_tm = models.DateTimeField(auto_now=True)  
+    updt_dt_tm = models.DateTimeField(auto_now=True)
     updt_id = models.BigIntegerField(default=0)
 
     class Meta:
@@ -30,4 +30,3 @@ class Category(models.Model):
 
 #    def get_absolute_url(self):
 #        return reverse('shop:product_list_by_category', args=[self.slug])
-

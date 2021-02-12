@@ -21,7 +21,7 @@ class AllPostsByUserListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'posts/all_posts.html'
     paginate_by = 4
-   
+
     def get_queryset(self):
         return Post.objects.filter(created_by=self.request.user).order_by('created_at')
 
@@ -36,8 +36,8 @@ def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            new_post = Post()             
-            
+            new_post = Post()
+
             new_post.title = form.cleaned_data['title']
             new_post.cover = form.cleaned_data['cover']
             new_post.created_by = request.user
@@ -52,7 +52,7 @@ def create_post(request):
 
 
 @login_required
-def delete_post(request, pk):    
+def delete_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if post.created_by == request.user:
         post.delete()

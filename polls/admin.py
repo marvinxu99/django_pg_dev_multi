@@ -6,7 +6,7 @@ from .models import Question, Choice
 
 class ChoiceInline(admin.TabularInline):
     """
-    Using TabularInline (instead of StackedInline), the related objects 
+    Using TabularInline (instead of StackedInline), the related objects
     are displayed in a more compact, table-based format:
     """
     model = Choice
@@ -34,7 +34,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 # class PersonAliasInline(admin.TabularInline):
 #     """
-#     Using TabularInline (instead of StackedInline), the related objects 
+#     Using TabularInline (instead of StackedInline), the related objects
 #     are displayed in a more compact, table-based format:
 #     """
 #     model = Person_Alias
@@ -67,4 +67,3 @@ admin.site.register(Question, QuestionAdmin)
 
 # admin.site.register(Person, PersonAdmin)
 # admin.site.register(CodeValue)
-

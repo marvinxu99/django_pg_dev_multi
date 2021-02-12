@@ -35,7 +35,7 @@ class Calendar(HTMLCalendar):
             return f"<td class='{csscls}'><span class='date'>{day}</span><ul> {d} </ul></td>"
         return '<td></td>'
 
-    # formats a week as a tr 
+    # formats a week as a tr
     def formatweek(self, theweek, events):
         week = ''
         for d, weekday in theweek:
@@ -106,7 +106,7 @@ def event(request, event_id=None):
         instance.start_time = datetime.now()
         instance.end_time = datetime.now()
         template_tile = 'New Event'
-    
+
     form = EventForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
         form.save()

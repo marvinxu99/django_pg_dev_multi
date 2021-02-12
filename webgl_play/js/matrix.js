@@ -35,8 +35,8 @@ perspective = options => {
   var f = 1 / Math.tan(fov);
   var nf = 1 / (near - far);
   return new Float32Array([
-    f / aspect, 0, 0, 0, 
-    0, f, 0, 0, 
+    f / aspect, 0, 0, 0,
+    0, f, 0, 0,
     0, 0, (far + near) * nf, -1,
     0, 0, (2 * near * far) * nf, 0
   ]);
@@ -65,21 +65,21 @@ orthogonal = options => {
 // Transform a mat4
 // options: x/y/z (translate), rx/ry/rz (rotate), sx/sy/sz (scale)
 transform = (mat, options) => {
-  
+
   var out = new Float32Array(mat);
-  
+
   var x = options.x || 0;
   var y = options.y || 0;
   var z = options.z || 0;
-  
+
   var sx = options.sx || 1;
   var sy = options.sy || 1;
   var sz = options.sz || 1;
-  
+
   var rx = options.rx;
   var ry = options.ry;
   var rz = options.rz;
-  
+
   // translate
   if(x || y || z){
     out[12] += out[0] * x + out[4] * y + out[8]  * z;
@@ -87,15 +87,15 @@ transform = (mat, options) => {
     out[14] += out[2] * x + out[6] * y + out[10] * z;
     out[15] += out[3] * x + out[7] * y + out[11] * z;
   }
-  
+
   // Rotate
   if(rx) out.set(multMat4Mat4(out, new Float32Array([1, 0, 0, 0, 0, Math.cos(rx), Math.sin(rx), 0, 0, -Math.sin(rx), Math.cos(rx), 0, 0, 0, 0, 1])));
   if(ry) out.set(multMat4Mat4(out, new Float32Array([Math.cos(ry), 0, -Math.sin(ry), 0, 0, 1, 0, 0, Math.sin(ry), 0, Math.cos(ry), 0, 0, 0, 0, 1])));
   if(rz) out.set(multMat4Mat4(out, new Float32Array([Math.cos(rz), Math.sin(rz), 0, 0, -Math.sin(rz), Math.cos(rz), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1])));
-  
+
   // Scale
   if(sx !== 1){
-    out[0] *= sx;  
+    out[0] *= sx;
     out[1] *= sx;
     out[2] *= sx;
     out[3] *= sx;
@@ -112,7 +112,7 @@ transform = (mat, options) => {
     out[10] *= sz;
     out[11] *= sz;
   }
-  
+
   return out;
 };
 
@@ -160,7 +160,7 @@ inverse = m => {
 inverseTranspose = m => transpose(inverse(m));
 
 // Place a camera at the position [cameraX, cameraY, cameraZ], make it look at the point [targetX, targetY, targetZ].
-// Optional: a "up" vector can be defined to tilt the camera on one side (vertical by default).  
+// Optional: a "up" vector can be defined to tilt the camera on one side (vertical by default).
 lookAt = (mat, cameraX, cameraY, cameraZ, targetX, targetY, targetZ, upX = 0, upY = 1, upZ = 0) => {
   var e, fx, fy, fz, rlf, sx, sy, sz, rls, ux, uy, uz;
   fx = targetX - cameraX;
@@ -187,5 +187,5 @@ lookAt = (mat, cameraX, cameraY, cameraZ, targetX, targetY, targetZ, upX = 0, up
     0,  0,  0,   1
   );
   l = transform(l, {x: -cameraX, y: -cameraY, z: -cameraZ});
-  return multMat4Mat4(mat, l); 
+  return multMat4Mat4(mat, l);
 }

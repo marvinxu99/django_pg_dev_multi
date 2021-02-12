@@ -1,6 +1,6 @@
 from django.db import models
 
-from .code_value_set import CodeValueSet 
+from .code_value_set import CodeValueSet
 
 
 class CodeValue(models.Model):
@@ -20,7 +20,7 @@ class CodeValue(models.Model):
     end_effective_dt_tm = models.DateTimeField('End Effective Date/Time', blank=True, null=True)
     inactivate_dt_tm = models.DateTimeField(blank=True, null=True)
     display_sequence = models.IntegerField(default=0)
-    
+
     # Winn Knowledge Index(WKI)
     wki = models.CharField("WKI", max_length=255, blank=True, null=True)
     concept_wki = models.CharField("Concept WKI", max_length=255, blank=True, null=True)
@@ -29,7 +29,7 @@ class CodeValue(models.Model):
     create_dt_tm = models.DateTimeField(auto_now_add=True)
     create_id = models.BigIntegerField(default=0)
     updt_cnt = models.IntegerField(default=0)
-    updt_dt_tm = models.DateTimeField(auto_now=True)  
+    updt_dt_tm = models.DateTimeField(auto_now=True)
     updt_id = models.BigIntegerField(default=0)
 
     class Meta:
@@ -41,4 +41,3 @@ class CodeValue(models.Model):
 
     def __str__(self):
         return self.display
-

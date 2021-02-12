@@ -1,8 +1,8 @@
 //$(document).ready(function(){
-$('[data-toggle="popover"]').popover();   
+$('[data-toggle="popover"]').popover();
 
 // Set the focus to barcode input once loaded.
-document.getElementById("barcode_input").focus();   
+document.getElementById("barcode_input").focus();
 
 // To hold all the selecte items form Product Search window
 class ProductItems {
@@ -13,7 +13,7 @@ class ProductItems {
                 itemId: 1
                 itemIdentId: 1,
                 description: 'xxxx',
-                itemPriceId: 1, 
+                itemPriceId: 1,
                 price: '10.24',
                 quantity: 2
             }
@@ -47,7 +47,7 @@ $('#searchProductsModal').on('show.bs.modal', function (event) {
 
     // Request all product info from server (json data)
     $.get('products/', function(data) {
-        
+
         // Store data into the global variable
         selectedItems.data = data.items
         console.log(selectedItems.data)
@@ -55,7 +55,7 @@ $('#searchProductsModal').on('show.bs.modal', function (event) {
         let html = "";
         if (data.itemsCount > 0) {
             for (var i=0; i<data.itemsCount; i++) {
-                
+
                 element_id = `prod-${i}`
                 html += `
                     <tr class="prod-list-item">
@@ -63,14 +63,14 @@ $('#searchProductsModal').on('show.bs.modal', function (event) {
                         <td class="text-right">${ data.items[i].price }</td>
                         <td class="text-center" style="width:30%">
                             <input type="number" class="js-spinner prod-quantity_input" style="width:50px;" id=${ element_id } value=0 min="0", max="20" >
-                        </td>             
+                        </td>
                     </tr>`
             }
         } else {
             html = `<tr><td colspan="7" class="text-center bg-warning">Products not found. </td></tr>`
-        }            
+        }
         $('#search_item_list').html(html);
-        
+
     });
 });
 
@@ -99,12 +99,12 @@ function filterFunction() {
 $('#select-items-btn').click(function(){
 
     $("#searchProductsModal").modal("hide");  // <-- Close the modal dialogue
-   
+
     quantity_list = document.getElementsByClassName("prod-quantity_input");
     console.log(quantity_list.length)
 
     for (let i=0; i<quantity_list.length; i++) {
-        qty_input = quantity_list[i];       
+        qty_input = quantity_list[i];
         splitId = qty_input.getAttribute('id').split('-');
         id = parseInt(splitId[1]);
 
@@ -132,11 +132,11 @@ $('#select-items-btn').click(function(){
     }
     console.log(transData);
 })
-        
+
 // $('#confirmDeleteModal').on('show.bs.modal', function (event) {
 //     var button = $(event.relatedTarget) // Button that triggered the modal
 //     var data = button.data('whatever') // Extract info from data-* attributes
 //     $("#confirm_delete_post").attr("href", data)
 // });
-  
+
 //});

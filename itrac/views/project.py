@@ -32,7 +32,7 @@ def project_create(request):
             projects = Project.objects.all()
             data['html_project_list'] = render_to_string('itrac/project/partial_project_list.html', {
                 'projects': projects,
-                'user': request.user, 
+                'user': request.user,
             })
         else:
             data['form_is_valid'] = False
@@ -62,7 +62,7 @@ def project_edit(request, pk):
             projects = Project.objects.all()
             data['html_project_list'] = render_to_string('itrac/project/partial_project_list.html', {
                 'projects': projects,
-                'user': request.user, 
+                'user': request.user,
             })
         else:
             data['form_is_valid'] = False
@@ -86,7 +86,7 @@ def project_delete(request, pk):
         projects = Project.objects.all()
         data['html_project_list'] = render_to_string('itrac/project/partial_project_list.html', {
             'projects': projects,
-            'user': request.user, 
+            'user': request.user,
         })
     else:
         context = {'project': project}
@@ -98,25 +98,25 @@ def project_delete(request, pk):
 @login_required
 def set_current_project(request, pk):
     '''
-    Current project 
+    Current project
     Recent Projects
     '''
     project = get_object_or_404(Project, pk=pk)
 
     prev_current = {}
     if 'current_project' in request.session:
-        prev_current = request.session.get('current_project')  
+        prev_current = request.session.get('current_project')
 
     # Recents is a list of [recent1, recent2, recent3, recent4 ]
     recent_projects = []
     if 'recent_projects' in request.session:
         recent_projects = request.session.get('recent_projects')
-    
+
     # Set up current project
-    current_project = { 
-        'title': f'{project.title}({project.code})', 
-        'id': project.id 
-    } 
+    current_project = {
+        'title': f'{project.title}({project.code})',
+        'id': project.id
+    }
 
     # Remove the current project from recent_projects if it was in them
     if len(recent_projects) > 0:
@@ -125,13 +125,12 @@ def set_current_project(request, pk):
             recent_projects.pop(index)
         except ValueError:
             if len(recent_projects) >= MAX_RECENT_PROJECT_ITEMS:
-                del recent_projects[-1]      
-    
+                del recent_projects[-1]
+
     if prev_current:
         recent_projects.insert(0, prev_current)
 
     request.session['current_project'] = current_project
     request.session['recent_projects'] = recent_projects
 
-    return redirect('itrac:filtered_issues_open') 
-
+    return redirect('itrac:filtered_issues_open')

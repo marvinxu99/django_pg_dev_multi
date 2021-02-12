@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
-from django.utils.translation import gettext_lazy as _ 
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from markdown import markdown
 from django.utils.html import mark_safe
@@ -26,19 +26,19 @@ class ISSUE_STATUS(models.TextChoices):
     OPEN =              '01', _('Open')
     INVESTIGATE =       '02', _('Investigate')
     TRIAGE =            '03', _('Await Approval')
-    
+
     BUILD_IN_PROGRESS = '10', _('Build in DEV')
     VALIDATING_DEV =    '11', _('Validating in DEV')
     READY_FOR_STAGE =   '19', _('Ready for STAGING')
-    
+
     BUILD_IN_STAGE =    '20', _('Build in STAGING')
     VALIDATING_STAGE =  '21', _('Validating in STAGING')
     READY_FOR_PROD =    '29', _('Ready for PROD')
-    
+
     BUILD_IN_PROD =     '30', _('Build in PROD')
     VALIDATING_PROD =   '31', _('Validating in PROD')
     VALIDATED_PROD =    '32', _('Validated in PROD')
-    
+
     COMPLETE =          '80', _('Complete')
     CLOSED =            '90', _('Closed')
 
@@ -66,15 +66,15 @@ class Issue(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=4000, blank=True)
     slug = models.CharField(max_length=250, blank=True)
-    
+
     is_resolved = models.BooleanField(default=False)
     resolved_date = models.DateField(blank=True, null=True)
     resolution_details = models.CharField(max_length=250, blank=True, null=True)
-    
+
     upvotes = models.IntegerField('likes', default=0)
-    
+
     tags = models.ManyToManyField(Tag, related_name='issues', blank=True)
-    
+
     # image = models.ImageField(upload_to='img', blank=True, null=True)
 
     created_date = models.DateTimeField(auto_now_add=True)
@@ -90,8 +90,8 @@ class Issue(models.Model):
         verbose_name_plural = "issues"
         ordering = ['title']
         indexes = [
-            models.Index(fields=['title',]),            
-            models.Index(fields=['coded_id',]),            
+            models.Index(fields=['title',]),
+            models.Index(fields=['coded_id',]),
         ]
 
     def __str__(self):
@@ -111,7 +111,7 @@ class Issue(models.Model):
 # update the issue.coded_id
 @receiver(post_save, sender=Issue)
 def set_issue_coded_id(sender, instance, created, **kwargs):
-    if created: 
+    if created:
         instance.coded_id = f'{ instance.project.code }-{ instance.pk }'
         instance.save()
 
@@ -120,5 +120,3 @@ def set_issue_coded_id(sender, instance, created, **kwargs):
 def set_issue_slug(sender, instance, **kwargs):
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
-
-

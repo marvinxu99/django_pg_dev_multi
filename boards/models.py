@@ -52,7 +52,7 @@ class Topic(models.Model):
         if self.has_many_pages(count):
             return range(1, 5)
         return range(1, count + 1)
-    
+
     def get_last_ten_posts(self):
         return self.posts.order_by('-created_at')[:10]
 
@@ -63,7 +63,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='posts', on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, related_name='+', on_delete=models.CASCADE)  
+    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, related_name='+', on_delete=models.CASCADE)
     # related_name='+' instructs Django that we don’t need this reverse relationship
 
     def __str__(self):
@@ -74,6 +74,6 @@ class Post(models.Model):
         return mark_safe(markdown(self.message, safe_mode='escape'))
 
 '''
-CASCADE: When the referenced object is deleted, also delete the objects that have references 
+CASCADE: When the referenced object is deleted, also delete the objects that have references
 to it (When you remove a blog post for instance, you might want to delete comments as well).
 '''

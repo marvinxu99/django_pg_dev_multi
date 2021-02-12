@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{% static 'polls/css/barcode.css' %}">
 {% endblock %}
 
-{% block breadcrumb %}<strong>Winter' Barcode Generator</strong>{% endblock %}  
+{% block breadcrumb %}<strong>Winter' Barcode Generator</strong>{% endblock %}
 
 {% block content %}
   <div class="card border-success w-50">
@@ -34,7 +34,7 @@
         </li>
         <li class="list-group-item border-0">
           <div>
-            <input class="barcode_input" type="text" id="barcodeValue" placeholder="numbers or characters" value="" > 
+            <input class="barcode_input" type="text" id="barcodeValue" placeholder="numbers or characters" value="" >
           </div>
         </li>
         <li class="list-group-item border-0"><strong>2. Select a barcode type</strong>:</li>
@@ -76,8 +76,8 @@
             </div>
           </div>
         </li>
-        
-        <!-- Hide the Fomaat from user from now -->		
+
+        <!-- Hide the Fomaat from user from now -->
         <li class="list-group-item border-0" hidden><strong>4. Format</strong>:</li>
         <li class="list-group-item border-0" hidden>
             <div>
@@ -85,7 +85,7 @@
               <input type="radio" id="bmp" name="renderer" value="bmp"><label for="bmp">BMP (not usable in IE)</label><br />
               <input type="radio" id="svg" name="renderer" value="svg" checked="checked"><label for="svg">SVG</label><br />
               <input type="radio" id="canvas" name="renderer" value="canvas"><label for="canvas">Canvas (not usable in IE)</label><br />
-            </div>		
+            </div>
         </li>
         <li class="list-group-item border-0">
           <strong>3. Click the button</strong>:
@@ -97,9 +97,9 @@
           <p>Generated barcode:</p>
           <div>
             <div id="barcodeTarget" class="barcodeTarget"></div>
-            <canvas id="canvasTarget" width="150" height="150"></canvas> 
+            <canvas id="canvasTarget" width="150" height="150"></canvas>
             <div>
-        </li>      
+        </li>
       </ul>
 
     </div>
@@ -110,7 +110,7 @@
 {% block javascript %}
 <script src="{% static 'polls/js/jquery-barcode.min.js' %}"></script>
 <script type="text/javascript">
-    
+
   function generateBarcode(){
     var value = $("#barcodeValue").val();
     var btype = $("input[name=btype]:checked").val();
@@ -139,12 +139,12 @@
       $("#barcodeTarget").html("").show().barcode(value, btype, settings);
     }
   }
-      
+
   function showConfig1D(){
     $('.config .barcode1D').show();
     $('.config .barcode2D').hide();
   }
-  
+
   function showConfig2D(){
     $('.config .barcode1D').hide();
     $('.config .barcode2D').show();
@@ -158,7 +158,7 @@
     $('#code2d').hide();
     $('#code1d').show();
   }
-  
+
   function clearCanvas(){
     var canvas = $('#canvasTarget').get(0);
     var ctx = canvas.getContext('2d');
@@ -169,7 +169,7 @@
     ctx.clearRect (0, 0, canvas.width, canvas.height);
     ctx.strokeRect (0, 0, canvas.width, canvas.height);
   }
-  
+
   $(function(){
     $('input[name=btype]').click(function(){
       if ($(this).attr('id') == 'datamatrix') showConfig2D(); else showConfig1D();

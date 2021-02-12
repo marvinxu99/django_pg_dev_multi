@@ -15,9 +15,9 @@
         Author.objects.create(first_name=first_name, last_name=last_name, date_of_birth=b_date)
 
 
-(3b) Update into Genre and Language table to include 3 rows. 
+(3b) Update into Genre and Language table to include 3 rows.
 
-(4) Generate fake books  
+(4) Generate fake books
 from random import randint
 for _ in range(50):
     author = Author.objects.get(pk=randint(1,100))
@@ -27,14 +27,14 @@ for _ in range(50):
     summary = faker.text(150)
     isbn = '12345678'
     Book.objects.create(title=title, summary=summary, isbn=isbn, author=author, language=language)
-    
-    
+
+
 (5) Generate fake book instances:
 for _ in range(1000):
     imprint = faker.text(20)
     book = Book.objects.get(pk=randint(1, 50))
     BookInstance.objects.create(imprint=imprint, book=book)
-    
+
 (6) make all the books available:
 bookinstances = BookInstance.objects.all()
 for bi in bookinstances:

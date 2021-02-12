@@ -78,15 +78,15 @@
 
       // Stretch/wrap options
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-      
+
       // Bind image to texture
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
-      
+
       // Pass texture 0 to the sampler
       gl.uniform1i(sampler, 0);
-      
+
       gl.clear(gl.COLOR_BUFFER_BIT);   // Clear canvas
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, n); // Draw the quad
     };
-  </script>      
+  </script>
 {% endblock %}

@@ -12,17 +12,17 @@
     {% if user.is_authenticated %}
       <span class='ml-1 text-info'>USER: {{ user.get_username }}</span>
       <a class="nav-link" href="{% url 'shop:cart_view_items' %}">{% translate "View cart" %}</a>
-      <a class="nav-link" href="{% url 'shop:view_orders' %}">{% translate "View orders" %}</a>   
+      <a class="nav-link" href="{% url 'shop:view_orders' %}">{% translate "View orders" %}</a>
       <div class='border-top my-1'></div>
-    {% endif %}         
+    {% endif %}
     {% if user.is_staff %}
       <div class='ml-1 text-info'>STAFF:</div>
       <a class="nav-link" href="{% url 'shop:shop_data_manager' %}">{% translate "Data Manager" %}</a>
       <div class="border-top my-1"></div>
     {% endif %}
     {% if user.is_authenticated %}
-      <a class="nav-link" href="{% url 'accounts:logout' %}?next={{request.path}}">{% translate "Logout" %}</a> 
-    {% else %} 
-      <a class="nav-link" href="{% url 'accounts:login' %}?next={{request.path}}">{% translate "Login" %}</a>  
+      <a class="nav-link" href="{% url 'accounts:logout' %}?next={{request.path}}">{% translate "Logout" %}</a>
+    {% else %}
+      <a class="nav-link" href="{% url 'accounts:login' %}?next={{request.path}}">{% translate "Login" %}</a>
     {% endif %}
 </nav>

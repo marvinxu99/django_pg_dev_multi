@@ -20,19 +20,19 @@ body {
 }
 
 .winter-logo {
-  width: 64px; 
-	height: 64px; 
+  width: 64px;
+	height: 64px;
 }
 .winter-logo:hover {
-  width: 128px; 
+  width: 128px;
   height: 128px;
   transition: 1s ease-in-out;
   transform: rotate(20deg);
 }
 
 .winter-logo2 {
-  width: 64px; 
-	height: 64px; 
+  width: 64px;
+	height: 64px;
 }
 .winter-logo2:hover {
   transition: 1s;
@@ -40,8 +40,8 @@ body {
 }
 
 .winter-sm-logo {
-  width: 32px; 
-  height: 32px; 
+  width: 32px;
+  height: 32px;
   transition: all 0.3s linear;
 }
 .winter-sm-logo:hover {

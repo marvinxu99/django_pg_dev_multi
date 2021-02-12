@@ -6,11 +6,11 @@ from .trans_event import TransEvent
 class Trans_Action(models.Model):
     """ Transaction Action
     ."""
-    trans_action_id = models.BigAutoField(primary_key=True, editable=False)    
+    trans_action_id = models.BigAutoField(primary_key=True, editable=False)
 
-    action_dt_tm = models.DateTimeField(auto_now=True)  
+    action_dt_tm = models.DateTimeField(auto_now=True)
     action_prsnl_id = models.BigIntegerField(default=0)
-    action_type_cd = models.CharField("Action Type", max_length=2, 
+    action_type_cd = models.CharField("Action Type", max_length=2,
                         choices = ACTION_TYPE.choices,
                         blank = False
                         )
@@ -24,14 +24,14 @@ class Trans_Action(models.Model):
     event_cd = models.IntegerField(default=0)
     event_class_cd = models.IntegerField(default=0)
     event_tag = models.CharField(max_length=255, blank=True)    # for display the event, e.g., "$34.56 <modified>"
-    event_title = models.CharField(max_length=255, blank=True)  
+    event_title = models.CharField(max_length=255, blank=True)
 
-    result_status_cd = models.CharField("Result Status", max_length=2, 
+    result_status_cd = models.CharField("Result Status", max_length=2,
                         choices = RESULT_STATUS.choices,
                         default = RESULT_STATUS.ACTIVE
                         )
 
-    trans_type_cd = models.CharField("Transaction Type", max_length=2, 
+    trans_type_cd = models.CharField("Transaction Type", max_length=2,
                         choices = TRANSACTION_TYPE.choices,
                         default = TRANSACTION_TYPE.PURCHASE
                         )
@@ -39,7 +39,7 @@ class Trans_Action(models.Model):
     trans_event =  models.ForeignKey(TransEvent, related_name='Actions', on_delete=models.CASCADE)
 
     updt_cnt = models.IntegerField(default=0)
-    updt_dt_tm = models.DateTimeField(auto_now=True)  
+    updt_dt_tm = models.DateTimeField(auto_now=True)
     updt_id = models.BigIntegerField(default=0)
     updt_task = models.BigIntegerField(default=0)
     updt_applabel = models.CharField(max_length=20, default='0')
@@ -49,11 +49,8 @@ class Trans_Action(models.Model):
             models.Index(fields=['event_id',]),
         ]
         db_table = 'core_trans_action'
-        
+
     def __str__(self):
         """String for representing the Model object."""
-        comment = self.comment[:20] 
+        comment = self.comment[:20]
         return comment
-
-
-

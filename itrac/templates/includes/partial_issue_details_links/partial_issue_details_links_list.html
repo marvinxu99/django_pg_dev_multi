@@ -3,44 +3,44 @@
   <td><span class="text-muted">{{ l_issue.get_link_from_type_display }}</span></td>
   <td class="px-3">
     <a href="{% url 'itrac:issue_detail' l_issue.linked_to_issue.id %}">
-      <span class="text-primary">{{ l_issue.linked_to_issue.coded_id }}</span> 
+      <span class="text-primary">{{ l_issue.linked_to_issue.coded_id }}</span>
       {{ l_issue.linked_to_issue.title|truncatechars:50 }}
     </a>
   </td>
-  <td class="px-3"><span class="bg-light px-1">{{ l_issue.linked_to_issue.get_status_display }}</span></td>    
+  <td class="px-3"><span class="bg-light px-1">{{ l_issue.linked_to_issue.get_status_display }}</span></td>
   <td>
-    <button class="btn btn-sm js-issue-links-delete-issue" style="display:none;" 
+    <button class="btn btn-sm js-issue-links-delete-issue" style="display:none;"
         data-url="{% url 'itrac:issue_links_delete_issue' issue.pk l_issue.linked_to_issue.pk %}"
         title="Click to remove link">X
     </button>
-  </td>    
-</tr> 
+  </td>
+</tr>
 {% endfor %}
 {% for l_issue in issue.linked_from_issues.all %}
 <tr class="ml-1 js-linked-issue-item">
   <td><span class="text-muted mr-1">{{ l_issue.get_link_to_type_display }}</span></td>
   <td class="px-3">
     <a href="{% url 'itrac:issue_detail' l_issue.linked_from_issue.id %}">
-      <span class="text-primary">{{ l_issue.linked_from_issue.coded_id }}</span> 
+      <span class="text-primary">{{ l_issue.linked_from_issue.coded_id }}</span>
       {{ l_issue.linked_from_issue.title|truncatechars:50 }}
     </a>
   </td>
-  <td class="px-3"><span class="bg-light px-1">{{ l_issue.linked_from_issue.get_status_display }}</span></td>    
+  <td class="px-3"><span class="bg-light px-1">{{ l_issue.linked_from_issue.get_status_display }}</span></td>
   <td>
-    <button class="btn btn-sm js-issue-links-delete-issue" style="display:none;" 
+    <button class="btn btn-sm js-issue-links-delete-issue" style="display:none;"
         data-url="{% url 'itrac:issue_links_delete_issue' l_issue.linked_from_issue.pk issue.pk %}"
         title="click to remove link">X
     </button>
-  </td>    
-</tr> 
+  </td>
+</tr>
 {% endfor %}
 <script>
 $(function() {
   // Display removal button when hovering over
-  $('.js-linked-issue-item').hover(function() {        
+  $('.js-linked-issue-item').hover(function() {
       $(this).find("button").css('display', 'inline')
     }, function() {
-      $(this).find("button").css('display', 'none') 
+      $(this).find("button").css('display', 'none')
     }
   );
 

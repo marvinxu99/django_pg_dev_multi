@@ -10,16 +10,16 @@
 {% load static %}
 {% block subjavascript %}
 <script>
-$(function() { 
+$(function() {
     //set up the event istener
     $(".js-collapse-toggle").click(function () {
         console.log("toggle")
         $(this).find('i').toggleClass('fa-angle-down fa-angle-right');
     });
-  
+
     // default to expand
     $(".js-collapse-details").collapse();
-  
+
 });
 </script>
 {% endblock %}

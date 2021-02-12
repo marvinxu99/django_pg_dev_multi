@@ -18,5 +18,5 @@ def gen_passwd(length=8, chars=string.ascii_letters + string.digits):
 def username_present(username):
     if User.objects.filter(username=username).count():
         return True
-    
+
     return False

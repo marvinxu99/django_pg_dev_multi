@@ -4,11 +4,11 @@
       <i class="fa fa-minus-circle" style="font-size:12px;color:gray"></i>
     </a>
     <span class="ml-1 font-weight-bold">Attachments</span>
-    <button type="button" class="btn btn-sm btn-secondary js-add-attachment ml-1" style="display:none" 
+    <button type="button" class="btn btn-sm btn-secondary js-add-attachment ml-1" style="display:none"
         data-url = "{% url 'itrac:issue_attachment_add' issue.id %}" title="Click to add an attachment">
         <i class="fas fa-plus"></i> Add New
     </button>
-  </div>  
+  </div>
   <div class="collapse js-collapse-details ml-3" id="collapse_attachments">
     <table id="attachments-table" class="table-striped">
       <tbody>
@@ -33,13 +33,13 @@
     $('#js_attachments').hover(function() {
           $('.js-add-attachment').css('display', 'inline')
       }, function() {
-          $('.js-add-attachment').css('display', 'none') 
+          $('.js-add-attachment').css('display', 'none')
       }
     );
-       
+
     const loadForm = function () {
-        const url = $(this).attr("data-url");          
-        $("#modal-attachment").modal("show");          
+        const url = $(this).attr("data-url");
+        $("#modal-attachment").modal("show");
         fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -48,12 +48,12 @@
     };
 
     const saveForm = function () {
-        // In this context, this refers to the element with class .js-issue-attachment-add. 
+        // In this context, this refers to the element with class .js-issue-attachment-add.
         // Which is the element that fired the submit event. So when we select $(this) we are selecting the actual form.
         const form = $(this);
-        const url = form.attr("action") 
-        
-        //https://stackoverflow.com/questions/2320069/jquery-ajax-file-upload 
+        const url = form.attr("action")
+
+        //https://stackoverflow.com/questions/2320069/jquery-ajax-file-upload
         $.ajax({
             url: url,
             type: form.attr("method"),
@@ -63,7 +63,7 @@
             success: function (data) {
                 if (data.form_is_valid) {
                     $("#attachments-table tbody").html(data.html_list);  // <-- Replace the table body
-                    $("#modal-attachment").modal("hide"); 
+                    $("#modal-attachment").modal("hide");
                 }
                 else {
                     $("#modal-attachment .modal-content").html(data.html_form);
@@ -71,8 +71,8 @@
             }
         });
 
-        //A very important detail here: in the end of the function we are returning false. That’s because 
-        // we are capturing the form submission event. So to avoid the browser to perform a full HTTP POST 
+        //A very important detail here: in the end of the function we are returning false. That’s because
+        // we are capturing the form submission event. So to avoid the browser to perform a full HTTP POST
         // to the server, we cancel the default behavior returning false in the function
         return false;
     };
@@ -88,8 +88,8 @@
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            $("#attachments-table tbody").html(data.html_list); 
-        })      
+            $("#attachments-table tbody").html(data.html_list);
+        })
     })
 
   });

@@ -23,7 +23,7 @@ def change_book_status_staff(request, pk):
             book_instance.status = form.cleaned_data['status']
             book_instance.save()
 
-            # redirect to a new URL: ??TODO solve the circular import issue?? 
+            # redirect to a new URL: ??TODO solve the circular import issue??
             #return HttpResponseRedirect(reverse('catalog:book-detail', book_instance.book.pk ) )
             return HttpResponseRedirect(reverse('catalog:books'))
 

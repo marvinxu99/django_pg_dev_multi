@@ -38,7 +38,7 @@ def view_orders_filter(request):
     filter_name = ''
 
     filter = request.GET['filter']
-    
+
     orders_all = Order.objects.filter(owner=request.user).order_by('-create_dt_tm')
 
     if filter == 'my-last-order':
@@ -52,7 +52,7 @@ def view_orders_filter(request):
         filter_name = 'All My Orders'
 
     data['html_view_orders'] = render_to_string(
-                'includes/partial_view_orders.html', 
+                'includes/partial_view_orders.html',
                 { 'orders': orders }
             )
     data['filter_name'] = filter_name
@@ -71,7 +71,7 @@ def view_orders_orderid(request, orderid):
     filter_name = "Order placed on " + order.create_dt_tm.strftime("%d-%b-%Y")
 
     data['html_view_orders'] = render_to_string(
-                'includes/partial_view_orders.html', 
+                'includes/partial_view_orders.html',
                 { 'orders': orders }
             )
     data['filter_name'] = filter_name

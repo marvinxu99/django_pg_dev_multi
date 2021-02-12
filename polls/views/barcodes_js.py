@@ -11,7 +11,7 @@ def barcode_gen_js(request):
             bc_type = '1d'
         else:
             bc_type = '2d'
-    except: 
+    except:
         bc_type = '2d'
 
     return render(request, 'polls/barcode_gen_js.html', { 'bc_type': bc_type})

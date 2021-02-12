@@ -7,7 +7,7 @@ https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django
 
 
 
-(2) Django documentation 
+(2) Django documentation
 https://docs.djangoproject.com/en/3.0/
 
 
@@ -20,8 +20,8 @@ Django tutorials: https://docs.djangoproject.com/en/3.0/intro/tutorial01/
 (2) creat a virtaul env in mysite: python -m venv env
 (3) Open the project folder in VS Code by running "code .",
 (4) Open the Command Palette (View > Command Palette or (Ctrl+Shift+P)). Then select the Python: Select Interpreter command:
-(5) Run Terminal: Create New Integrated Terminal (Ctrl+Shift+`) from the Command Palette, which creates a terminal and automatically 
-activates the virtual environment by running its activation scrip.  
+(5) Run Terminal: Create New Integrated Terminal (Ctrl+Shift+`) from the Command Palette, which creates a terminal and automatically
+activates the virtual environment by running its activation scrip.
 (5b) If you open a separate command prompt or terminal, activate the environment by running source env\scripts\activate
 (6) install Django in the venv:  python -m pip install django      Use python -m django --version to check version
 (7) Create a Django project django-admin startproject main_project . (by use of . at the end) that the current folder is your project folder
@@ -29,7 +29,7 @@ activates the virtual environment by running its activation scrip.
 Create an app:
 (9) python manage.py startapp <polls>  in the same folder as manage.py
 (10) Create the tables in the database: python manage.py migrate     ## run this commenc to initialize admin, auth, contenttypes, sessions.
- run the command-line client for your database and type \dt (PostgreSQL), SHOW TABLES; (MariaDB, MySQL), .schema (SQLite), or SELECT TABLE_NAME FROM USER_TABLES; (Oracle) to display the tables Django created.  
+ run the command-line client for your database and type \dt (PostgreSQL), SHOW TABLES; (MariaDB, MySQL), .schema (SQLite), or SELECT TABLE_NAME FROM USER_TABLES; (Oracle) to display the tables Django created.
 > sqlite3.exe ==> .tables
 https://www.sqlitetutorial.net/sqlite-tutorial/sqlite-show-tables/
 (11) Create a debugger launch profile in VC code.  Select Debug view, then select the Gear icon ==> select Python: Django ==> launch.json. The "django": true entry tells VS Code to enable debugging of Django page templates.

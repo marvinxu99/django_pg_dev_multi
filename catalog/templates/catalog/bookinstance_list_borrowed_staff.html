@@ -11,7 +11,7 @@
     <form class="mb-3" method='GET'>
       <input type="text" name="q" value="{{ request.GET.q }}" placeholder="book name">
       <input class="button" type='submit' value="Search Book">
-    </form>  
+    </form>
     <table class="table table-striped mb-4">
       <tr>
         <th>Title</th>
@@ -24,25 +24,24 @@
         <td>
           <a href="{% url 'catalog:book-detail' bookinst.book.pk %}"><strong>{{bookinst.book.title}}</strong></a>
         </td>
-        <td> 
+        <td>
           <span class="{% if bookinst.is_overdue %}text-danger{% endif %}">{{ bookinst.due_back }}</span>
         </td>
-        <td> 
+        <td>
           <span class="{% if bookinst.is_overdue %}text-danger{% endif %}">{{ bookinst.borrower }}</span>
         </td>
         <td>
           {% if perms.catalog.can_mark_returned %}
           <a class="btn btn-secondary btn-sm" href="{% url 'catalog:renew-book-staff' bookinst.id %}">Renew</a>
-          {% endif %}  
+          {% endif %}
         </td>
       </tr>
       {% endfor %}
-    </table>  
+    </table>
   </div>
   {% else %}
   <p>There are no books borrowed.</p>
-  {% endif %} 
+  {% endif %}
   {% include 'include/pagination.html' %}
 </div>
 {% endblock %}
-

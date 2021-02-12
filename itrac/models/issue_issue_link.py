@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _ 
+from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
@@ -22,21 +22,21 @@ class IssueToIssueLink(models.Model):
     link_from_type = models.CharField(max_length=2, choices=ISSUE_LINK_TYPE.choices, default=ISSUE_LINK_TYPE.RELATES_TO)
     linked_to_issue = models.ForeignKey('Issue', related_name='linked_from_issues', on_delete=models.CASCADE)
     link_to_type = models.CharField(max_length=2, choices=ISSUE_LINK_TYPE.choices, default=ISSUE_LINK_TYPE.RELATES_TO)
-    
+
     updated_date = models.DateTimeField(auto_now=True)
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='+', on_delete=models.CASCADE, blank=True)
-    
+
     class Meta:
         db_table = "itrac_issue_issue_link"
 
     def __str__(self):
         return f'{ self.linked_from_issue } linked to { self.linked_to_issue }'
-   
+
 # For setting link_to_type post_save
 LINK_TO_TYPE_MAP = {
     '01': '01',
     '02': '03',
-    '03': '02', 
+    '03': '02',
     '04': '05',
     '05': '04',
     '06': '07',
@@ -45,9 +45,9 @@ LINK_TO_TYPE_MAP = {
     '09': '08',
 }
 
-# update 
+# update
 @receiver(post_save, sender=IssueToIssueLink)
 def set_issue_link_to_type(sender, instance, created, **kwargs):
-    if created: 
+    if created:
         instance.link_to_type = LINK_TO_TYPE_MAP[instance.link_from_type]
         instance.save()

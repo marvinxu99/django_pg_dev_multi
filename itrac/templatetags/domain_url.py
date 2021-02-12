@@ -7,4 +7,3 @@ register = template.Library()
 @register.simple_tag
 def get_domain_url():
     return settings.DOMAIN_URL
-

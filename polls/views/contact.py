@@ -12,7 +12,7 @@ def contact(request):
 
 
 def contact_email(request):
-    
+
     # If this is a POST request, we need to process the form data
     if request.method == 'POST':
 
@@ -30,11 +30,11 @@ def contact_email(request):
                 recipients.append(sender)
 
             send_mail(subject, message, email_from, recipients)
-            
+
             return HttpResponseRedirect(reverse('polls:contact_email_sent'))
     else:
         form = ContactForm()
-   
+
     context = {
             'domain': settings.DOMAIN,
             'form': form,

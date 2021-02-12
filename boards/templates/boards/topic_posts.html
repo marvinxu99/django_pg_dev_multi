@@ -40,24 +40,24 @@
               {% if post.created_by == user %}
                 <div class="row mt-3">
                   <div class="col-6">
-                    <a href="{% url 'boards:edit_post' post.topic.board.pk post.topic.pk post.pk %}" 
-                      class="btn btn-primary btn-sm" 
+                    <a href="{% url 'boards:edit_post' post.topic.board.pk post.topic.pk post.pk %}"
+                      class="btn btn-primary btn-sm"
                       role="button">Edit
                     </a>
                   </div>
                   <div class="col-6 text-right">
                     {% if user.is_staff %}
-                    <a href="{% url 'boards:delete_post' post.topic.board.pk post.topic.pk post.pk %}" 
-                      class="btn btn-outline-secondary btn-sm" 
+                    <a href="{% url 'boards:delete_post' post.topic.board.pk post.topic.pk post.pk %}"
+                      class="btn btn-outline-secondary btn-sm"
                       onclick="return confirm('Are you sure you want to delete this?')"
                       role="button">Delete1
-                    </a>    
-                    {% endif %}                
+                    </a>
+                    {% endif %}
                     <!-- Button trigger modal -->
-                    <button 
-                      type="button" 
-                      class="btn btn-sm btn-primary" 
-                      data-toggle="modal" 
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-primary"
+                      data-toggle="modal"
                       data-target="#exampleModal"
                       data-whatever="{% url 'boards:delete_post' post.topic.board.pk post.topic.pk post.pk %}"
                     >
@@ -89,7 +89,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <a id="delete_link" href="#" class="btn btn-outline-secondary btn-sm" role="button">Yes, delete.</a>                    
+        <a id="delete_link" href="#" class="btn btn-outline-secondary btn-sm" role="button">Yes, delete.</a>
       </div>
     </div>
   </div>

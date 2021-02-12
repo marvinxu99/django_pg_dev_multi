@@ -106,5 +106,3 @@ class InvalidPasswordChangeTests(PasswordChangeTestCase):
         '''
         self.user.refresh_from_db()
         self.assertTrue(self.user.check_password('old_password'))
-
-        

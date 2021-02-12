@@ -1,52 +1,52 @@
 {
-    'allItems': 
+    'allItems':
         [
             {
-                'id': 0, 
-                'itemId': 1, 
-                'itemIdentId': 1, 
-                'itemPriceId': 1, 
-                'description': 'vancomycin 1 g inj', 
-                'price': 10.24, 
-                'quantity': 1, 
-                'discount': 0, 
-                'discountType': 1, 
-                'discountSpecial': 0, 
-                'discountAmount': 0, 
-                'priceFinal': 10.24, 
+                'id': 0,
+                'itemId': 1,
+                'itemIdentId': 1,
+                'itemPriceId': 1,
+                'description': 'vancomycin 1 g inj',
+                'price': 10.24,
+                'quantity': 1,
+                'discount': 0,
+                'discountType': 1,
+                'discountSpecial': 0,
+                'discountAmount': 0,
+                'priceFinal': 10.24,
                 'comment': ''
-            }, 
+            },
             {
-                'id': 1, 
-                'itemId': 3, 
-                'itemIdentId': 3, 
-                'itemPriceId': 3, 
-                'description': 'vancomycin 2000 mg/275 mL D5W bag', 
-                'price': 22.11, 
-                'quantity': 1, 
-                'discount': 0, 
-                'discountType': 1, 
-                'discountSpecial': 0, 
-                'discountAmount': 0, 
-                'priceFinal': 22.11, 
+                'id': 1,
+                'itemId': 3,
+                'itemIdentId': 3,
+                'itemPriceId': 3,
+                'description': 'vancomycin 2000 mg/275 mL D5W bag',
+                'price': 22.11,
+                'quantity': 1,
+                'discount': 0,
+                'discountType': 1,
+                'discountSpecial': 0,
+                'discountAmount': 0,
+                'priceFinal': 22.11,
                 'comment': ''
             }
-        ], 
-        
-    'totals': 
+        ],
+
+    'totals':
         {
-            'quantity': 2, 
-            'originalPrice': 32.35, 
-            'discount': 0, 
+            'quantity': 2,
+            'originalPrice': 32.35,
+            'discount': 0,
             'price': 32.35
-        }, 
-    'coupon': 
+        },
+    'coupon':
         {
-            'amount': 0, 
+            'amount': 0,
             'couponId': 0
-        }, 
-    'payment_amt': -1, 
-    'terminal_id': 123456, 
-    'operator_id': 123456, 
+        },
+    'payment_amt': -1,
+    'terminal_id': 123456,
+    'operator_id': 123456,
     'comment': ''
 }

@@ -6,7 +6,7 @@
       <i class="fa fa-minus-circle mr-1" style="font-size:12px;color:gray"></i>
     </div>
     <div>
-      <div class="text-primary js-view-order" orderid="{{ order.order_id }}"> 
+      <div class="text-primary js-view-order" orderid="{{ order.order_id }}">
         {{ order.description }}(order id: {{ order.order_id }}), quantity: {{order.quantity}}, total: ${{order.total}}, {{order.create_dt_tm}}, by {{order.owner}}
       </div>
     </div>
@@ -34,7 +34,7 @@
       {% empty %}
         <div>**no orders.**</div>
       {% endfor %}
-    </div>  
+    </div>
   </div>
   {% empty %}
   <p>You haven't ordered anything yet.</p>
@@ -46,7 +46,7 @@ $(function() {
   $(".js-collapse-toggle").click(function() {
       $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
   });
-  
+
 })
 
 </script>

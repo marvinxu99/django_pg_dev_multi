@@ -9,7 +9,7 @@ from .models import TransEvent
 @receiver(post_save, sender=TransEvent)
 def set_event_id(sender, instance, **kwargs):
     # # print("post_save TransEvent.")
-    # if not instance.event_id: 
+    # if not instance.event_id:
     #     instance.event_id = instance.trans_event_id
     #     instance.save()
     pass

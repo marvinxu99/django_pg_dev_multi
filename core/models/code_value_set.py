@@ -8,7 +8,7 @@ class CodeValueSet(models.Model):
     definition = models.CharField(max_length=100)
 
     active_ind = models.BooleanField("Active", default=True)
-    
+
     # Indicates whether this code set will be cached for system performance
     cache_ind = models.BooleanField("Cached", default=False)
 
@@ -18,7 +18,7 @@ class CodeValueSet(models.Model):
     create_dt_tm = models.DateTimeField(auto_now_add=True)
     create_id = models.BigIntegerField(default=0)
     updt_cnt = models.IntegerField(default=0)
-    updt_dt_tm = models.DateTimeField(auto_now=True)  
+    updt_dt_tm = models.DateTimeField(auto_now=True)
     updt_id = models.BigIntegerField(default=0)
 
     class Meta:
@@ -30,4 +30,3 @@ class CodeValueSet(models.Model):
 
     def __str__(self):
         return f'{self.display}({self.code_set})'
-

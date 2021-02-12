@@ -11,8 +11,8 @@ class Item(models.Model):
     item_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     active_ind = models.BooleanField("Active", default=True)
-    active_status_cd = models.CharField("Active Status", max_length=2, 
-                                        choices=ACTIVE_STATUS.choices, 
+    active_status_cd = models.CharField("Active Status", max_length=2,
+                                        choices=ACTIVE_STATUS.choices,
                                         default=ACTIVE_STATUS.ACTIVE
                                         )
     active_status_dt_tm = models.DateTimeField(default=timezone.now)
@@ -21,12 +21,12 @@ class Item(models.Model):
     approved_ind = models.BooleanField(default=False)
 
     item_type_cd = models.CharField("Item Type", max_length=2,
-                                    choices=ITEM_TYPE.choices, 
+                                    choices=ITEM_TYPE.choices,
                                     default=ITEM_TYPE.GENERAL
                                     )
 
     reusable_ind = models.BooleanField("Reusable", default=False)
-   
+
     batch_quantity = models.BigIntegerField(default=0)
     chargeable_ind = models.BooleanField(default=True)
     component_ind = models.BooleanField(default=True)
@@ -46,23 +46,23 @@ class Item(models.Model):
 
     temp_store_max = models.IntegerField(null=True, blank=True)
     temp_store_min = models.IntegerField(null=True, blank=True)
-    temp_uom_cd = models.CharField(max_length=1, 
-                                    choices=UOM_TEMP.choices, 
+    temp_uom_cd = models.CharField(max_length=1,
+                                    choices=UOM_TEMP.choices,
                                     default=UOM_TEMP.DEGC
                                 )
 
     shelf_life = models.IntegerField(null=True, blank=True)
-    shelf_life_uom_cd = models.CharField("Shelf Life UOM", max_length=1, 
-                                choices=UOM_SHELF_LIFE.choices, 
+    shelf_life_uom_cd = models.CharField("Shelf Life UOM", max_length=1,
+                                choices=UOM_SHELF_LIFE.choices,
                                 default=UOM_SHELF_LIFE.HOURS
                                 )
 
     updt_cnt = models.IntegerField(default=0)
-    updt_dt_tm = models.DateTimeField(auto_now=True)  
+    updt_dt_tm = models.DateTimeField(auto_now=True)
     updt_id = models.BigIntegerField(default=0)
     updt_task = models.BigIntegerField(default=0)
     updt_applabel = models.CharField(max_length=20, default='0')
-    
+
     class Meta:
         indexes = [
             models.Index(fields=['item_type_cd',]),
@@ -72,4 +72,3 @@ class Item(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.item_id}'
-

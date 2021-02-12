@@ -44,16 +44,16 @@
 
         var x = Math.random() * 2 - 1;
         var y = Math.random() * 2 - 1;
-        
+
         var r = Math.random();
         var g = Math.random();
         var b = Math.random();
-        
+
         gl.vertexAttrib3f(position, x, y, 0);
         gl.vertexAttrib1f(size, 10);
         gl.uniform4f(color, r, g, b, 1);
         gl.drawArrays(gl.POINTS, 0, 1);
       }, 500);
-    </script>      
+    </script>
   </body>
 </html>

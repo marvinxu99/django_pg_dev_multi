@@ -58,10 +58,10 @@ def issue_add_watcher(request, pk, user_id):
     data['status'] = 'S'
     data['html_list'] = render_to_string(
         'includes/partial_issue_details_attachments/partial_issue_details_attachments_list.html',
-        { 
+        {
             'issue': issue,
-            'user': request.user 
+            'user': request.user
         },
-        
+
     )
     return JsonResponse(data)

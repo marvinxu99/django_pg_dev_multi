@@ -29,7 +29,7 @@ def tag_create(request):
             tags = Tag.objects.all()
             data['html_tag_list'] = render_to_string('itrac/tag/partial_tag_list.html', {
                 'tags': tags,
-                'user': request.user, 
+                'user': request.user,
             })
         else:
             data['form_is_valid'] = False
@@ -59,7 +59,7 @@ def tag_edit(request, pk):
             tags = Tag.objects.all()
             data['html_tag_list'] = render_to_string('itrac/tag/partial_tag_list.html', {
                 'tags': tags,
-                'user': request.user, 
+                'user': request.user,
             })
         else:
             data['form_is_valid'] = False
@@ -83,7 +83,7 @@ def tag_delete(request, pk):
         tags = Tag.objects.all()
         data['html_tag_list'] = render_to_string('itrac/tag/partial_tag_list.html', {
             'tags': tags,
-            'user': request.user, 
+            'user': request.user,
         })
     else:
         context = {'tag': tag}

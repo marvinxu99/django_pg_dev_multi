@@ -41,7 +41,7 @@ def board_topics(request, board_pk):
         # probably the user tried to add a page number
         # in the url, so we fallback to the last page
         topics = paginator.page(paginator.num_pages)
-  
+
     return render(request, 'boards/board_topics_fbv.html', { 'board': board, 'topics': topics })
 
 
@@ -51,13 +51,13 @@ class TopicListView(ListView):
     Generic Class-Based View (GCBV) pagination
     See above for pagination using the regular function-based views (FBV)
 
-    While using pagination with class-based views, the way we interact with the paginator in the 
-    template is a little bit different. It will make available the following variables in the 
-    template: paginator, page_obj, is_paginated, object_list, and also a variable with the name 
-    we defined in the context_object_name. In our case this extra variable will be named topics, 
+    While using pagination with class-based views, the way we interact with the paginator in the
+    template is a little bit different. It will make available the following variables in the
+    template: paginator, page_obj, is_paginated, object_list, and also a variable with the name
+    we defined in the context_object_name. In our case this extra variable will be named topics,
     and it will be equivalent to object_list.
 
-    Now about the whole get_context_data thing, well, that’s how we add stuff to the request 
+    Now about the whole get_context_data thing, well, that’s how we add stuff to the request
     context when extending a GCBV
     '''
     model = Topic
@@ -78,11 +78,11 @@ class TopicListView(ListView):
 @login_required
 def new_topic(request, board_pk):
     board = get_object_or_404(Board, pk=board_pk)
-    
+
     if request.method == 'POST':
         form = NewTopicForm(request.POST)
 
-        if form.is_valid():            
+        if form.is_valid():
             topic = form.save(commit=False)
             topic.board = board
             topic.starter = request.user
@@ -92,7 +92,7 @@ def new_topic(request, board_pk):
                 topic=topic,
                 created_by=request.user
             )
-            return redirect('boards:topic_posts', board_pk=board.pk, topic_pk=topic.pk) 
+            return redirect('boards:topic_posts', board_pk=board.pk, topic_pk=topic.pk)
 
     else:
         form = NewTopicForm()
@@ -113,11 +113,11 @@ class PostListView(ListView):
 
     def get_context_data(self, **kwargs):
 
-        session_key = 'viewed_topic_{}'.format(self.topic.pk) 
+        session_key = 'viewed_topic_{}'.format(self.topic.pk)
         if not self.request.session.get(session_key, False):
             self.topic.views += 1
             self.topic.save()
-            self.request.session[session_key] = True 
+            self.request.session[session_key] = True
 
         kwargs['topic'] = self.topic
         return super().get_context_data(**kwargs)
@@ -131,7 +131,7 @@ class PostListView(ListView):
 
 @login_required
 def reply_topic(request, board_pk, topic_pk):
-    
+
     topic = get_object_or_404(Topic, board__pk=board_pk, pk=topic_pk)
 
     if request.method == 'POST':
@@ -194,7 +194,7 @@ class PostUpdateView(UpdateView):
         post.updated_by = self.request.user
         post.updated_at = timezone.now()
         post.save()
-        
+
         topic = get_object_or_404(Topic, pk=post.topic.pk)
         topic.last_updated = timezone.now()
         topic.save()
@@ -204,7 +204,7 @@ class PostUpdateView(UpdateView):
 
 # class PostDeleteView(LoginRequiredMixin, DeleteView):
 #     '''
-#     Example of Using DeleteView and LoginRequiredMixin 
+#     Example of Using DeleteView and LoginRequiredMixin
 #     '''
 #     model = Post
 #     fields = ('message', )
@@ -222,7 +222,7 @@ class PostUpdateView(UpdateView):
 @login_required()
 def delete_post(request, board_pk, topic_pk, post_pk):
     post = get_object_or_404(
-        Post, 
+        Post,
         topic__pk = topic_pk,
         pk = post_pk
     )

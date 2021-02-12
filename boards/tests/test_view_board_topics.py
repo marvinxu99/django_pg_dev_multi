@@ -18,7 +18,7 @@ class BoardTopicsTests(TestCase):
         #self.url = reverse('boards:reply_topic', kwargs={'board_pk': self.board.pk, 'topic_pk': self.topic.pk})
 
 
-        
+
     def test_board_topics_view_success_status_code(self):
         url = reverse('boards:board_topics', kwargs={ 'board_pk': 1 })
         print("URL=" + str(url))

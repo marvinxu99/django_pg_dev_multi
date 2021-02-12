@@ -24,7 +24,7 @@ class Question(models.Model):
 
     def was_published_today(self):
         return self.pub_date.date() == datetime.date.today()
-        
+
     def total_votes(self):
         """Calculates the total number of votes for this poll."""
         return self.choice_set.aggregate(Sum('votes'))['votes__sum']
@@ -33,15 +33,14 @@ class Question(models.Model):
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_id = models.BigAutoField(primary_key=True, editable=False)
-    
+
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.choice_text
-        
+
     def votes_percentage(self):
         """Calculates the percentage of votes for this choice."""
         total = self.question.total_votes()
         return self.votes / float(total) * 100 if total > 0 else 0
-

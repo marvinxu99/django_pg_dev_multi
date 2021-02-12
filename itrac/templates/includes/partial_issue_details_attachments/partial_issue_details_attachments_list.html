@@ -1,8 +1,8 @@
 {% for attachment in issue.attachments.all %}
 <tr class="ml-1 js-attachment-item">
   <td class="px-3">
-    <a href={{ attachment.attachment.url }} 
-      class="text-primary" 
+    <a href={{ attachment.attachment.url }}
+      class="text-primary"
       title="{{ attachment.description }}">
       {{ attachment.description|truncatechars:40 }}
     </a>
@@ -10,23 +10,23 @@
   <td><span class="text-muted">uploaded {{ attachment.uploaded_at|date:"d/m/Y G:i" }} by {{attachment.uploaded_by }}</span></td>
   <td>
     {% if attachment.uploaded_by == user  %}
-      <button class="btn btn-sm js-attachment-delete" style="display:none;" 
+      <button class="btn btn-sm js-attachment-delete" style="display:none;"
           data-url="{% url 'itrac:issue_attachment_delete' issue.pk attachment.pk %}"
           title="Click to remove attachment">X
       </button>
     {% endif %}
-  </td>    
-</tr> 
+  </td>
+</tr>
 {% endfor %}
 <script>
 $(function() {
   // Display removal button when hovering over
   $('.js-attachment-item').hover(function() {
-      $(this).css("background-color", "lightblue")        
+      $(this).css("background-color", "lightblue")
       $(this).find("button").css('display', 'inline')
     }, function() {
-      $(this).css("background-color", "")        
-      $(this).find("button").css('display', 'none') 
+      $(this).css("background-color", "")
+      $(this).find("button").css('display', 'none')
     }
   );
 

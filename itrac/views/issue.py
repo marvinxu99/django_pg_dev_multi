@@ -29,16 +29,16 @@ def my_in_progress_issues(request):
     issue_count_total = Issue.objects.count()
 
     if not request.session.get('current_project', False):
-            request.session['current_project'] = { 'title': 'WINN', 'id': 1 } 
+            request.session['current_project'] = { 'title': 'WINN', 'id': 1 }
 
     current_project = request.session.get('current_project', { 'title': 'WINN', 'id': 1 })
 
     issues = Issue.objects.filter(
-            assignee=request.user, 
+            assignee=request.user,
             project__pk=current_project['id'],
-            status__in = (ISSUE_STATUS.OPEN, 
-                            ISSUE_STATUS.INVESTIGATE, 
-                            ISSUE_STATUS.TRIAGE, 
+            status__in = (ISSUE_STATUS.OPEN,
+                            ISSUE_STATUS.INVESTIGATE,
+                            ISSUE_STATUS.TRIAGE,
                             ISSUE_STATUS.BUILD_IN_PROGRESS)
         ).order_by('-created_date')
 
@@ -65,7 +65,7 @@ def issues_reported_by_me(request):
 
     current_project = request.session.get('current_project', { 'project': 'WINN', 'id': 1 })
     issues = Issue.objects.filter(
-            author = request.user, 
+            author = request.user,
             project__pk = current_project['id'],
         ).order_by('-created_date')
 
@@ -108,7 +108,7 @@ def issues_reported_by_me2(request):
 @login_required()
 def filtered_issues(request, filter):
     """
-    Create a view that will return a list of "All issues" or "Open Issues" 
+    Create a view that will return a list of "All issues" or "Open Issues"
     filter: 'all' or 'open'
     """
     issue_count_total = Issue.objects.count()
@@ -127,7 +127,7 @@ def filtered_issues(request, filter):
     elif filter == "open":
         filter_name = 'All Open Issues'
         issues = Issue.objects.filter(
-                    status__in=(ISSUE_STATUS.OPEN,), 
+                    status__in=(ISSUE_STATUS.OPEN,),
                     project__pk=current_project['id']
                 ).order_by('-created_date')
         refresh_url = 'itrac:filtered_issues_open'
@@ -181,9 +181,9 @@ def issue_detail(request, pk):
     comments = Comment.objects.filter(issue=pk, active_ind=True, active_status_cd=ACTIVE_STATUS.ACTIVE)
 
     context = {
-        'issue': issue, 
-        'comments': comments, 
-        'btn_expand_disabled': True,   # disable the expand button as it is fullscreen already 
+        'issue': issue,
+        'comments': comments,
+        'btn_expand_disabled': True,   # disable the expand button as it is fullscreen already
     }
 
     return render(request, "itrac/issue_detail.html", context)
@@ -195,7 +195,7 @@ def clone_issue(request, pk):
     Clone an issue
     """
     issue = get_object_or_404(Issue, pk=pk)
-    
+
     cloned_issue = get_object_or_404(Issue, pk=pk)
     cloned_issue.pk = None    # set to None to get auto generated key
     cloned_issue.title = "CLONE: " + issue.title
@@ -215,7 +215,7 @@ def clone_issue(request, pk):
         att.uploaded_by = request.user
         att.save()
 
-    # Handle the linked issues  
+    # Handle the linked issues
     for iss_link in IssueToIssueLink.objects.filter(linked_from_issue=issue):
         iss_link.pk = None
         iss_link.linked_from_issue = cloned_issue
@@ -259,8 +259,8 @@ def issue_detail_partial(request, pk):
         favourite = False
 
     context = {
-        'issue': issue, 
-        'comments': comments, 
+        'issue': issue,
+        'comments': comments,
         'favorite': favourite,
     }
     data['html_issue_detail'] = render_to_string('includes/partial_issue_details.html', context, request=request)
@@ -300,7 +300,7 @@ def create_issue(request):
     if request.method == "POST":
         form = IssueCreateForm(request.POST, request.FILES)
         if form.is_valid():
-            
+
             form.instance.author = request.user
             form.instance.updated_by = request.user
 
@@ -309,7 +309,7 @@ def create_issue(request):
             else:
                 form.instance.price = 0
             issue = form.save()
-            
+
             return redirect('itrac:issue_detail', issue.pk)
     else:
         # Project is default to current_project
@@ -317,7 +317,7 @@ def create_issue(request):
         form = IssueCreateForm(
             initial = { 'project': current_project['id'] }
         )
-         
+
     return render(request, 'itrac/issue_create.html', {'form': form})
 
 
@@ -368,7 +368,7 @@ def description_raw_markdown(request, pk):
     """
     issue = get_object_or_404(Issue, pk=pk)
     data = {
-        'description': issue.description,  
+        'description': issue.description,
     }
     return JsonResponse(data)
 
@@ -381,7 +381,7 @@ def description_as_html(request, pk):
     """
     issue = get_object_or_404(Issue, pk=pk)
     data = {
-        'description': issue.description,  
+        'description': issue.description,
     }
     return JsonResponse(data)
 
@@ -399,11 +399,11 @@ def edit_description(request, pk):
     form = IssueEditDescriptionForm(request.POST, instance=issue)
     if form.is_valid():
         form.instance.updated_by = request.user
-        form.save()   
-        resp = { 'status': 'S', }         # 'S': successful, 'F': Failed 
+        form.save()
+        resp = { 'status': 'S', }         # 'S': successful, 'F': Failed
     else:
         resp = {
-            'status': 'F',         # 'S': successful, 'F': Failed 
+            'status': 'F',         # 'S': successful, 'F': Failed
             'error': "error",
         }
 
@@ -422,7 +422,7 @@ def issue_change_status(request, pk):
     new_status = request.POST['new_status']
     issue.status = ISSUE_STATUS[new_status]
     issue.save()
-    
+
     # Reload issue status post change
     issue = get_object_or_404(Issue, pk=pk)
     data['issue_status'] = issue.get_status_display()
@@ -468,7 +468,7 @@ def change_assignee_change(request, pk, user_pk):
 
     issue.assignee = user
     issue.save()
-    
+
     data['status'] = 'S'
 
     # TO ADD status change tracking later

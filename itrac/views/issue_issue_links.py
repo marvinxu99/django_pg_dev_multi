@@ -18,7 +18,7 @@ def issue_links_add_issue(request, pk):
     current_project = request.session.get('current_project', { 'project': 'WINN', 'id': 0 })
 
     issue = get_object_or_404(Issue, pk=pk)
-    
+
     # Exclude itself and already linked issues
     exclude_pks.append(issue.pk)
     for linked in issue.linked_to_issues.all():
@@ -37,7 +37,7 @@ def issue_links_add_issue(request, pk):
 
             data['form_is_valid'] = True
             data['html_links_list'] = render_to_string(
-                'includes/partial_issue_details_links/partial_issue_details_links_list.html', 
+                'includes/partial_issue_details_links/partial_issue_details_links_list.html',
                 { 'issue': issue }
             )
             return JsonResponse(data)
@@ -45,14 +45,14 @@ def issue_links_add_issue(request, pk):
             data['form_is_valid'] = False
     else:
         form = IssueToIssueLinkForm(current_project['id'], exclude_pks)
-    
-    context = { 
+
+    context = {
         'form': form,
         'issue': issue,
     }
     data['html_form'] = render_to_string(
         'includes/partial_issue_details_links/partial_issue_details_links_add_link_form.html',
-        context, 
+        context,
         request=request
     )
 
@@ -73,7 +73,7 @@ def issue_links_delete_issue(request, pk, linked_pk):
         issue_issue_link[0].delete()
     except:
         pass
-    
+
     data['status'] = 'S'
     data['html_links_list'] = render_to_string(
         'includes/partial_issue_details_links/partial_issue_details_links_list.html',

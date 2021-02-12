@@ -1,4 +1,4 @@
 How to Implement CRUD Using Ajax and Json:
 https://simpleisbetterthancomplex.com/tutorial/2016/11/15/how-to-implement-a-crud-using-ajax-and-json.html
 
-- 
+-

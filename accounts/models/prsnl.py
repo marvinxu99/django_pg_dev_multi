@@ -9,7 +9,7 @@ class Prsnl(models.Model):
     prsnl_id = models.BigAutoField(primary_key=True, editable=False)
 
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, 
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         limit_choices_to={'is_staff': True},
         verbose_name='username',
@@ -23,13 +23,13 @@ class Prsnl(models.Model):
     name_middle = models.CharField("Middle Name", max_length=128, blank=True)
     name_last = models.CharField("Last Name", max_length=128, blank=True)
     name_full_formatted = models.CharField("Full Name", max_length=128, blank=True)
-    
+
     COLOUR_CD = (
         ('red', 'Red'),
         ('blue', 'Blue'),
         ('orange', 'Orange'),
         ('green', 'Green'),
-    )    
+    )
     colour_code = models.CharField(
         max_length=6, choices=COLOUR_CD, default='green',
         help_text="The colour of their care team(not their skin colour)"

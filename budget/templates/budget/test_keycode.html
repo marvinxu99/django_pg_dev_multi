@@ -2,7 +2,7 @@
 <html>
 
 <body>
-    
+
     <div>
         <p>Test1</p>
         Barcode Input: <input type='text' id="barcode_input">
@@ -19,16 +19,16 @@
 <script>
     var test_keycode = (function() {
 
-        document.getElementById("barcode_input").addEventListener('keypress', function(e) {   
+        document.getElementById("barcode_input").addEventListener('keypress', function(e) {
             console.log(e.keyCode, e.which);
         })
-        document.addEventListener('click', function(e) {   
+        document.addEventListener('click', function(e) {
             console.log(e);
             console.log(e.target, e.target.parentNode);
         })
-        
+
     })();
-    
+
 </script>
 
 </body>

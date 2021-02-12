@@ -32,7 +32,7 @@ def do_search(request):
             project__pk = current_project['id'],
         ).order_by('-created_date')
     if(not issues):
-        issues = Issue.objects.filter(title__icontains=request.GET['q'], 
+        issues = Issue.objects.filter(title__icontains=request.GET['q'],
                 project__pk = current_project['id'],
             ).order_by('-created_date')
         filter_name = f'''Issue title contains "{ request.GET['q']}" '''
@@ -110,4 +110,4 @@ def generic_search(request):
     else: # no data submitted
 
         context = {}
-        return render(request, 'index.html', context) 
+        return render(request, 'index.html', context)
