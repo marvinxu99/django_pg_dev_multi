@@ -20,9 +20,10 @@ django-material==1.6.7
 django-model-utils==4.0.0
 django-postgres-copy==2.4.2
 django-widget-tweaks==1.4.8
-django-storages=1.11.1
+django-storages==1.11.1
 Faker==4.0.2
 filelock==3.0.12
+flake8==3.8.4
 Flask==1.1.2
 gunicorn==20.0.4
 html2text==2020.1.16
@@ -42,6 +43,7 @@ mccabe==0.6.1
 numpy==1.18.4
 pandas==1.1.0
 Pillow==7.0.0
+pre-commit==2.10.1
 psycopg2==2.8.4
 pyavagen==0.3.3
 pylint==2.4.4
@@ -50,12 +52,12 @@ python-dateutil==2.8.1
 python-decouple==3.3
 python-docx==0.8.10
 python-dotenv==0.12.0
-pytz==2019.3
+pytz==2020.1
 requests==2.23.0
-six==1.14.0
+six==1.15.0
 sorl-thumbnail==12.6.3
 soupsieve==2.0.1
-sqlparse==0.3.0
+sqlparse==0.3.1
 stripe==2.48.0
 swapper==1.1.2.post1
 text-unidecode==1.3

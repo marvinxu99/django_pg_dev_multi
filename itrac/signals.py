@@ -22,8 +22,8 @@ def notification_new_issue_comment(sender, instance, created, **kwargs):
     subject = f'''iTrac: { instance.issue.coded_id} {instance.issue.title}'''
 
     if created:
-            text_template = 'itrac/email_notification/message_comment_created.txt'
-            html_template = 'itrac/email_notification/message_comment_created.html',
+        text_template = 'itrac/email_notification/message_comment_created.txt'
+        html_template = 'itrac/email_notification/message_comment_created.html',
     else:
         if instance.active_status_cd == ACTIVE_STATUS.DELETED:
             text_template = 'itrac/email_notification/message_comment_deleted.txt'
@@ -33,12 +33,12 @@ def notification_new_issue_comment(sender, instance, created, **kwargs):
             html_template = 'itrac/email_notification/message_comment_updated.html',
 
     text_message = render_to_string(
-            'itrac/email_notification/message_comment_created.txt',
-            { 'comment': instance }
+            text_template,
+            {'comment': instance}
         )
     html_message = render_to_string(
-            'itrac/email_notification/message_comment_created.html',
-            { 'comment': instance }
+            html_template,
+            {'comment': instance}
         )
     send_email_update(subject, text_message, recipients, html_message)
 

@@ -12,9 +12,6 @@ class CommentAdmin(admin.ModelAdmin):
     inlines = (CommentAdminInline, )
 
 
-
 admin.site.register(Issue, CommentAdmin)
-
 admin.site.register(SavedIssue)
-
 admin.site.register(Tag)

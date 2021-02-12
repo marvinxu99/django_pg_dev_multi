@@ -8,4 +8,4 @@ class iTracConfig(AppConfig):
     # App specific settings:
 
     def ready(self):
-        import itrac.signals
+        import itrac.signals     # noqa

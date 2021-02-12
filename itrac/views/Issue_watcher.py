@@ -24,7 +24,7 @@ def issue_start_watch(request, pk):
     data['status'] = 'S'
     data['html_list'] = render_to_string(
         'includes/partial_issue_watcher_button/partial_issue_watcher_button_stop.html',
-        { 'issue': issue }
+        {'issue': issue}
     )
     return JsonResponse(data)
 
@@ -40,7 +40,7 @@ def issue_stop_watching(request, pk):
     data['status'] = 'S'
     data['html_list'] = render_to_string(
         'includes/partial_issue_watcher_button/partial_issue_watcher_button_start.html',
-        { 'issue': issue }
+        {'issue': issue}
     )
     return JsonResponse(data)
 
@@ -50,7 +50,7 @@ def issue_add_watcher(request, pk, user_id):
     data = dict()
 
     issue = get_object_or_404(Issue, pk=pk)
-    watcher = IssueWatcher.objects.update_or_create(
+    IssueWatcher.objects.update_or_create(
         issue = issue,
         watcher = request.user
     )

@@ -79,9 +79,22 @@ class Issue(models.Model):
 
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
-    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='issue_updated_by', on_delete=models.CASCADE, blank=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='issue_author', on_delete=models.CASCADE)
-    assignee = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='issue_assignee', null=True, on_delete=models.CASCADE)
+    updated_by = models.ForeignKey(
+            settings.AUTH_USER_MODEL,
+            related_name='+',
+            on_delete=models.CASCADE, blank=True
+        )
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='+',
+        on_delete=models.CASCADE
+    )
+    assignee = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='+',
+        null=True,
+        on_delete=models.CASCADE
+    )
 
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
