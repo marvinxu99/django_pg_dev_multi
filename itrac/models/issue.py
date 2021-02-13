@@ -120,6 +120,11 @@ class Issue(models.Model):
     def get_description_as_markdown(self):
         return mark_safe(markdown(self.description, safe_mode='escape'))
 
+    @property
+    def get_watchers(self):
+        names = [ w.full_name for w in self.watchers.all()]
+        return ', '.join(names)
+
 
 # update the issue.coded_id
 @receiver(post_save, sender=Issue)

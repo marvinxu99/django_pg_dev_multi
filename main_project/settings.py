@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as message_constants
 
 from decouple import Csv, config
 from django.urls import reverse_lazy
@@ -252,5 +253,12 @@ OXFORD_APP_ID = config('OXFORD_APP_ID', default='')
 OXFORD_APP_KEY = config('OXFORD_APP_KEY', default='')
 
 
+MESSAGE_TAGS = {
+    message_constants.DEBUG: 'alert-info',
+    message_constants.INFO: 'alert-info',
+    message_constants.SUCCESS: 'alert-success',
+    message_constants.WARNING: 'alert-warning',
+    message_constants.ERROR: 'alert-danger',
+}
 # Configure Django App for Heroku.
 # django_heroku.settings(locals())

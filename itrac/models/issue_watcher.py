@@ -18,4 +18,8 @@ class IssueWatcher(models.Model):
         ordering = ['watcher']
 
     def __str__(self):
-        return f'{issue}: {watcher}'
+        return f'{self.issue}: {self.watcher}'
+
+    @property
+    def full_name(self):
+        return f'{ self.watcher.first_name } { self.watcher.last_name }'

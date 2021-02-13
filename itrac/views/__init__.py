@@ -6,7 +6,7 @@ from .issue_issue_links import issue_links_add_issue, issue_links_delete_issue
 from .issue_tags import (
     edit_issue_tags, issue_add_net_new_tag, issue_add_tag, issue_delete_tag,
     partial_issue_tags_list)
-from .Issue_watcher import (issue_add_watcher, issue_start_watch,
+from .issue_watcher import (issue_add_watcher, issue_start_watch,
                             issue_stop_watching)
 from .notification import my_notifications
 from .project import (DEFAULT_CURRENT_PROJECT, project_create, project_delete,

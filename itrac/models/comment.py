@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from markdown import markdown
 
 from core.constants import ACTIVE_STATUS
-from itrac.models import Issue
+from .issue import Issue
 
 
 class Comment(models.Model):

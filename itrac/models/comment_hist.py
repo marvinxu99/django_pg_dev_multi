@@ -6,7 +6,8 @@ from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 from markdown import markdown
 
-from itrac.models import Comment, Issue
+from .comment import Comment
+from .issue import Issue
 
 
 class CommentHistory(models.Model):
