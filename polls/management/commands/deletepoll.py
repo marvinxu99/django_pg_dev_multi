@@ -7,7 +7,9 @@ Command that extends BaseCommand or one of its subclasses.
 > python manage.py <poll_id> --delete
 '''
 from django.core.management.base import BaseCommand, CommandError
+
 from polls.models import Question as Poll
+
 
 class Command(BaseCommand):
     def add_arguments(self, parser):

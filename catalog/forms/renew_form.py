@@ -1,7 +1,9 @@
-from django import forms
 import datetime
+
+from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+
 
 # Implement #1 - using forms.Form
 class RenewBookForm(forms.Form):
@@ -26,7 +28,9 @@ class RenewBookForm(forms.Form):
 
 # Implmemt #2 - The same can be done using the ModelForm
 from django.forms import ModelForm
+
 from catalog.models import BookInstance
+
 
 class RenewBookModelForm(ModelForm):
     class Meta:

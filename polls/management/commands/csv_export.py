@@ -3,8 +3,9 @@ python manage.py csv_export
 
 '''
 
-from polls.models import PersonImport
 from django.core.management.base import BaseCommand
+
+from polls.models import PersonImport
 
 
 class Command(BaseCommand):

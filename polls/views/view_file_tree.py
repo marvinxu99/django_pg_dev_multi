@@ -1,9 +1,8 @@
 import os
 import pathlib
-from django.shortcuts import render
+
 from django.conf import settings
-
-
+from django.shortcuts import render
 
 # start point
 startpath = '.'

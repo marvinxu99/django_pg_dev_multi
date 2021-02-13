@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+
 from .person import Person
 from .prsnl import Prsnl
 

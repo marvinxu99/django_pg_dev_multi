@@ -1,13 +1,14 @@
 '''Need to run python manage.py collectstatic'''
 
+import datetime
+
 from django.test import TestCase
 from django.urls import reverse
-import datetime
 from django.utils import timezone
 
-from catalog.models import BookInstance, Book, Genre, Language
-from catalog.models import Author
 from accounts.models import User
+from catalog.models import Author, Book, BookInstance, Genre, Language
+
 
 class AuthorListViewTest(TestCase):
     @classmethod
@@ -167,7 +168,10 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
 
 
 import uuid
-from django.contrib.auth.models import Permission # Required to grant the permission needed to set a book as returned.
+
+from django.contrib.auth.models import \
+    Permission  # Required to grant the permission needed to set a book as returned.
+
 
 class RenewBookInstancesViewTest(TestCase):
     def setUp(self):

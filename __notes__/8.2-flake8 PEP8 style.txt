@@ -1,0 +1,15 @@
+https://simpleisbetterthancomplex.com/packages/2016/08/05/flake8.html
+
+(1) pip install flake8
+(2) run flake8      or flake8 ./itrac/views/
+(3) Configuring
+You can pass some project-based configuration parameters using a setup.cfg file. If you
+already have one, just edit it. If that is not the case, create a file named setup.cfg in the project root.
+
+[flake8]
+exclude = .git,*migrations*
+max-line-length = 119
+
+(4) In-Line Ignoring Errors
+        def ready(self):
+                import cmdbox.profiles.signals.handlers  # noqa

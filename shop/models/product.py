@@ -1,10 +1,10 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
-from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
-from core.models import CodeValue
 from core.constants import CODE_SET
+from core.models import CodeValue
 
 
 class Product(models.Model):

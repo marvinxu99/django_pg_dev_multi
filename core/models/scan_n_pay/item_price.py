@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils import timezone
-from .item import Item
+
 from ...constants import ACTIVE_STATUS, ITEM_PRICE_TYPE
+from .item import Item
 
 
 # Product Identifier

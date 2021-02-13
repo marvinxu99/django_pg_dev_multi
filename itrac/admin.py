@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Issue, Comment, SavedIssue, Tag
+
+from .models import Comment, Issue, SavedIssue, Tag
 
 # Register your models here.
 

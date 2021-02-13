@@ -1,16 +1,16 @@
-import os
-import requests
-from django.shortcuts import render, get_object_or_404, redirect, reverse
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST, require_GET
-from django.http.response import JsonResponse
-from django.template.loader import render_to_string
 import json
+import os
 
-from itrac.models import Issue, Comment
-from itrac.forms import CommentForm
+import requests
+from django.contrib.auth.decorators import login_required
+from django.http.response import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.template.loader import render_to_string
+from django.views.decorators.http import require_GET, require_POST
+
 from core.constants import ACTIVE_STATUS
-
+from itrac.forms import CommentForm
+from itrac.models import Comment, Issue
 
 # @login_required()
 # def create_comment(request, issue_pk):

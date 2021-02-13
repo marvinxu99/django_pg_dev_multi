@@ -1,6 +1,6 @@
-from django.urls import resolve, reverse
-from django.test import TestCase
 from django.contrib.auth.models import User
+from django.test import TestCase
+from django.urls import resolve, reverse
 
 # from django.contrib.auth.forms import UserCreationForm
 from accounts.forms import SignUpForm

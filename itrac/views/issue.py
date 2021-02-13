@@ -1,23 +1,25 @@
+import json
 import os
+from datetime import datetime, time, timedelta
+
 import requests
-from datetime import datetime, timedelta, time
-from django.shortcuts import render, get_object_or_404, redirect, reverse
-from django.contrib.auth.decorators import login_required
-from django.utils import timezone
 from django.conf import settings
 from django.contrib import messages
-from django.http import JsonResponse
-from django.db.models import Count, Q
-from django.core import serializers
-from django.template.loader import render_to_string
-from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth import get_user_model
-import json
+from django.contrib.auth.decorators import login_required
+from django.core import serializers
+from django.db.models import Count, Q
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.template.loader import render_to_string
+from django.utils import timezone
+from django.views.decorators.http import require_GET, require_POST
 
-from itrac.models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS, \
-    IssueAttachment, IssueToIssueLink, ISSUE_LINK_TYPE
-from itrac.forms import IssueEditForm, IssueCreateForm, CommentForm, IssueEditDescriptionForm
 from core.constants import ACTIVE_STATUS
+from itrac.forms import (CommentForm, IssueCreateForm,
+                         IssueEditDescriptionForm, IssueEditForm)
+from itrac.models import (ISSUE_LINK_TYPE, ISSUE_STATUS, Comment, Issue,
+                          IssueAttachment, IssueToIssueLink, SavedIssue, Tag)
 
 
 @login_required

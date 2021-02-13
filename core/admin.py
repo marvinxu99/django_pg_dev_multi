@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import (Item, ItemIdentifier, ItemBarcode, ItemPrice, ItemPriceHist,
-                    CodeValueSet, CodeValue)
+from .models import (CodeValue, CodeValueSet, Item, ItemBarcode,
+                     ItemIdentifier, ItemPrice, ItemPriceHist)
 
 
 class ItemIdentifierInline(admin.TabularInline):

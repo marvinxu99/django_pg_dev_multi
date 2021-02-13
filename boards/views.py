@@ -1,15 +1,15 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Count
-from django.views.generic import UpdateView, ListView, DeleteView
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import DeleteView, ListView, UpdateView
 
-from .models import Board, Topic, Post
 from .forms import NewTopicForm, PostForm
+from .models import Board, Post, Topic
 
 
 # def boards_home(request):

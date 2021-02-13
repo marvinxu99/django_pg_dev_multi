@@ -1,10 +1,10 @@
 # posts/views.py
-from django.views.generic import ListView, CreateView
-from django.urls import reverse_lazy
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
 from django.utils import timezone
+from django.views.generic import CreateView, ListView
 
 from .forms import PostForm
 from .models import Post

@@ -3,9 +3,10 @@ from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
-from itrac.models import Comment, Issue
-from .itrac_utils import send_email_update
 from core.constants import ACTIVE_STATUS
+from itrac.models import Comment, Issue
+
+from .itrac_utils import send_email_update
 
 
 # Send a notification when a comment is created or updated

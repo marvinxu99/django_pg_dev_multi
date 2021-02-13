@@ -1,13 +1,13 @@
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from django.http import JsonResponse
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Sum
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.views.decorators.http import require_POST
 
-from shop.models import Product, Payment, Order, OrderItem
 from core.models import CodeValue
+from shop.models import Order, OrderItem, Payment, Product
 
 
 @login_required

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Author, Genre, Book, BookInstance, Language
+from .models import Author, Book, BookInstance, Genre, Language
 
 
 class BookInline(admin.StackedInline):

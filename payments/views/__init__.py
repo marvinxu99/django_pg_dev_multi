@@ -1,2 +1,2 @@
-from .views import DemoView, SuccessView, CancelledView
-from .stripe import stripe_config, create_checkout_session
+from .stripe import create_checkout_session, stripe_config
+from .views import CancelledView, DemoView, SuccessView

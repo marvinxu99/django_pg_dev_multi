@@ -1,15 +1,16 @@
-from django.shortcuts import render
-from django.views.generic.base import TemplateView
+import json
+
+from django.apps import apps
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.http.response import JsonResponse
+from django.shortcuts import render
 # from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
-from django.apps import apps
 from django.utils import timezone
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
-from django.db import transaction
-import json
+from django.views.generic.base import TemplateView
 
 from core.constants import ENTRY_MODE, RESULT_STATUS, TRANSACTION_TYPE
 from core.models import TransEvent, TransItem

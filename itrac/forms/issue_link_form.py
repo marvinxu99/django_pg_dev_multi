@@ -1,8 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-
-from ..models import IssueToIssueLink, Issue
+from ..models import Issue, IssueToIssueLink
 
 
 class IssueToIssueLinkForm(forms.ModelForm):

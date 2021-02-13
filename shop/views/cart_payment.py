@@ -1,16 +1,15 @@
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.models import AnonymousUser
-from django.db.models import Sum, Q
-from django.shortcuts import render, get_object_or_404
 from django.db import transaction
+from django.db.models import Q, Sum
+from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.views.decorators.http import require_POST
 
-
-from shop.models import Cart, CartItem, Product, Payment, Order, OrderItem
-from core.models import CodeValue
 from core.constants import CODE_SET
+from core.models import CodeValue
+from shop.models import Cart, CartItem, Order, OrderItem, Payment, Product
 
 
 @login_required

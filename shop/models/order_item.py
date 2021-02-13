@@ -1,7 +1,6 @@
 from django.db import models
 
-from shop.models import Order
-from shop.models import Product
+from shop.models import Order, Product
 
 
 # Shopping Cart Items

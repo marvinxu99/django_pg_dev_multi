@@ -1,14 +1,15 @@
-from django import forms
 import datetime
+
+from django import forms
 from django.core.exceptions import ValidationError
+# Implmemt #2 - The same can be done using the ModelForm
+from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
 
+from catalog.models import BookInstance
 
 # Implement #1 - using forms.Form, see renew_form.py for an example
 
-# Implmemt #2 - The same can be done using the ModelForm
-from django.forms import ModelForm
-from catalog.models import BookInstance
 
 
 # class MyForm(forms.Form):

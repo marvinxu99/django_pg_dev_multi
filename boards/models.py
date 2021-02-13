@@ -1,10 +1,11 @@
-from django.db import models
+import math
+
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.db import models
+from django.utils.html import mark_safe
 from django.utils.text import Truncator
 from markdown import markdown
-from django.utils.html import mark_safe
-import math
-from django.conf import settings
 
 
 class Board(models.Model):

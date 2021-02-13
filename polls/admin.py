@@ -1,7 +1,8 @@
 # Custom Admin Page:
 # https://docs.djangoproject.com/en/3.0/intro/tutorial07/
 from django.contrib import admin
-from .models import Question, Choice
+
+from .models import Choice, Question
 
 
 class ChoiceInline(admin.TabularInline):

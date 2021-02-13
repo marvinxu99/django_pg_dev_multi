@@ -1,11 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import JsonResponse
-from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
 
-from ..models import Project
 from ..forms import ProjectForm
-
+from ..models import Project
 
 DEFAULT_CURRENT_PROJECT = { 'project': 'WINN', 'id': 0 }
 MAX_RECENT_PROJECT_ITEMS = 4

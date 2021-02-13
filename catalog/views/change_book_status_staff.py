@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 from django.contrib.auth.decorators import permission_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 
 from catalog.forms import ChangeBookStatusStaffModelForm
 from catalog.models import BookInstance

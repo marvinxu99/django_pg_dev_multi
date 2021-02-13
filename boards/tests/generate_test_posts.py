@@ -5,7 +5,8 @@ Run the following script in the Django shell:
 '''
 
 from django.contrib.auth.models import User
-from boards.models import Board, Topic, Post
+
+from boards.models import Board, Post, Topic
 
 user = User.objects.first()
 

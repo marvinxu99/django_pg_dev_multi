@@ -9,7 +9,9 @@ Command that extends BaseCommand or one of its subclasses.
 '''
 
 from django.core.management.base import BaseCommand, CommandError
+
 from polls.models import Question as Poll
+
 
 class Command(BaseCommand):
     help = 'Closes the specified poll for voting'

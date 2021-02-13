@@ -1,6 +1,7 @@
+import requests
 from django import forms
 from django.conf import settings
-import requests
+
 
 class DictionaryForm(forms.Form):
     word = forms.CharField(max_length=100)

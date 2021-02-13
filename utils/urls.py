@@ -1,7 +1,8 @@
 from django.urls import path
 
-from .views import CalendarView, event, robot_friends, github, oxford, highcharts_clock
 from . import views
+from .views import (CalendarView, event, github, highcharts_clock, oxford,
+                    robot_friends)
 
 app_name = 'utils'
 urlpatterns = [

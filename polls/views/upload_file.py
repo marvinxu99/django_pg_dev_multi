@@ -1,8 +1,9 @@
+import os
+
+from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.conf import settings
-import os
 
 from polls.forms import UploadFileForm
 

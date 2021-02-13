@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from ..models import Prsnl, Person_Alias, Prsnl_Alias
+from ..models import Person_Alias, Prsnl, Prsnl_Alias
 
 
 class PrsnlAliasInline(admin.StackedInline):

@@ -1,13 +1,13 @@
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from django.http import JsonResponse
 from django.contrib.auth.models import AnonymousUser
-from django.db.models import Sum, Q
-from django.shortcuts import render, get_object_or_404
+from django.db.models import Q, Sum
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_POST
 
-from shop.models import Cart, CartItem, Product
 from core.models import CodeValue
+from shop.models import Cart, CartItem, Product
 
 
 @login_required(login_url='/accounts/login/')

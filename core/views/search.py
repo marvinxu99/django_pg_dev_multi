@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect
-from django.contrib.postgres.search import SearchVector
-from django.contrib.postgres.search import SearchQuery
+from django.contrib.postgres.search import SearchQuery, SearchVector
+from django.shortcuts import redirect, render
 
 
 def search(request):

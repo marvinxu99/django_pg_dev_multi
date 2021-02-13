@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+
 # Create your views here.
 def texture(request):
     return render(request, 'webgl/texture.html')

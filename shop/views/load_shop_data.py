@@ -1,16 +1,18 @@
-from django.shortcuts import render
-from django.conf import settings
 import json
 import os
-import requests
-from urllib.request import urlretrieve
 from urllib.parse import urlparse
-from django.core.files import File
-from django.contrib.auth.decorators import permission_required
+from urllib.request import urlretrieve
+
+import requests
+from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import permission_required
+from django.core.files import File
+from django.shortcuts import render
+
+from core.models import CodeValue
 
 from ..models import Product
-from core.models import CodeValue
 
 
 @staff_member_required(redirect_field_name='next')

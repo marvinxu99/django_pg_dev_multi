@@ -1,8 +1,9 @@
-from django.core.mail import send_mail
-from django.conf import settings
-import string
-from django.utils.text import slugify
 import random
+import string
+
+from django.conf import settings
+from django.core.mail import send_mail
+from django.utils.text import slugify
 
 
 def random_string_generator(size=10, chars=string.ascii_lowercase + string.digits):

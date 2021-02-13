@@ -1,11 +1,13 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
-from django.template.loader import render_to_string
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
 
-from .models import Book
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
+from django.template.loader import render_to_string
+
 from .forms import BookForm
+from .models import Book
+
 
 # List all the books created.
 def book_list(request):

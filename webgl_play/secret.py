@@ -8,8 +8,8 @@ print(random_string)
 Generate a random password.
 Code from http://code.activestate.com/recipes/59873-random-password-generation/
 '''
-import string
 import random
+import string
 
 
 def gen_passwd(length=8, chars=string.ascii_letters + string.digits):

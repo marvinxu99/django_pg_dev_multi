@@ -1,11 +1,10 @@
-from django.shortcuts import render
-from django.views.generic.base import TemplateView
+import stripe
 from django.conf import settings
 from django.http.response import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
 from django.urls import reverse
-
-import stripe
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic.base import TemplateView
 
 
 def stripe_config(request):

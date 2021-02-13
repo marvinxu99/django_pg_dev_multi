@@ -1,16 +1,16 @@
 import calendar
-from django.shortcuts import render
-from datetime import datetime, timedelta, date
 from calendar import HTMLCalendar
-from django.views.generic import ListView
-from django.urls import reverse_lazy, reverse
-from django.utils.safestring import mark_safe
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.decorators import login_required
+from datetime import date, datetime, timedelta
 
-from utils.models import Event
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse, reverse_lazy
+from django.utils.safestring import mark_safe
+from django.views.generic import ListView
+
 from utils.forms import EventForm
+from utils.models import Event
 
 
 class Calendar(HTMLCalendar):

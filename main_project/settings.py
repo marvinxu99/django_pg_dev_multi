@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from decouple import config, Csv
+
+from decouple import Csv, config
+from django.urls import reverse_lazy
 # import django_heroku
 from django.utils.translation import ugettext_lazy as _
-from django.urls import reverse_lazy
 
 # Define custom user model
 AUTH_USER_MODEL = 'accounts.User'

@@ -1,8 +1,9 @@
 import datetime
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponse
+
+from django.contrib.auth.decorators import login_required, permission_required
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from django.contrib.auth.decorators import permission_required, login_required
 
 from catalog.forms import RenewBookForm
 from catalog.models import BookInstance

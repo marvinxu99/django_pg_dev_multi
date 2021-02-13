@@ -1,10 +1,10 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
-from django.urls import reverse, resolve
+from django.urls import resolve, reverse
 
+from ..forms import PostForm
 from ..models import Board, Post, Topic
 from ..views import reply_topic
-from ..forms import PostForm
 
 
 class ReplyTopicTestCase(TestCase):

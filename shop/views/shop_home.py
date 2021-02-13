@@ -1,9 +1,10 @@
-from django.shortcuts import render
 from django.db.models import Q
+from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 
-from ..models import Product
 from core.models import CodeValue
+
+from ..models import Product
 
 
 def shop_home(request):

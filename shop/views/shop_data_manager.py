@@ -1,19 +1,21 @@
 import datetime
-from django.shortcuts import render
-from django.conf import settings
 import json
 import os
-import requests
-from urllib.request import urlretrieve
 from urllib.parse import urlparse
-from django.core.files import File
-from django.contrib.auth.decorators import permission_required
-from django.template.loader import render_to_string
-from django.http import JsonResponse
-from django.db.models import Q
+from urllib.request import urlretrieve
 
-from ..models import Product, Order
+import requests
+from django.conf import settings
+from django.contrib.auth.decorators import permission_required
+from django.core.files import File
+from django.db.models import Q
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.template.loader import render_to_string
+
 from core.models import CodeValue
+
+from ..models import Order, Product
 
 
 @permission_required('product.can_load_shop_data')

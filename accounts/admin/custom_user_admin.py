@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from ..models import User as CustomUser
+from ..forms import CustomUserChangeForm, CustomUserCreationForm
 from ..models import Person, Prsnl
-from ..forms import CustomUserCreationForm, CustomUserChangeForm
+from ..models import User as CustomUser
+
 
 # The following are NOT NEEDED. leave them here for reference.
 #

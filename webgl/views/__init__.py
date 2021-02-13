@@ -1,2 +1,2 @@
-from .views import triangle_colour, texture, animation
 from .burns_chart import burns_chart
+from .views import animation, texture, triangle_colour

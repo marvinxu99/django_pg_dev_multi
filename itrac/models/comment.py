@@ -1,13 +1,14 @@
-from django.db import models
-from django.utils import timezone
 from django.conf import settings
-from django.utils.translation import gettext_lazy as _
+from django.db import models
 from django.urls import reverse
-from markdown import markdown
+from django.utils import timezone
 from django.utils.html import mark_safe
+from django.utils.translation import gettext_lazy as _
+from markdown import markdown
 
-from itrac.models import Issue
 from core.constants import ACTIVE_STATUS
+from itrac.models import Issue
+
 
 class Comment(models.Model):
     """

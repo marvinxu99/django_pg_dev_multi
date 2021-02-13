@@ -1,17 +1,16 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
-from django.views import generic
-from django.utils import timezone
-from django.contrib.auth.decorators import login_required
 import json
 from os import path
 
-
-from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+from django.utils import timezone
+from django.views import generic
 
-from polls.models import Question, Choice
+from polls.models import Choice, Question
 
 
 # def question(request):

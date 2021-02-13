@@ -1,15 +1,15 @@
 import json
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.http import JsonResponse
+
 from django.apps import apps
-from django.core.exceptions import ObjectDoesNotExist
 # from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import render
 
-
+from core.constants import (ITEM_BARCODE_TYPE, ITEM_IDENTIFIER_TYPE,
+                            ITEM_PRICE_TYPE)
 from core.models import ItemBarcode, ItemIdentifier, ItemPrice
-from core.constants import ITEM_BARCODE_TYPE, ITEM_IDENTIFIER_TYPE, ITEM_PRICE_TYPE
 
 
 # Home of scan_n_pay app

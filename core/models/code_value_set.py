@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class CodeValueSet(models.Model):
     code_set = models.AutoField(primary_key=True, editable=False)
 

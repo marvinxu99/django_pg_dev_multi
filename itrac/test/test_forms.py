@@ -1,5 +1,6 @@
 from django.test import TestCase
-from .forms import IssueForm, CommentForm
+
+from .forms import CommentForm, IssueForm
 
 
 # Create your tests here.

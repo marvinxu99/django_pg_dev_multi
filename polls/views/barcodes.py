@@ -27,12 +27,13 @@
 #     return binary
 #
 
-from django.shortcuts import render
-from django.conf import settings
-import threading
 import datetime
 import os
+import threading
+
 import treepoem
+from django.conf import settings
+from django.shortcuts import render
 
 code_generated = False
 

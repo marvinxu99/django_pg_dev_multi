@@ -1,7 +1,7 @@
-from django.db import models
 from django.conf import settings
-from django.db.models.functions import Concat
+from django.db import models
 from django.db.models import Value
+from django.db.models.functions import Concat
 from django.utils.html import format_html
 
 

@@ -1,5 +1,7 @@
 from django.shortcuts import render
+
 from ..forms import DictionaryForm
+
 
 def oxford(request):
     search_result = {}

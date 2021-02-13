@@ -1,10 +1,10 @@
-from django.test import TestCase
-from django.urls import reverse, resolve
 from django.contrib.auth.models import User
+from django.test import TestCase
+from django.urls import resolve, reverse
 
-from ..views import BoardListView
-from ..models import Board, Topic, Post
 from ..forms import NewTopicForm
+from ..models import Board, Post, Topic
+from ..views import BoardListView
 
 
 class HomeTests(TestCase):

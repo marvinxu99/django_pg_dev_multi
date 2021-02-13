@@ -1,16 +1,16 @@
-from django.db import models
-from django.utils import timezone
 from django.conf import settings
-from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
-from markdown import markdown
-from django.utils.html import mark_safe
+from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from django.urls import reverse
+from django.utils import timezone
+from django.utils.html import mark_safe
+from django.utils.translation import gettext_lazy as _
+from markdown import markdown
 
-from .tag import Tag
-from .project import Project
 from ..itrac_utils import unique_slug_generator
+from .project import Project
+from .tag import Tag
 
 #from django.apps import apps
 #MyModel1 = apps.get_model('app1', 'MyModel1')

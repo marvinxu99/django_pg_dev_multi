@@ -1,4 +1,5 @@
 from django import template
+
 from itrac.models import Issue
 
 register = template.Library()

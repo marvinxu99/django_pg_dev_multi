@@ -1,8 +1,10 @@
 import uuid
+from datetime import datetime
+
 import pytz
 from django.db import models
-from ...constants import ENTRY_MODE, TRANSACTION_TYPE, RESULT_STATUS
-from datetime import datetime
+
+from ...constants import ENTRY_MODE, RESULT_STATUS, TRANSACTION_TYPE
 
 
 # Item Identifier

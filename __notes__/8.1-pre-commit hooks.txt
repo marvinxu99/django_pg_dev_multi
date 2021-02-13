@@ -1,0 +1,2 @@
+https://pre-commit.com/
+https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/

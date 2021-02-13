@@ -1,5 +1,6 @@
-from .models import Issue
 import django_filters
+
+from .models import Issue
 
 '''
     django-filters:

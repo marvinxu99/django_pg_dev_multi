@@ -1,13 +1,14 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
-from django.template.loader import render_to_string
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from django.utils import timezone
 import json
 
-from ..models import Issue, IssueAttachment
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
+from django.template.loader import render_to_string
+from django.utils import timezone
+from django.views.decorators.http import require_POST
+
 from ..forms import AttachmentAddForm
+from ..models import Issue, IssueAttachment
 
 
 @login_required
