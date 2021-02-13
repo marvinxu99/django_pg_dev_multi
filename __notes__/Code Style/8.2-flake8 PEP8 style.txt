@@ -1,4 +1,6 @@
 https://simpleisbetterthancomplex.com/packages/2016/08/05/flake8.html
+https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/
+
 
 (1) pip install flake8
 (2) run flake8      or flake8 ./itrac/views/
