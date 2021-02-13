@@ -1,9 +1,14 @@
 {% load is_watcher %}
 {% is_watcher user issue as watching %}
-<button type="button" class="badge badge-primary badge-pill ml-1" data-container="body" data-toggle="popover"
+{% if issue.watchers.all.count > 0 %}
+<a tabindex="0" class="badge badge-primary badge-pill ml-1" role="button"
+    data-toggle="popover" data-trigger="focus"
     title="Current watchers:" data-content="{{ issue.get_watchers }}"
     data-placement="bottom">{{ issue.watchers.all.count }}
-</button>
+</a>
+{% else %}
+<button class="badge badge-primary badge-pill ml-1" disabled>{{ issue.watchers.all.count }}</button>
+{% endif %}
 {%if watching %}
 <button class="btn btn-sm js_update_watcher"
     title="click to stop watching this issue"
@@ -18,5 +23,9 @@
 <script>
     $(function () {
         $('[data-toggle="popover"]').popover()
+
+        $('.popover-dismiss').popover({
+            trigger: 'focus'
+        })
     })
 </script>
