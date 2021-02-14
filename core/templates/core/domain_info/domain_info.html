@@ -2,10 +2,9 @@
 {% block title %}Winter Winn{% endblock %}
 {% block content %}
 <div class="winn-heading jumbotron">
-  <h3 class="display-4">Domain Information:</h3>
-  <p class="text-muted">DOMAIN: {{ DOMAIN }}</p>
-  <p class="text-muted">DEBUG: {{ DEBUG }}</p>
-  <p class="text-muted">PROD_DEPLOY: {{ PROD_DEPLOY }}</p>
-  <p class="text-muted">ADMINS: {{ ADMINS }}</p>
+  <h4>Domain Information:</h4>
+  {% for dm_key, dm_value in dm_info %}
+    <p class="text-muted">{{ dm_key }}: {{ dm_value }}</p>
+  {% endfor %}
 </div>
 {% endblock %}
