@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.conf import settings
+from django.contrib.auth.decorators import user_passes_test, login_required
+# from django.contrib.admin.views.decorators import staff_member_required
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def domain_info(request):
     dm_info = []
 
