@@ -11,6 +11,8 @@ def domain_info(request):
     dm_info.append(("ADMINS", settings.ADMINS))
     dm_info.append(("DB_HOST", settings.DB_HOST))
     dm_info.append(("DB_NAME", settings.DB_NAME))
+    dm_info.append(("MEDIA_URL", settings.MEDIA_URL))
+    dm_info.append(("MEDIA_ROOT", settings.MEDIA_ROOT))
 
     context = {
         "dm_info": dm_info
