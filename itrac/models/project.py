@@ -16,10 +16,10 @@ class Project(models.Model):
     """
     title = models.CharField(max_length=100)
     code = models.CharField(max_length=20, default="WINN")
-    description = models.CharField(max_length=250, blank=True)
+    description = models.CharField(max_length=250, null=True, blank=True)
     slug =  models.CharField(max_length=250)
-    category = models.CharField(max_length=40, null=True)
-    URL = models.CharField(max_length=250, null=True)
+    category = models.CharField(max_length=40, null=True, blank=True)
+    URL = models.CharField(max_length=250, null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
 
