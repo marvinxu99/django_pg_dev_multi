@@ -3,6 +3,7 @@
   <tr>
     <td><a href="{% url 'itrac:set_current_project' project.id %}">{{ project.title }}</a></td>
     <td>{{ project.code }}</td>
+    <td>{{ project.description }}</td>
     <td>{{ project.category|default_if_none:"-" }}</td>
     <td>{{ project.URL|default_if_none:"-" }}</td>
     <td>{{ project.get_issues_count }}</td>
