@@ -14,9 +14,9 @@ class Project(models.Model):
     """
     A single project
     """
-    title = models.CharField(max_length=150)
+    title = models.CharField(max_length=100)
     code = models.CharField(max_length=20, default="WINN")
-    description = models.CharField(max_length=200, blank=True)
+    description = models.CharField(max_length=250, blank=True)
     slug =  models.CharField(max_length=250)
     category = models.CharField(max_length=40, null=True)
     URL = models.CharField(max_length=250, null=True)
