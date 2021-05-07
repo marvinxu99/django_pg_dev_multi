@@ -22,14 +22,6 @@ $(function () {
             },
             success: function (data) {
                 $("#issue-details").html(data.html_issue_detail);
-
-                //set up the event istener
-                $(".js-collapse-toggle").click(function () {
-                    $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
-                });
-
-                // default to expand
-                $(".js-collapse-details").collapse();
             }
         });
     };

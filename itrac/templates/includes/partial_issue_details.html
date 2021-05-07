@@ -277,14 +277,6 @@ $(function () {
         },
         success: function (data) {
             $("#issue-details").html(data.html_issue_detail);
-
-            //set up the event istener
-            $(".js-collapse-toggle").click(function () {
-                $(this).find('i').toggleClass('fa-minus-circle fa-plus-circle');
-            });
-
-            // default to expand
-            $(".js-collapse-details").collapse();
         }
     });
   };
@@ -489,16 +481,39 @@ $(function () {
       });
   });
 
-});
+  // Handle the link button under "More..."
+  $('#btn_more_link').click(function() {
+    $('.js-issue-add-links').click();
+  });
 
-// Handle the link button under "More..."
-$('#btn_more_link').click(function() {
-  $('.js-issue-add-links').click();
-});
+  // Handle the link button under "More..."
+  $('#btn_add_attachment').click(function() {
+    $('.js-add-attachment').click();
+  });
 
-// Handle the link button under "More..."
-$('#btn_add_attachment').click(function() {
-  $('.js-add-attachment').click();
+  //set up the event istener
+  $(".js-collapse-toggle").click(function () {
+      const iconElement = $(this).find('i');
+      iconElement.toggleClass('fa-minus-circle fa-plus-circle');
+      if(iconElement.hasClass('fa-minus-circle')) {
+        iconElement.attr('title', 'Click to collapse');
+      } else {
+        iconElement.attr('title', 'Click to expand');
+      }
+  });
+  // default to expand
+  $(".js-collapse-details").collapse();
+
+  //Set up appropriate tooltips
+  $(".js-collapse-toggle").each(function () {
+      const iconElement = $(this).find('i');
+      if(iconElement.hasClass('fa-minus-circle')) {
+        iconElement.attr('title', 'Click to collapse');
+      } else {
+        iconElement.attr('title', 'Click to expand');
+      }
+  });
+
 });
 
 </script>
