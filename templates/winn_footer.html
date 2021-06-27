@@ -25,7 +25,11 @@
       <h5>Company</h5>
       <ul class="list-unstyled text-small text-muted">
         <li><a class="text-muted" href="#">Careers</a></li>
-        <li><a class="text-muted" href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> About us</a></li>
+        <li>
+          <a class="text-muted" href="{% url 'kbase:winn-aboutus' %}" target="_blank">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>About us
+          </a>
+        </li>
         <li class="py-1"><a href="mailto:winnpysoft@gmail.com" class="text-secondary"><span class="far fa-envelope"></span> Email Us</a></li>
         <li><a href="{% url 'polls:contact' %}" class="text-secondary">Contact us</a></li>
       </ul>
