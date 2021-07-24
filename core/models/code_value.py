@@ -1,6 +1,6 @@
 from django.db import models
 
-from .code_value_set import CodeValueSet
+from .code_set import CodeSet
 
 
 class CodeValue(models.Model):
@@ -9,7 +9,7 @@ class CodeValue(models.Model):
     description = models.CharField(max_length=200)
     display = models.CharField(max_length=100)
 
-    code_set = models.ForeignKey(CodeValueSet, related_name='cv_code_values', on_delete=models.CASCADE)
+    code_set = models.ForeignKey(CodeSet, related_name='code_values', on_delete=models.CASCADE)
 
     active_ind = models.BooleanField("Active", default=True)
     active_dt_tm = models.DateTimeField(blank=True, null=True)

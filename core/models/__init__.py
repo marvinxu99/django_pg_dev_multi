@@ -1,5 +1,5 @@
 from .code_value import CodeValue
-from .code_value_set import CodeValueSet
+from .code_set import CodeSet
 from .scan_n_pay.item import Item
 from .scan_n_pay.item_barcode import ItemBarcode
 from .scan_n_pay.item_identifier import ItemIdentifier

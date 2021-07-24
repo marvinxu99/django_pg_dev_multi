@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class CodeValueSet(models.Model):
+class CodeSet(models.Model):
     code_set = models.AutoField(primary_key=True, editable=False)
 
     display = models.CharField(max_length=100)
@@ -23,7 +23,7 @@ class CodeValueSet(models.Model):
     updt_id = models.BigIntegerField(default=0)
 
     class Meta:
-        db_table = "core_code_value_set"
+        db_table = "core_code_set"
         indexes = [
             models.Index(fields=['code_set'], name='cvs_code_set_idx'),
             models.Index(fields=['display'], name='cvs_display_idx'),

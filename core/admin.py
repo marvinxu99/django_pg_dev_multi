@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import (CodeValue, CodeValueSet, Item, ItemBarcode,
+from .models import (CodeValue, CodeSet, Item, ItemBarcode,
                      ItemIdentifier, ItemPrice, ItemPriceHist)
 
 
@@ -47,7 +47,7 @@ class ItemAdmin(admin.ModelAdmin):
         obj.save()
 
 
-@admin.register(CodeValueSet)
+@admin.register(CodeSet)
 class CodeSetValueAdmin(admin.ModelAdmin):
     list_display = ('code_set', 'display', 'description', 'definition', 'active_ind', 'cache_ind',
                 'change_access_ind', 'create_dt_tm', 'create_id', 'updt_cnt', 'updt_dt_tm', 'updt_id')
