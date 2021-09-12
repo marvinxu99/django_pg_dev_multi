@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='codevalueset',
             name='code_set',
-            field=models.AutoField(primary_key=True, serialize=False),
+            field=models.BigAutoField(primary_key=True, serialize=False),
         ),
     ]

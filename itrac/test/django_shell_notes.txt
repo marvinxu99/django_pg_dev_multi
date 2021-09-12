@@ -1,0 +1,17 @@
+python manage.py shell
+
+from itrac.models import IssueAttachment
+
+att = IssueAttachment.object.all()
+
+att[0].issue
+
+att[0].attachment
+
+att[0].attachment.url    ==> http://192.168.0.57/media/itrac/notes.txt
+
+att[0].attachment.path
+
+att[0].attachment.file
+
+att[0].attachment.name

@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Comment',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('comment', models.CharField(max_length=200)),
                 ('created_date', models.DateTimeField(auto_now_add=True)),
                 ('updated_date', models.DateTimeField(auto_now=True)),
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Issue',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=200)),
                 ('description', models.TextField()),
                 ('created_date', models.DateTimeField(auto_now_add=True)),
@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SavedIssue',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_date', models.DateTimeField(auto_now_add=True)),
                 ('issue', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='issue_savedissue', to='itrac.Issue')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_savedissue', to=settings.AUTH_USER_MODEL)),
@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Reply',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('reply', models.CharField(max_length=200)),
                 ('created_date', models.DateTimeField(auto_now_add=True)),
                 ('updated_date', models.DateTimeField(auto_now=True)),

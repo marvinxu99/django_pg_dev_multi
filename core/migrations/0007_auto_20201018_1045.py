@@ -18,6 +18,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='codevalueset',
             name='code_set',
-            field=models.AutoField(editable=False, primary_key=True, serialize=False),
+            field=models.BigAutoField(editable=False, primary_key=True, serialize=False),
         ),
     ]

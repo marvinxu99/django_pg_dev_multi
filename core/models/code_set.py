@@ -2,7 +2,7 @@ from django.db import models
 
 
 class CodeSet(models.Model):
-    code_set = models.AutoField(primary_key=True, editable=False)
+    code_set = models.BigAutoField(primary_key=True, editable=False)
 
     display = models.CharField(max_length=100)
     description = models.CharField(max_length=200)

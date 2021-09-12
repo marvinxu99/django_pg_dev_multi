@@ -165,10 +165,12 @@ DATABASES = {
     }
 }
 
+# Added as required by Django 3.2
+# https://docs.djangoproject.com/en/3.2/releases/3.2/
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',

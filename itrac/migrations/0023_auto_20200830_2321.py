@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='IssueToIssueLink',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('link_type_from', models.CharField(choices=[('01', 'relates to'), ('02', 'blocks'), ('03', 'is blocked by'), ('04', 'causes'), ('05', 'is caused by'), ('06', 'clones'), ('07', 'is cloned by'), ('08', 'duplicates'), ('09', 'is duplicated by')], default='01', max_length=2)),
                 ('link_type_to', models.CharField(choices=[('01', 'relates to'), ('02', 'blocks'), ('03', 'is blocked by'), ('04', 'causes'), ('05', 'is caused by'), ('06', 'clones'), ('07', 'is cloned by'), ('08', 'duplicates'), ('09', 'is duplicated by')], default='01', max_length=2)),
                 ('updated_date', models.DateTimeField(auto_now=True)),
