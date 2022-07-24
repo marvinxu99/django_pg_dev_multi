@@ -1,6 +1,6 @@
 https://hevodata.com/learn/postgresql-logical-replication/
 
-CREATE PUBLICATION adds a new publication into the current database. The 
+CREATE PUBLICATION adds a new publication into the current database. The
 publication name must be distinct from the name of any existing publication in the current database.
 
 Each publication exists in only one database.
@@ -8,7 +8,7 @@ Each publication exists in only one database.
 (1) Creating a publication at source database (192.168.0.48)
    $sudo -u postgres psql
 
-(2) Connect to the database (e.g., powerworks_d1)  
+(2) Connect to the database (e.g., powerworks_d1)
   postgresql=# \c powerworks_d1  => connect to the DB
 
 (3) Create publication:
@@ -17,19 +17,19 @@ Each publication exists in only one database.
 (4) Ensure all the tables (from soruce DB) have been recreated at subscriber node
 
 (5) Create subscription and give it the name pychart_subscription:
-CREATE SUBSCRIPTION adds a new subscription for the **current** database. The subscription name must be 
+CREATE SUBSCRIPTION adds a new subscription for the **current** database. The subscription name must be
 distinct from the name of any existing subscription in the database.
 
 $sudo -u postgres psql
 
-postgres=# \c powerworks_d1 
+postgres=# \c powerworks_d1
         You are now connected to database "powerworks_d1" as user "postgres".
 
-powerworks_d1=# CREATE SUBSCRIPTION pychart_subscription 
-            CONNECTION 'postgresql://winter:winter@192.168.0.48:5432/powerworks_d1' 
+powerworks_d1=# CREATE SUBSCRIPTION pychart_subscription
+            CONNECTION 'postgresql://winter:winter@192.168.0.48:5432/powerworks_d1'
             PUBLICATION pychart_publication;
 
 
-If replication doesn’t seem to be working, a good first step is checking the PostgreSQL 
+If replication doesn’t seem to be working, a good first step is checking the PostgreSQL
 log on db-replica for any possible errors:
 •	sudo tail /var/log/postgresql/postgresql-13-main.log
