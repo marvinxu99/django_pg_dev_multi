@@ -24,4 +24,3 @@ Not Found: /
 b'\n    <ul>\n    \n        <li><a href="/polls/1/">What&#x27;s up?</a></li>\n    \n    </ul>\n\n'
 >>> response.context['latest_question_list']
 <QuerySet [<Question: What's up?>]>
-
