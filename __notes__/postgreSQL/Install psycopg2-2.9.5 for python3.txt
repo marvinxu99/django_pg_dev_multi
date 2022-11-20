@@ -1,0 +1,4 @@
+$sudo apt install gcc python3-dev
+
+$ pip3 install psycopg2
+
